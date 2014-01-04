@@ -32,6 +32,7 @@ class ih_image{
 	var $zoom;
 	var $watermark;
   var $force_canvas;
+  var $browser;
 
 /**
  * ih_image class constructor
@@ -51,6 +52,7 @@ class ih_image{
     $this->width = $width;
     $this->height = $height;
     $this->zoom = array();
+    $this->browser = new Mobile_Detect();
     
  		$this->determine_image_sizetype();
     
@@ -705,6 +707,7 @@ class ih_image{
         list($zoomwidth, $zoomheight) = @getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
         // we should parse old parameters here and possibly merge some inc case they're duplicate
         $parameters .= ($parameters != '') ? ' ' : '';
+        if ($this->browser->isMobile()) return $parameters;
         return $parameters . 'style="position:relative" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
       }
        return $parameters;
