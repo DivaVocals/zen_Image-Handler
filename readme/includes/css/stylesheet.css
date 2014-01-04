@@ -1,0 +1,304 @@
+/*Image Handler 4 v4.0*/
+
+body, th, td {/*th, td required here also due to use of incomplete DOCTYPE */
+	font-size: 10pt;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	background-color: #c0c0c0;
+}
+
+body {
+	margin:20px;
+}
+body {
+  text-align: center;  /* MSIE 5 doesn't center based on auto left/right margins, 
+                          but 'text-align:center' does center top-level divs: */
+  min-width: 1000px;      /* Specify a min-width for the body as wide as the 'wrapper'
+                           element itself. This prevents negative (i.e. inaccessible)
+                           left-margins in narrow browser windows when using 
+                           Navigator 6+/Mozilla on Win32: */
+}
+#wrapper {
+  text-align: left;    /* Reset alignment to compensate for 'text-align:center': */
+  width: 1000px;        /* Specify the width of the element. This should be the same
+                          as 'body min-width': */
+  margin-left: auto;   /* Set left and right margins to auto, thus centering the 
+                          element in the containing (body) tag: */
+  margin-right: auto;
+}
+
+.regularlist li{
+	padding: 5px;
+}
+
+
+.filelist ul{
+	font-size: 8.5pt;
+}
+
+.error {
+	color: #a00000;
+	font-weight: bold;
+}
+.small_info {
+	font-size: 8pt;
+	color: #a0a0a0;
+}
+.small_info a {
+	color: #606060;
+	text-decoration: none;
+	border-bottom: 1px dotted #606060;
+}
+.textcontent {
+	padding: 8px;
+	text-align: left;
+}
+.messageStackSuccess {
+	padding: 8px;
+	background-color: #e8f7cf;
+	border: 1px solid #8ad80e;
+	text-align: center;
+}
+.messageStackWarning, .messageStackError {
+	padding: 8px;
+	background-color: #ffcfcf;
+	border: 1px solid #b00000;
+	text-align: center;
+}
+.messageStackCaution {
+	padding: 8px;
+	background-color: #f7f0bf;
+	border: 1px solid #d89000;
+	text-align: center;
+}
+.messageStackSuccess h2, .messageStackWarning h2, .messageStackError h2, .messageStackCaution h2 {
+	font-size: 12px;
+	font-weight: bold;
+	white-space: nowrap;
+	margin: 0px;
+}
+.messageStackSuccess, .messageStackWarning, .messageStackError, .messageStackCaution {
+	font-size: 12px;
+	font-weight: bold;
+	white-space: nowrap;
+	margin: 4px 0 10px 0;
+	width:878px;
+}
+h2 {
+	margin:6px 0;
+}
+h3 {
+	margin:4px 0;
+}
+td {
+	vertical-align:top;
+}
+
+#save_preset, #presets td, #button_layout td, #format_layout td, #template_layout td, #font_layout td, #icon_layout td, #custombutton_layout td {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10pt;
+	background-color: #f0f0f0;
+	padding:15px 10px;
+}
+
+.file_mapping_list td {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 8pt;
+	background-color: #f0f0f0;
+	padding:7px 2px;
+}
+
+.table_width {
+	width:900px;
+}
+
+.file_mapping_list {
+	width:929px;
+	font-size: 6pt;
+}
+
+#button_layout {
+	width:900px;
+}
+
+#format_layout {
+	width:900px;
+}
+
+#template_layout {
+	width:900px;
+}
+
+#font_layout {
+	width:900px;
+}
+
+#icon_layout {
+	width:900px;
+}
+
+#custombutton_layout {
+	width:900px;
+}
+
+#button_templates {
+	width:95%;
+}
+
+#presets {
+	float:left;
+}
+
+.clearBoth {
+	clear: both;
+}
+#save_preset {
+	width:875px;
+}
+#preview {
+	margin:10px 0;
+}
+#preview td, #presets td, #button_templates td {
+	vertical-align:middle;
+}
+#preview td, #button_templates td {
+	padding:8px 8px;
+	background-color: #f0f0f0;
+}
+.last_row {
+	background-color:red;
+}
+#button_layout .last_row {
+	background-color:white;
+}
+form, input {
+	margin:0;
+	vertical-align:middle;
+}
+caption {
+	text-align:left;
+	font-weight:bold;
+	margin-top:5px;
+}
+/*Tabbed Layout Styles courtesey of the Tabbed Products Pro readme file*/
+#slidetabsmenu {
+float:left;
+width:1000px;
+font-size:90%;
+line-height:normal;
+border-bottom: 1px solid gray;
+}
+* html #slidetabsmenu{ /*IE only. Add 1em spacing between menu and rest of content*/
+margin-bottom: 0em;
+}
+
+#slidetabsmenu ul{
+list-style-type: none;
+margin:0;
+margin-left: 5px;
+padding:0;
+}
+
+#slidetabsmenu li{
+display:inline;
+margin:0;
+padding:0;
+}
+
+#slidetabsmenu a {
+float:left;
+background:url(../../images/bw2_tab_left.gif) no-repeat left top;
+background-position:0 -42px;
+margin:0;
+padding:0 0 0 5px;
+text-decoration:none;
+}
+
+#slidetabsmenu a span {
+float:left;
+text-align: center;
+display:block;
+background:url(../../images/bw2_tab_right.gif) no-repeat right top;
+background-position:100% -42px;
+padding:3px 14px 3px 7px;
+font-weight:bold;
+/*color:#3B3B3B;*/
+color: white;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#slidetabsmenu a span {float:none;}
+/* End IE5-Mac hack */
+
+#slidetabsmenu a:hover span {
+color: red;
+}
+
+#slidetabsmenu a.current{
+background-position:0 -0px;
+}
+
+#slidetabsmenu a.current span {
+background-position:100% -0px;
+text-align: center;
+color: black;
+}
+
+#slidetabsmenu a:hover {
+background-position:0% -0px;
+}
+
+#slidetabsmenu a:hover span {
+background-position:100% -0px;
+text-align: center;
+}
+
+.tabcontent{
+border-bottom: 1px solid;
+background: white;
+color: black;
+display:none;
+width: 1000px;
+}
+
+fieldset {
+	background: #f6f6f8;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	margin: 0 0 1em 0;
+	border: 1px solid #ccc;
+}
+
+legend {
+	font-family : arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 1.4em;
+	color: #1240b0;
+}
+
+blockquote {
+	font-family: georgia, times, serif;
+	font-style: italic;
+	background-color: #ccc;
+}
+
+hr { 
+	border: 20px;
+	color: #777;
+	background-color: #777;
+	height: 2px;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+
+.emphasis {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10pt;
+	color: #CC0000;
+}
+
+.boldemphasis {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #CC0000;
+}
+
