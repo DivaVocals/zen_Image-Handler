@@ -1,4 +1,4 @@
-Image Handler v4.3.3
+Image Handler v4.3.4
 ============
 
 ## This is a development version of Image Handler v4.3.4 only
@@ -8,10 +8,10 @@ If you need basic installation help, and the included readme does not help you, 
 
 CHANGELOG
 --------------
-v4.3.3 - 1/15/2014
+v4.3.4 - 1/15/2014
 * Updated for Zen Cart v1.5.2 compatibility
 
-ABOUT Image Handler v4.3.3
+ABOUT Image Handler v4.3.4
 --------------
 PURPOSE & AIM
 Image Handler 4 is really meant to ease the management of product images (particularly the management of additional product images), and to help improve page performance by optimizing the product images.
