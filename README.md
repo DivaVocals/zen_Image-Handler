@@ -1,15 +1,15 @@
 Image Handler v4.3.3
 ============
 
-## This is a development version of Image Handler v4.3.3 only
+## This is a development version of Image Handler v4.3.4 only
 #### If you are looking to install the latest version from zencart please visit [this page](http://www.zen-cart.com/downloads.php?do=file&id=1380)
 
 If you need basic installation help, and the included readme does not help you, please visit the [Image Handler v4.x](http://www.zen-cart.com/showthread.php?194740-Image-Handler-4-%28for-v1-5-x%29-Support-Thread)
 
 CHANGELOG
 --------------
-v4.3.3 - 11/3/2014
-* Add support for the Mobile Detect script. Turns off the image hover function on touchscreen devices.
+v4.3.3 - 1/15/2014
+* Updated for Zen Cart v1.5.2 compatibility
 
 ABOUT Image Handler v4.3.3
 --------------
