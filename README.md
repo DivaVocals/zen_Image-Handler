@@ -6,10 +6,6 @@ Image Handler v4.3.3
 
 If you need basic installation help, and the included readme does not help you, please visit the [Image Handler v4.x](http://www.zen-cart.com/showthread.php?194740-Image-Handler-4-%28for-v1-5-x%29-Support-Thread)
 
-CHANGELOG
---------------
-* Add support for the Mobile Detect script. Turns off the image hover function on touchscreen devices.
-
 ABOUT Image Handler v4.3.3
 --------------
 PURPOSE & AIM
