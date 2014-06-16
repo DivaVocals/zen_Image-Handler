@@ -8,7 +8,6 @@ If you need basic installation help, and the included readme does not help you, 
 
 CHANGELOG
 --------------
-v4.3.3 - 11/3/2014
 * Add support for the Mobile Detect script. Turns off the image hover function on touchscreen devices.
 
 ABOUT Image Handler v4.3.3
