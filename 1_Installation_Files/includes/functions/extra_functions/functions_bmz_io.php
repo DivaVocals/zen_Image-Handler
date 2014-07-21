@@ -71,7 +71,7 @@ function io_unlock($file){
 function getCacheName($data, $ext='') {
   global $bmzConf;
 
-  $md5  = md5($data);
+  $md5  = $data;
   $file = $bmzConf['cachedir'] . '/' . $md5{0} . '/' . $md5.$ext;
   io_makeFileDir($file);
   return $file;
