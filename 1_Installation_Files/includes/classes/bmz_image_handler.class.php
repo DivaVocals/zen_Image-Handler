@@ -258,7 +258,7 @@ class ih_image{
 		
 		// Do we need to resize, watermark, zoom or convert to another filetype?
 		if ($resize || ($this->watermark['file'] != '') || ($this->zoom['file'] != '') || ($file_extension != $this->extension)){
-			$local = getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+			$local = getCacheName(strtolower(basename($this->src)), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
 			//echo $local . '<br />';	
 			$mtime = @filemtime($local); // 0 if not exists
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
