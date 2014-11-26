@@ -475,9 +475,9 @@ class ih_image{
     $startheight = (($this->canvas['height'] - $newheight)/2);
 
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $tmpimg = @imagecreatetruecolor ($newwidth, $newheight);
+      $tmpimg = imagecreatetruecolor ($newwidth, $newheight);
     }
-    if(!$tmpimg) $tmpimg = @imagecreate($newwidth, $newheight);
+    if(!$tmpimg) $tmpimg = imagecreate($newwidth, $newheight);
     if(!$tmpimg) return false;
     
     //keep alpha channel if possible
@@ -486,7 +486,7 @@ class ih_image{
     }
     //try resampling first
     if(function_exists("imagecopyresampled")){
-      if(!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
+      if(!imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
         imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newheight, $newwidth, $srcwidth, $srcheight);
       }
     } else {
@@ -497,9 +497,9 @@ class ih_image{
     
     // initialize FIRST background image (transparent canvas)
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+      $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
-    if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
+    if(!$newimg) $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
     
     if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
@@ -535,9 +535,9 @@ class ih_image{
 
     // initialize REAL background image (filled canvas)
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+      $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
-    if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
+    if(!$newimg) $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
     
     if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
@@ -620,16 +620,16 @@ class ih_image{
 		switch (strtolower($file_ext)) {
 			case '.gif':
 			    if(!function_exists("imagecreatefromgif")) return false;
-			    	$image = @imagecreatefromgif($src_name);
+			    	$image = imagecreatefromgif($src_name);
 				break;
 			case '.png':
 			    if(!function_exists("imagecreatefrompng")) return false;
-				$image = @imagecreatefrompng($src_name);
+				$image = imagecreatefrompng($src_name);
 				break;
 			case '.jpg':
 			case '.jpeg':
 			    if(!function_exists("imagecreatefromjpeg")) return false;
-				$image = @imagecreatefromjpeg($src_name);
+				$image = imagecreatefromjpeg($src_name);
 				break;
 		}
 		return $image;
