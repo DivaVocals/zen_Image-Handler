@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * functions_bmz_image_handler.php
  * call to include IH2 functions from catalog
  *

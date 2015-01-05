@@ -11,7 +11,7 @@ p.hailey@virgin.net in an attempt to  fix ie 6 issues see zencart forum IH2 thre
 for detials
  
 Image Handler Jscript
-Version 4.3.2
+Image Handler 4.3.3
 Modified by Nigel Thomson (nigel@nigel.geek.nz) 12 June 2010
 This  modified version of the Simple Image Trail script- By JavaScriptKit.com (4.1) brings in Opera
 support, and fixes the webkit (Safari and Chrome) Bugs

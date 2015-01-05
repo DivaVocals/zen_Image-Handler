@@ -1,15 +1,16 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * @package admin
- * @copyright Copyright 2003-2011 Zen Cart Development Team
+ * @copyright Copyright 2003-2014 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: category_product_listing.php 18695 2011-05-04 05:24:19Z drbyte $
+ * @version GIT: $Id: Author: Ian Wilson  Wed Mar 12 12:53:44 2014 +0000 Modified in v1.5.3 $
  */
 if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
-
+if (!isset($_GET['page'])) $_GET['page'] = '';
 if (isset($_GET['set_display_categories_dropdown'])) {
   $_SESSION['display_categories_dropdown'] = $_GET['set_display_categories_dropdown'];
 }
@@ -35,7 +36,7 @@ if (!isset($_SESSION['display_categories_dropdown'])) {
     echo HEADING_TITLE_SEARCH_DETAIL . ' ' . zen_draw_input_field('search') . zen_hide_session_id();
     if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
       $keywords = zen_db_input(zen_db_prepare_input($_GET['search']));
-      echo '<br />' . TEXT_INFO_SEARCH_DETAIL_FILTER . $keywords;
+      echo '<br />' . TEXT_INFO_SEARCH_DETAIL_FILTER . zen_output_string_protected($_GET['search']);
     }
     echo '</form>';
 ?>
@@ -45,13 +46,13 @@ if (!isset($_SESSION['display_categories_dropdown'])) {
                 <td class="smallText" align="right">
 <?php
   if ($_SESSION['display_categories_dropdown'] == 0) {
-    echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'set_display_categories_dropdown=1&cID=' . $categories->fields['categories_id'] . '&cPath=' . $cPath . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '')) . '">' . zen_image(DIR_WS_ICONS . 'cross.gif', IMAGE_ICON_STATUS_OFF) . '</a>&nbsp;&nbsp;';
+    echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'set_display_categories_dropdown=1' . (isset($_GET['cID']) ? '&cID=' . (int)$_GET['cID'] : '') . '&cPath=' . $cPath . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '')) . '">' . zen_image(DIR_WS_ICONS . 'cross.gif', IMAGE_ICON_STATUS_OFF) . '</a>&nbsp;&nbsp;';
     echo zen_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
     echo zen_hide_session_id();
     echo HEADING_TITLE_GOTO . ' ' . zen_draw_pull_down_menu('cPath', zen_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
     echo '</form>';
   } else {
-    echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'set_display_categories_dropdown=0&cID=' . $categories->fields['categories_id'] . '&cPath=' . $cPath . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '')) . '">' . zen_image(DIR_WS_ICONS . 'tick.gif', IMAGE_ICON_STATUS_ON) . '</a>&nbsp;&nbsp;';
+    echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'set_display_categories_dropdown=0' . (isset($_GET['cID']) ? '&cID=' . (int)$_GET['cID'] : '') . '&cPath=' . $cPath . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '')) . '">' . zen_image(DIR_WS_ICONS . 'tick.gif', IMAGE_ICON_STATUS_ON) . '</a>&nbsp;&nbsp;';
     echo HEADING_TITLE_GOTO;
   }
 ?>
@@ -162,8 +163,14 @@ if (!isset($_SESSION['display_categories_dropdown'])) {
       } else {
         echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'action=setflag_categories&flag=1&cID=' . $categories->fields['categories_id'] . '&cPath=' . $cPath . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')) . '">' . zen_image(DIR_WS_IMAGES . 'icon_red_on.gif', IMAGE_ICON_STATUS_OFF) . '</a>';
       }
-      if (zen_get_products_to_categories($categories->fields['categories_id'], true, 'products_active') == 'true') {
-        echo '&nbsp;&nbsp;' . zen_image(DIR_WS_IMAGES . 'icon_yellow_on.gif', IMAGE_ICON_LINKED);
+      if (SHOW_CATEGORY_PRODUCTS_LINKED_STATUS == 'true')
+      {
+        if (zen_get_products_to_categories($categories->fields['categories_id'], true, 'products_active') == 'true') {
+          echo '&nbsp;&nbsp;' . zen_image(DIR_WS_IMAGES . 'icon_yellow_on.gif', IMAGE_ICON_LINKED);
+        }
+      } else
+      {
+        echo '&nbsp;&nbsp;';
       }
 ?>
                 </td>
@@ -275,7 +282,7 @@ if (!isset($_SESSION['display_categories_dropdown'])) {
     }
 // Split Page
 // reset page when page is unknown
-if (($_GET['page'] == '1' or $_GET['page'] == '') and $_GET['pID'] != '') {
+if (($_GET['page'] == '1' or $_GET['page'] == '') and isset($_GET['pID']) && $_GET['pID'] != '') {
   $old_page = $_GET['page'];
   $check_page = $db->Execute($products_query_raw);
   if ($check_page->RecordCount() > MAX_DISPLAY_RESULTS_CATEGORIES) {

@@ -1,7 +1,8 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * bmz_image_handler_conf.php
- * call to include IH2 configures from catalog
+ * call to include IH4 configures from catalog
  *
  * @author  Tim Kroeger (original author)
  * @copyright Copyright 2005-2006

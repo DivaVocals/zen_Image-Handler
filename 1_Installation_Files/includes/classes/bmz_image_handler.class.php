@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * bmz_image_handler.class.php
  * IH2 class for image manipulation
  *

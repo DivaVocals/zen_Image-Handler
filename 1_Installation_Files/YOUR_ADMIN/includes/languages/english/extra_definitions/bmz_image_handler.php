@@ -1,5 +1,6 @@
 <?php
 /**IH4
+ * mod Image Handler 4.3.3
  * bmz_image_handler.php
  * english language definitions for image handler
  *

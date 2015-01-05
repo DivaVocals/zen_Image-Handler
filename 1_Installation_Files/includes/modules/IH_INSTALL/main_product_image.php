@@ -1,5 +1,5 @@
 <?php
-/**mod Image Handler 4.3.2
+/**mod Image Handler 4.3.3
  * main_product_image module
  *
  * @package templateSystem
@@ -42,10 +42,10 @@ $products_image_large  = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE
 //  $products_image_large = DIR_WS_IMAGES . 'large/' . $products_image_large;
 //}
 //End Image Handler changes 2 of 2 (this entire section is commented out for Image Handler 4)
-  /*
-    echo
-    'Base ' . $products_image_base . ' - ' . $products_image_extension . '<br>' .
-    'Medium ' . $products_image_medium . '<br><br>' .
-    'Large ' . $products_image_large . '<br><br>';
-  */
+/*
+echo
+'Base ' . $products_image_base . ' - ' . $products_image_extension . '<br>' .
+'Medium ' . $products_image_medium . '<br><br>' .
+'Large ' . $products_image_large . '<br><br>';
+*/
 // to be built into a single variable string

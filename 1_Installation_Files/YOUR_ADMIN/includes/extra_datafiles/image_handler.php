@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * image_handler.php
  * set image handler filename for admin
  *

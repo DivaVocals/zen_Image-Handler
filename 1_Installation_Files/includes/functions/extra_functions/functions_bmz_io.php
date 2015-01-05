@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * functions_bmz_io.php
  * general filesystem access handling
  *

@@ -1,5 +1,6 @@
 <?php
 /**IH4-1
+ * mod Image Handler 4.3.3
  * ih_manager.php
  * manager module for IH4 admin interface
  *

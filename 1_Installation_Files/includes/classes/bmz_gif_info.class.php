@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * gif_info.php
  * gif-info class for transparency stuff
  *

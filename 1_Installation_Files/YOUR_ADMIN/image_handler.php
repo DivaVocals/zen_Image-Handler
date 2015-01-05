@@ -1,7 +1,7 @@
 <?php
 /**
  * image_handler.php
- * IH 4.3.2 admin interface
+ * IH 4.3.3 admin interface
  *
  * @author  Tim Kroeger (original author)
  * @copyright Copyright 2005-2006

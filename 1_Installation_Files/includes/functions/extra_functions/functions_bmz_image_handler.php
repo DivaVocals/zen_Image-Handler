@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -12,7 +13,7 @@
  */
 
 require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . 'bmz_image_handler.class.php');
-$ihConf['version']              = 'v4.0';
+$ihConf['version']              = 'v4.3.3';
 
 $ihConf['dir']['docroot']       = DIR_FS_CATALOG;
 $ihConf['dir']['images']        = DIR_WS_IMAGES;

@@ -1,7 +1,7 @@
 <?php
 /**
  * pop up image additional
- * mod Image Handler 4.3.2
+ * mod Image Handler 4.3.3
  * @package page
  * @copyright Copyright 2003-2011 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
