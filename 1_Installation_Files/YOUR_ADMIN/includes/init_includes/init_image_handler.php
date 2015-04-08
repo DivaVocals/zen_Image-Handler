@@ -1,5 +1,5 @@
 <?php 
-// mod Image Handler 4.3.3
+// mod Image Handler 4.3.4
 
 // copyright stuff
 
