@@ -16,7 +16,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     //$uninstall = 'uninstall';
 
     // set version
-    $version = '4.3.3';
+    $version = '4.3.4';
 
     // flags
     $install_incomplete = false;
