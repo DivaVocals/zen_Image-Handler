@@ -1,6 +1,5 @@
 <?php
 /**
- * mod Image Handler 4.3.3
  * bmz_image_handler.class.php
  * IH2 class for image manipulation
  *
@@ -259,7 +258,28 @@ class ih_image{
 		
 		// Do we need to resize, watermark, zoom or convert to another filetype?
 		if ($resize || ($this->watermark['file'] != '') || ($this->zoom['file'] != '') || ($file_extension != $this->extension)){
-			$local = getCacheName(strtolower(basename($this->src)), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+//			$local = getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+			// use pathinfo to get full path of an image
+			$image_path = pathinfo($this->src);
+			// get image name from path
+			$image_basename = $image_path['basename'];
+			// now let's clean it up for those who don't know image files SHOULD be named
+			$image_basename = str_replace(' ', '-', $image_basename); // Replaces all spaces with hyphens
+			$image_basename = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_basename); // Removes special chars, keeps hyphen and underscore
+			$image_basename = preg_replace('/-+/', '-', $image_basename); // Replaces multiple hyphens with single one
+			
+			// get last directory from path
+			$image_dirname = basename($image_path['dirname']);
+			// now let's clean up the directory name just like we did with image name (this should be a function, I know, I know...)
+			$image_dirname = str_replace(' ', '-', $image_dirname); // Replaces all spaces with hyphens
+			$image_dirname = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_dirname); // Removes special chars, keeps hyphen and underscore
+			$image_dirname = preg_replace('/-+/', '-', $image_dirname); // Replaces multiple hyphens with single one
+			
+			// if last directory is images (meaning image is stored in main images folder), do nothing, else append directory name
+			$image_dirname == rtrim(DIR_WS_IMAGES, '/') ? $image_dir = '' : $image_dir = ($image_dirname .'-');
+			
+			// and now do the magic and create cached image name with the above parameters
+			$local = getCacheName(strtolower($image_dir.$image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
 			//echo $local . '<br />';	
 			$mtime = @filemtime($local); // 0 if not exists
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
@@ -477,9 +497,9 @@ class ih_image{
     $startheight = (($this->canvas['height'] - $newheight)/2);
 
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $tmpimg = imagecreatetruecolor ($newwidth, $newheight);
+      $tmpimg = @imagecreatetruecolor ($newwidth, $newheight);
     }
-    if(!$tmpimg) $tmpimg = imagecreate($newwidth, $newheight);
+    if(!$tmpimg) $tmpimg = @imagecreate($newwidth, $newheight);
     if(!$tmpimg) return false;
     
     //keep alpha channel if possible
@@ -488,7 +508,7 @@ class ih_image{
     }
     //try resampling first
     if(function_exists("imagecopyresampled")){
-      if(!imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
+      if(!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
         imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newheight, $newwidth, $srcwidth, $srcheight);
       }
     } else {
@@ -499,9 +519,9 @@ class ih_image{
     
     // initialize FIRST background image (transparent canvas)
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+      $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
-    if(!$newimg) $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
+    if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
     
     if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
@@ -537,9 +557,9 @@ class ih_image{
 
     // initialize REAL background image (filled canvas)
     if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
-      $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+      $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
-    if(!$newimg) $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
+    if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
     
     if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
@@ -622,16 +642,16 @@ class ih_image{
 		switch (strtolower($file_ext)) {
 			case '.gif':
 			    if(!function_exists("imagecreatefromgif")) return false;
-			    	$image = imagecreatefromgif($src_name);
+			    	$image = @imagecreatefromgif($src_name);
 				break;
 			case '.png':
 			    if(!function_exists("imagecreatefrompng")) return false;
-				$image = imagecreatefrompng($src_name);
+				$image = @imagecreatefrompng($src_name);
 				break;
 			case '.jpg':
 			case '.jpeg':
 			    if(!function_exists("imagecreatefromjpeg")) return false;
-				$image = imagecreatefromjpeg($src_name);
+				$image = @imagecreatefromjpeg($src_name);
 				break;
 		}
 		return $image;
