@@ -1,4 +1,5 @@
 <?php
+// mod Image Handler 4.3.3
 
 define(IH_RESIZE_TITLE, 'IH resize images');
 define(IH_RESIZE_TEXT, 'Select either -no- which is old Zen-Cart behaviour or -yes- to activate automatic resizing and caching of images. --Note: If you select -no-, all of the Image Handler specific image settings will be unavailable including: image filetype selection, background colors, compression, image hover, and watermarking-- If you want to use ImageMagick you have to specify the location of the <strong>convert</strong> binary in <em>includes/extra_configures/bmz_image_handler_conf.php</em>.');

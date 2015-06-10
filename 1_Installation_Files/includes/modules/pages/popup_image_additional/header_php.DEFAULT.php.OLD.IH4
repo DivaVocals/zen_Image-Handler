@@ -9,6 +9,7 @@
  * @version $Id: header_php.php 18697 2011-05-04 14:35:20Z wilt $
  */
 
+// mod Image Handler 4.3.3
 // Image Handler Roll Back Version.
 // Identical to default version except for this comment
 

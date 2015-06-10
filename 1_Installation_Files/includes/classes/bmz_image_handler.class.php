@@ -258,7 +258,28 @@ class ih_image{
 		
 		// Do we need to resize, watermark, zoom or convert to another filetype?
 		if ($resize || ($this->watermark['file'] != '') || ($this->zoom['file'] != '') || ($file_extension != $this->extension)){
-			$local = getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+//			$local = getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+			// use pathinfo to get full path of an image
+			$image_path = pathinfo($this->src);
+			// get image name from path
+			$image_basename = $image_path['basename'];
+			// now let's clean it up for those who don't know image files SHOULD be named
+			$image_basename = str_replace(' ', '-', $image_basename); // Replaces all spaces with hyphens
+			$image_basename = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_basename); // Removes special chars, keeps hyphen and underscore
+			$image_basename = preg_replace('/-+/', '-', $image_basename); // Replaces multiple hyphens with single one
+			
+			// get last directory from path
+			$image_dirname = basename($image_path['dirname']);
+			// now let's clean up the directory name just like we did with image name (this should be a function, I know, I know...)
+			$image_dirname = str_replace(' ', '-', $image_dirname); // Replaces all spaces with hyphens
+			$image_dirname = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_dirname); // Removes special chars, keeps hyphen and underscore
+			$image_dirname = preg_replace('/-+/', '-', $image_dirname); // Replaces multiple hyphens with single one
+			
+			// if last directory is images (meaning image is stored in main images folder), do nothing, else append directory name
+			$image_dirname == rtrim(DIR_WS_IMAGES, '/') ? $image_dir = '' : $image_dir = ($image_dirname .'-');
+			
+			// and now do the magic and create cached image name with the above parameters
+			$local = getCacheName(strtolower($image_dir.$image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
 			//echo $local . '<br />';	
 			$mtime = @filemtime($local); // 0 if not exists
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||

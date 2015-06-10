@@ -1,5 +1,5 @@
 <?php
-/**mod Image Handler 4.3.2
+/**mod Image Handler 4.3.3
  * additional_images module
  *
  * Prepares list of additional product images to be displayed in template
@@ -87,7 +87,7 @@ if ($num_images) {
 		list($src, $alt, $width, $height, $parameters) = $newimg;
 		$products_image_large = zen_output_string($src);
 	} 
-	$flag_has_large = file_exists($products_image_large);
+    $flag_has_large = file_exists($products_image_large);
 //  End Image Handler changes 1 of 2
     $products_image_large = ($flag_has_large ? $products_image_large : $products_image_directory . $file);
     $flag_display_large = (IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE == 'Yes' || $flag_has_large);
@@ -101,7 +101,7 @@ if ($num_images) {
     $large_link = zen_href_link(FILENAME_POPUP_IMAGE_ADDITIONAL, 'pID=' . $_GET['products_id'] . '&pic=' . $i . '&products_image_large_additional=' . $products_image_large);
 
     // Link Preparation:
-      $script_link = '<script language="javascript" type="text/javascript"><!--' . "\n" . 'document.write(\'' . ($flag_display_large ? '<a href="javascript:popupWindow(\\\'' . str_replace($products_image_large, urlencode(addslashes($products_image_large)), $large_link) . '\\\')">' . $thumb_slashes . '<br />' . TEXT_CLICK_TO_ENLARGE . '</a>' : $thumb_slashes) . '\');' . "\n" . '//--></script>';
+    $script_link = '<script language="javascript" type="text/javascript"><!--' . "\n" . 'document.write(\'' . ($flag_display_large ? '<a href="javascript:popupWindow(\\\'' . str_replace($products_image_large, urlencode(addslashes($products_image_large)), $large_link) . '\\\')">' . $thumb_slashes . '<br />' . TEXT_CLICK_TO_ENLARGE . '</a>' : $thumb_slashes) . '\');' . "\n" . '//--></script>';
 
     $noscript_link = '<noscript>' . ($flag_display_large ? '<a href="' . zen_href_link(FILENAME_POPUP_IMAGE_ADDITIONAL, 'pID=' . $_GET['products_id'] . '&pic=' . $i . '&products_image_large_additional=' . $products_image_large) . '" target="_blank">' . $thumb_regular . '<br /><span class="imgLinkAdditional">' . TEXT_CLICK_TO_ENLARGE . '</span></a>' : $thumb_regular ) . '</noscript>';
 
@@ -112,7 +112,7 @@ if ($num_images) {
 
     // List Box array generation:
     $list_box_contents[$row][$col] = array('params' => 'class="additionalImages centeredContent back"' . ' ' . 'style="width:' . $col_width . '%;"',
-    'text' => "\n      " . $link);
+                                           'text' => "\n      " . $link);
     $col ++;
     if ($col > (IMAGES_AUTO_ADDED -1)) {
       $col = 0;

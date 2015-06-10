@@ -1,5 +1,6 @@
 <?php
 /**IH4
+ * mod Image Handler 4.3.3
  * bmz_image_handler.php
  * english language definitions for image handler
  *
@@ -11,7 +12,7 @@
  */
 
 define('BOX_TOOLS_IMAGE_HANDLER', 'Image Handler<sup>4</sup>');
-define('ICON_IMAGE_HANDLER','Image Handler 4.1');
+define('ICON_IMAGE_HANDLER','Image Handler 4.3.4');
 define('IH_VERSION_VERSION', 'Version');
 define('IH_VERSION_NOT_FOUND', 'No Image Handler information found.');
 define('IH_REMOVE', 'Uninstall Image Handler.  (Please backup your site and database first)');

@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 4.3.3
  * bmz_image_handler_conf.php
  * additional configuration entries for image handler
  *

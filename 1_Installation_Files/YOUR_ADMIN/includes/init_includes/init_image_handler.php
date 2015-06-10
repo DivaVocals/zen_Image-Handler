@@ -1,4 +1,5 @@
 <?php 
+// mod Image Handler 4.3.4
 
 // copyright stuff
 
@@ -15,7 +16,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     //$uninstall = 'uninstall';
 
     // set version
-    $version = '4.3.2';
+    $version = '4.3.4';
 
     // flags
     $install_incomplete = false;

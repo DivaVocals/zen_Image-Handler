@@ -1,5 +1,5 @@
 <?php
-/**mod Image Handler 4.3.2
+/**mod Image Handler 4.3.3
  * Override Template for popup_image_additional/tpl_main_page.php
  *
  * @package templateSystem
@@ -18,7 +18,7 @@ if (!defined('POPUP_ADDITIONAL_NO_IMAGE')) define('POPUP_ADDITIONAL_NO_IMAGE', '
 <?php
 // $products_values->fields['products_image']
   if (file_exists($_GET['products_image_large_additional'])) {
-  echo '<a href="javascript:window.close()">' . zen_image($_GET['products_image_large_additional'], $products_values->fields['products_name'] . ' ' . TEXT_CLOSE_WINDOW) . '</a>';
+    echo '<a href="javascript:window.close()">' . zen_image($_GET['products_image_large_additional'], $products_values->fields['products_name'] . ' ' . TEXT_CLOSE_WINDOW) . '</a>';
   } else {
 //Begin Image Handler changes 2 of 2
     echo '<a href="javascript:window.close()">' . zen_image(DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE, POPUP_ADDITIONAL_NO_IMAGE . ' ' . TEXT_CLOSE_WINDOW) . '</a>';  /*v4.3.1c-lat9*/
