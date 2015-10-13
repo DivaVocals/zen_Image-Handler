@@ -23,7 +23,7 @@ function remove_dir($dirname) {
   $error = false;
   if ($dir = @dir($dirname)) {
     $dir->rewind();
-    while ($file = $dir->read()) {
+    while (false !== ($file = $dir->read())) {
       //echo $dirname . '/' . $file . '<br />';
       if (($file != ".") && ($file != "..") && ($file != ".htaccess") && ($file != ".keep")) {
         if (is_dir($dirname . '/' . $file)) {
