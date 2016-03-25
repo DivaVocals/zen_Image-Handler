@@ -40,9 +40,11 @@ window.opera?1:0;
 var isWebKit =
 navigator.userAgent.indexOf("AppleWebKit") > -1;
  
-if (document.getElementById || document.all){
-document.write('<div id="trailimageid"></div>');
-}
+document.addEventListener("DOMContentLoaded", function (event) {
+    if (document.getElementById || document.all) {
+        document.body.innerHTML += '<div id="trailimageid"></div>';
+    }
+});
  
 function getObj(name) {
 if (document.getElementById) {
