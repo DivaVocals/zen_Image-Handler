@@ -1,12 +1,12 @@
 <?php
 /**
  * pop up image additional
- * mod Image Handler 4.3.3
+ * mod Image Handler 4.3.5
  * @package page
- * @copyright Copyright 2003-2011 Zen Cart Development Team
+ * @copyright Copyright 2003-2016 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: header_php.php 18697 2011-05-04 14:35:20Z wilt $
+ * @version $Id: Author: zcwilt  Fri Sep 11 15:51:04 2015 +0100 Modified in v1.5.5 $
  * Last modified by DerManoMann 2010-05-31 23:44:44 
  */
 // This should be first line of the script:
@@ -37,10 +37,16 @@
 //  $products_image_medium = $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
 //  $products_image_large = $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
 
-//$_GET['products_image_large_additional'] = str_replace(' ', '+', stripslashes($_REQUEST['products_image_large_additional']));
-  $products_image_base = preg_replace('/'.$products_image_extension . '$/', '', $products_image);
-  $products_image_medium = DIR_WS_IMAGES . 'medium/' . $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
-  $products_image_large  = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
+  $_GET['products_image_large_additional'] = str_replace(' ', '+', stripslashes($_REQUEST['products_image_large_additional']));
+
+  $basepath = "";
+  $realBase = realpath($basepath);
+  $userpath = $basepath . $_GET['products_image_large_additional'];
+  $realUserPath = realpath($userpath);
+  if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {
+      $_GET['products_image_large_additional'] = '';
+  }
 //End Image Handler changes 1 of 1
+
   // This should be last line of the script:
   $zco_notifier->notify('NOTIFY_HEADER_END_POPUP_IMAGES_ADDITIONAL');
