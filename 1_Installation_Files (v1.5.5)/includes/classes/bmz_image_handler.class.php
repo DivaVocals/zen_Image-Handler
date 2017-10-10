@@ -12,7 +12,7 @@
  * Last Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  */
 
-require_once('bmz_gif_info.class.php');
+require_once 'bmz_gif_info.class.php';
 
 class ih_image
 {
