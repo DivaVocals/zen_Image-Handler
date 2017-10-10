@@ -1,20 +1,16 @@
 <?php
-// mod Image Handler 4.3.3
-
-// copyright stuff
-
-if (!defined('IS_ADMIN_FLAG')) {
-    die('Illegal Access');
+// -----
+// Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
+// Copyright (c) 2017 Vinos de Frutas Tropicales
+//
+if (!defined('IS_ADMIN_FLAG') || IS_ADMIN_FLAG !== true) {
+    exit('Illegal Access');
 } 
 
-
+// -----
+// Load the plugin's initialization script.
+//
 $autoLoadConfig[199][] = array(
     'autoType' => 'init_script',
     'loadFile' => 'init_image_handler.php'
-    );  
-
-// set a flag that is used in file overwrites/
-$extraXXX = 'IH_'.date('U');
-
-// uncomment the following line to perform a uninstall
-// $uninstall = 'uninstall';
+);  

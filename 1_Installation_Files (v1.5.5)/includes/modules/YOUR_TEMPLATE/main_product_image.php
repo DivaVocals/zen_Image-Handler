@@ -11,31 +11,75 @@
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
+
+//-bof-image_handler-lat9  *** 1 of 3 ***
+// -----
+// This notifier lets an observer know that the module has begun its processing.
+//
+$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_START');
+//-eof-image_handler-lat9  *** 1 of 3 ***
+
 $products_image_extension = substr($products_image, strrpos($products_image, '.'));
 $products_image_base = str_replace($products_image_extension, '', $products_image);
 $products_image_medium = $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
 $products_image_large = $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
 
-// check for a medium image else use small
-if (!file_exists(DIR_WS_IMAGES . 'medium/' . $products_image_medium)) {
-    $products_image_medium = DIR_WS_IMAGES . $products_image;
-} else {
-    $products_image_medium = DIR_WS_IMAGES . 'medium/' . $products_image_medium;
-}
-// check for a large image else use medium else use small
-if (!file_exists(DIR_WS_IMAGES . 'large/' . $products_image_large)) {
+//-bof-image_handler-lat9  *** 2 of 3 ***
+// -----
+// This notifier lets an image-handling observer know that it's time to determine the image information,
+// providing the following parameters:
+//
+// $p1 ... (r/o) ... A copy of the $products_image value
+// $p2 ... (r/w) ... A boolean value, set by the observer to true if the image has been handled.
+// $p3 ... (r/w) ... A reference to the $products_image_extension value
+// $p4 ... (r/w) ... A reference to the $products_image_base value
+// $p5 ... (r/w) ... A reference to the medium product-image-name
+// $p6 ... (r/w) ... A reference to the large product-image-name.
+//
+// If the observer has set the $product_image_handled flag to true, it's indicated that any of the
+// other values have been updated for separate handling.
+//
+$main_image_handled = false;
+$zco_notifier->notify(
+    'NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_FILENAME',
+    $products_image,
+    $main_image_handled,
+    $products_image_extension,
+    $products_image_base,
+    $products_image_medium,
+    $products_image_large
+);
+
+if ($main_image_handled !== true) {
+//-eof-image_handler-lat9  *** 2 of 3 ***
+
+    // check for a medium image else use small
     if (!file_exists(DIR_WS_IMAGES . 'medium/' . $products_image_medium)) {
-        $products_image_large = DIR_WS_IMAGES . $products_image;
+        $products_image_medium = DIR_WS_IMAGES . $products_image;
     } else {
-        $products_image_large = DIR_WS_IMAGES . 'medium/' . $products_image_medium;
+        $products_image_medium = DIR_WS_IMAGES . 'medium/' . $products_image_medium;
     }
-} else {
-    $products_image_large = DIR_WS_IMAGES . 'large/' . $products_image_large;
+    // check for a large image else use medium else use small
+    if (!file_exists(DIR_WS_IMAGES . 'large/' . $products_image_large)) {
+        if (!file_exists(DIR_WS_IMAGES . 'medium/' . $products_image_medium)) {
+            $products_image_large = DIR_WS_IMAGES . $products_image;
+        } else {
+            $products_image_large = DIR_WS_IMAGES . 'medium/' . $products_image_medium;
+        }
+    } else {
+        $products_image_large = DIR_WS_IMAGES . 'large/' . $products_image_large;
+    }
+
+    /*
+    echo
+    'Base ' . $products_image_base . ' - ' . $products_image_extension . '<br>' .
+    'Medium ' . $products_image_medium . '<br><br>' .
+    'Large ' . $products_image_large . '<br><br>';
+    */
+    // to be built into a single variable string
+    
+//-bof-image_handler-lat9  *** 3 of 3 ***
 }
-/*
-echo
-'Base ' . $products_image_base . ' - ' . $products_image_extension . '<br>' .
-'Medium ' . $products_image_medium . '<br><br>' .
-'Large ' . $products_image_large . '<br><br>';
-*/
-// to be built into a single variable string
+
+$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_END');
+//-eof-image_handler-lat9  *** 3 of 3 ***
