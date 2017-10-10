@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: functions_bmz_io.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Modified by DerManoMann 2010-05-31 23:46:50 
- * Last Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
+ * Last Modified by lat9: 2017-07-17, applying PSR-2 formatting.
  */
 
 /**
