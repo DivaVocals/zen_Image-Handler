@@ -182,7 +182,7 @@ if (isset($_SESSION['admin_id'])) {
         foreach ($configuration_items as $menu_item) {
             $config_key = $menu_item[0];
             $config_default = $menu_item[1];
-            $sort = $menu_item[2];
+            $sort_order = $menu_item[2];
             $config_values = $menu_item[3];
             $config_title = $menu_item[4];
             $config_descr = $menu_item[5];
@@ -190,16 +190,16 @@ if (isset($_SESSION['admin_id'])) {
             $set_function = 'NULL';
             if (is_array($config_values)) {
                 $value_string = '';
-                foreach ($values as $value) {
-                    $value_string .= "''" . $value . "'',";
+                foreach ($config_values as $value) {
+                    $value_string .= "\'" . $value . "\',";
                 }
-                $set_function = "'zen_cfg_select_option(array(" . substr($value_string, 0, -1) . ",'";
+                $set_function = "'zen_cfg_select_option(array(" . substr($value_string, 0, -1) . "),'";
             }
             $db->Execute(
                 "INSERT INTO " . TABLE_CONFIGURATION . "
                     (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
                  VALUES
-                    ('$config_title', '$config_key', '$config_default', '$config_desc', $cgi, $sort_order, now(), NULL, $set_function)"
+                    ('$config_title', '$config_key', '$config_default', '$config_descr', $cgi, $sort_order, now(), NULL, $set_function)"
             );
         }
         
