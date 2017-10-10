@@ -40,11 +40,9 @@ window.opera?1:0;
 var isWebKit =
 navigator.userAgent.indexOf("AppleWebKit") > -1;
  
-document.addEventListener("DOMContentLoaded", function(event) 
-{
-    if (document.getElementById || document.all) {
-        document.body.innerHTML += '<div id="trailimageid"></div>';
-    }
+
+window.addEventListener("load", function() { 
+    document.body.insertAdjacentHTML('beforeend', '<div id="trailimageid"></div>');
 });
  
 function getObj(name) 
