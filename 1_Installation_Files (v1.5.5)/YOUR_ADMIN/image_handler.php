@@ -1,7 +1,7 @@
 <?php
 /**
  * image_handler.php
- * IH 4.3.3 admin interface
+ * Image Handler Admin interface
  *
  * @author  Tim Kroeger (original author)
  * @copyright Copyright 2005-2006
@@ -11,9 +11,18 @@
  * Nigelt74 2012-02-18
  * torvista 2012-04-14  
  */
-require('includes/application_top.php');
-require(DIR_WS_CLASSES . 'currencies.php');
-require_once(DIR_FS_CATALOG . DIR_WS_CLASSES . 'bmz_image_handler.class.php');
+require 'includes/application_top.php';
+
+require DIR_WS_CLASSES . 'currencies.php';
+
+// -----
+// Load, and create an instance of, the "helper" class for the Image Handler.  This class
+// consolidates the various functions previously present in this module.
+//
+// Note: The $ihConf array is loaded as part of /admin/includes/functions/extra_functions/functions_bmz_image_handler.php.
+//
+require DIR_WS_CLASSES . 'ImageHandlerAdmin.php';
+$ih_admin = new ImageHandlerAdmin();
 
 define('HEADING_TITLE', IH_HEADING_TITLE);
 define('HEADING_TITLE_PRODUCT_SELECT', IH_HEADING_TITLE_PRODUCT_SELECT);
@@ -33,124 +42,6 @@ $products_filter = (isset($_GET['products_filter']) ? $_GET['products_filter'] :
 $current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
 $currencies = new currencies();
 $import_info = null;
-  
-function get_image_details_string( $filename ) 
-{
-    if (!file_exists( $filename )) {
-        return "no info";
-    }
-    $str = "";
-    // find out some details about the file 
-    $image_size = @getimagesize($filename);
-    $image_fs_size = filesize($filename);
-
-    $str .= $image_size[0] . "x" . $image_size[1];
-    $str .= "<br /><strong>" . round($image_fs_size/1024, 2) . "Kb</strong>";
-
-    return $str;
-}
-
-//
-// Search the base directory and find additional images
-//
-function find_additional_images(&$array, $directory, $extension, $base ) 
-{
-    $image = $base . $extension;
-
-    // Check for additional matching images
-    if ($dir = @dir($directory)) {
-        while ($file = $dir->read()) {
-            if (!is_dir($directory . $file)) {
-                if (preg_match("/^" . $base . "/i", $file) == '1') {
-                     //error_log( "BASE: ".$base.' FILE: '.$file.PHP_EOL);
-                    if (substr($file, 0, strrpos($file, '.')) != substr($image, 0, strrpos($image, '.'))) {
-                        if ($base . preg_replace("/^$base/", '', $file) == $file) {
-                            $array[] = $file;
-                             //error_log( "\tI AM A MATCH " . $directory . '/'.$file . $extension .PHP_EOL);
-                        } else {
-                             //error_log( "\tI AM NOT A MATCH" . $file . PHP_EOL);
-                        } 
-                    }
-                }
-            }
-        }
-        if (count($array) > 1) {
-            sort($array);
-        }
-        $dir->close();
-      
-        return 1;
-    }
-    return 0;
-}
-
-function find_original_image($src) 
-{
-    // try to find file by using different file extensions if initial
-    // source doesn't succeed
-    $imageroot = $GLOBALS['ihConf']['dir']['docroot'] . $GLOBALS['ihConf']['dir']['images'] . 'original/';
-    if (is_file($imageroot . $src)) {
-        return 'original/' . $src;
-    } else {
-        // do a quick search for files with common extensions
-        $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
-        $base = substr($src, 0, strrpos($src, '.'));
-        for ($i=0; $i<count($extensions); $i++) {
-            if (is_file($imageroot . $base . $extensions[$i])) {
-                return 'original/' . $base . $extensions[$i];
-            }
-        }
-        // not found? maybe mixed case file extension?
-        if ($GLOBALS['ihConf']['allow_mixed_case_ext']) {
-            // this can cost some time for every displayed image so default is
-            // to not do this search
-            $directory = dirname($imageroot . $src);
-            $dir = @dir($directory);
-            while ($file = $dir->read()) {
-                if (!is_dir($directory . $file)) {
-                    if (preg_match("/^" . $imageroot . $base . "/i", $file) == '1') {
-                        $file_ext = substr($file, strrpos($file, '.'));
-                        if (is_file($imageroot . $base . $file_ext)) {
-                            return 'original/' . $base . $file_ext;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    // still here? no file found...
-    return false;
-}
-
-function get_import_info() 
-{
-    $products = $GLOBALS['db']->Execute(
-        "SELECT products_id, products_image 
-           FROM " . TABLE_PRODUCTS . " 
-          WHERE products_image != '' 
-       ORDER BY products_image ASC"
-    );
-    $previous_image = '';
-    $info = array();
-    $index = 0;
-    $previous_image = '';
-    while (!$products->EOF){
-        $image = $products->fields['products_image'];
-        if ($image != $previous_image) {
-            $previous_image = $image;
-            $original_image = find_original_image($image);
-            if ($original_image) {
-                $info[$index]['source'] = $image;
-                $info[$index]['original'] = $original_image;
-                $info[$index]['target'] = preg_replace('/^original\//', '', $original_image);
-                $index++;  
-            }
-        }
-        $products->MoveNext();
-    }
-    return $info;
-}
-
 
 if ($action == 'set_products_filter') {  
     $_GET['products_filter'] = $_POST['products_filter']; 
@@ -164,7 +55,7 @@ if ($page == 'manager') {
 
   
 if ($action == 'ih_import_images') {
-    $files = get_import_info();
+    $files = $ih_admin->getImportInfo();
     $previous_image = '';
     $imageroot = $ihConf['dir']['docroot'] . $ihConf['dir']['images'];
     if (count($files) > 0) {
@@ -174,7 +65,11 @@ if ($action == 'ih_import_images') {
             if (rename($imageroot . $files[$i]['original'], $imageroot . $files[$i]['target'])) {
                 // Update database
                 if ($files[$i]['target'] != $files[$i]['source']) {
-                    $db->Execute("update " . TABLE_PRODUCTS . " set products_image='" . $files[$i]['target'] . "' where products_image='" . $files[$i]['source'] . "'");
+                    $db->Execute(
+                        "UPDATE " . TABLE_PRODUCTS . " 
+                            SET products_image = '" . $files[$i]['target'] . "' 
+                          WHERE products_image = '" . $files[$i]['source'] . "'"
+                    );
                 }
                 @unlink($imageroot . $files[$i]['source']);
                 $messageStack->add(TEXT_MSG_IMPORT_SUCCESS . $files[$i]['original'] . ' => ' . $files[$i]['target'], 'success');
@@ -187,7 +82,7 @@ if ($action == 'ih_import_images') {
 }
 
 if ($action == 'ih_scan_originals') {
-    $import_info = get_import_info();
+    $import_info = $ih_admin->getImportInfo();
     if (count($import_info) <= 0) {
         $messageStack->add(IH_NO_ORIGINALS, 'caution');
     }
@@ -338,12 +233,13 @@ if ($page == 'manager') {
 
 <div class="adminbox">
 <?php
-/**
+/** ----------------------------------------------------------
  * ADMIN TABPAGE INITIALIZATION
  */
 $ih_admin_actions = array();
 $page = isset($_GET['page']) ? $_GET['page'] : 'manager';
 if ($page == 'admin') {
+    $ih_admin_actions['ih_uninstall'] = IH_REMOVE;
     $ih_admin_actions['ih_clear_cache'] = IH_CLEAR_CACHE;
     $ih_admin_actions['ih_scan_originals'] = IH_SCAN_FOR_ORIGINALS;
 }
@@ -365,22 +261,22 @@ if ($action == 'ih_scan_originals') {
 if (count($ih_admin_actions) > 0) {
     echo '<ul>';
     foreach ($ih_admin_actions as $action_name => $link_name) {
-        echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
+        if ($action_name == 'ih_uninstall') {
+            echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
+        } else {
+            echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
+        }
     }
     echo '</ul>';
 }
 
-/**
+/** -----------------------------------------------------
  * MANAGER TABPAGE
  */
 if ($page == 'manager') {
     $curr_page = FILENAME_IMAGE_HANDLER;
 ?>
-    <table summary="Products Previous Next Display">
-<?php
-    require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY;
-?>
-    </table>
+    <table summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
 <?php
     echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
     echo zen_draw_hidden_field('products_filter', $_GET['products_filter']); 
@@ -514,7 +410,7 @@ if ($page == 'manager') {
                 // Add base image to array
                 $products_image_match_array[] = $products_image_base . $products_image_extension;
                 // Check for additional matching images
-                find_additional_images($products_image_match_array, $products_image_directory_full, $products_image_extension, $products_image_base);
+                $ih_admin->findAdditionalImages($products_image_match_array, $products_image_directory_full, $products_image_extension, $products_image_base);
             }
         } // if products_image
 
@@ -590,9 +486,9 @@ if ($page == 'manager') {
                 $tmp_image_large_preview = new ih_image($tmp_image_file_large, IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT);
 
                 // Get file details 
-                $text_default_size = get_image_details_string( $tmp_image_file_full );
-                $text_medium_size = get_image_details_string( $tmp_image_file_medium_full );
-                $text_large_size = get_image_details_string( $tmp_image_file_large_full );
+                $text_default_size = $ih_admin->getImageDetailsString($tmp_image_file_full);
+                $text_medium_size = $ih_admin->getImageDetailsString($tmp_image_file_medium_full);
+                $text_large_size = $ih_admin->getImageDetailsString($tmp_image_file_large_full);
 
                 if ($first == 1) {
                     $tmp_image_link = zen_catalog_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $pInfo->products_id);
