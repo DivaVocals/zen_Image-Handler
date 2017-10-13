@@ -16,10 +16,10 @@ if (!defined('IS_ADMIN_FLAG')) {
 // 
 $autoLoadConfig[200][] = array(
     'autoType' => 'class',
-    'loadFile' => 'observers/FualSlimboxObserver.php'
+    'loadFile' => 'observers/ColorBoxObserver.php'
 );
 $autoLoadConfig[200][] = array(
     'autoType' => 'classInstantiate',
-    'className' => 'FualSlimboxObserver',
-    'objectName' => 'fualSlimboxObserver'
+    'className' => 'ColorBoxObserver',
+    'objectName' => 'colorBoxObserver'
 );
