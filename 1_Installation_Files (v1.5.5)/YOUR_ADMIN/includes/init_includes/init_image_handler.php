@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.0.0-beta1');
+define('IH_CURRENT_VERSION', '5.0.0-beta2');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -243,6 +243,10 @@ if (isset($_SESSION['admin_id'])) {
     //       "Images" configuration for pre-v5.0.0 updates.
     //
     if (IH_VERSION != IH_CURRENT_VERSION) {
+        if (!zen_page_key_exists('toolsImageHandlerUninstall')) {
+            zen_register_admin_page('toolsImageHandlerUninstall', 'BOX_TOOLS_IMAGE_HANDLER_UNINSTALL', 'FILENAME_IMAGE_HANDLER_UNINSTALL', '', 'tools', 'N', 99);
+        }
+        
         $db->Execute(
             "UPDATE " . TABLE_CONFIGURATION . " 
                 SET configuration_value = '" . IH_CURRENT_VERSION . "',
