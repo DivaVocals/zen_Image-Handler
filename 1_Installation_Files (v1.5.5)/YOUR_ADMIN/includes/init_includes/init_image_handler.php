@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.0.0-beta2');
+define('IH_CURRENT_VERSION', '5.0.0-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -245,6 +245,22 @@ if (isset($_SESSION['admin_id'])) {
     if (IH_VERSION != IH_CURRENT_VERSION) {
         if (!zen_page_key_exists('toolsImageHandlerUninstall')) {
             zen_register_admin_page('toolsImageHandlerUninstall', 'BOX_TOOLS_IMAGE_HANDLER_UNINSTALL', 'FILENAME_IMAGE_HANDLER_UNINSTALL', '', 'tools', 'N', 99);
+        }
+        
+        if (version_compare(IH_VERSION, '5.0.0', '<')) {
+            if (!defined('IH_CACHE_NAMING')) {
+                if (IH_VERSION == '0.0.0' || version_compare(IH_VERSION, '4.3.3', '>')) {
+                    $default = 'Readable';
+                } else {
+                    $default = 'Hashed';
+                }
+                $db->Execute(
+                    "INSERT INTO " . TABLE_CONFIGURATION . " 
+                        ( configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function ) 
+                     VALUES 
+                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Readable\'),')"
+                );
+            }
         }
         
         $db->Execute(
