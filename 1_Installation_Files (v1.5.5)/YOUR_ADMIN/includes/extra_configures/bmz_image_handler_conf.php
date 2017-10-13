@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 4.3.3
+ * mod Image Handler
  * bmz_image_handler_conf.php
  * call to include IH4 configures from catalog
  *
@@ -10,5 +10,8 @@
  * @version $Id: bmz_image_handler_conf.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50 
  */
+if (!defined('IS_ADMIN_FLAG') || IS_ADMIN_FLAG !== true) {
+    exit('Invalid access');
+}
 
-  require_once(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'extra_configures/bmz_image_handler_conf.php');
+ require DIR_FS_CATALOG . DIR_WS_INCLUDES . 'extra_configures/bmz_image_handler_conf.php';

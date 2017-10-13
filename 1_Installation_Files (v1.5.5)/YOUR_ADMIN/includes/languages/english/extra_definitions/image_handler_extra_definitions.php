@@ -10,9 +10,15 @@
 // The title displayed on the admin's "Tools" dropdown menu.
 //
 define('BOX_TOOLS_IMAGE_HANDLER', 'Image Handler<sup>5</sup>');
+define('BOX_TOOLS_IMAGE_HANDLER_UNINSTALL', 'Image Handler<sup>5</sup> Uninstall');
 
 // -----
 // Messages issued by /admin/includes/init_includes/init_image_handler.php
 //
 define('IH_TEXT_MESSAGE_INSTALLED', 'Image Handler<sup>5</sup>, v%s was successfully installed.');
 define('IH_TEXT_MESSAGE_UPDATED', 'Image Handler<sup>5</sup> was successfully updated from v%1$s to v%2$s.');
+
+// -----
+// The image-title text for the button in the Categories->Products listing.
+//
+define('ICON_IMAGE_HANDLER', 'Image Handler ' . IH_VERSION);
