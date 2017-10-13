@@ -11,9 +11,6 @@
  * Modified by DerManoMann 2010-05-31 23:40:21
  * Last Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  */
-
-require_once 'bmz_gif_info.class.php';
-
 class ih_image
 {
     /**
