@@ -302,3 +302,6 @@ hr {
 	color: #CC0000;
 }
 
+.smaller { font-size: smaller; }
+.misc-table, .misc-table td, .misc-table th { padding: 5px; }
+.misc-table td { background-color: white; }
