@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 4.3.3
+ * mod Image Handler
  * functions_bmz_image_handler.php
  * call to include IH2 functions from catalog
  *
@@ -10,9 +10,11 @@
  * @version $Id: functions_bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50 
  */
+if (!defined('IS_ADMIN_FLAG') || IS_ADMIN_FLAG !== true) {
+    exit('Invalid access');
+}
 
-require_once(DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_bmz_image_handler.php');
-
-global $ihConf;
+require DIR_FS_CATALOG . DIR_WS_CLASSES . 'bmz_image_handler.class.php';
+require DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_bmz_image_handler.php';
 
 $ihConf['dir']['admin'] = preg_replace('/^\/(.*)/', '$1', (($request_type == 'SSL') ? DIR_WS_HTTPS_ADMIN : DIR_WS_ADMIN));

@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 4.3.3
+ * mod Image Handler
  * functions_bmz_io.php
  * admin filesystem functions for image handler
  *
@@ -11,8 +11,11 @@
  * Modified by DerManoMann 2010-05-31 23:46:50 
  * Last Modified by lat9: 2017-07-17, applying PSR-2 formatting.
  */
+if (!defined('IS_ADMIN_FLAG') || IS_ADMIN_FLAG !== true) {
+    exit('Invalid access');
+}
 
-require_once(DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_bmz_io.php');
+require DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'extra_functions/functions_bmz_io.php';
 
 function bmz_clear_cache() 
 {
