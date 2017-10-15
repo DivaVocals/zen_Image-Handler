@@ -33,6 +33,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
        'admin_includes' => array(
             'ih_manager.php',
             'auto_loaders/config.image_handler.php',
+            'classes/ImageHandlerAdmin.php',
             'extra_configures/bmz_image_handler_conf.php',
             'extra_configures/bmz_io_conf.php',
             'extra_datafiles/image_handler.php',
