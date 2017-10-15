@@ -108,7 +108,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <ul>
           <li>Zen Cart v1.5.5 or later (not backwards compatible with older versions of Zen Cart).</li>
           <li><strong>Either</strong> GD libraries version 2 or greater, <strong>or</strong> ImageMagick version 6 or greater.</li>
-          <li>If you are using Fual Slimbox, Colorbox or Zen Lightbox with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
+          <li>If you are using Fual Slimbox or ColorBox for Zen Cart with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
         </ul>
 
         <p>In order to resize and modify images, Image Handler<sup>5</sup> needs either GD libraries or ImageMagick installed. You can check if your version of PHP includes the GD libraries by going to <em>Admin &gt; Tools &gt; Server Info</em> and searching for GD. You have to ask your host (or read your site's documentation) to learn about an ImageMagick installation.</p> 
@@ -126,7 +126,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         </ol>
         <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
 
-        <p>The <em>IH<sup>5</sup></em> installation provides updates (refer to the <b>Misc</b> tab for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates comprise the addition of plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
+        <p>The <em>IH<sup>5</sup></em> installation provides updates (refer to the <b>Misc</b> tab for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
 
         <p>What all that techno-babble means for your <em>IH<sup>5</sup></em> installation (or upgrade!) is that there are two installation routes, dependent on whether you use a large-image viewer and, if so, which one &hellip;</p>
 
@@ -135,7 +135,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <h2>Route 1</h2>
         <p class="boldemphasis">This route works for <em>IH<sup>5</sup></em> installation/upgrade into stores that have either no modifications or only <em>Fual Slimbox</em> or <em>ColorBox</em> changes to those two template-override files.</p>
 
-        <p>Just install or upgrade Image Handler<sup>5</sup> &mdash; see below &mdash; and it will work. If your admin is in a language other than english then read this thread for instructions.</p>
+        <p>Just install or upgrade Image Handler<sup>5</sup> &mdash; see below &mdash; and it will work. If your admin is in a language other than english then read further down for additional instructions.</p>
 
         <h2>Route 2</h2>
         <p class="boldemphasis">This route works for stores that have additional changes (i.e. another large-image viewer) or if you are unsure of the changes to those two template-override modules.</p>
@@ -153,7 +153,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
           <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
           <li>Unzip the Image Handler<sup>5</sup> package to your local hard drive, retaining the directory structure.</li>
           <li>Within the <code>1_Installation_Files (v1.5.5)</code> directory:<ol>
-            <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using a language other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code>.</li> 
+            <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
             <li>Rename the two (2) <code>YOUR_TEMPLATE</code> directories to match the name of your currently-active Zen Cart template:<ol>
               <li><code>/includes/modules/YOUR_TEMPLATE</code></li>
               <li><code>/includes/templates/YOUR_TEMPLATE</code></li>
@@ -161,8 +161,8 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
           </ol></li>
           <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
           <li>Next, using an FTP program, upload the files from the <code>1_Installation_Files (v1.5.5)</code> directory to your store's web-hosted <em>root</em> directory. <b>Do not</b> upload the <code>1_Installation_Files (v1.5.5)</code> directory, just the <em>contents</em> of this directory.</li>
-          <li>Return to your store's admin and click on <em>any</em> link. If you followed the instructions above, you will see a message in the message stack at the top of your admin screen confirming a successful install.</li>
-          <li>Navigate to <strong>Admin &gt; Configuration &gt; Images</strong>, set "IH resize images" to "yes".</li>
+          <li>Return to your store's admin and click on <em>any</em> link. If you followed the instructions above, you will see a message in the message stack at the top of your admin screen confirming a successful install or upgrade.</li>
+          <li>Navigate to <strong>Admin &gt; Configuration &gt; Images</strong>, set <b>IH resize images</b> to <em>yes</em>.</li>
           <li>If you followed all instructions to the letter, you are ready to move on to the <b>Configuration</b> tab of this readme to learn how to modify the default configuration settings.</li>
         </ol>
       </fieldset>
@@ -173,8 +173,19 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <legend>Un-Install Instructions</legend>
         <ol>    
           <li>BACK UP your database &amp; store.</li>
-          <li>Remove the files added by IH5 ...</li>
-          <li>If you were using Fual Slimbox or Zen Lightbox with Image Handler<sup>5</sup> you <strong>MUST</strong> re-upload the /includes/modules/YOUR_TEMPLATE/additional_images.php file from Fual Slimbox or Zen Lightbox fileset or your lightbox won't function as expected.</li>
+          <li>Log into your Zen Cart admin and navigate to <em>Tools &gt; Image Handler<sup>5</sup></em> and:<ul>
+            <li>Click the &quot;Admin Tools&quot; link at the top of the page.</li>
+            <li>Click the &quot;Uninstall Image Handler&quot; link at the top of the page.</li>
+            <li>You'll be presented an <em>Uninstall Image Handler</em> page.  To continue with the uninstall, click the &quot;Go&quot; button; to cancel, click the &quot;Cancel&quot; button.</li>
+            <li>You'll be presented a confirmation page.  Click &quot;Go&quot; one more time and the uninstall script will remove all files (except for the list below) in the <em>IH<sup>5</sup></em> distribution as well as the changes it makes to the database.</li>
+          </ul>The following files remain after <em>IH<sup>5</sup></em> is uninstalled:<ol type="a">
+            <li>/includes/auto_loaders/config.colorbox.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
+            <li>/includes/auto_loaders/config.fual_slimbox.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
+            <li>/includes/classes/observers/ColorBoxObserver.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
+            <li>/includes/classes/observers/FualSlimboxObserver.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
+            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
+          </ol></li>
         </ol>
       </fieldset>
 
@@ -189,10 +200,10 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
     <div class="regularlist">
       <h3>CONFIGURATION</h3>
 
-      <p>Image Handler<sup>5</sup> works out of the box. There&rsquo;s no need to configure anything if you are ok with the presets. If you want to change the way   Image Handler deals with your images go to <strong>Configuration &gt; Images</strong>. </p>
-      <p>If you are using Fual Slimbox or Zen Lightbox with Image Handler<sup>5</sup> you <strong>MUST</strong> read the &quot;Misc&quot; tab. </p>
+      <p>Image Handler<sup>5</sup> works out of the box. There's no need to configure anything if you are ok with the presets. If you want to change the way Image Handler deals with your images go to <strong>Configuration &gt; Images</strong>. </p>
+      <p>If you are using <em>Fual Slimbox</em> or <em>ColorBox for Zen Cart</em> with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab. </p>
       <p>Image Handler<sup>5</sup> creates images (based on your image settings) in the bmz_cache folder. It <strong>DOES NOT</strong> replace or modify the original images.</p>
-      <p>With Image Handler<sup>5</sup> it is possible to use the Image Handler<sup>5</sup> image manager WITHOUT using the image caching features. If you choose to install Image Handler<sup>5</sup> and ONLY use the image manager, please note that NONE of Image Handler<sup>5</sup>image management features will be available (including the image hover features)</p>
+      <p>With Image Handler<sup>5</sup> it is possible to use the Image Handler<sup>5</sup> image manager <em>without</em> using the image caching features. If you choose to install Image Handler<sup>5</sup> and only use the image manager, please note that none of Image Handler<sup>5</sup>image management features will be available (including the image hover features)</p>
 
       <fieldset>
         <legend>Images Configuration page</legend>
@@ -201,15 +212,33 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <img src="images/imagesConfiguration2.png" alt="Image Handler Settings Added" width="965" height="317" border="3" title="Image Handler Settings Added">
         <p>You can tweak everything to your liking. The parameters are pretty self explanatory and feature additional descriptions when you select them. These parameters enable you to tweak settings for:</p>
         <ul>
-          <li> preferred filetypes</li>
-          <li> compression quality</li>
-          <li> background color</li>
-          <li> watermarking</li>
-          <li> zooming (fancy hover effect)</li>
-          <li> gravity for watermarking</li>
+          <li>cache-file naming method</li>
+          <li>preferred filetypes</li>
+          <li>compression quality</li>
+          <li>background color</li>
+          <li>watermarking</li>
+          <li>zooming (fancy hover effect)</li>
+          <li>gravity for watermarking</li>
         </ul>
 
         <p>The parameters to <strong>configure image dimensions</strong> have been enhanced to not only accept numerical values, but to accept parameters with an appended "!" which implies a <em>force canvas size</em> mode. Images are resized to fit and placed centered inside the fixed canvas instead of resizing the image to just one of the dimensions if it doesn't feature the same aspect ratio as the settings. That sounds too complicated? Trust me, it isn't. Just see for yourself: Configure a nice colored background and test both values with and without the appended "!". Read more about it in the Image Dimensions section (below).</p>
+      </fieldset>
+      
+      <hr />
+      
+      <fieldset>
+        <legend>Cache File-Naming Convention</legend>
+        <p>Starting with <em>IH<sup>5</sup></em>, you can choose the naming convention used for resized files created by the image-handler, one of <em>Hashed</em> or <em>Readable</em>:</p>
+        <fieldset>
+          <legend class="smaller">Hashed</legend>
+          <p>This is the convention used by image-handler versions <em>prior to</em> 4.3.4.  The handler uses an MD5 <em>hash</em> to compress the resized file's original path, name and parameters to produce file names similar to <code>8240eb50da20af3ecec990d3e56099fa.image.50x40.gif</code>.  It can be &quot;very difficult&quot; to determine which original file is associated with that resized file!.</p>
+          <p>If you are currently using an <em>Image Handler</em> version <b>prior to</b> 4.3.4, this naming-convention will be initially configured on your <em>IH</em> upgrade. Some stores use HTML <code>img</code> tags in their category and/or product descriptions that reference an image's &quot;hashed&quot; name and this default is set to ensure that downward compatibility.</p>
+        </fieldset>
+        <fieldset>
+          <legend class="smaller">Readable</legend>
+          <p>This is the convention introduced image-handler versions <em>later than</em> 4.3.3.  The handler concatenates the orignal file's path, name and parameters to produce file names similar to <code>matrox-mg400-32mbgif.image.50x40</code>.  It's a little easier to determine which original file is associated with that resized file!.</p>
+          <p>If you are performing an initial install or upgrading <em>Image Handler</em> from a version <b>later than</b> 4.3.3, this naming will be initially configured for your <em>IH<sup>5</sup></em> installation.</p>
+        </fieldset>
       </fieldset>
       
       <hr />
@@ -473,7 +502,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <p>When you browse your categories and products with Zen Cart's categories/products browser, you can click on the small <img src="images/icon_image_handler.gif" alt="Image Handler 4" title="Image Handler 4"> icon between the copy- and the attributes icon to access the manager page of Image Handler<sup>5</sup> for this specific product.</p>
         <img src="images/editProductsCategories.png" alt="Small Product Image"  width="965" height="279"  border="3" align="top" title="Small Product Image">
 
-        <p>If you access Image Handler<sup>5</sup> directly via <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, you can use it's own interface to browse categories and products or to add, change, or delete images from your products.</p>
+        <p>If you access Image Handler<sup>5</sup> directly via <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, you can use its own interface to browse categories and products or to add, change, or delete images from your products.</p>
         <img src="images/imageHandlerManager.png" alt="Small Product Image"  width="965" height="520" border="3" align="top" title="Small Product Image">
 
         <p>The Image Handler<sup>5</sup> interface is designed to be highly intuitive and easy to use. Referencing the image above, you can see that all the action takes place on the "Manager" tab of the interface. For example:</p>
@@ -551,7 +580,7 @@ Image Handler<sup>4<sup> v4.0 modifications by:</p>
 </ul>
 <p>and <em>Image Handler<sup>5</sup></em> modifications by:</p>
 <ul>
-  <li>lat9 (https://vinosdefrutastropicales.com<li>
+  <li>lat9 (https://vinosdefrutastropicales.com</li>
   <li>jazzman346 (https://github.com/jazzman346)</li>
   <li>jeking (https://www.zen-cart.com/member.php?16702-jeking)</li>
 </ul>
@@ -559,7 +588,14 @@ Image Handler<sup>4<sup> v4.0 modifications by:</p>
 <fieldset>
   <legend>Image Handler<sup>5</sup> v5.0.0 Changelog</legend>
   <ul>    
-    <li><b>Major</b> changes to the plugin's distribution.</li>
+    <li><b>Major</b> changes to the plugin's distribution, installation and uninstall procedures.<ol>
+      <li>Drops support for Zen Cart versions prior to 1.5.5.</li>
+      <li>Installation no longer auto-removes the plugin's installation/upgrade modules.</li>
+      <li>No more <b>core-file</b> overwrites; only two template-override file changes needed.</li>
+      <li>Includes integration with <em>Fual Slimbox</em> and <em>ColorBox</em>.</li>
+    </ol></li>
+    <li>Correct imagehover processing.</li>
+    <li>Detect and correct invalid transparency settings.</li>
   </ul>
 </fieldset>
 
@@ -794,11 +830,163 @@ as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming
       <h3>FILES</h3>
       <p>Image Handler<sup>5</sup> makes minor modifications to two (2) Zen Cart modules, via template-override.  If you've installed other plugins in your store, you should use a program like WinMerge or Beyond Compare to merge <em>IH<sup>5</sup></em>'s required changes into your existing store files.  If you're installing <em>IH<sup>5</sup></em> on a fresh (vanilla) Zen Cart installation, you can simply create a template-override version of those files.</p>
 
-      <p>Here is the the list of pre-existing Zen Cart files that are modified by Image Handler<sup>5</sup>: 
+      <p>Here is the the list of pre-existing Zen Cart files that are <em>modified</em> by Image Handler<sup>5</sup>, using the Zen Cart 1.5.5e version of the file as the change-basis: 
       <ul>
         <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
         <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
       </ul>
+      
+      <p>The full list of non-readme processing files distributed within the <em>IH<sup>5</sup></em> zip-file follows.</p>
+      <table id="files-list">
+        <tr>
+          <th>File Name</th>
+          <th>Comments</th>
+        </tr>
+        <tr>
+          <td>/bmz_cache/.htaccess</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/images/watermark.png</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/images/medium/watermark_MED.png</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/images/large/watermark_LRG.png</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/auto_loaders/config.colorbox.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/includes/auto_loaders/config.fual_slimbox.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/includes/auto_loaders/config.image_handler.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/includes/classes/bmz_gif_info.class.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/classes/bmz_image_handler.class.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/classes/observers/ColorBoxObserver.php</td>
+          <td>&nbsp;Added in v5.0.0.</td>
+          <tr>
+          <td>/includes/classes/observers/FualSlimboxObserver.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/includes/classes/observers/ImageHandlerObserver.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        </tr>
+        <tr>
+          <td>/includes/extra_configures/bmz_image_handler_conf.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/extra_configures/bmz_io_conf.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/functions/extra_functions/functions_bmz_io.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><span class="template">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><span class="template">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/image_handler_uninstall.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/ih_manager.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/auto_loaders/config.image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</td>
+          <td>Added in v5.0.0. Contains functions used by image_handler.php, moved from that module.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/extra_configures/bmz_image_handler_conf.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/extra_configures/bmz_io_conf.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/extra_datafiles/image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_io.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/image_handler.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/image_handler_uninstall.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_image_handler.php</td>
+          <td>Comments only for v5.0.0; definitions moved to image_handler.php.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_language_admin.php</td>
+          <td>Comments only for v5.0.0; definitions moved to image_handler_extra_definitions.php.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/image_handler_extra_definitions.php</td>
+          <td>Added in v5.0.0.</td>
+        </tr>
+      </table>
 
     </div>
   </div>
