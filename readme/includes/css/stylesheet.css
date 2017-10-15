@@ -305,3 +305,10 @@ hr {
 .smaller { font-size: smaller; }
 .misc-table, .misc-table td, .misc-table th { padding: 5px; }
 .misc-table td { background-color: white; }
+
+.corefile { color: red; }
+.template { color: #0061ad; }
+.removed { text-decoration: line-through; }
+#files-list { border: 1px solid #444; border-collapse: collapse; }
+#files-list tr:nth-of-type(odd) { background-color:#eee; }
+#files-list td, #files-list th { background-color: inherit; padding: 5px; border: 1px solid #444; }
