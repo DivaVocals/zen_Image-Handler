@@ -198,7 +198,7 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
 <div class="tabcontent" id="sc3" style="display: block;">
   <div class="textcontent">
     <div class="regularlist">
-      <h3>CONFIGURATION</h3>
+      <h3>Admin <em>Configuration &gt; Images</em></h3>
 
       <p>Image Handler<sup>5</sup> works out of the box. There's no need to configure anything if you are ok with the presets. If you want to change the way Image Handler deals with your images go to <strong>Configuration &gt; Images</strong>. </p>
       <p>If you are using <em>Fual Slimbox</em> or <em>ColorBox for Zen Cart</em> with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab. </p>
@@ -328,7 +328,13 @@ Download link: <a href="https://www.zen-cart.com/index.php?main_page=product_con
         <legend>Zooming (fancy hover effect)</legend>
         <p>When selecting this feature for small images, the medium or large image (depending on your admin settings) pops up whenever you move your mouse cursor over the small image.</p>
 
-        <p><strong>Note: Zooming in on medium images is not implemented.</strong> More on this on the &quot;<strong>Misc</strong>&quot; tab.</p>
+        <p><strong>Notes:</strong></p>
+        <ol>
+          <li>Zooming in on medium images <strong>is not implemented</strong>. More on this on the &quot;<strong>Misc</strong>&quot; tab.</li>
+          <li>If you have enabled <em>Configuration &gt; Images &gt; IH small images zoom on hover</em>, you might have found that the zoom feature can be <em>disruptive</em> to your customers using smaller, hand-held devices.<ul>
+            <li>The as-shipped <code>style_imagehover.css</code> includes examples using <a href="https://www.w3schools.com/cssref/css3_pr_mediaquery.asp" target="_blank">CSS3 Media Queries</a> to control whether or not the image-hover is displayed.  The defaults in that file disable the image-hover display on screen-sizes that are 480px or smaller in width.</li>
+          </ul></li>
+        </ol>    
 
         <img src="images/imagesConfigurationZooming1.png" alt="Image Handler Required Zoom Settings" width="965" height="55" border="3" title="Image Handler Required Zoom Settings">
 
@@ -812,7 +818,7 @@ as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming
 <ul>
   <li><a href="http://tutorials.zen-cart.com/index.php?article=315" target="_blank">Why am I seeing images for other products on my product pages?</a></li>
   <li><a href="http://tutorials.zen-cart.com/index.php?article=58" target="_blank">How do I add multiple images to a product?</a></li>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=202" target="_blank">How   do I add more than one image of a product?  I want to have a main image   and also one or two other images that show more parts of a particular   product. How/where do I add additional images to a product page?    Thanks!</a></li>
+  <li><a href="http://tutorials.zen-cart.com/index.php?article=202" target="_blank">How do I add more than one image of a product?  I want to have a main image   and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!</a></li>
 </ul>
 <p>Check out these FAQs and see if they help clarify how Zen Cart works with product images.</p>
 </fieldset>
@@ -827,7 +833,7 @@ as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming
   <div class="textcontent">
     <div class="regularlist">
 
-      <h3>FILES</h3>
+      <h3>Files in the <em>Image Handler</em> Distribution</h3>
       <p>Image Handler<sup>5</sup> makes minor modifications to two (2) Zen Cart modules, via template-override.  If you've installed other plugins in your store, you should use a program like WinMerge or Beyond Compare to merge <em>IH<sup>5</sup></em>'s required changes into your existing store files.  If you're installing <em>IH<sup>5</sup></em> on a fresh (vanilla) Zen Cart installation, you can simply create a template-override version of those files.</p>
 
       <p>Here is the the list of pre-existing Zen Cart files that are <em>modified</em> by Image Handler<sup>5</sup>, using the Zen Cart 1.5.5e version of the file as the change-basis: 
@@ -998,7 +1004,7 @@ as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming
   <div class="textcontent">
     <div class="regularlist">
 
-      <h3>MISC</h3>
+      <h3>Miscellaneous Items</h3>
 
       <fieldset>
         <legend><a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> or <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a> with Image Handler<sup>5</sup></legend>
