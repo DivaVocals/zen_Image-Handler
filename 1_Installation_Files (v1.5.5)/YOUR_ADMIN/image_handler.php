@@ -144,7 +144,7 @@ div.donationbox {display: none;}
 .donationbox h2 {font-size: 100%;}
 
 .preview-bb {border-bottom: 1px solid #CCCCCC;}
-.preview-br (border-right: 1px solid #CCCCCC;}
+.preview-br {border-right: 1px solid #CCCCCC;}
 .preview-check {border: 1px solid #000000; background:url(images/checkpattern.gif);}
 
 a.wikilink1:link { color:#009900; text-decoration: none; }

@@ -24,7 +24,7 @@ class gifinfo
     var $m_colorFlag;
     var $m_backgroundIndex;
 
-    public function _construct($filename)
+    public function __construct($filename)
     {
         $fp                        = fopen($filename,"rb");
         $result                    = fread($fp,13);
