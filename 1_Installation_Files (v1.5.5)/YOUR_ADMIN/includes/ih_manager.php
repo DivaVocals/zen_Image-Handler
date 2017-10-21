@@ -116,7 +116,7 @@
       } else { 
         // get directory list
         $array = array();
-        $ih_manager->findAdditionalImages($array, DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'], 
+        $ih_admin->findAdditionalImages($array, DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'], 
           $data['imgExtension'], $data['imgBase'] );
         echo "<!--  point 1".$data['imgExtension']."-->";
         $c = sizeof( $array );
