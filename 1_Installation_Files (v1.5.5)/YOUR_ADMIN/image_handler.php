@@ -27,7 +27,7 @@ $ih_admin = new ImageHandlerAdmin();
 define('HEADING_TITLE', IH_HEADING_TITLE);
 define('HEADING_TITLE_PRODUCT_SELECT', IH_HEADING_TITLE_PRODUCT_SELECT);
 
-$page = isset($_GET['page']) ? $_GET['page'] : ((!defined('IH_VERSION') || (IH_VERSION == 'REMOVED')) ? 'admin' : 'manager');
+$ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : ((!defined('IH_VERSION') || (IH_VERSION == 'REMOVED')) ? 'admin' : 'manager');
 //$action = (isset($_GET['action']) ? $_GET['action'] : '');
 //------- Nigel 
 $action = '';
@@ -45,10 +45,10 @@ $import_info = null;
 
 if ($action == 'set_products_filter') {  
     $_GET['products_filter'] = $_POST['products_filter']; 
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'page=manager&amp;products_filter=' . $_GET['products_filter']));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . $_GET['products_filter']));
 }
 
-if ($page == 'manager') {
+if ($ih_page == 'manager') {
     // manager actions are handled in a seperate file
     require 'includes/ih_manager.php';
 }
@@ -196,7 +196,7 @@ if (defined('IH_VERSION')) {
 ?>
     </div>
 <?php
-if ($page == 'manager') {
+if ($ih_page == 'manager') {
     // SEARCH DIALOG BOX
 
     echo '<div style="float: right; padding: 5px;">' . zen_draw_form('search', FILENAME_CATEGORIES, '', 'get');
@@ -217,17 +217,17 @@ if ($page == 'manager') {
 <div class="clearBoth"></div>
 
 <ul style="background-color:#F5F5F5; border: solid #CCCCCC; border-width: 1px 0px;">
-    <li class="page-links <?php echo ($page == 'manager') ? 'page-current' : ''; ?>">
-        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'page=manager') ?>"><?php echo IH_MENU_MANAGER; ?></a>
+    <li class="page-links <?php echo ($ih_page == 'manager') ? 'page-current' : ''; ?>">
+        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager') ?>"><?php echo IH_MENU_MANAGER; ?></a>
     </li>
-    <li class="page-links <?php echo ($page == 'admin') ? 'page-current' : ''; ?>">
-        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'page=admin') ?>"><?php echo IH_MENU_ADMIN; ?></a>
+    <li class="page-links <?php echo ($ih_page == 'admin') ? 'page-current' : ''; ?>">
+        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=admin') ?>"><?php echo IH_MENU_ADMIN; ?></a>
     </li>
-    <li class="page-links <?php echo ($page == 'preview') ? 'page-current' : ''; ?>">
-        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'page=preview') ?>"><?php echo IH_MENU_PREVIEW; ?></a>
+    <li class="page-links <?php echo ($ih_page == 'preview') ? 'page-current' : ''; ?>">
+        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=preview') ?>"><?php echo IH_MENU_PREVIEW; ?></a>
     </li>
-    <li class="page-links <?php echo ($page == 'about') ? 'page-current' : ''; ?>">
-        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'page=about') ?>"><?php echo IH_MENU_ABOUT; ?></a>
+    <li class="page-links <?php echo ($ih_page == 'about') ? 'page-current' : ''; ?>">
+        <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=about') ?>"><?php echo IH_MENU_ABOUT; ?></a>
     </li>
 </ul>
 
@@ -237,8 +237,8 @@ if ($page == 'manager') {
  * ADMIN TABPAGE INITIALIZATION
  */
 $ih_admin_actions = array();
-$page = isset($_GET['page']) ? $_GET['page'] : 'manager';
-if ($page == 'admin') {
+$ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : 'manager';
+if ($ih_page == 'admin') {
     $ih_admin_actions['ih_uninstall'] = IH_REMOVE;
     $ih_admin_actions['ih_clear_cache'] = IH_CLEAR_CACHE;
     $ih_admin_actions['ih_scan_originals'] = IH_SCAN_FOR_ORIGINALS;
@@ -264,7 +264,7 @@ if (count($ih_admin_actions) > 0) {
         if ($action_name == 'ih_uninstall') {
             echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
         } else {
-            echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
+            echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
         }
     }
     echo '</ul>';
@@ -273,7 +273,7 @@ if (count($ih_admin_actions) > 0) {
 /** -----------------------------------------------------
  * MANAGER TABPAGE
  */
-if ($page == 'manager') {
+if ($ih_page == 'manager') {
     $curr_page = FILENAME_IMAGE_HANDLER;
 ?>
     <table summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
@@ -589,7 +589,7 @@ if ($page == 'manager') {
                     );
                     $contents = array(
                         'align' => 'center', 
-                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'page=' . $_GET['page'] . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
+                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'ih_page=' . $_GET['ih_page'] . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
                     );
                     $contents[] = array
                         ('text' => '<strong>' . TEXT_INFO_NAME. ': </strong>' . $selected_image_name . '<br />'
@@ -773,7 +773,7 @@ if ($page == 'manager') {
                         'text' => '<strong>' . TEXT_INFO_SELECT_ACTION . '</strong>'
                     );
                     $contents = array(
-                        'form' => zen_draw_form('image_define', FILENAME_PRODUCT_TYPES, 'page=' . $_GET['page'] . '&amp;action=new', 'post', 'enctype="multipart/form-data"')
+                        'form' => zen_draw_form('image_define', FILENAME_PRODUCT_TYPES, 'ih_page=' . $_GET['ih_page'] . '&amp;action=new', 'post', 'enctype="multipart/form-data"')
                     );
                     $contents[] = array(
                         'text' => '<br />' . TEXT_INFO_CLICK_TO_ADD
@@ -803,12 +803,12 @@ if ($page == 'manager') {
 ?>
     </div>
 <?php
-} // if $page == 'manager'
+} // if $ih_page == 'manager'
 
 /** ------------------------------------
  * PREVIEW TABPAGE
  */
-if ($page == 'preview') {
+if ($ih_page == 'preview') {
       $images = array();
       $pngimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.png', intval($ihConf['small']['width']), intval($ihConf['small']['height']));
       $images['pngsource'] = $pngimage->get_resized_image(intval($ihConf['small']['width']), intval($ihConf['small']['height']), 'orig');
@@ -865,7 +865,7 @@ if ($page == 'preview') {
  * ABOUT TABPAGE
  */
 
-if ($page == 'about') {
+if ($ih_page == 'about') {
 ?>
     <div class="aboutbox">
         <h2>Image Handler<sup>4</sup> v4.0 for v1.5.x</h2>
