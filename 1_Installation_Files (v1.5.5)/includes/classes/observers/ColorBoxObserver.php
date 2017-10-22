@@ -38,7 +38,7 @@ class ColorBoxObserver extends base
                 $products_image_large = $p1['products_image_large'];
                 $thumb_slashes = $p1['thumb_slashes'];
                 $large_link = $p1['large_link'];
-                require DIR_WS_MODULES . 'zen_colorbox.php';
+                require DIR_WS_MODULES . zen_get_module_directory('zen_colorbox.php');
                 if (isset($script_link)) {
                     $p2 = $script_link;
                 }
