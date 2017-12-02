@@ -596,9 +596,13 @@ Image Handler<sup>4</sup> v4.0 modifications by:</p>
   <ul>
     <li>v5.0.1, 2017-12-xx:<ul>
       <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
+      <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
       <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
         <li>/includes/classes/bmz_image_handler.class.php</li>
+        <li>/YOUR_ADMIN/image_handler.php</li>
+        <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
         <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+        <li>/YOUR_ADMIN/includes/languages/english/image_handler_about.php <span style="font-size: smaller;">(Added)</span></li>
       </ol></li>
     </ul></li>
     <li>v5.0.0, 2017-11-10:<ul>
@@ -987,6 +991,10 @@ as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming
         <tr>
           <td>/YOUR_ADMIN/includes/languages/english/image_handler.php</td>
           <td>Added in v5.0.0.</td>
+        </tr>
+        <tr>
+          <td>/YOUR_ADMIN/includes/languages/english/image_handler_about.php</td>
+          <td>Added in v5.0.1.</td>
         </tr>
         <tr>
           <td>/YOUR_ADMIN/includes/languages/english/image_handler_uninstall.php</td>

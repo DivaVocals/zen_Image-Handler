@@ -41,6 +41,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
             'functions/extra_functions/functions_bmz_io.php',
             'init_includes/init_image_handler.php',
             'languages/english/image_handler.php',
+            'languages/english/image_handler_about.php',
             'languages/english/image_handler_uninstall.php',
             'languages/english/extra_definitions/bmz_image_handler.php',
             'languages/english/extra_definitions/bmz_language_admin.php',
