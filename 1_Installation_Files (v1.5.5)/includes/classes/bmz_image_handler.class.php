@@ -404,7 +404,7 @@ class ih_image
         $command .= ($this->watermark['file'] != '') ? ' "' . $this->watermark['file'] . '" -compose Over -gravity ' . $ihConf['watermark']['gravity'] . " -composite" : ''; 
         $command .= ($this->zoom['file'] != '') ? ' "' . $this->zoom['file'] . '" -compose Over -gravity ' . $ihConf['zoom']['gravity'] . " -composite " : ' ';
         $command .= $gif_treatment ? $temp_name : (preg_match("/\.jp(e)?g/i", $file_ext) ? "-quality $quality " : '') . "\"$dest_name\"";
-        @exec($command . ' 2>&1', $message, $retval);
+        exec($command . ' 2>&1', $message, $retval);
         if ($gif_treatment) {
             if ($retval != 0) return false;
             $command  = $ihConf['im_convert'] . " -size $size ";
@@ -412,7 +412,7 @@ class ih_image
             $command .= " \"$temp_name\" -compose Over -gravity Center -geometry $size -composite";
             $command .= " \"$temp_name\" -channel Alpha -threshold " . $ihConf['trans_threshold'] . " -compose CopyOpacity -gravity Center -geometry $size -composite";
             $command .= " \"$dest_name\"";
-            @exec($command . ' 2>&1', $message, $retval);
+            exec($command . ' 2>&1', $message, $retval);
         }
         if ($retval == 0) return true;
 
@@ -676,8 +676,14 @@ class ih_image
     
     public function save_imageGD($file_ext, $image, $dest_name, $quality = 75) 
     {
-        global $ihConf;
-        
+        // -----
+        // Initially, santitize the quality input for use by imagejpeg; values should
+        // be in the range 0-100.
+        //
+        $quality = (int)$quality;
+        if ($quality < 0 || $quality > 100) {
+            $quality = 75;
+        }
         switch (strtolower($file_ext)) {
             case '.gif':
                 if(!function_exists("imagegif")) return false;
@@ -685,7 +691,15 @@ class ih_image
                 break;
             case '.png':
                 if(!function_exists("imagepng")) return false;
-                $quality = (int)$quality/100;
+                
+                // -----
+                // The quality input for imagepng requires an integer value in the
+                // range 0-9.  If the value's out-of-range, use a proportional setting
+                // based on the input.
+                //
+                if ($quality > 9) {
+                    $quality = (int)(9 * $quality / 100);
+                }
                 $ok = imagepng($image, $dest_name, $quality);
                 break;
             case '.jpg':
@@ -693,7 +707,9 @@ class ih_image
                 if(!function_exists("imagejpeg")) return false;
                 $ok = imagejpeg($image, $dest_name, $quality);
                 break;
-            default: $ok = false;
+            default: 
+                $ok = false;
+                break;
         }
         imagedestroy($image);
     

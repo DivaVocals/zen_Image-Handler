@@ -592,19 +592,28 @@ Image Handler<sup>4</sup> v4.0 modifications by:</p>
 </ul>
 
 <fieldset>
-  <legend>Image Handler<sup>5</sup> v5.0.0 Changelog</legend>
-  <ul>    
-    <li><b>Major</b> changes to the plugin's distribution, installation and uninstall procedures.<ol>
-      <li>Drops support for Zen Cart versions prior to 1.5.5.</li>
-      <li>Installation no longer auto-removes the plugin's installation/upgrade modules.</li>
-      <li>No more <b>core-file</b> overwrites; only two template-override file changes needed.</li>
-      <li>Includes integration with <em>Fual Slimbox</em> and <em>ColorBox</em>.</li>
-      <li>Separate uninstall script included.</li>
-    </ol></li>
-    <li>Correct javascript error in imagehover processing.</li>
-    <li>Detect and correct invalid transparency settings.</li>
-    <li>Use CSS3 media-queries to &quot;hide&quot; imagehover pop-up on smaller devices.</li>
-    <li>Restore search functionality.</li>
+  <legend>Image Handler<sup>5</sup></legend>
+  <ul>
+    <li>v5.0.1, 2017-12-xx:<ul>
+      <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
+      <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+        <li>/includes/classes/bmz_image_handler.class.php</li>
+        <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+      </ol></li>
+    </ul></li>
+    <li>v5.0.0, 2017-11-10:<ul>
+      <li><b>Major</b> changes to the plugin's distribution, installation and uninstall procedures.<ol>
+        <li>Drops support for Zen Cart versions prior to 1.5.5.</li>
+        <li>Installation no longer auto-removes the plugin's installation/upgrade modules.</li>
+        <li>No more <b>core-file</b> overwrites; only two template-override file changes needed.</li>
+        <li>Includes integration with <em>Fual Slimbox</em> and <em>ColorBox</em>.</li>
+        <li>Separate uninstall script included.</li>
+      </ol></li>
+      <li>Correct javascript error in imagehover processing.</li>
+      <li>Detect and correct invalid transparency settings.</li>
+      <li>Use CSS3 media-queries to &quot;hide&quot; imagehover pop-up on smaller devices.</li>
+      <li>Restore search functionality.</li>
+    </ul></li>
   </ul>
 </fieldset>
 
@@ -1146,11 +1155,5 @@ if (document.getElementById("slidetabsmenu") != null) {
   document.getElementById('slidetabsmenu').style.display = "block";
 }
 //-->
-</script><br>
-<br>
-<p><a href="http://validator.w3.org/check/referer" target="_blank"><img src="http://www.w3.org/Icons/valid-html401-blue.gif" alt="W3C validation logo" border="0" height="31" width="88"></a> <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" border="0" height="31" width="88"></a></p>
-<br>
-<br>
-
-
+</script>
 </body></html>
