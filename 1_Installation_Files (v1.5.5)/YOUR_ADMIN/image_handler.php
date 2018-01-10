@@ -49,7 +49,7 @@ if ($action == 'set_products_filter') {
 }
 
 if ($ih_page == 'manager') {
-    // manager actions are handled in a seperate file
+    // manager actions are handled in a separate file
     require 'includes/ih_manager.php';
 }
 
@@ -262,7 +262,12 @@ if (count($ih_admin_actions) > 0) {
     echo '<ul>';
     foreach ($ih_admin_actions as $action_name => $link_name) {
         if ($action_name == 'ih_uninstall') {
-            echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
+            // -----
+            // Include the "uninstall" page in the menu only if the admin is currently authorized.
+            //
+            if (check_page(FILENAME_IMAGE_HANDLER_UNINSTALL)) {
+                echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
+            }
         } else {
             echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
         }
@@ -385,34 +390,17 @@ if ($ih_page == 'manager') {
         // Determine if there are any images and work out the file names
         // (based on code from modules/pages/product_info/main_template_vars_images(& _additional) (copying is evil!))
         if ($pInfo->products_image != '') {
-            $products_image = $pInfo->products_image;
-            $products_image_match_array = array();
-
-            // get file extension and base
-            $products_image_extension = substr($products_image, strrpos($products_image, '.'));
-            $products_image_base = preg_replace("/" . $products_image_extension . "$/", '', $products_image);
+            $image_info = pathinfo($pInfo->products_image);
+            $products_image_directory = $image_info['dirname'];
+            if ($products_image_directory != '.') {
+                $products_image_directory .= '/';
+            }
+            $products_image_base = $image_info['filename'];
+            $products_image_extension = '.' . $image_info['extension'];
             
-            // if in a subdirectory
-            if (strrpos($products_image_base, '/')) {
-                $products_image_base = substr($products_image_base, strrpos($products_image_base, '/')+1);
-            }
-        
-            // sort out directory
-            $products_image_directory =  substr($products_image, 0, strrpos($products_image, '/'));
-            // add slash to base dir
-            if (($products_image_directory != '') && (!preg_match("|\/$|", $products_image_directory))) {
-                $products_image_directory .= '/'; 
-            }
-            $products_image_directory_full = DIR_FS_CATALOG . DIR_WS_IMAGES . $products_image_directory;
-        
-            // Check that the image exists! (out of date Database)
-            if (file_exists( $products_image_directory_full . $products_image_base . $products_image_extension )) {
-                // Add base image to array
-                $products_image_match_array[] = $products_image_base . $products_image_extension;
-                // Check for additional matching images
-                $ih_admin->findAdditionalImages($products_image_match_array, $products_image_directory_full, $products_image_extension, $products_image_base);
-            }
-        } // if products_image
+            $products_image_match_array = array();
+            $ih_admin->findAdditionalImages($products_image_match_array, $products_image_directory, $products_image_extension, $products_image_base);
+        }
 
         if ($pInfo->products_id != '') {
 ?>
@@ -443,7 +431,7 @@ if ($ih_page == 'manager') {
 <?php
             $selected_image_suffix = '';
             // no images
-            $no_images = (0 == $count = sizeof($products_image_match_array));
+            $no_images = (0 == $count = count($products_image_match_array));
             if ($no_images) {
 ?>
                 <tr>
@@ -599,7 +587,7 @@ if ($ih_page == 'manager') {
                     );
                     $contents[] = array(
                         'text' => 
-                            '<script language="javascript" type="text/javascript"><!--
+                            '<script type="text/javascript"><!--
                                 document.write(\'<a href="javascript:popupWindow(\\\'' . $selected_image_link . '\\\')">' 
                                 . zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height) 
                                 . '<br />' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
@@ -693,6 +681,31 @@ if ($ih_page == 'manager') {
                         );
                     }
 
+                    // -----
+                    // Set up the "acceptable" file types for the form, depending on whether or not the active product
+                    // currently has an image defined.
+                    //
+                    if ($no_images) {
+                        $accept = 'image/jpeg,image/jpg,image/gif,image/png';
+                    } else {
+                        switch (strtolower($products_image_extension)) {
+                            case '.gif':
+                                $accept = 'image/gif';
+                                break;
+                            case '.png':
+                                $accept = 'image/png';
+                                break;
+                            case '.jpg':        //-Fall-through ...
+                            case '.jpeg':
+                                $accept = 'image/jpeg,image/jpg';
+                                break;
+                            default:
+                                $accept = 'image/jpeg,/image/jpg,image/gif,image/png';
+                                break;
+                        }
+                    }
+                    $file_parms = 'accept="' . $accept . '"';
+                    
                     // Image fields
                     // Nigels ugly hack to display warning on edit screen that the default file must be filled in
                     if ( $action == 'layout_new' ) {// -this section is the hack
@@ -700,13 +713,13 @@ if ($ih_page == 'manager') {
                         $contents[] = array(
                             'text' => '<br /><strong>' . TEXT_INFO_DEFAULT_IMAGE . '</strong>&nbsp;&nbsp;<strong class="errorText">(required)</strong><br />' 
                                 . TEXT_INFO_DEFAULT_IMAGE_HELP . '<br />'
-                                . zen_draw_input_field('default_image', '', 'size="20" ', false, 'file') . '<br />' . $pInfo->products_image
+                                . zen_draw_input_field('default_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />' . $pInfo->products_image
                         );
                     } else { // this section is the original code
                         $contents[] = array(
                             'text' => '<br /><strong>' . TEXT_INFO_DEFAULT_IMAGE . '</strong><br />' 
                                 . TEXT_INFO_DEFAULT_IMAGE_HELP . '<br />'
-                                . zen_draw_input_field('default_image', '', 'size="20" ', false, 'file') . '<br />' . $pInfo->products_image
+                                . zen_draw_input_field('default_image', '', 'size="20" '. $file_parms, false, 'file') . '<br />' . $pInfo->products_image
                         );
                     }
 
@@ -725,10 +738,10 @@ if ($ih_page == 'manager') {
                     }
 
                     $contents[] = array(
-                        'text' => '<br /><strong>' . TEXT_MEDIUM_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('medium_image', '', 'size="20" ', false, 'file') . '<br />'
+                        'text' => '<br /><strong>' . TEXT_MEDIUM_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('medium_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />'
                     );
                     $contents[] = array(
-                        'text' => '<br /><strong>' . TEXT_LARGE_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('large_image', '', 'size="20" ', false, 'file') . '<br />'
+                        'text' => '<br /><strong>' . TEXT_LARGE_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('large_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />'
                     );
                     $contents[] = array(
                         'align' => 'center', 

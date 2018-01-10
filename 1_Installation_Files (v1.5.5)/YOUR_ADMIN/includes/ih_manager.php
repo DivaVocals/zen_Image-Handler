@@ -58,150 +58,195 @@ if ($products_filter == '' && $current_category_id != '') {
 
 require DIR_WS_MODULES . FILENAME_PREV_NEXT;
 
+// -----
+// The "save" form gathers up to three (3) separate image files:  default (aka small), medium and large.  That form is used
+// for two different cases:
+//
+// 1) Uploading a new image, either:
+//    a) A main product-image, for a product that does not yet have a products_image defined.
+//    b) An additional product-image, when the product has its main image defined.
+// 2) Modifying an existing image.  In this case, the variable $_GET['imgEdit'] is set to the value of 1.
+//
+// There are a couple of "rules" associated with those uploaded images:
+//
+// 1) If the associated product DOES NOT currently have an image, the default image is **required**.
+// 2) The file-extension of any medium or large image MUST MATCH that of the associated default.
+//    a) If a new default image is being uploaded, the medium/large extension must match that of the uploaded default.
+//    b) If the existing default image is being used, the medium/large extension must match that of the current default.
+//
 if ($action == 'save') {
-    $check = 0;
+    // -----
+    // Log the input values on entry, if debug is enabled.
+    //
+    $ih_admin->debugLog(
+        'ih_manager/save, on entry.' . PHP_EOL . 
+        '$_GET:' . PHP_EOL . var_export($_GET, true) . PHP_EOL . 
+        '$_POST:' . PHP_EOL . var_export($_POST, true) . PHP_EOL . 
+        '$_FILES:' . PHP_EOL . var_export($_FILES, true)
+    );
+    
+    // -----
+    // Set some processing flags, based on the type of upload being performed.
+    //
+    $editing = (isset($_GET['imgEdit']) && $_GET['imgEdit'] == '1');
+    $new_image = (isset($_GET['newImg']) && $_GET['newImg'] == '1');
+    $main_image = (!isset($_GET['imgSuffix']) || $_GET['imgSuffix'] == '');
+    $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] == 'keep_name');
+    
     $data = array();
-
-    $data['imgExtension'] = substr($_FILES['default_image']['name'], strrpos($_FILES['default_image']['name'], '.'));
-/* Nigel fix here 
-This basically converts the extension of the uploaded file to match the main image, PROVIDED they are the same file type
-*/
-
-    $sm_imgExtension = strtolower($data['imgExtension']); 
-    $df_extension = strtolower($_GET['imgExtension']); // file extension of base original file
-
-//ugly but effective code
-    if ($sm_imgExtension == $df_extension) { // this should get rid of any capitilisation issues for files with the same extensions
-        $data['imgExtension'] = $_GET['imgExtension']; 
-    } elseif (($sm_imgExtension == ".jpeg" && $df_extension == ".jpg") || ($sm_imgExtension == ".jpg" && $df_extension == ".jpeg")) {
-        // This deals with any jpg that have differing extensions eg jpeg and jpg
-        $data['imgExtension'] = $_GET['imgExtension']; 
+    $data_ok = true;
+    
+    // -----
+    // Determine the extension required for any uploaded images.
+    //
+    // 1) A new main-image (and any medium/large) use the extension from the (required) default image suppied.
+    // 2) A new additional image's files use the extension from the pre-existing main-image.
+    // 3) Editing an image uses the pre-existing file extension.
+    //
+    if ($new_image) {
+        if ($_FILES['default_image']['name'] == '') {
+            $messageStack->add(TEXT_MSG_NO_DEFAULT, 'error');
+            $data_ok = false;
+        } else {
+            $data['imgExtension'] = '.' . pathinfo($_FILES['default_image']['name'], PATHINFO_EXTENSION);
+        }
     } else {
-        // this is where they don't match eg original image is a gif and additional image is a jpg or png
-        // file mismatch really should put a warning in here that the additional image won't show
-        // or a call to convert the actual image to a compatible format
+        $data['imgExtension'] = $_GET['imgExtension'];
     }
 
-    // Check the data
-    if ((isset($_GET['newImg']) && $_GET['newImg'] == 1) || (isset($_GET['imgEdit']) && $_GET['imgEdit'] == 1 && $_GET['imgSuffix'] ==  '' && $_POST['imgNaming'] != 'keep_name' && $_FILES['default_image']['name'] != '')) {
+    // -----
+    // If the file-upload is in support of a new main image or the main image is being edited ...
+    //
+    if ($new_image || ($editing && $main_image && !$keep_name && $_FILES['default_image']['name'] != '')) {
         // New Image Name and Base Dir
-        if ($_POST['imgBase'] != '') {
+        if (isset($_POST['imgBase']) && $_POST['imgBase'] != '') {
             $data['imgBase'] = $_POST['imgBase'];
-            echo "<!--  point 12 - ".$_POST['imgBase']."-->";
         } else {
             // Extract the name from the default file
             if ($_FILES['default_image']['name'] != '') {
-                preg_match("/(.+)\.[^\.]+$/", $_FILES['default_image']['name'], $matches);
-                $data['imgBase'] = $matches[1];
+                $data['imgBase'] = pathinfo($_FILES['default_image']['name'], PATHINFO_FILENAME);
             } else {
                 $messageStack->add(TEXT_MSG_AUTO_BASE_ERROR, 'error');
-                $check = 1;
+                $data_ok = false;
             }
         }
   
         // catch nasty characters
-        if (preg_match("|\+|", $data['imgBase'])) {
-            $data['imgBase'] = str_replace("\+", "-", $data['imgBase']);
-            $messageStack->add( TEXT_MSG_AUTO_REPLACE .$data['imgBase'], 'warning' );
+        if (strpos($data['imgBase'], '+') !== false) {
+            $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
+            $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
         }
   
-        if ( $_POST['imgNewBaseDir'] != '') {
+        if (isset($_POST['imgNewBaseDir']) && $_POST['imgNewBaseDir'] != '') {
             $data['imgBaseDir'] = $_POST['imgNewBaseDir'];
-        } else {
+        } elseif (isset($_POST['imgBaseDir'])) {
             $data['imgBaseDir'] = $_POST['imgBaseDir'];
+        } else {
+            $data['imgBaseDir'] = $_GET['imgBaseDir'];
         }
   
-        $data['imgSuffix'] = "";
+        $data['imgSuffix'] = '';
 
+/*
         if ($_POST['imgNaming'] == 'new_copy') {
             // need to copy/rename additional images for new default image
             // this will be implemented in a future release
-        }    
-  
-    } elseif (isset($_GET['imgEdit']) && $_GET['imgEdit'] == 1) {
+        }
+*/
+    // -----
+    // Otherwise, if we're editing an additional product image ...
+    //
+    } elseif ($editing) {
         $data['imgBaseDir'] = $_GET['imgBaseDir'];
         $data['imgBase'] = $_GET['imgBase'];
-        //$data['imgExtension'] = $_GET['imgExtension'];
         $data['imgSuffix'] = $_GET['imgSuffix'];
+    // -----
+    // Otherwise, we're adding an additional product image ...
+    //
     } else {
         // An additional image is being added
         $data['imgBaseDir'] = $_GET['imgBaseDir'];
         $data['imgBase'] = $_GET['imgBase'];
-        //$data['imgExtension'] = $_GET['imgExtension'];
         
         // Image Suffix (if set)
         if ($_POST['imgSuffix'] != '') {
-            $data['imgSuffix'] = '_'.$_POST['imgSuffix'];
-        } else { 
-            // get directory list
-            $array = array();
-            $ih_admin->findAdditionalImages($array, DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'], 
-            $data['imgExtension'], $data['imgBase'] );
-            echo "<!--  point 1".$data['imgExtension']."-->";
-            $c = sizeof( $array );
-            if ($c > 1) {
-                sort($array);
-            }
-    
-            // calculate the next suffix
-            // (This is lame, unscalable, and inefficient, but effective)
-            $suffix = 1;
-            $m = 0;
-            while ($m != 1) {
-                if ($suffix < 10) {
-                    $suffixStr = "0".$suffix;
-                } else { 
-                    $suffixStr = $suffix;
+            $data['imgSuffix'] = '_' . $_POST['imgSuffix'];
+        } else {
+            // -----
+            // Get additional images' list; the class function takes care of sorting the files
+            //
+            $matching_files = array();
+            $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgExtension'], $data['imgBase']);
+            
+            // -----
+            // If no additional images exist, use the _01 suffix.
+            //
+            if ($file_count == 1) {
+                $data['imgSuffix'] = '_01';
+            } else {
+                // -----
+                // Otherwise, find the first unused suffix in the range _01 to _99.  Note that the first
+                // (ignored) element of the find-array "should be" the main image's name!
+                //
+                for ($suffix = 1, $found = false; $suffix < 99; $suffix++) {
+                    $suffix_string = sprintf('_%02u', $suffix);
+                    if (!in_array($data['imgBase'] . $suffix_string . $data['imgExtension'])) {
+                        $found = true;
+                        $data['imgSuffix'] = $suffix_string;
+                        break;
+                    }
                 }
-      
-                $string = $data['imgBase'] . '_'. $suffixStr . $data['imgExtension'];
-                echo "<!--  point 2".$data['imgExtension']."-->";
-                $n = 0;
-                for ($i=0; $i < $c; $i++) {
-                    if ($array[$i] == $string) {
-                        $n = 1;
-                    } 
-                }
-                if ($n == 1) {
-                    $suffix++;
-                } else {
-                    $data['imgSuffix'] = "_".$suffixStr;
-                    $m = 1; 
+                if (!$found) {
+                    $messageStack->add('Could not find an unused additional-image suffix in the range _01 to _99.', 'error');
+                    $data_ok = false;
                 }
             }
         }
-    } // if newImg
-
+    }
+    
     // determine the filenames 
-    if ($check != 1) {
+    if ($data_ok) {
         // add slash to base dir
-        if (($data['imgBaseDir'] != '') && (!preg_match("|\/$|", $data['imgBaseDir']))) {
-            $data['imgBaseDir'] .= '/'; 
+        if ($data['imgBaseDir'] != '') {
+            if (substr($data['imgBaseDir'], -1) != '/' && substr($data['imgBaseDir'], -1) != '\\') {
+                $data['imgBaseDir'] .= '/';
+            }
         }
         $data['defaultFileName'] = $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . $data['imgExtension'];
 
         // Check if the file already exists
-        if (isset($_GET['imgEdit']) && $_GET['imgEdit'] != 1 && file_exists(DIR_FS_CATALOG . DIR_WS_IMAGES . $data['defaultFileName'])) {
-            $messageStack->add( TEXT_MSG_FILE_EXISTS, 'error' );
-            $check = 1;
+        if ($editing && file_exists(DIR_FS_CATALOG . DIR_WS_IMAGES . $data['defaultFileName'])) {
+            $messageStack->add(TEXT_MSG_FILE_EXISTS, 'error' );
+            $data_ok = false;
         }
     }
 
-    // Update the database
-    if ($check != 1 && isset($_GET['newImg']) && $_GET['newImg'] == 1 || (isset($_GET['imgEdit']) && $_GET['imgEdit'] == 1 && $_GET['imgSuffix'] ==  '' && $_POST['imgNaming'] != 'keep_name' && $_FILES['default_image']['name'] != '')) {
-        // update the database
-        $sql = 
-            "UPDATE " . TABLE_PRODUCTS . " 
-                SET products_image = '" . $data['defaultFileName'] . "' 
-              WHERE products_id = " . (int)$products_filter . "
-              LIMIT 1";
-        if (!$db->Execute($sql)) {
-            $messageStack->add(TEXT_MSG_INVALID_SQL, "error");
-            $check = 1;
+    // -----
+    // If no previous errors and we're either (a) creating a new main-image or (b) editing the main-image and a new name
+    // is requested ...
+    //
+    if ($data_ok && $new_image || ($editing && $main_image && !$keep_name && $_FILES['default_image']['name'] != '')) {
+        // -----
+        // ... first, check to see that the image's name is going to fit into the database field.
+        //
+        if (strlen($data['defaultFileName']) > zen_field_length(TABLE_PRODUCTS, 'products_image')) {
+            $messageStack->add(sprintf(TEXT_MSG_NAME_TOO_LONG_ERROR, $data['defaultFileName'], zen_field_length(TABLE_PRODUCTS, 'products_image')), 'error');
+            $data_ok = false;
+        } else {
+            // update the database
+            $sql = 
+                "UPDATE " . TABLE_PRODUCTS . " 
+                    SET products_image = '" . $data['defaultFileName'] . "' 
+                  WHERE products_id = " . (int)$products_filter . "
+                  LIMIT 1";
+            if (!$db->Execute($sql)) {
+                $messageStack->add(TEXT_MSG_INVALID_SQL, "error");
+                $data_ok = false;
+            }
         }
     }
 
-    if ($check != 1) {
+    if ($data_ok) {
         // check for destination directory and create, if they don't exist!
         // Then move uploaded file to its new destination
 
@@ -212,16 +257,16 @@ This basically converts the extension of the uploaded file to match the main ima
             $destination_name = DIR_FS_CATALOG_IMAGES . $data['defaultFileName'];
             if (!move_uploaded_file($source_name, $destination_name)) {
                 $messageStack->add(TEXT_MSG_NOUPLOAD_DEFAULT, "error" );
-                $check = 1;
+                $data_ok = false;
             }
-        } elseif ($_FILES['default_image']['name'] == '' && !isset($_GET['imgEdit'])) {
+        } elseif ($_FILES['default_image']['name'] == '' && !$editing) {
             // Nigel Hack for special idiots  
             io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['defaultFileName']);
             $source_name = $_FILES['default_image']['tmp_name'];
             $destination_name = DIR_FS_CATALOG_IMAGES . $data['defaultFileName'];
             if (!move_uploaded_file($source_name, $destination_name) ) {
                 $messageStack->add( 'you must select a default image', "error" );
-                $check = 1;
+                $data_ok = false;
                 $_FILES['medium_image']['name'] = $_FILES['large_image']['name'] = '';
             }
         }  // End special idiots hack
@@ -234,7 +279,7 @@ This basically converts the extension of the uploaded file to match the main ima
             $destination_name = DIR_FS_CATALOG_IMAGES . $data['mediumFileName'];
             if (!move_uploaded_file($source_name, $destination_name)) {
                 $messageStack->add( TEXT_MSG_NOUPLOAD_MEDIUM, "error" );
-                $check = 1;
+                $data_ok = false;
             }
         }
         // large image
@@ -246,24 +291,23 @@ This basically converts the extension of the uploaded file to match the main ima
             $destination_name = DIR_FS_CATALOG_IMAGES . $data['largeFileName'];
             if (!move_uploaded_file($source_name, $destination_name)) {
                 $messageStack->add( TEXT_MSG_NOUPLOAD_LARGE, "error" );
-                $check = 1;
+                $data_ok = false;
             }
         }  
     }
 
-    if ($check == 1) {
-        if ($_GET['imgEdit'] == 1) {
+    if (!$data_ok) {
+        if ($editing) {
             $action = "layout_edit";
         } else {
             $action = "layout_new";
         }
-        $repeat_check = 1;
     } else {
         // Data has been saved
         // show the new image information
         $messageStack->add(TEXT_MSG_IMAGE_SAVED, 'success');
         // we might need to clear the cache if filenames are kept
-        if (isset($_GET['imgEdit']) && $_GET['imgEdit'] == 1) {
+        if ($editing) {
             $error = bmz_clear_cache();
             if (!$error) {
                 $messageStack->add(IH_CACHE_CLEARED, 'success');

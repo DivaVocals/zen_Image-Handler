@@ -81,7 +81,7 @@ define('TEXT_MSG_AUTO_BASE_ERROR', 'Automatic base select without default file.'
 define('TEXT_MSG_INVALID_BASE_ERROR', 'Invalid image base name, or unable to find default image.');
 define('TEXT_MSG_AUTO_REPLACE',  'Automatically replacing bad characters in base name, new name: ');
 define('TEXT_MSG_INVALID_SUFFIX', 'Invalid image suffix.');
-define('TEXT_MSG_IMAGE_TYPES_NOT_SAME_ERROR', 'Image types are not the same.');
+define('TEXT_MSG_IMAGE_TYPES_NOT_SAME_ERROR', 'Image types are not the same; image <b>not</b> uploaded.');
 define('TEXT_MSG_DEFAULT_REQUIRED_FOR_RESIZE', 'A default image is required for automatic resizing.');
 define('TEXT_MSG_NO_DEFAULT', 'No default image has been specified.');
 define('TEXT_MSG_FILE_EXISTS', 'File exists! Please alter the base name or suffix.');
@@ -92,6 +92,7 @@ define('TEXT_MSG_NOCREATE_LARGE_IMAGE_DIR', "Unable to create large image direct
 define('TEXT_MSG_NOPERMS_IMAGE_DIR', "Unable to set the permissions of the image directory.");
 define('TEXT_MSG_NOPERMS_MEDIUM_IMAGE_DIR', "Unable to set the permissions of the medium image directory.");
 define('TEXT_MSG_NOPERMS_LARGE_IMAGE_DIR', "Unable to set the permissions of the large image directory.");
+define('TEXT_MSG_NAME_TOO_LONG_ERROR', 'The image file "%1$s" is too long to be saved in the database.  Choose a name that is %2$u characters or fewer.');
 
 define('TEXT_MSG_NOUPLOAD_DEFAULT', "Unable to upload default image file.");
 define('TEXT_MSG_NORESIZE', "Unable to resize image");
