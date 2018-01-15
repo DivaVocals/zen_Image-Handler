@@ -265,7 +265,7 @@ if (count($ih_admin_actions) > 0) {
             // -----
             // Include the "uninstall" page in the menu only if the admin is currently authorized.
             //
-            if (check_page(FILENAME_IMAGE_HANDLER_UNINSTALL)) {
+            if (check_page(FILENAME_IMAGE_HANDLER_UNINSTALL, '')) {
                 echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
             }
         } else {
