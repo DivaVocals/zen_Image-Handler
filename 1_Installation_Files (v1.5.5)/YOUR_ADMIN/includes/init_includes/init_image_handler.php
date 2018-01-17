@@ -1,13 +1,13 @@
 <?php 
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.0.1-beta2');
+define('IH_CURRENT_VERSION', '5.0.1-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -30,7 +30,10 @@ if (isset($_SESSION['admin_id'])) {
     // ----
     // Perform the plugin's initial install, if not currently present.
     //
-    if (!defined('IH_VERSION')) {
+    // Note that since the IH-4 uninstall procedure fails to remove the 'IH_VERSION' definition, we're
+    // using the 'IH_RESIZE' value as a change-trigger rather than 'IH_VERSION'!
+    //
+    if (!defined('IH_RESIZE')) {
         // -----
         // Create the "base" configuration items for Image Handler's initial installation.
         //
@@ -195,8 +198,12 @@ if (isset($_SESSION['admin_id'])) {
                 }
                 $set_function = "'zen_cfg_select_option(array(" . substr($value_string, 0, -1) . "),'";
             }
+            // -----
+            // Using 'INSERT IGNORE' here, just in case some other configuration values were
+            // previously set.
+            //
             $db->Execute(
-                "INSERT INTO " . TABLE_CONFIGURATION . "
+                "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                     (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
                  VALUES
                     ('$config_title', '$config_key', '$config_default', '$config_descr', $cgi, $sort_order, now(), NULL, $set_function)"
@@ -204,15 +211,16 @@ if (isset($_SESSION['admin_id'])) {
         }
         
         // -----
-        // Create a configuration item that will display the plugin's current version.
+        // Create a configuration item that will display the plugin's current version.  Using 'INSERT IGNORE'
+        // here, just in case this configuration value already exists.
         //
         $db->Execute(
-            "INSERT INTO " . TABLE_CONFIGURATION . "
+            "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
              VALUES
                 ('IH version', 'IH_VERSION', '" . IH_CURRENT_VERSION . "', 'Displays the currently-installed version of <em>Image Handler</em>.', $cgi, 1000, now(), NULL, 'trim(')"
         );
-        define ('IH_VERSION', '0.0.0');
+        define('IH_VERSION', '0.0.0');
         
         // -----
         // Remove "legacy" Image Handler configuration items.
@@ -233,7 +241,9 @@ if (isset($_SESSION['admin_id'])) {
         // -----
         // Register the Image Handler tool within the Zen Cart admin menus.
         //
-        zen_register_admin_page('configImageHandler4', 'BOX_TOOLS_IMAGE_HANDLER', 'FILENAME_IMAGE_HANDLER', '', 'tools', 'Y', 14);
+        if (!zen_page_key_exists('configImageHandler4')) {
+            zen_register_admin_page('configImageHandler4', 'BOX_TOOLS_IMAGE_HANDLER', 'FILENAME_IMAGE_HANDLER', '', 'tools', 'Y', 14);
+        }
     }
 
     // -----
