@@ -9,21 +9,12 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by webchills and cjones 2012-03-10 17:46:50 
+ * Last modified by lat9 2018-01-17
  */
 define('ICON_IMAGE_HANDLER', 'Image Handler ' . IH_VERSION);
 define('IH_VERSION_VERSION', 'Version');
 define('IH_VERSION_NOT_FOUND', 'No Image Handler information found.');
 define('IH_REMOVE', 'Uninstall Image Handler.  (Please backup your site and database first)');
-define('IH_CONFIRM_REMOVE', 'Are you sure? ');
-define('IH_REMOVED', 'Image Handler successfully removed.');
-define('IH_UPDATE', 'Update Image Handler');
-define('IH_UPDATED', 'Image Handler successfully updated.');
-define('IH_INSTALL', 'Install Image Handler');
-define('IH_INSTALLED', 'Image Handler successfully installed.');
-define('IH_SCAN_FOR_ORIGINALS', 'Scan for old IH 0.x and 1.x <em>original</em> images');
-define('IH_CONFIRM_IMPORT', 'Do you really want to import the listed images?<br /><strong>Backup your Database and images folder first!</strong>');
-define('IH_NO_ORIGINALS', 'No old IH 0.x or 1.x original images found');
-define('IH_IMAGES_IMPORTED', 'Successfully imported images.');
 define('IH_CLEAR_CACHE', 'Clear image cache');
 define('IH_CACHE_CLEARED', 'Image cache cleared.');
 
@@ -130,19 +121,3 @@ define('IH_MENU_ADMIN', 'Admin Tools');
 define('IH_MENU_ABOUT', 'About/Help');
 define('IH_MENU_PREVIEW', 'Preview');
 
-// message stack messages
-define('IH_MS_ALL_EXIST','Image Handler files all exist in correct positions in the directory structure.');
-define('IH_MS_ABORTED','********** Installation has been aborted. **********');
-define('IH_MS_SOME_FILES_MISSING','Some Image Handler files do not exist. Perhaps you have uploaded them incorrectly? Or the permissions are set incorrectly?');
-define('IH_MS_TEMPLATE_NOTFOUND','Image Handler is having some problems finding your current template.');
-define('IH_MS_MISSING_OR_UNREADABLE','Missing or unreadable file:');
-define('IH_MS_OVERWRITTEN','was overwritten. A back up copy was saved.');
-define('IH_MS_NOT_OVERWRITTEN','was NOT overwritten.');
-define('IH_MS_CREATED','was created. A back up copy of any overwritten file was saved.');
-define('IH_MS_NOT_CREATED','was NOT created.');
-define('IH_MS_SUCCESS','Image Handler has been successfully installed');
-define('IH_MS_ROLLBACK_OK','was returned to default version.');
-define('IH_MS_ROLLBACK_NOT_OK','was NOT rolled back.');
-define('IH_MS_UNINSTALL_OK','Image Handler has been uninstalled.');
-define('IH_MS_BACKUP_INFO','Image Handler creates back up versions of certain files when it is installed before overwriting them. These files have been left in position for reference. They may be deleted but will not effect the functioning of the shop if you leave them in place.');
-define('IH_MS_AUTOLOADER_NOTDELETED','The auto-loader YOURADMIN/includes/auto_loaders/config.image_handler.php has not been deleted. For Image Handler to work you must delete this file manually.');
