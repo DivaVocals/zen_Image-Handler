@@ -53,41 +53,6 @@ if ($ih_page == 'manager') {
     require 'includes/ih_manager.php';
 }
 
-  
-if ($action == 'ih_import_images') {
-    $files = $ih_admin->getImportInfo();
-    $previous_image = '';
-    $imageroot = $ihConf['dir']['docroot'] . $ihConf['dir']['images'];
-    if (count($files) > 0) {
-        for ($i = 0; $i < count($files); $i++) {
-            // Remove destination file if it's there
-            @unlink($imageroot . $files[$i]['target']);
-            if (rename($imageroot . $files[$i]['original'], $imageroot . $files[$i]['target'])) {
-                // Update database
-                if ($files[$i]['target'] != $files[$i]['source']) {
-                    $db->Execute(
-                        "UPDATE " . TABLE_PRODUCTS . " 
-                            SET products_image = '" . $files[$i]['target'] . "' 
-                          WHERE products_image = '" . $files[$i]['source'] . "'"
-                    );
-                }
-                @unlink($imageroot . $files[$i]['source']);
-                $messageStack->add(TEXT_MSG_IMPORT_SUCCESS . $files[$i]['original'] . ' => ' . $files[$i]['target'], 'success');
-            } else {
-                $messageStack->add(TEXT_MSG_IMPORT_FAILURE . $files[$i]['original'] . ' => ' . $files[$i]['target'], 'error');
-            }
-        }
-        $messageStack->add(IH_IMAGES_IMPORTED, 'success');
-    }
-}
-
-if ($action == 'ih_scan_originals') {
-    $import_info = $ih_admin->getImportInfo();
-    if (count($import_info) <= 0) {
-        $messageStack->add(IH_NO_ORIGINALS, 'caution');
-    }
-}  
-
 if ($action == 'ih_clear_cache') {
     $error = bmz_clear_cache();
     if (!$error) {
@@ -241,21 +206,6 @@ $ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : 'manager';
 if ($ih_page == 'admin') {
     $ih_admin_actions['ih_uninstall'] = IH_REMOVE;
     $ih_admin_actions['ih_clear_cache'] = IH_CLEAR_CACHE;
-    $ih_admin_actions['ih_scan_originals'] = IH_SCAN_FOR_ORIGINALS;
-}
-
-if ($action == 'ih_scan_originals') {
-    if (count($import_info) > 0) {
-        echo zen_draw_form('import_form', FILENAME_IMAGE_HANDLER, '', 'get') . zen_draw_hidden_field('action', 'ih_import_images');
-        echo IH_CONFIRM_IMPORT . '<br />';
-        echo zen_image_submit('button_confirm.gif', IMAGE_CONFIRM) . '<br /><br />';
-        for ($i = 0; $i < count($import_info); $i++) {
-            echo "#$i: " . $import_info[$i]['original'] . ' => ' . $import_info[$i]['target'] . '<br /><br />';
-        }
-        echo '<br /><br />' . IH_CONFIRM_IMPORT . '<br />';
-        echo zen_image_submit('button_confirm.gif', IMAGE_CONFIRM) . '<br />'; 
-        echo '</form>';
-    }
 }
 
 if (count($ih_admin_actions) > 0) {

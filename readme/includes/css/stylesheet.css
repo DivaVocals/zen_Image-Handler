@@ -229,7 +229,7 @@ color: white;
 #slidetabsmenu a span {float:none;}
 /* End IE5-Mac hack */
 
-#slidetabsmenu a:hover span {
+#slidetabsmenu a:hover span, .red {
 color: red;
 }
 
@@ -312,3 +312,4 @@ hr {
 #files-list { border: 1px solid #444; border-collapse: collapse; }
 #files-list tr:nth-of-type(odd) { background-color:#eee; }
 #files-list td, #files-list th { background-color: inherit; padding: 5px; border: 1px solid #444; }
+#files-list tr td:last-child { font-size: smaller; width: 25%; }

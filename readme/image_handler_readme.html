@@ -18,1133 +18,1104 @@
 </head>
 <body>
 <div id="wrapper">
-<h2>Image Handler<sup>5</sup> for Zen Cart versions 1.5.5 and later</h2>
+    <h2>Image Handler<sup>5</sup> for Zen Cart versions 1.5.5 and later</h2>
 
+    <p>Support thread: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
 
-<p>Support thread: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
-
-<div id="slidetabsmenu" style="display: none;">
-<ul>
-  <li> <a onClick="expandcontent('sc1', this)" href="javascript:void(0)"><span>Purpose &amp; Aim</span></a></li>
-  <li> <a onClick="expandcontent('sc2', this)" href="javascript:void(0)"><span>Install/Uninstall</span></a></li>
-  <li> <a onClick="expandcontent('sc3', this)" href="javascript:void(0)"><span>Configuration</span></a></li>
-  <li> <a onClick="expandcontent('sc4', this)" href="javascript:void(0)"><span>Usage</span></a></li>
-  <li> <a onClick="expandcontent('sc5', this)" href="javascript:void(0)"><span>Credits &amp; History</span></a></li>
-  <li> <a onClick="expandcontent('sc6', this)" href="javascript:void(0)"><span>Troubleshooting</span></a></li>
-  <li> <a onClick="expandcontent('sc7', this)" href="javascript:void(0)"><span>Files</span></a></li>
-  <li> <a onClick="expandcontent('sc8', this)" href="javascript:void(0)"><span>Misc</span></a></li>
-  <li> <a onClick="expandcontent('sc9', this)" href="javascript:void(0)"><span>License</span></a></li>
-</ul>
-</div>
-<br style="clear: both;">
+    <div id="slidetabsmenu" style="display: none;">
+        <ul>
+            <li><a onclick="expandcontent('sc1', this)" href="javascript:void(0)"><span>Purpose &amp; Aim</span></a></li>
+            <li><a onclick="expandcontent('sc2', this)" href="javascript:void(0)"><span>Install/Uninstall</span></a></li>
+            <li><a onclick="expandcontent('sc3', this)" href="javascript:void(0)"><span>Configuration</span></a></li>
+            <li><a onclick="expandcontent('sc4', this)" href="javascript:void(0)"><span>Usage</span></a></li>
+            <li><a onclick="expandcontent('sc5', this)" href="javascript:void(0)"><span>Credits &amp; History</span></a></li>
+            <li><a onclick="expandcontent('sc6', this)" href="javascript:void(0)"><span>Troubleshooting</span></a></li>
+            <li><a onclick="expandcontent('sc7', this)" href="javascript:void(0)"><span>Files</span></a></li>
+            <li><a onclick="expandcontent('sc8', this)" href="javascript:void(0)"><span>Misc</span></a></li>
+            <li><a onclick="expandcontent('sc9', this)" href="javascript:void(0)"><span>License</span></a></li>
+        </ul>
+    </div>
+    <br style="clear: both;">
 
 <!--Begin tabcontainer-->
-<div id="tabcontentcontainer">
+    <div id="tabcontentcontainer">
 
 <!--Begin sc1-->
-<div class="tabcontent" id="sc1" style="display: block;">
-<div class="textcontent">
-<div class="regularlist">
+        <div class="tabcontent" id="sc1" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
+                    <h3>PURPOSE &amp; AIM</h3>
 
-<h3>PURPOSE &amp; AIM</h3>
+                    <p>Image Handler<sup>5</sup> (<em>IH</em><sup>5</sup>) simplifies the management of product images (particularly <em>additional</em> product images) and helps to improve page performance by optimizing those images.  Product images (based on your image settings) are created in the Image Handler<sup>5</sup> <code>bmz_cache</code> directory. The original images are <b>not</b> modified, so it's <em>perfectly</em> safe to use on an existing store.</p>
+                    <p>Image Handler<sup>5</sup> enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on the fly as they're required. You can simply upload just one image or you can have different sources for medium and large images. Image Handler<sup>5</sup> further enables you to watermark your images (overlay a second specific translucent image) and have medium or large images pop up when you move your mouse over a small image (fancy hover).</p>
+                    <p> This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via <acronym title="File Transfer Protocol">FTP</acronym>. IH<sup>5</sup> works fine with mass update utilities like <em>EZ-Populate</em> and the <em>Database I/O Manager (DbIo)</em>.</p>
 
-<p>Image Handler<sup>5</sup> at the heart of its code is really meant to ease the management of product images (particularly the management of additional product images), and to help improve page performance by
-  optimizing the product images.</p>
-<p>Image Handler<sup>5</sup> generates product images (based on your image settings) in the Image Handler<sup>5</sup> bmz_cache folder. It <strong>does not</strong> replace or modify the original images. So it's <em>perfectly</em> safe to use on an existing store.</p>
-<p>Image Handler<sup>5</sup> enables you to use GD libraries or ImageMagick (if   installed on your server) to generate and resize small, medium and large images on the fly on page request. You can simply upload just one image or you can have different sources for medium and large images. Image Handler<sup>5</sup> further enables you to watermark your images (overlay a second specific translucent image) and have medium or large images pop up when you move your mouse over a small image (fancy hover).</p>
-<p> This contribution includes a powerful admin interface to browse your   products just like you would with the Attribute Manager and upload /   delete / add additional images without having to do this manually via <acronym title="File Transfer Protocol">FTP</acronym>. Image Handler<sup>5</sup> works fine with mass update utilities like <em>EZ-Populate</em> and the <em>Database I/O Manager (DbIo)</em>.</p>
+                    <h3>Features</h3>
+                    <ul>
+                        <li>Improve site performance (faster loading, faster display)</li>
+                        <li>Professional looking images (no stair-effects, smooth edges)</li>
+                        <li>Choose preferred image-types for each image size</li>
+                        <li>Uploading one image automatically creates small, medium and large images on page request</li>
+                        <li>Drops in and out seamlessly. No need to redo your images. All original images are retained.</li>
+                        <li>Easy install. Built in auto-installer creates the database elements required.</li>
+                        <li>Works with mass-update/upload tools like EZ-Populate and DbIo.</li>
+                        <li>Watermark images to prevent competitors from stealing them.</li>
+                        <li>Fancy image hover functionality lets a larger image pop up whenever you move your mouse above a small image (optional).</li>
+                        <li>Choose an image background color matching to match you site's color or select a transparent background for your images.</li>
+                        <li>Manage your multiple images for products easily from one page just like you do with attributes in the Products Attribute Manager.</li>
+                    </ul> 
 
-<h3>Features</h3>
-<ul>
-  <li>Improve site performance (faster loading, faster display)</li>
-  <li>Professional looking images (no stair-effects, smooth edges)</li>
-  <li>Choose preferred image-types for each image size</li>
-  <li>Uploading one image automatically creates small, medium and large images on page request</li>
-  <li>Drops in and out seamlessly. No need to redo your images. All original images are retained.</li>
-  <li>Easy install. Built in auto-installer creates the database elements required.</li>
-  <li>Works with mass-update/upload tools like EZ-Populate and DbIo.</li>
-  <li>Watermark images to prevent competitors from stealing them.</li>
-  <li>Fancy image hover functionality lets a larger image pop up whenever you move your mouse above a small image (optional).</li>
-  <li>Choose an image background color matching to match you site's color or select a transparent background for your images.</li>
-  <li>Manage your multiple images for products easily from one page just like you do with attributes in the Products Attribute Manager.</li>
-</ul> 
+                    <p><em>IH</em><sup>5</sup> works <em>with</em> default Zen Cart functionality, it does not replace it. There are a couple of threads which explain what Image Handler <b>is</b> and more importantly what it <b>is not</b>. It is suggested that you read everything before you install <em>IH</em><sup>5</sup>. Here are some additional FAQs which discuss how product images and the override system work in Zen Cart. It is strongly suggested that if you are new to Zen Cart and web development that you read these threads <b>before</b> you install Image Handler<sup>5</sup>.</p>
+                    <p><a href="http://www.zen-cart.com/forum/showpost.php?p=978439&amp;postcount=6205" target="_blank">https://www.zen-cart.com/forum/showpost.php?p=978439&amp;postcount=6205</a></p>
+                    <p><a href="http://www.zen-cart.com/forum/showpost.php?p=989297&amp;postcount=6360" target="_blank">https://www.zen-cart.com/forum/showpost.php?p=989297&amp;postcount=6360</a></p>
+                    <p>&nbsp;</p>
 
-<p>Image Handler<sup>5</sup> is meant to ease the work required to setup images for your store. It works <em>with</em> default Zen Cart functionality, it does not replace it. There are a couple of threads which explain what Image Handler <b>is</b> and more importantly what it <b>is not</b>. It is suggested that you read everything before you install Image Handler<sup>5</sup>. Here's some additional FAQs which discuss how product images and the override system work in Zen Cart. It is strongly suggested that if you are NEW to Zen Cart and web development that you read these threads <b>before</b> you install Image Handler<sup>5</sup>.</p>
-<p><a href="http://www.zen-cart.com/forum/showpost.php?p=978439&amp;postcount=6205" target="_blank">https://www.zen-cart.com/forum/showpost.php?p=978439&amp;postcount=6205</a></p>
-<p><a href="http://www.zen-cart.com/forum/showpost.php?p=989297&amp;postcount=6360" target="_blank">https://www.zen-cart.com/forum/showpost.php?p=989297&amp;postcount=6360</a></p>
-<p>&nbsp;</p>
+                    <p><strong>!!READ EVERYTHING!!</strong></p>
 
+                    <p>After following the installation instructions, it is very strongly recommended that you read through the entire <strong>Configuration</strong> and <strong>Usage</strong> sections of this readme. There you will find out exactly what <strong>Image Handler<sup>5</sup></strong> can do.</p>
 
-<p><strong>!!READ EVERYTHING!!</strong></p>
-
-<p>After following the installation instructions, it is very strongly recommended that you read through the ENTIRE "<strong>Configuration</strong>" &amp; "<strong>Usage</strong>" sections of this readme. There you will find out exactly what <strong>Image Handler<sup>5</sup></strong> can do.</p>
-
-<p>Ready to get started? Just follow the installation instructions.</p>
-<!--
-<p>Any questions, just hit the forums: <a href="http://www.zen-cart.com/forum/showthread.php?t=35913" target="_blank">http://www.zen-cart.com/forum/showthread.php?t=35913</a></p>
--->
-
-</div>
-</div>
-</div>
+                    <p>Ready to get started? Just follow the installation instructions.</p>
+                </div>
+            </div>
+        </div>
 <!--End sc1-->
 
 <!--Begin sc2-->
-<div class="tabcontent" id="sc2" style="display: block;">
-  <div class="textcontent">
-    <div class="regularlist">
+        <div class="tabcontent" id="sc2" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
+                    <h3>INSTALLATION</h3>
+                    <fieldset>
+                        <legend>Backup</legend>
+                        <p><b>Before installing</b>, make sure that you have backed-up your database and file-system.  You are strongly encouraged to read <b>all</b> the tabs in this readme <em>before installing</em>; then follow the installation or upgrade instructions, as appropriate.</p>
+                        <p>Two sets of installation instructions have been provided - one for advanced users and one for those who are new to Zen Cart and/or Image Handler<sup>5</sup>. Please use which ever set you feel most comfortable with.</p>
+                        <p class="boldemphasis">In both cases, the installation process for Image Handler<sup>5</sup> is <u>completely</u> different than that of previous versions. Be sure to read the installation instructions before you begin.</p>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Requirements</legend>
+                        <ul>
+                            <li>Zen Cart v1.5.5 or later (not backwards compatible with older versions of Zen Cart).</li>
+                            <li><strong>Either</strong> GD libraries version 2 or greater, <strong>or</strong> ImageMagick version 6 or greater.</li>
+                            <li>If you are using Fual Slimbox or ColorBox for Zen Cart with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
+                        </ul>
 
-      <h3>INSTALLATION</h3>
-      <p><strong>!!!!!BACKUP YOUR STORE BEFORE YOU BEGIN!!!!!</strong></p>
-      <p><b>Before installing</b>, you are strongly encouraged to <b>read all of the tabs</b> in this readme file, then follow the installation or upgrade instructions, as appropriate.</p>
+                        <p>In order to resize and modify images, Image Handler<sup>5</sup> needs either GD libraries or ImageMagick installed. You can check if your version of PHP includes the GD libraries by going to <em>Admin &gt; Tools &gt; Server Info</em> and searching for GD. You have to ask your host (or read your site's documentation) to learn about an ImageMagick installation.</p> 
+                        <p><strong>If you want to render GIF images, you need to have GD libraries version 2.0.28 or newer installed.</strong></p>
+                    </fieldset>
 
-      <h3>BEFORE YOU POST A QUESTION ON THE FORUM - read through this readme again as needed</h3>
-      <p>Two sets of installation instructions have been provided - one for advanced users and one for those who are new to Zen Cart and/or Image Handler<sup>5</sup>. Please use which ever set you feel most comfortable with.</p>
-      <p class="boldemphasis">In both cases, the installation process for Image Handler<sup>5</sup> is <u>completely</u> different than that of previous versions. Be sure to read the installation instructions before you begin.</p>
-      <fieldset>
-        <legend>Requirements</legend>
-        <ul>
-          <li>Zen Cart v1.5.5 or later (not backwards compatible with older versions of Zen Cart).</li>
-          <li><strong>Either</strong> GD libraries version 2 or greater, <strong>or</strong> ImageMagick version 6 or greater.</li>
-          <li>If you are using Fual Slimbox or ColorBox for Zen Cart with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
-        </ul>
+                    <hr />
 
-        <p>In order to resize and modify images, Image Handler<sup>5</sup> needs either GD libraries or ImageMagick installed. You can check if your version of PHP includes the GD libraries by going to <em>Admin &gt; Tools &gt; Server Info</em> and searching for GD. You have to ask your host (or read your site's documentation) to learn about an ImageMagick installation.</p> 
-        <p><strong>If you want to render GIF images, you need to have GD libraries version 2.0.28 or newer installed.</strong></p>
-      </fieldset>
+                    <fieldset>
+                        <legend>Before You Install &hellip; </legend>
+                        <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites, but there are two (2) template-override files required:</p>
+                        <ol>
+                            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php <span class="smaller">(4 marked change-sections)</span></li>
+                            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php <span class="smaller">(3 marked change-sections)</span></li>
+                        </ol>
+                        <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart distribution, starting with v1.5.6!</p>
+                        <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
 
-      <hr />
+                        <p>The <em>IH<sup>5</sup></em> installation provides updates (refer to the <b>Misc</b> tab for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
 
-      <fieldset>
-        <legend>BEFORE YOU INSTALL READ THIS!!!</legend>
-        <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites, but there are two (2) template-override files required:</p>
-        <ol>
-          <li>/includes/modules/YOUR_TEMPLATE/additional_images.php <span class="smaller">(4 marked change-sections)</span></li>
-          <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php <span class="smaller">(3 marked change-sections)</span></li>
-        </ol>
-        <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart distribution, starting with v1.5.6!</p>
-        <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
+                        <p>What all that techno-babble means for your <em>IH<sup>5</sup></em> installation (or upgrade!) is that there are two installation routes, dependent on whether you use a large-image viewer and, if so, which one &hellip;</p>
 
-        <p>The <em>IH<sup>5</sup></em> installation provides updates (refer to the <b>Misc</b> tab for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
+                        <p>Regardless the route you choose, I <strong>highly</strong> recommend an initial installation on a development version of your site. If you are serious about running your store it is always worth having a second version of the store so that you can experiment on that first. I know that this seems like a lot of work but it really is worth it and does not actually take that much time.</p>
 
-        <p>What all that techno-babble means for your <em>IH<sup>5</sup></em> installation (or upgrade!) is that there are two installation routes, dependent on whether you use a large-image viewer and, if so, which one &hellip;</p>
+                        <h2>Route 1</h2>
+                        <p class="boldemphasis">This route works for <em>IH<sup>5</sup></em> installation/upgrade into stores that have either no modifications or only <em>Fual Slimbox</em> or <em>ColorBox</em> changes to those two template-override files.</p>
 
-        <p>Regardless the route you choose, I <strong>highly</strong> recommend an initial installation on a development version of your site. If you are serious about running your store it is always worth having a second version of the store so that you can experiment on that first. I know that this seems like a lot of work but it really is worth it and does not actually take that much time.</p>
+                        <p>Just install or upgrade Image Handler<sup>5</sup> &mdash; see below &mdash; and it will work. If your admin is in a language other than english then read further down for additional instructions.</p>
 
-        <h2>Route 1</h2>
-        <p class="boldemphasis">This route works for <em>IH<sup>5</sup></em> installation/upgrade into stores that have either no modifications or only <em>Fual Slimbox</em> or <em>ColorBox</em> changes to those two template-override files.</p>
+                        <h2>Route 2</h2>
+                        <p class="boldemphasis">This route works for stores that have additional changes (i.e. another large-image viewer) or if you are unsure of the changes to those two template-override modules.</p>
 
-        <p>Just install or upgrade Image Handler<sup>5</sup> &mdash; see below &mdash; and it will work. If your admin is in a language other than english then read further down for additional instructions.</p>
+                        <p>Review the installation instructions below.  Once you have unzipped the <em>IH<sup>5</sup></em> package, use a file-comparison program (like WinMerge or Beyond Compare) to merge the template-override changes required by <em>IH<sup>5</sup></em> with your template's pre-existing changes.</p>
+                    </fieldset>
 
-        <h2>Route 2</h2>
-        <p class="boldemphasis">This route works for stores that have additional changes (i.e. another large-image viewer) or if you are unsure of the changes to those two template-override modules.</p>
+                    <hr />
 
-        <p>Review the installation instructions below.  Once you have unzipped the <em>IH<sup>5</sup></em> package, use a file-comparison program (like WinMerge or Beyond Compare) to merge the template-override changes required by <em>IH<sup>5</sup></em> with your template's pre-existing changes.</p>
-      </fieldset>
+                    <fieldset>
+                        <legend>Installation/Upgrade Instructions</legend>
+                        <ol>    
+                            <li>BACK UP your database &amp; store.</li>
+                            <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
+                            <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
+                            <li>Unzip the Image Handler<sup>5</sup> package to your local hard drive, retaining the directory structure.</li>
+                            <li>Within the <code>1_Installation_Files (v1.5.5)</code> directory:<ol>
+                                <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
+                                <li>Rename the two (2) <code>YOUR_TEMPLATE</code> directories to match the name of your currently-active Zen Cart template:<ol>
+                                    <li><code>/includes/modules/YOUR_TEMPLATE</code></li>
+                                    <li><code>/includes/templates/YOUR_TEMPLATE</code></li>
+                                </ol></li>
+                            </ol></li>
+                            <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
+                            <li>Next, using an FTP program, upload the files from the <code>1_Installation_Files (v1.5.5)</code> directory to your store's web-hosted <em>root</em> directory. <b>Do not</b> upload the <code>1_Installation_Files (v1.5.5)</code> directory, just the <em>contents</em> of this directory.</li>
+                            <li>Return to your store's admin and click on <em>any</em> link. If you followed the instructions above, you will see a message in the message stack at the top of your admin screen confirming a successful install or upgrade.</li>
+                            <li>Navigate to <strong>Admin &gt; Configuration &gt; Images</strong>, set <b>IH resize images</b> to <em>yes</em>.</li>
+                            <li>If you followed all instructions to the letter, you are ready to move on to the <b>Configuration</b> tab of this readme to learn how to modify the default configuration settings.</li>
+                        </ol>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Installation/Upgrade Instructions</legend>
-        <ol>    
-          <li>BACK UP your database &amp; store.</li>
-          <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
-          <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
-          <li>Unzip the Image Handler<sup>5</sup> package to your local hard drive, retaining the directory structure.</li>
-          <li>Within the <code>1_Installation_Files (v1.5.5)</code> directory:<ol>
-            <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
-            <li>Rename the two (2) <code>YOUR_TEMPLATE</code> directories to match the name of your currently-active Zen Cart template:<ol>
-              <li><code>/includes/modules/YOUR_TEMPLATE</code></li>
-              <li><code>/includes/templates/YOUR_TEMPLATE</code></li>
-            </ol></li>
-          </ol></li>
-          <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
-          <li>Next, using an FTP program, upload the files from the <code>1_Installation_Files (v1.5.5)</code> directory to your store's web-hosted <em>root</em> directory. <b>Do not</b> upload the <code>1_Installation_Files (v1.5.5)</code> directory, just the <em>contents</em> of this directory.</li>
-          <li>Return to your store's admin and click on <em>any</em> link. If you followed the instructions above, you will see a message in the message stack at the top of your admin screen confirming a successful install or upgrade.</li>
-          <li>Navigate to <strong>Admin &gt; Configuration &gt; Images</strong>, set <b>IH resize images</b> to <em>yes</em>.</li>
-          <li>If you followed all instructions to the letter, you are ready to move on to the <b>Configuration</b> tab of this readme to learn how to modify the default configuration settings.</li>
-        </ol>
-      </fieldset>
+                    <fieldset>
+                        <legend>Un-Install Instructions</legend>
+                        <p><strong>Note:</strong> <em>IH</em><sup>5</sup>'s uninstall processing is provided as a separate script, so you can use your admin's <b>Admin / Admin Profiles</b> tool to restrict its usage to authorized admin-users.</p>
+                        <ol>    
+                            <li>BACK UP your database and store.</li>
+                            <li>Log into your Zen Cart admin and navigate to <em>Tools &gt; Image Handler<sup>5</sup></em> and:<ul>
+                            <li>Click the &quot;Admin Tools&quot; link at the top of the page.</li>
+                            <li>Click the &quot;Uninstall Image Handler&quot; link at the top of the page.</li>
+                            <li>You'll be presented an <em>Uninstall Image Handler</em> page.  To continue with the uninstall, click the &quot;Go&quot; button; to cancel, click the &quot;Cancel&quot; button.</li>
+                            <li>You'll be presented a confirmation page.  Click &quot;Go&quot; one more time and the uninstall script will remove all files (except for the list below) in the <em>IH<sup>5</sup></em> distribution as well as the changes it makes to the database.</li>
+                            </ul>The following files remain after <em>IH<sup>5</sup></em> is uninstalled:<ol type="a">
+                                <li>/includes/auto_loaders/config.colorbox.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
+                                <li>/includes/auto_loaders/config.fual_slimbox.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
+                                <li>/includes/classes/observers/ColorBoxObserver.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
+                                <li>/includes/classes/observers/FualSlimboxObserver.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
+                                <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+                                <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
+                            </ol></li>
+                        </ol>
+                    </fieldset>
 
-      <hr />
-
-      <fieldset>
-        <legend>Un-Install Instructions</legend>
-        <ol>    
-          <li>BACK UP your database &amp; store.</li>
-          <li>Log into your Zen Cart admin and navigate to <em>Tools &gt; Image Handler<sup>5</sup></em> and:<ul>
-            <li>Click the &quot;Admin Tools&quot; link at the top of the page.</li>
-            <li>Click the &quot;Uninstall Image Handler&quot; link at the top of the page.</li>
-            <li>You'll be presented an <em>Uninstall Image Handler</em> page.  To continue with the uninstall, click the &quot;Go&quot; button; to cancel, click the &quot;Cancel&quot; button.</li>
-            <li>You'll be presented a confirmation page.  Click &quot;Go&quot; one more time and the uninstall script will remove all files (except for the list below) in the <em>IH<sup>5</sup></em> distribution as well as the changes it makes to the database.</li>
-          </ul>The following files remain after <em>IH<sup>5</sup></em> is uninstalled:<ol type="a">
-            <li>/includes/auto_loaders/config.colorbox.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
-            <li>/includes/auto_loaders/config.fual_slimbox.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
-            <li>/includes/classes/observers/ColorBoxObserver.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
-            <li>/includes/classes/observers/FualSlimboxObserver.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
-            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
-            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
-          </ol></li>
-        </ol>
-      </fieldset>
-
-    </div>
-  </div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc2-->
 
 <!--Begin sc3-->
-<div class="tabcontent" id="sc3" style="display: block;">
-  <div class="textcontent">
-    <div class="regularlist">
-      <h3>Admin <em>Configuration &gt; Images</em></h3>
+        <div class="tabcontent" id="sc3" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
+                    <h3>Admin <em>Configuration &gt; Images</em></h3>
 
-      <p>Image Handler<sup>5</sup> works out of the box. There's no need to configure anything if you are ok with the presets. If you want to change the way Image Handler deals with your images go to <strong>Configuration &gt; Images</strong>. </p>
-      <p>If you are using <em>Fual Slimbox</em> or <em>ColorBox for Zen Cart</em> with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab. </p>
-      <p>Image Handler<sup>5</sup> creates images (based on your image settings) in the bmz_cache folder. It <strong>DOES NOT</strong> replace or modify the original images.</p>
-      <p>With Image Handler<sup>5</sup> it is possible to use the Image Handler<sup>5</sup> image manager <em>without</em> using the image caching features. If you choose to install Image Handler<sup>5</sup> and only use the image manager, please note that none of Image Handler<sup>5</sup>image management features will be available (including the image hover features)</p>
+                    <p>Image Handler<sup>5</sup> works out of the box. There's no need to configure anything if you are ok with the presets. If you want to change the way Image Handler deals with your images go to <strong>Configuration &gt; Images</strong>. </p>
+                    <p>If you are using <em>Fual Slimbox</em> or <em>ColorBox for Zen Cart</em> with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab. </p>
+                    <p>Image Handler<sup>5</sup> creates images (based on your image settings) in the bmz_cache folder. It <strong>does not</strong> replace or modify the original images.</p>
+                    <p>With Image Handler<sup>5</sup> it is possible to use the Image Handler<sup>5</sup> image manager <em>without</em> using the image caching features. If you choose to install Image Handler<sup>5</sup> and only use the image manager, please note that none of Image Handler<sup>5</sup>image management features will be available (including the image hover features)</p>
 
-      <fieldset>
-        <legend>Images Configuration page</legend>
+                    <fieldset>
+                        <legend>Images Configuration page</legend>
 
-        <p>Go to <strong>Configuration &gt; Images</strong> page inside your admin interface. </p>
-        <img src="images/imagesConfiguration2.png" alt="Image Handler Settings Added" width="965" height="317" border="3" title="Image Handler Settings Added">
-        <p>You can tweak everything to your liking. The parameters are pretty self explanatory and feature additional descriptions when you select them. These parameters enable you to tweak settings for:</p>
-        <ul>
-          <li>cache-file naming method</li>
-          <li>preferred filetypes</li>
-          <li>compression quality</li>
-          <li>background color</li>
-          <li>watermarking</li>
-          <li>zooming (fancy hover effect)</li>
-          <li>gravity for watermarking</li>
-        </ul>
+                        <p>Go to <strong>Configuration &gt; Images</strong> page inside your admin interface. </p>
+                        <img src="images/imagesConfiguration2.png" alt="Image Handler Settings Added" width="965" height="317" border="3" title="Image Handler Settings Added">
+                        <p>You can tweak everything to your liking. The parameters are pretty self explanatory and feature additional descriptions when you select them. These parameters enable you to tweak settings for:</p>
+                        <ul>
+                            <li>cache-file naming method</li>
+                            <li>preferred filetypes</li>
+                            <li>compression quality</li>
+                            <li>background color</li>
+                            <li>watermarking</li>
+                            <li>zooming (fancy hover effect)</li>
+                            <li>gravity for watermarking</li>
+                        </ul>
 
-        <p>The parameters to <strong>configure image dimensions</strong> have been enhanced to not only accept numerical values, but to accept parameters with an appended "!" which implies a <em>force canvas size</em> mode. Images are resized to fit and placed centered inside the fixed canvas instead of resizing the image to just one of the dimensions if it doesn't feature the same aspect ratio as the settings. That sounds too complicated? Trust me, it isn't. Just see for yourself: Configure a nice colored background and test both values with and without the appended "!". Read more about it in the Image Dimensions section (below).</p>
-      </fieldset>
+                        <p>The parameters to <strong>configure image dimensions</strong> have been enhanced to not only accept numerical values, but to accept parameters with an appended "!" which implies a <em>force canvas size</em> mode. Images are resized to fit and placed centered inside the fixed canvas instead of resizing the image to just one of the dimensions if it doesn't feature the same aspect ratio as the settings. That sounds too complicated? Trust me, it isn't. Just see for yourself: Configure a nice colored background and test both values with and without the appended "!". Read more about it in the Image Dimensions section (below).</p>
+                    </fieldset>
       
-      <hr />
+                    <hr />
       
-      <fieldset>
-        <legend>Cache File-Naming Convention</legend>
-        <p>Starting with <em>IH<sup>5</sup></em>, you can choose the naming convention used for resized files created by the image-handler, one of <em>Hashed</em> or <em>Readable</em>:</p>
-        <fieldset>
-          <legend class="smaller">Hashed</legend>
-          <p>This is the convention used by image-handler versions <em>prior to</em> 4.3.4.  The handler uses an MD5 <em>hash</em> to compress the resized file's original path, name and parameters to produce file names similar to <code>8240eb50da20af3ecec990d3e56099fa.image.50x40.gif</code>.  It can be &quot;very difficult&quot; to determine which original file is associated with that resized file!.</p>
-          <p>If you are currently using an <em>Image Handler</em> version <b>prior to</b> 4.3.4, this naming-convention will be initially configured on your <em>IH</em> upgrade. Some stores use HTML <code>img</code> tags in their category and/or product descriptions that reference an image's &quot;hashed&quot; name and this default is set to ensure that downward compatibility.</p>
-        </fieldset>
-        <fieldset>
-          <legend class="smaller">Readable</legend>
-          <p>This is the convention introduced image-handler versions <em>later than</em> 4.3.3.  The handler concatenates the original file's path, name and parameters to produce file names similar to <code>matrox-mg400-32mbgif.image.50x40</code>.  It's a little easier to determine which original file is associated with that resized filename!</p>
-          <p>If you are performing an initial install or upgrading <em>Image Handler</em> from a version <b>later than</b> 4.3.3, this naming will be initially configured for your <em>IH<sup>5</sup></em> installation.</p>
-        </fieldset>
-      </fieldset>
+                    <fieldset>
+                        <legend>Cache File-Naming Convention</legend>
+                        <p>Starting with <em>IH<sup>5</sup></em>, you can choose the naming convention used for resized files created by the image-handler, one of <em>Hashed</em> or <em>Readable</em>:</p>
+                        <fieldset>
+                            <legend class="smaller">Hashed</legend>
+                            <p>This is the convention used by image-handler versions <em>prior to</em> 4.3.4.  The handler uses an MD5 <em>hash</em> to compress the resized file's original path, name and parameters to produce file names similar to <code>8240eb50da20af3ecec990d3e56099fa.image.50x40.gif</code>.  It can be &quot;very difficult&quot; to determine which original file is associated with that resized file!.</p>
+                            <p>If you are currently using an <em>Image Handler</em> version <b>prior to</b> 4.3.4, this naming-convention will be initially configured on your <em>IH</em> upgrade. Some stores use HTML <code>img</code> tags in their category and/or product descriptions that reference an image's &quot;hashed&quot; name and this default is set to ensure that downward compatibility.</p>
+                        </fieldset>
+                        <fieldset>
+                            <legend class="smaller">Readable</legend>
+                            <p>This is the convention introduced image-handler versions <em>later than</em> 4.3.3.  The handler concatenates the original file's path, name and parameters to produce file names similar to <code>matrox-mg400-32mbgif.image.50x40</code>.  It's a little easier to determine which original file is associated with that resized filename!</p>
+                            <p>If you are performing an initial install or upgrading <em>Image Handler</em> from a version <b>later than</b> 4.3.3, this naming will be initially configured for your <em>IH<sup>5</sup></em> installation.</p>
+                        </fieldset>
+                    </fieldset>
       
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Preferred Filetypes</legend>
-        <p>You can select either <strong>.png</strong>, <strong>.jpg</strong>, <strong>.gif</strong> or <strong>no_change</strong> for every image size. The original images you upload are kept as they are, but the Image Handler<sup>5</sup> generated files (the ones stored in the bmz_cache folders) will be created using the filetype you specify in this setting. Let's repeat this:</p>
-        <h4> The original images you upload are kept as they are, but the Image Handler<sup>5</sup> generated files (the ones stored in the bmz_cache folder) will be created using the filetype you specify in this setting.</h4>
-        <p>So here's how this works:<br>
-          If you want the large and medium images to be <strong>.png</strong> files:</p>
-        <ol>
-          <li>You would choose <strong>.png</strong> for your <strong>IH medium images filetype</strong> and <strong>IH large images filetype</strong> settings.</li>
-          <li>You will leave the small image at the default setting of <strong>no_change</strong>.</li>
-          <li>You upload a <strong>.jpg</strong> file to the product you are updating.</li>
-        </ol>
-        <p>This will result the following:</p>
-        <ul>
-          <li>Image Handler<sup>5</sup> will generate  <strong>.png</strong> image files for your large and medium product images regardless as to the format of the original image (in this example the original <strong>.jpg</strong> will generate a <strong>.png</strong> file). </li>
-          <li>Since in this example <strong>no_change</strong> was selected for your small images, Image Handler<sup>5</sup> will generate a small product image in the same file format as the original image uploaded (in this example the image is a <strong>.jpg</strong> so the small image will be a <strong>.jpg</strong> -- you get the picture)</li>
-        </ul>
-        <p>The filetype feature provides another means to let Image Handler<sup>5</sup> do some of the heavy lifting for you. Instead of having to convert your 1000 <strong>.jpg</strong> product images to <strong>.png</strong>'s. You can let Image Handler<sup>5</sup> do this work for you.</p>
-        <p> Zen Cart will only recognize and display product images that have the <strong>exact same file format</strong> for each image size. In other words, all small images must be the same filetype, all medium images must be the same filetype, and all large images must be the same filetype. </p>
-        <p>BUT </p>
-        <p>Amongst the various images sizes you may have a &quot;mixed bag&quot;. For example, you may decide that all small images will be <strong>gif</strong>'s, all medium images will be <strong>jpg</strong>'s, and all large images will be <strong>png</strong>'s. The filetype feature allows you to do just that.</p>
-        <p>Caution: Image Handler<sup>5</sup> <strong>will</strong>allow you to add any valid image format as an additional image to a product even if the additional image being uploaded is in a different file format than the main product image (For example, the main image is a jpg and the additional images are png).
-        Image Handler<sup>5</sup> will display mismatched file extensions in red in the  additional images table. This  visual indication tells you that <strong>you've uploaded an additional image with a different filetype than the main product image. Zen Cart will not &quot;see&quot; this additional image</strong> because the file format of the new image does not match that of the main product image. </p>
-        <p><acronym title="Graphics Interchange Format"><strong>Notes about filetypes</strong>: </acronym><em><acronym title="Graphics Interchange Format">GIF</acronym></em> is ok for small thumbnails and features some basic transparency. <em><acronym title="Joint Photographics Experts Group">JPG</acronym></em> doesn't feature transparency but a very good file quality/compression ratio, especially for photographic images. This would be your desired filetype for large and possibly medium sized images. <em><acronym title="Portable Network Graphics">PNG</acronym></em> files feature alpha transparency and as much colors as jpg but are generally larger in filesize than both jpg and gif. Internet explorer still has issues displaying alpha transparency, so you better stick with gif, if you need transparency.</p>
-      </fieldset>
+                    <fieldset>
+                        <legend>Preferred Filetypes</legend>
+                        <p>You can select either <strong>.png</strong>, <strong>.jpg</strong>, <strong>.gif</strong> or <strong>no_change</strong> for every image size. The original images you upload are kept as they are, but the Image Handler<sup>5</sup> generated files (the ones stored in the bmz_cache folders) will be created using the filetype you specify in this setting. Let's repeat this:</p>
+                        <h4> The original images you upload are kept as they are, but the Image Handler<sup>5</sup> generated files (the ones stored in the bmz_cache folder) will be created using the filetype you specify in this setting.</h4>
+                        <p>So here's how this works:<br />If you want the large and medium images to be <strong>.png</strong> files:</p>
+                        <ol>
+                            <li>You would choose <strong>.png</strong> for your <strong>IH medium images filetype</strong> and <strong>IH large images filetype</strong> settings.</li>
+                            <li>You will leave the small image at the default setting of <strong>no_change</strong>.</li>
+                            <li>You upload a <strong>.jpg</strong> file to the product you are updating.</li>
+                        </ol>
+                        <p>This will result the following:</p>
+                        <ul>
+                            <li>Image Handler<sup>5</sup> will generate  <strong>.png</strong> image files for your large and medium product images regardless as to the format of the original image (in this example the original <strong>.jpg</strong> will generate a <strong>.png</strong> file). </li>
+                            <li>Since in this example <strong>no_change</strong> was selected for your small images, Image Handler<sup>5</sup> will generate a small product image in the same file format as the original image uploaded (in this example the image is a <strong>.jpg</strong> so the small image will be a <strong>.jpg</strong> -- you get the picture)</li>
+                        </ul>
+                        <p>The filetype feature provides another means to let Image Handler<sup>5</sup> do some of the heavy lifting for you. Instead of having to convert your 1000 <strong>.jpg</strong> product images to <strong>.png</strong>'s. You can let Image Handler<sup>5</sup> do this work for you.</p>
+                        <p>Zen Cart will only recognize and display product images that have the <strong>exact same file format</strong> for each image size. In other words, all small images must be the same filetype, all medium images must be the same filetype, and all large images must be the same filetype. </p>
+                        <p><strong>But &hellip;</strong></p>
+                        <p>Amongst the various images sizes you can have a &quot;mixed bag&quot;. For example, you might decide that all small images will be <strong>gif</strong>'s, all medium images will be <strong>jpg</strong>'s, and all large images will be <strong>png</strong>'s. The filetype feature allows you to do just that.</p>
+                        <p><b><i>Caution</i></b>: Image Handler<sup>5</sup> will allow you to add any valid image format as an additional image to a product &mdash; even if the additional image being uploaded is in a different file format than the main product image (e.g. the main image is a jpg and the additional images are png). Image Handler<sup>5</sup> will display mismatched file extensions in <span class="red">red</span> in the  additional images table. This  visual indication tells you that you've uploaded an additional image with a different filetype than the main product image. <em>Zen Cart will not &quot;see&quot; this additional image</em> because the file format of the new image does not match that of the main product image.</p>
+                        <p><strong>Filetype Notes:</strong>:</p>
+                        <ol>
+                            <li></acronym><em><acronym title="Graphics Interchange Format">GIF</acronym></em> is ok for small thumbnails and features some basic transparency.</li>
+                            <li><em><acronym title="Joint Photographics Experts Group">JPG</acronym></em> doesn't feature transparency but a very good file quality/compression ratio, especially for photographic images. This would be your desired filetype for large and possibly medium sized images.</li>
+                            <li><em><acronym title="Portable Network Graphics">PNG</acronym></em> files feature alpha transparency and as much colors as jpg but are generally larger in filesize than both jpg and gif. Older versions of Internet Explorer had issues displaying alpha-transparency, so you better stick with gif, if you need transparency.</li>
+                        </ol>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Compression Quality</legend>
-        <p>You can specify the quality for rendering to jpg for small, medium and large images. This setting defaults to <strong>85</strong> for all three on a scale from 0 to 100 and is pretty good unless you need either extremely lossless compression or extremely small images. Higher values result in better quality larger files (and possibly longer loading times for larger files).</p>
-      </fieldset>
+                    <fieldset>
+                        <legend>Compression Quality</legend>
+                        <p>You can specify the quality for rendering to jpg for small, medium and large images. This setting defaults to <strong>85</strong> for all three on a scale from 0 to 100 and is pretty good unless you need either extremely lossless compression or extremely small images. Higher values result in better quality larger files (and possibly longer loading times for larger files).</p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Background Color</legend>
-        <p> You can configure the background color for every imagesize by specifying the color's RGB-value separating each color component (red, green and blue) by a colon. The color component's values range from 0 to 255. The following examples should give you an idea how to set the background color.</p>
-        <ul>
-          <li> <strong>255:255:255</strong>   (white)</li>
-          <li> <strong>255:0:0</strong>       (red)</li>
-          <li> <strong>255:200:200</strong>   (light red)</li>
-          <li> <strong>0:255:0</strong>       (green)</li>
-          <li> <strong>0:0:255</strong>       (blue)</li>
-          <li> <strong>255:0:255</strong>     (violet)</li>
-          <li> <strong>255:255:0</strong>     (yellow</li>
-        </ul>
+                    <fieldset>
+                        <legend>Background Color</legend>
+                        <p>You can configure the background color for every imagesize by specifying the color's RGB-value separating each color component (red, green and blue) by a colon. The color component's values range from 0 to 255. The following examples should give you an idea how to set the background color.</p>
+                        <ul>
+                            <li> <strong>255:255:255</strong>   (white)</li>
+                            <li> <strong>255:0:0</strong>       (red)</li>
+                            <li> <strong>255:200:200</strong>   (light red)</li>
+                            <li> <strong>0:255:0</strong>       (green)</li>
+                            <li> <strong>0:0:255</strong>       (blue)</li>
+                            <li> <strong>255:0:255</strong>     (violet)</li>
+                            <li> <strong>255:255:0</strong>     (yellow)</li>
+                        </ul>
 
-        <p>Here's a few sources for obtaining RGB values. Color Schemer even provides a really nice  HEX/RGB conversion calculator.</p>
-        <ul>
-          <li><a href="http://rgbchart.com/" target="_blank">http://rgbchart.com/</a></li>
-          <li><a href="http://cloford.com/resources/colours/500col.htm" target="_blank">http://cloford.com/resources/colours/500col.htm</a></li>
-          <li><a href="http://www.colorschemer.com/online.html" target="_blank">http://www.colorschemer.com/online.html</a></li>
-        </ul>
-        <p>If you want to keep the transparency of an uploaded image, you need to set the background color value to <strong>transparent</strong>.</p>
+                        <p>Here are a few sources for obtaining RGB values. Color Schemer even provides a really nice  HEX/RGB conversion calculator.</p>
+                        <ul>
+                            <li><a href="http://rgbchart.com/" target="_blank">http://rgbchart.com/</a></li>
+                            <li><a href="http://cloford.com/resources/colours/500col.htm" target="_blank">http://cloford.com/resources/colours/500col.htm</a></li>
+                            <li><a href="http://www.colorschemer.com/online.html" target="_blank">http://www.colorschemer.com/online.html</a></li>
+                        </ul>
+                        <p>If you want to keep the transparency of an uploaded image, you need to set the background color value to <strong>transparent</strong>.</p>
 
-        <p>With gif images you can specify e.g. <strong>transparent 255:255:255</strong> instead of just <strong>transparent</strong> so the half translucent 
-        pixels are combined with the specified background color. Pixels with transparency above 90% (this is the default) threshold are rendered full 
-        transparent. If you set the latter color to the value of your page's background color, this does enhance visual quality of gifs substantially 
-        because of the reduction of stair-effects.</p>
-      </fieldset>
+                        <p>With gif images you can specify <strong>transparent 255:255:255</strong> instead of just <strong>transparent</strong> so the half translucent pixels are combined with the specified background color. Pixels with transparency above 90% (this is the default) threshold are rendered fully transparent. If you set the latter color to the value of your page's background color, this does enhance visual quality of gifs substantially because of the reduction of stair-effects.</p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Watermarking</legend>
-        <p> In order for watermarking to work for every image dimension the specific corresponding <em>watermark images</em> have to be present. That means you have to upload files to the following specific locations:</p>
-        <ul>
-          <li><strong>images/watermark.png</strong></li>
-          <li><strong>images/medium/watermark_MED.png</strong> (or your specified <strong>MEDIUM_IMAGE_SUFFIX</strong>)</li>
-          <li><strong>images/large/watermark_LRG.png</strong> (or your specified <strong>LARGE_IMAGE_SUFFIX</strong>)</li>
-        </ul>
+                    <fieldset>
+                        <legend>Watermarking</legend>
+                        <p>In order for watermarking to work for every image dimension the specific corresponding <em>watermark images</em> have to be present. That means you have to upload files to the following specific locations:</p>
+                        <ul>
+                            <li><strong>images/watermark.png</strong></li>
+                            <li><strong>images/medium/watermark_MED.png</strong> (or your specified <strong>MEDIUM_IMAGE_SUFFIX</strong>)</li>
+                            <li><strong>images/large/watermark_LRG.png</strong> (or your specified <strong>LARGE_IMAGE_SUFFIX</strong>)</li>
+                        </ul>
 
-        <p>Image Handler<sup>5</sup> includes some demo watermark images for small, medium and large sized images featuring a slightly modified Zen-Cart logo for a quick start. Nothing more to do, switch on watermarks or switch off watermarks in the image settings just as you like. Image Handler<sup>5</sup> takes care of generating images accordingly. You can specify where you want the watermark to appear on the image canvas by selecting NorthWest, North, NorthEast, West, Center, East, SouthWest, South and SouthEast for the <em><strong>Watermark Gravity</strong></em> setting.</p>
-        <p>To use your own watermark, simply create your own replacement watermark
-          images using the image editing software of your choice and overwrite the supplied ones. (Your custom
-          watermark files should be PNGs using the same image names as the included sample
-          watermark images) Please note that questions about HOW to create watermarks should NOT be posted on the Image Handler<sup>5</sup> support thread. There are TONS of sources on the web which can provide you good guidance on creating watermarks. This link will get you started: <a href="http://www.google.com/search?q=how+to+create+watermarks&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a" target="_blank">How to create watermarks</a>.</p>
-      </fieldset>
+                        <p>Image Handler<sup>5</sup> includes some demo watermark images for small, medium and large sized images featuring a slightly modified Zen-Cart logo for a quick start. Nothing more to do, switch on watermarks or switch off watermarks in the image settings just as you like. Image Handler<sup>5</sup> takes care of generating images accordingly. You can specify where you want the watermark to appear on the image canvas by selecting NorthWest, North, NorthEast, West, Center, East, SouthWest, South and SouthEast for the <em><strong>Watermark Gravity</strong></em> setting.</p>
+                        <p>To use your own watermark, simply create your own replacement watermark images using the image editing software of your choice and overwrite the supplied ones. <em>Your custom
+          watermark files should be PNGs using the same image names as the included sample watermark images</em>. Please note that questions about how to create watermarks should not be posted on the Image Handler<sup>5</sup> support thread. There are TONS of sources on the web which can provide you good guidance on creating watermarks. This link will get you started: <a href="http://www.google.com/search?q=how+to+create+watermarks&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a" target="_blank">How to create watermarks</a>.</p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Zooming (fancy hover effect)</legend>
-        <p>When selecting this feature for small images, the medium or large image (depending on your admin settings) pops up whenever you move your mouse cursor over the small image.</p>
+                    <fieldset>
+                        <legend>Zooming (fancy hover effect)</legend>
+                        <p>When selecting this feature for small images, the medium or large image (depending on your admin settings) pops up whenever you move your mouse cursor over the small image.</p>
 
-        <p><strong>Notes:</strong></p>
-        <ol>
-          <li>Zooming in on medium images <strong>is not implemented</strong>. More on this on the &quot;<strong>Misc</strong>&quot; tab.</li>
-          <li>If you have enabled <em>Configuration &gt; Images &gt; IH small images zoom on hover</em>, you might have found that the zoom feature can be <em>disruptive</em> to your customers using smaller, hand-held devices.<ul>
-            <li>The as-shipped <code>style_imagehover.css</code> includes examples using <a href="https://www.w3schools.com/cssref/css3_pr_mediaquery.asp" target="_blank">CSS3 Media Queries</a> to control whether or not the image-hover is displayed.  The defaults in that file disable the image-hover display on screen-sizes that are 480px or smaller in width.</li>
-          </ul></li>
-        </ol>    
+                        <p><strong>Notes:</strong></p>
+                        <ol>
+                            <li>Zooming in on medium images <strong>is not implemented</strong>. More on this on the &quot;<strong>Misc</strong>&quot; tab.</li>
+                            <li>If you have enabled <em>Configuration &gt; Images &gt; IH small images zoom on hover</em>, you might have found that the zoom feature can be <em>disruptive</em> to your customers using smaller, hand-held devices.<ul>
+                                <li>The as-shipped <code>style_imagehover.css</code> includes examples using <a href="https://www.w3schools.com/cssref/css3_pr_mediaquery.asp" target="_blank">CSS3 Media Queries</a> to control whether or not the image-hover is displayed.  The defaults in that file disable the image-hover display on screen-sizes that are 480px or smaller in width.</li>
+                            </ul></li>
+                        </ol>    
 
-        <img src="images/imagesConfigurationZooming1.png" alt="Image Handler Required Zoom Settings" width="965" height="55" border="3" title="Image Handler Required Zoom Settings">
+                        <img src="images/imagesConfigurationZooming1.png" alt="Image Handler Required Zoom Settings" width="965" height="55" border="3" title="Image Handler Required Zoom Settings">
 
-        <p>For small image hover to work on the following product listing pages:</p>
-        <ul>
-          <li>All Products</li>
-          <li>New Products</li>
-          <li>Featured Products</li>
-          <li>Special Products</li>
-        </ul>
-        the following settings must match the <strong>Small Image Width</strong> and <strong>Small Image Height</strong> settings:<br />
-        <ul>
-          <li>Subcategory Image Width</li>
-          <li>Subcategory Image Height</li>
-          <li>Image - Product Listing Width</li>
-          <li>Image - Product Listing Height</li>
-          <li>Image - Product New Listing Width</li>
-          <li>Image - Product New Listing Height</li>
-          <li>Image - New Products Width</li>
-          <li>Image - New Products Height</li>
-          <li>Image - Featured Products Width</li>
-          <li>Image - Featured Products Height</li>
-          <li>Image - Product All Listing Width</li>
-          <li>Image - Product All Listing Height</li>
-        </ul>
+                        <p>For small image hover to work on the following product listing pages:</p>
+                        <ul>
+                            <li>All Products</li>
+                            <li>New Products</li>
+                            <li>Featured Products</li>
+                            <li>Special Products</li>
+                        </ul>
+                        the following settings must match the <strong>Small Image Width</strong> and <strong>Small Image Height</strong> settings:<br />
+                        <ul>
+                            <li>Subcategory Image Width</li>
+                            <li>Subcategory Image Height</li>
+                            <li>Image - Product Listing Width</li>
+                            <li>Image - Product Listing Height</li>
+                            <li>Image - Product New Listing Width</li>
+                            <li>Image - Product New Listing Height</li>
+                            <li>Image - New Products Width</li>
+                            <li>Image - New Products Height</li>
+                            <li>Image - Featured Products Width</li>
+                            <li>Image - Featured Products Height</li>
+                            <li>Image - Product All Listing Width</li>
+                            <li>Image - Product All Listing Height</li>
+                        </ul>
 
-        <img src="images/imagesConfigurationZooming2.png" alt="Image Handler Required Zoom Settings" width="965" height="752" border="3" title="Image Handler Required Zoom Settings">
+                        <img src="images/imagesConfigurationZooming2.png" alt="Image Handler Required Zoom Settings" width="965" height="752" border="3" title="Image Handler Required Zoom Settings">
 
-        <p>Additionally, if you want to add the hover effect to category images, the following settings must also match the <strong>Small
-        Image Width</strong> and <strong>Small Image Height</strong> settings: <strong>Admin&gt; Images &gt; Category Icon Image Width - Product Info Pages</strong></p>
-        <p>If you selected the medium image as your on-hover image:<br />You control the size of the medium image  via the <strong>Product Info</strong> dimension.</p>
+                        <p>Additionally, if you want to add the hover effect to category images, the following settings must also match the <strong>Small Image Width</strong> and <strong>Small Image Height</strong> settings: <strong>Admin&gt; Images &gt; Category Icon Image Width - Product Info Pages</strong></p>
+                        <p>If you selected the medium image as your on-hover image:<br />You control the size of the medium image  via the <strong>Product Info</strong> dimension.</p>
 
-        <img src="images/imagesConfigurationZooming3.png" alt="Product Info Dimension" width="965" height="57" border="3" title="Product Info Dimension">
+                        <img src="images/imagesConfigurationZooming3.png" alt="Product Info Dimension" width="965" height="57" border="3" title="Product Info Dimension">
 
-        <p>Note on the <strong>Product Info</strong> dimension: You can set this to whatever you want, but it cannot be larger than your largest image (Image Handler<sup>5</sup> <strong>does not</strong> enlarge images) nor smaller than your small images (this is considered your MEDIUM image it's dimensions must fall BETWEEN the dimensions you set for you small and large images).</p>
+                        <p>Note on the <strong>Product Info</strong> dimension: You can set this to whatever you want, but it cannot be larger than your largest image (Image Handler<sup>5</sup> <strong>does not</strong> enlarge images) nor smaller than your small images (this is considered your MEDIUM image it's dimensions must fall BETWEEN the dimensions you set for you small and large images).</p>
 
-        <p>If you selected the large image as your on-hover image:<br />You control the size of the large image via the <strong>Large Image</strong> dimension.</p>
+                        <p>If you selected the large image as your on-hover image:<br />You control the size of the large image via the <strong>Large Image</strong> dimension.</p>
 
-        <img src="images/imagesConfigurationZooming4.png" alt="Large Image Dimension" width="965" height="57" border="3" title="Large Image Dimension">
+                        <img src="images/imagesConfigurationZooming4.png" alt="Large Image Dimension" width="965" height="57" border="3" title="Large Image Dimension">
 
-        <p>Note on the <strong>Large Image</strong> dimension: You can set it to whatever you want, but if the largest image you upload is smaller than these dimensions Image Handler<sup>5</sup> <strong>will not</strong> enlarge your image (Again, Image Handler<sup>5</sup> <strong>does not</strong> enlarge images). If the largest  image you upload is larger than these dimensions,  Image Handler<sup>5</sup> will re-size your image based on these settings. (Image Handler<sup>5</sup> will maintain the image's aspect ratio when it re-sizes the image)</p>
-      </fieldset>
+                        <p>Note on the <strong>Large Image</strong> dimension: You can set it to whatever you want, but if the largest image you upload is smaller than these dimensions Image Handler<sup>5</sup> <strong>will not</strong> enlarge your image (Again, Image Handler<sup>5</sup> <strong>does not</strong> enlarge images). If the largest  image you upload is larger than these dimensions,  Image Handler<sup>5</sup> will re-size your image based on these settings. (Image Handler<sup>5</sup> will maintain the image's aspect ratio when it re-sizes the image)</p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Image Dimensions</legend>
-        <p> There are different approaches to setting the dimension of images.</p>
+                    <fieldset>
+                        <legend>Image Dimensions</legend>
+                        <p>There are different approaches to setting the dimension of images.</p>
 
-        <p>You can do it the normal way and simply specify width and height dimensions in pixels. Set width to <code>100</code> and height to <code>80</code> for example. If your image is 200x200 it will be resized to 80x80 because this is the biggest size that fits into 100x80.</p>
+                        <p>You can do it the normal way and simply specify width and height dimensions in pixels. Set width to <code>100</code> and height to <code>80</code> for example. If your image is 200x200 it will be resized to 80x80 because this is the biggest size that fits into 100x80.</p>
 
-        <p>You can just set width (or height) to e.g. <code>100</code> and leave the other dimension blank (or set to <code>0</code>). Now you specified a width (or height) that the image in question will be resized to. The height (or width) will be calculated according to the correct aspect ratio.</p>
+                        <p>You can just set width (or height) to e.g. <code>100</code> and leave the other dimension blank (or set to <code>0</code>). Now you specified a width (or height) that the image in question will be resized to. The height (or width) will be calculated according to the correct aspect ratio.</p>
 
-        <p>You can for example set it like the first example but append "!" to one value (for example <code>80!</code> for small image height). The generated resized images are centered on a canvas that matches exactly the given size for the corresponding image. If you specified <code>100x80!</code> your 200x200 image from the first example will be resized to 80x80 and placed centered on a 100x80 canvas filled with the specified background color. Think of it as kind of <em>forcing</em> image dimensions without messing up the aspect ratio.</p>
-      </fieldset>
+                        <p>You can for example set it like the first example but append "!" to one value (for example <code>80!</code> for small image height). The generated resized images are centered on a canvas that matches exactly the given size for the corresponding image. If you specified <code>100x80!</code> your 200x200 image from the first example will be resized to 80x80 and placed centered on a 100x80 canvas filled with the specified background color. Think of it as kind of <em>forcing</em> image dimensions without messing up the aspect ratio.</p>
+                    </fieldset>
 
-      <fieldset>
-        <legend>More Information on Image Dimensions</legend>
-        <p>If you are unsure how to set the height and width of your images, a suggested approach is  to only set the width settings and leave the height blank. Image Handler<sup>5</sup>/Zen Cart will take care of correctly calculating the correct height (based on the width setting) as long as you have the following settings:</p>
-        <table width="100%" border="2" align="left" cellpadding="2" cellspacing="2">
-          <tr>
-              <td>Calculate Image Size</td>
-              <td>Yes</td>
-            </tr>
-            <tr>
-              <td>Image - Use Proportional Images on Products and Categories</td>
-              <td>1</td>
-            </tr>
-        </table>
-        <p>Now the reason for suggesting to NOT set the height and to let Image Handler<sup>5</sup>/Zen Cart handle this is that most shop owners (NOT ALL) will not go through the trouble and effort to make all of their product images the same size, nor will they have the ability to calculate the correct proportional sizes for their small and medium images (relative to the large image size). So unless you are willing to take the time to calculate what your small and medium image proportions should be relative to the large product image, it's best to set the width of the small, medium and large images, leave the height blank and let Image Handler<sup>5</sup>/Zen Cart do the heavy lifting for you to automatically calculate the correct height.</p>
-      </fieldset>
+                    <fieldset>
+                        <legend>More Information on Image Dimensions</legend>
+                        <p>If you are unsure how to set the height and width of your images, a suggested approach is  to only set the width settings and leave the height blank. Image Handler<sup>5</sup>/Zen Cart will take care of correctly calculating the correct height (based on the width setting) as long as you have the following settings:</p>
+                        <table width="100%" border="2" align="left" cellpadding="2" cellspacing="2">
+                            <tr>
+                                <td>Calculate Image Size</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Image - Use Proportional Images on Products and Categories</td>
+                                <td>1</td>
+                            </tr>
+                        </table>
+                        <p>Now the reason for suggesting to NOT set the height and to let Image Handler<sup>5</sup>/Zen Cart handle this is that most shop owners (NOT ALL) will not go through the trouble and effort to make all of their product images the same size, nor will they have the ability to calculate the correct proportional sizes for their small and medium images (relative to the large image size). So unless you are willing to take the time to calculate what your small and medium image proportions should be relative to the large product image, it's best to set the width of the small, medium and large images, leave the height blank and let Image Handler<sup>5</sup>/Zen Cart do the heavy lifting for you to automatically calculate the correct height.</p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Image Size Options in Configuration</legend>
-        <p>A huge source for confusion is the many image size options in <strong>Admin &gt; Configuration &gt; Images</strong>. This section attempts to try and map out some (not all) of the various image settings to the corresponding store images.</p>
-        <table width="100%" border="2" cellpadding="2" cellspacing="2">
-            <tr>
-              <td width="200">Small Image</td>
-              <td>Product images that appear in the sideboxes (New Products, Featured Products, etc). This image setting also corresponds to the additional product images on the product info page.</td>
-            </tr>
-            <tr>
-              <td width="200">Image - Product Listing</td>
-              <td>Product images which appear in the product category listing pages</td>
-            </tr>
-            <tr>
-              <td width="200">Image - Product New Listing</td>
-              <td>Product images which appear in the product new listing pages</td>
-            </tr>
-            <tr>
-              <td width="200">Image - Featured Products</td>
-              <td>Product images which appear in the featured product&nbsp; listing pages</td>
-            </tr>
-            <tr>
-              <td width="200">Image - Product All Listing</td>
-              <td>Product images which appear in the all products listing pages</td>
-            </tr>
-            <tr>
-              <td width="200">Product Info</td>
-              <td>Main image which appears on the product info (details) page -- AKA the medium sized image</td>
-            </tr>
-            <tr>
-              <td width="200">IH small image</td>
-              <td>Settings applies to the product images that appear in the sideboxes, and all the product listing images</td>
-            </tr>
-            <tr>
-              <td width="200">IH medium image</td>
-              <td>Settings applies to the product image that appears on the product info page and the rollover image displayed when hovering your mouse over the the small images.</td>
-            </tr>
-            <tr>
-              <td width="200">IH large image</td>
-              <td>Settings applies to the the large product image (the one that displays when you click on the "larger image" link on the product info page)</td>
-            </tr>
-        </table>
-      </fieldset>
+                    <fieldset>
+                        <legend>Image Size Options in Configuration</legend>
+                        <p>A huge source for confusion is the many image size options in <strong>Admin &gt; Configuration &gt; Images</strong>. This section attempts to try and map out some (not all) of the various image settings to the corresponding store images.</p>
+                        <table width="100%" border="2" cellpadding="2" cellspacing="2">
+                            <tr>
+                                <td width="200">Small Image</td>
+                                <td>Product images that appear in the sideboxes (New Products, Featured Products, etc). This image setting also corresponds to the additional product images on the product info page.</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Image - Product Listing</td>
+                                <td>Product images which appear in the product category listing pages</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Image - Product New Listing</td>
+                                <td>Product images which appear in the product new listing pages</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Image - Featured Products</td>
+                                <td>Product images which appear in the featured product&nbsp; listing pages</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Image - Product All Listing</td>
+                                <td>Product images which appear in the all products listing pages</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Product Info</td>
+                                <td>Main image which appears on the product info (details) page -- AKA the medium sized image</td>
+                            </tr>
+                            <tr>
+                                <td width="200">IH small image</td>
+                                <td>Settings applies to the product images that appear in the sideboxes, and all the product listing images</td>
+                            </tr>
+                            <tr>
+                                <td width="200">IH medium image</td>
+                                <td>Settings applies to the product image that appears on the product info page and the rollover image displayed when hovering your mouse over the the small images.</td>
+                            </tr>
+                            <tr>
+                                <td width="200">IH large image</td>
+                                <td>Settings applies to the the large product image (the one that displays when you click on the "larger image" link on the product info page)</td>
+                            </tr>
+                        </table>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend> Screenshots of Various Image Sizes</legend>
-        <p>
-        <img src="images/smallImages3.png" alt="Small Product Image" width="965" height="604" border="3" title="Small Product Image">
-        <img src="images/smallImages2.png" alt="Small Product Image" width="819" height="194" border="3" title="Small Product Image">
-        <img src="images/smallImages4.png" alt="Small Product Image" width="965" height="192" border="3" title="Small Product Image">
-        <img src="images/smallImages1.png" alt="Small Product Image" width="301" height="485" border="3" title="Small Product Image">
-        <img src="images/smallImages3.png" alt="Small Product Image" width="965" height="604" border="3" title="Small Product Image">
-        <img src="images/mediumImages1.png" alt="Medium Product Image" width="965" height="625" border="3" title="Medium Product Image">
-        <img src="images/LargeImages1.png" alt="Large Product Image" width="965" height="610" border="3" title="Large Product Image">
-        </p>
-      </fieldset>
+                    <fieldset>
+                        <legend> Screenshots of Various Image Sizes</legend>
+                        <p>
+                            <img src="images/smallImages3.png" alt="Small Product Image" width="965" height="604" border="3" title="Small Product Image">
+                            <img src="images/smallImages2.png" alt="Small Product Image" width="819" height="194" border="3" title="Small Product Image">
+                            <img src="images/smallImages4.png" alt="Small Product Image" width="965" height="192" border="3" title="Small Product Image">
+                            <img src="images/smallImages1.png" alt="Small Product Image" width="301" height="485" border="3" title="Small Product Image">
+                            <img src="images/smallImages3.png" alt="Small Product Image" width="965" height="604" border="3" title="Small Product Image">
+                            <img src="images/mediumImages1.png" alt="Medium Product Image" width="965" height="625" border="3" title="Medium Product Image">
+                            <img src="images/LargeImages1.png" alt="Large Product Image" width="965" height="610" border="3" title="Large Product Image">
+                        </p>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>Sample Settings in Configuration &gt; Images</legend>
-        <p>These settings can be changed to suit your needs. These
-        sample settings are provided here just to give you an idea of what one possible working configuration might look like.
+                    <fieldset>
+                        <legend>Sample Settings in Configuration &gt; Images</legend>
+                        <p>These settings can be changed to suit your needs. These sample settings are provided here just to give you an idea of what one possible working configuration might look like.
 
-        <img src="images/imagesConfiguration.png" alt="Image Settings"  width="965" height="1337"  border="3" align="top" title="Image Settings"></p>
-      </fieldset>
+                        <img src="images/imagesConfiguration.png" alt="Image Settings"  width="965" height="1337"  border="3" align="top" title="Image Settings"></p>
+                    </fieldset>
 
-    </div>
-  </div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc3-->
 
 <!--Begin sc4-->
-<div class="tabcontent" id="sc4" style="display: block;">
-  <div class="textcontent">
-    <div class="regularlist">
+        <div class="tabcontent" id="sc4" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
+                    <h3>USAGE</h3>
+                    <p>Let's do a quick example. You have this nice product, took a shot with your brand new digital camera and removed the background with your favorite image manipulation program (I suggest gimp). You save this file as Portable Network Graphic (png) to keep the alpha channel, that is the transparent areas where you want to look through to your website. Let's say the image is 600 pixels wide and has a height of 800 pixels (600x800). You specified <code>100x80</code> for your small images and <code>150x120</code> for your medium sized images.</p>
 
-      <h3>USAGE</h3>
-      <p>Let's do a quick example. You have this nice product, took a shot with your brand new digital camera and removed the background with your favorite image manipulation program (I suggest gimp). You save this file as Portable Network Graphic (png) to keep the alpha channel, that is the transparent areas where you want to look through to your website. Let's say the image is 600 pixels wide and has a height of 800 pixels (600x800). You specified <code>100x80</code> for your small images and <code>150x120</code> for your medium sized images.</p>
+                    <p>Since the product list view you use has different colors for odd and even rows, you want to keep the transparency at least for small images. You choose <code>.png</code> or  <code>.gif</code> for the small image filetype and <code>transparent</code> for the small image background.</p>
 
-      <p>Since the product list view you use has different colors for odd and even rows, you want to keep the transparency at least for small images. You choose <code>.png</code> or  <code>.gif</code> for the small image filetype and <code>transparent</code> for the small image background.</p>
+                    <p>Now you think of your medium and large sized images. You don't want them to be in the <em>gif</em> format because it doesn't compress that good and you want to have more than 256 colors in your high resolution images. Further you don't care about transparency because you have just one background color in your product info page or the popup image window, so you can go with <code>.jpg</code>. That's what you specify for the medium and large image filetype. Let's assume you have a white background in both the product info page and the popup image window so you type <code>255:255:255</code> into the fields for medium image background and large image background.</p>
 
-      <p>Now you think of your medium and large sized images. You don't want them to be in the <em>gif</em> format because it doesn't compress that good and you want to have more than 256 colors in your high resolution images. Further you don't care about transparency because you have just one background color in your product info page or the popup image window, so you can go with <code>.jpg</code>. That's what you specify for the medium and large image filetype. Let's assume you have a white background in both the product info page and the popup image window so you type <code>255:255:255</code> into the fields for medium image background and large image background.</p>
+                    <hr />
 
-      <hr />
+                    <fieldset>
+                        <legend>Using Image Handler</legend>
+                        <p>There are two ways to use Image Handler<sup>5</sup>:</p>
+                        <ul>
+                            <li> Admin &gt; Catalog &gt; Categories/Products</li>
+                            <li> Admin &gt; Tools &gt; Image Handler<sup>5</sup></li>
+                        </ul>
 
-      <fieldset>
-        <legend>Using Image Handler</legend>
-        <p>
-        There are two ways to use Image Handler<sup>5</sup>:</p>
-        <ul>
-          <li> Admin &gt; Catalog &gt; Categories/Products</li>
-          <li> Admin &gt; Tools &gt; Image Handler<sup>5</sup></li>
-        </ul>
+                        <p>When you browse your categories and products with Zen Cart's categories/products browser, you can click on the small <img src="images/icon_image_handler.gif" alt="Image Handler 4" title="Image Handler 4"> icon between the copy- and the attributes icon to access the manager page of Image Handler<sup>5</sup> for this specific product.</p>
+                        <img src="images/editProductsCategories.png" alt="Small Product Image"  width="965" height="279"  border="3" align="top" title="Small Product Image">
 
-        <p>When you browse your categories and products with Zen Cart's categories/products browser, you can click on the small <img src="images/icon_image_handler.gif" alt="Image Handler 4" title="Image Handler 4"> icon between the copy- and the attributes icon to access the manager page of Image Handler<sup>5</sup> for this specific product.</p>
-        <img src="images/editProductsCategories.png" alt="Small Product Image"  width="965" height="279"  border="3" align="top" title="Small Product Image">
+                        <p>If you access Image Handler<sup>5</sup> directly via <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, you can use its own interface to browse categories and products or to add, change, or delete images from your products.</p>
+                        <img src="images/imageHandlerManager.png" alt="Small Product Image"  width="965" height="520" border="3" align="top" title="Small Product Image">
 
-        <p>If you access Image Handler<sup>5</sup> directly via <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, you can use its own interface to browse categories and products or to add, change, or delete images from your products.</p>
-        <img src="images/imageHandlerManager.png" alt="Small Product Image"  width="965" height="520" border="3" align="top" title="Small Product Image">
+                        <p>The Image Handler<sup>5</sup> interface is designed to be highly intuitive and easy to use. Referencing the image above, you can see that all the action takes place on the "Manager" tab of the interface. For example:</p>
+                        <ul>
+                            <li>You can browse through your product categories using the "Previous" and "Next" buttons</li>
+                            <li>You can select a specific product category using the product category dropdown list and allowing the page to refresh &amp; display all the products in that category</li>
+                            <li>You can select a specific product to view, add, or edit (change or delete) its image(s) by selecting the category, then highlighting the product that appears in the list, and clicking the "Display" button.</li>
+                            <li>You can even jump to the "Edit Products" or "Product Attribute" pages by clicking either of those buttons</li>
+                        </ul>
 
-        <p>The Image Handler<sup>5</sup> interface is designed to be highly intuitive and easy to use. Referencing the image above, you can see that all the action takes place on the "Manager" tab of the interface. For example:</p>
-        <ul>
-          <li>You can browse through your product categories using the "Previous" and "Next" buttons</li>
-          <li>You can select a specific product category using the product category dropdown list and allowing the page to refresh &amp; display all the products in that category</li>
-          <li>You can select a specific product to view, add, or edit (change or delete) its image(s) by selecting the category, then highlighting the product that appears in the list, and clicking the "Display" button.</li>
-          <li>You can even jump to the "Edit Products" or "Product Attribute" pages by clicking either of those buttons</li>
-        </ul>
-
-        <hr class="separator" />
+                        <hr class="separator" />
         
-        <p>It's all very straightforward. But let's talk about where some folks get stuck: adding primary and additional product images. Let's begin by walking through the process of adding an image to a product. The important thing to understand is that <strong>the process is the same</strong> whether you're adding your first image or your tenth to a given product</p>
-        <ul>
-          <li>Select the product you want to add an image to and click the "New File" button to the right of the product information</li>
-          <li>Select the image directory from the dropdown list where you want the image to be stored on your server</li>
-          <li>Click on the Default image file's "browse" button to navigate to the image you want to upload. It is best to upload the largest version of your image because this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large versions of that image.</li>
-          <li>Click "Save". Notice that after clicking "Save", the page refreshes and you can now see your image(s) and all the sizes your image(s) will display as throughout various areas of your store.</li>
-        </ul>
-        <div class="boldemphasis">Important Notes:</div> 
-        <ul>
-          <li><strong>You do not need to add an image to the "Medium" or "Large" fields</strong> unless you want your medium and large product images to be different images than that of your small product images.</li>
-          <li>Image Handler<sup>5</sup> will take care of creating small, medium, and large versions of the large image you uploaded, using the image size settings you specified in admin &gt; configuration &gt; images when you configured Image Handler<sup>5</sup>after install.</li>
-          <li>Attempting to add an image in the "Medium" or "Large" fields without <strong>FIRST</strong> populating that "Default" field will result in an error. <strong>You MUST always upload an image to the "Default" field - whether it is your first product image or your hundredth.</strong></li>
-          <li><strong>The "Medium" and "Large" fields are not the appropriate place to add your additional product images.</strong> Remember that the process for adding primary and additional images is the same. <strong>The "Default" field must be used</strong></li>
-          <li><strong>"Default" does not refer to "Primary Image".</strong> "Default" only refers to the image file you upload that Image Handler<sup>5</sup> will use to make small medium and large versions of your image(s).</li>
-          <li>If all this talk about "primary images", "additional images", "large, medium, and small images", etc. has your head spinning, visit the "Troubleshooting" tab of this readme and look at the "Prepare Your Site For Growth" section to gain a deeper understanding.</li>
-          <li><div class="boldemphasis">REPEATING: The process of adding an image is the same for both primary and additional images, You must use the "Default" field, and "Default" only refers to the image file you upload that Image Handler<sup>5</sup> will use to make small medium and large versions of your image(s).</div> </li>
-        </ul>
-        <hr class="separator" />
-        <p>Next, let's walk through the process of changing a product's primary or additional image.</p>
-        <ul>
-          <li>Select the product whose image you'd like to change.</li>
-          <li>Click the Action/info icon to the right of the image you want to change (whether it is the primary image or an additional image)</li>
-          <li>Click the "Edit" button</li>
-          <li>Click the Default image file's "browse" button to navigate to the image you want to upload, remembering that it is best to upload the largest version of your image because this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large versions of that image.</li>
-          <li>Click the "Save" button</li>
-        </ul>
-        <hr class="separator" />
-        <p>Finally, let's talk about those buttons and fields we skipped over, what they do, and how to use them.</p>
-        <ul>
-          <li>The Action/info icon allows you to access the "edit" and "delete" buttons. We've already discussed the "edit" button and the "delete" button should be self explanatory.</li>
-          <li>The optional "Image base name" (which only appears when adding a new primary image file) allows you to name your image something other than its filename. Leaving it blank results in your image file being uploaded with it's current filename.</li>
-          <li>The optional "Image Suffix" (which only appears when adding a new additional image file) allows you to add your preferred suffix to your additional images (in order to link your primary and additional images together for a given product). Or if you prefer, leave it blank and let Image Handler<sup>5</sup> create a suffix for you.</li>
-          <li>As previously discussed, the "Medium" and "Large" image fields that you see when you add or edit an image are to be used if you want your medium and large product images to be different images than that of your small product images.</li>
-        </ul>
+                        <p>It's all very straightforward. But let's talk about where some folks get stuck: adding primary and additional product images. Let's begin by walking through the process of adding an image to a product. The important thing to understand is that <strong>the process is the same</strong> whether you're adding your first image or your tenth to a given product</p>
+                        <ul>
+                            <li>Select the product you want to add an image to and click the "New File" button to the right of the product information</li>
+                            <li>Select the image directory from the dropdown list where you want the image to be stored on your server</li>
+                            <li>Click on the Default image file's "browse" button to navigate to the image you want to upload. It is best to upload the largest version of your image because this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large versions of that image.</li>
+                            <li>Click "Save". Notice that after clicking "Save", the page refreshes and you can now see your image(s) and all the sizes your image(s) will display as throughout various areas of your store.</li>
+                        </ul>
+                        <div class="boldemphasis">Important Notes:</div> 
+                        <ul>
+                            <li><strong>You do not need to add an image to the "Medium" or "Large" fields</strong> unless you want your medium and large product images to be different images than that of your small product images.</li>
+                            <li>Image Handler<sup>5</sup> will take care of creating small, medium, and large versions of the large image you uploaded, using the image size settings you specified in admin &gt; configuration &gt; images when you configured Image Handler<sup>5</sup>after install.</li>
+                            <li>Attempting to add an image in the "Medium" or "Large" fields without <strong>FIRST</strong> populating that "Default" field will result in an error. <strong>You MUST always upload an image to the "Default" field - whether it is your first product image or your hundredth.</strong></li>
+                            <li><strong>The "Medium" and "Large" fields are not the appropriate place to add your additional product images.</strong> Remember that the process for adding primary and additional images is the same. <strong>The "Default" field must be used</strong></li>
+                            <li><strong>"Default" does not refer to "Primary Image".</strong> "Default" only refers to the image file you upload that Image Handler<sup>5</sup> will use to make small medium and large versions of your image(s).</li>
+                            <li>If all this talk about "primary images", "additional images", "large, medium, and small images", etc. has your head spinning, visit the "Troubleshooting" tab of this readme and look at the "Prepare Your Site For Growth" section to gain a deeper understanding.</li>
+                            <li><div class="boldemphasis">REPEATING: The process of adding an image is the same for both primary and additional images, You must use the "Default" field, and "Default" only refers to the image file you upload that Image Handler<sup>5</sup> will use to make small medium and large versions of your image(s).</div> </li>
+                        </ul>
+                        <hr class="separator" />
+                        <p>Next, let's walk through the process of changing a product's primary or additional image.</p>
+                        <ul>
+                            <li>Select the product whose image you'd like to change.</li>
+                            <li>Click the Action/info icon to the right of the image you want to change (whether it is the primary image or an additional image)</li>
+                            <li>Click the "Edit" button</li>
+                            <li>Click the Default image file's "browse" button to navigate to the image you want to upload, remembering that it is best to upload the largest version of your image because this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large versions of that image.</li>
+                            <li>Click the "Save" button</li>
+                        </ul>
+                        <hr class="separator" />
+                        <p>Finally, let's talk about those buttons and fields we skipped over, what they do, and how to use them.</p>
+                        <ul>
+                            <li>The Action/info icon allows you to access the "edit" and "delete" buttons. We've already discussed the "edit" button and the "delete" button should be self explanatory.</li>
+                            <li>The optional "Image base name" (which only appears when adding a new primary image file) allows you to name your image something other than its filename. Leaving it blank results in your image file being uploaded with it's current filename.</li>
+                            <li>The optional "Image Suffix" (which only appears when adding a new additional image file) allows you to add your preferred suffix to your additional images (in order to link your primary and additional images together for a given product). Or if you prefer, leave it blank and let Image Handler<sup>5</sup> create a suffix for you.</li>
+                            <li>As previously discussed, the "Medium" and "Large" image fields that you see when you add or edit an image are to be used if you want your medium and large product images to be different images than that of your small product images.</li>
+                        </ul>
 
-        <hr class="separator" />
-        <p>Of course you can still upload images via the product's info pages and Image Handler<sup>5</sup> will take care of them for you.  Image Handler<sup>5</sup> is about choices.</p>
+                        <hr class="separator" />
+                        <p>Of course you can still upload images via the product's info pages and Image Handler<sup>5</sup> will take care of them for you.  Image Handler<sup>5</sup> is about choices.</p>
 
-        <p><img src="images/addProductImages.png" alt="Small Product Image"  width="965" height="182"  border="3" align="top" title="Small Product Image" /></p>
-      </fieldset>
+                        <p><img src="images/addProductImages.png" alt="Small Product Image"  width="965" height="182"  border="3" align="top" title="Small Product Image" /></p>
+                    </fieldset>
 
-    </div>
-  </div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc4-->
 
 <!--Begin sc5-->
-<div class="tabcontent" id="sc5" style="display: block;">
-<div class="textcontent">
-<div class="regularlist">
-<h3>CREDITS &amp; HISTORY</h3>
-<p>Based on Image Handler<sup>2</sup> <span class="regularlist"><strong>Ver 2.0 Rev 7</strong> for Zen Cart 1.3.8a updated by ckosloff.</span><br /><br />
-Image Handler<sup>4</sup> v4.0 modifications by:</p>
-<ul>
-  <li>nagelkruid (nagelkruid@gmail.com)</li>
-  <li>Nigelt74 (http://webzings.com)</li>
-  <li>C Jones (http://overthehillweb.com)</li>
-  <li>K Hudson (http://empowermentsanctuary.com)</li>
-  <li>N Collie (http://www.clearright.co.uk)</li>
-  <li>J&ouml;rg Sch&ouml;nberger (http://www.webchills.at)</li>
-  <li>lat9 (https://vinosdefrutastropicales.com)</li>
-  <li>Chad M (mc12345678@cox.net)</li>
-</ul>
-<p>and <em>Image Handler<sup>5</sup></em> modifications by:</p>
-<ul>
-  <li>lat9 (https://vinosdefrutastropicales.com</li>
-  <li>jazzman346 (https://github.com/jazzman346)</li>
-  <li>jeking (https://www.zen-cart.com/member.php?16702-jeking)</li>
-  <li>Zen4All (https://github.com/Zen4All)</li>
-</ul>
+        <div class="tabcontent" id="sc5" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
+                    <h3>CREDITS &amp; HISTORY</h3>
+                    <p>Based on Image Handler<sup>2</sup> <span class="regularlist"><strong>Ver 2.0 Rev 7</strong> for Zen Cart 1.3.8a updated by ckosloff.</span><br /><br />Image Handler<sup>4</sup> v4.0 modifications by:</p>
+                    <ul>
+                        <li>nagelkruid (nagelkruid@gmail.com)</li>
+                        <li>Nigelt74 (http://webzings.com)</li>
+                        <li>C Jones (http://overthehillweb.com)</li>
+                        <li>K Hudson (http://empowermentsanctuary.com)</li>
+                        <li>N Collie (http://www.clearright.co.uk)</li>
+                        <li>J&ouml;rg Sch&ouml;nberger (http://www.webchills.at)</li>
+                        <li>lat9 (https://vinosdefrutastropicales.com)</li>
+                        <li>Chad M (mc12345678@cox.net)</li>
+                    </ul>
+                    <p>and <em>Image Handler<sup>5</sup></em> modifications by:</p>
+                    <ul>
+                        <li>lat9 (https://vinosdefrutastropicales.com</li>
+                        <li>jazzman346 (https://github.com/jazzman346)</li>
+                        <li>jeking (https://www.zen-cart.com/member.php?16702-jeking)</li>
+                        <li>Zen4All (https://github.com/Zen4All)</li>
+                    </ul>
 
-<fieldset>
-  <legend>Image Handler<sup>5</sup></legend>
-  <ul>
-    <li>v5.0.1, 2017-12-xx:<ul>
-      <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
-      <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
-      <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
-        <li>/includes/classes/bmz_image_handler.class.php</li>
-        <li>/YOUR_ADMIN/image_handler.php</li>
-        <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
-        <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
-        <li>/YOUR_ADMIN/includes/languages/english/image_handler_about.php <span style="font-size: smaller;">(Added)</span></li>
-      </ol></li>
-    </ul></li>
-    <li>v5.0.0, 2017-11-10:<ul>
-      <li><b>Major</b> changes to the plugin's distribution, installation and uninstall procedures.<ol>
-        <li>Drops support for Zen Cart versions prior to 1.5.5.</li>
-        <li>Installation no longer auto-removes the plugin's installation/upgrade modules.</li>
-        <li>No more <b>core-file</b> overwrites; only two template-override file changes needed.</li>
-        <li>Includes integration with <em>Fual Slimbox</em> and <em>ColorBox</em>.</li>
-        <li>Separate uninstall script included.</li>
-      </ol></li>
-      <li>Correct javascript error in imagehover processing.</li>
-      <li>Detect and correct invalid transparency settings.</li>
-      <li>Use CSS3 media-queries to &quot;hide&quot; imagehover pop-up on smaller devices.</li>
-      <li>Restore search functionality.</li>
-    </ul></li>
-  </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>5</sup></legend>
+                        <ul>
+                            <li>v5.0.1, 2018-01-xx:<ul>
+                                <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
+                                <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
+                                <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                                    <li>/includes/classes/bmz_image_handler.class.php</li>
+                                    <li>/YOUR_ADMIN/image_handler.php</li>
+                                    <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
+                                    <li>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</li>
+                                    <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                                    <li>/YOUR_ADMIN/includes/languages/english/image_handler.php</li>
+                                    <li>/YOUR_ADMIN/includes/languages/english/image_handler_about.php <span style="font-size: smaller;">(Added)</span></li>
+                                </ol></li>
+                            </ul></li>
+                            <li>v5.0.0, 2017-11-10:<ul>
+                                <li><b>Major</b> changes to the plugin's distribution, installation and uninstall procedures.<ol>
+                                    <li>Drops support for Zen Cart versions prior to 1.5.5.</li>
+                                    <li>Installation no longer auto-removes the plugin's installation/upgrade modules.</li>
+                                    <li>No more <b>core-file</b> overwrites; only two template-override file changes needed.</li>
+                                    <li>Includes integration with <em>Fual Slimbox</em> and <em>ColorBox</em>.</li>
+                                    <li>Separate uninstall script included.</li>
+                                </ol></li>
+                                <li>Correct javascript error in imagehover processing.</li>
+                                <li>Detect and correct invalid transparency settings.</li>
+                                <li>Use CSS3 media-queries to &quot;hide&quot; imagehover pop-up on smaller devices.</li>
+                                <li>Restore search functionality.</li>
+                            </ul></li>
+                        </ul>
+                    </fieldset>
 
-<fieldset>
-  <legend>Image Handler<sup>4</sup> v4.3.2 Changelog</legend>
-  <ul>    
-    <li>Important required changes to <strong>modules/YOUR_TEMPLATE/additional_images.php</strong> to support the changes made to <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong> in v4.3.1</li>
-    <li>Minor correction to <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong></li>
-    </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>4</sup> v4.3.2 Changelog</legend>
+                        <ul>    
+                            <li>Important required changes to <strong>modules/YOUR_TEMPLATE/additional_images.php</strong> to support the changes made to <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong> in v4.3.1</li>
+                            <li>Minor correction to <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong></li>
+                        </ul>
+                    </fieldset>
 
-<hr>
+                    <hr />
 
-<fieldset>
-  <legend>Image Handler<sup>4</sup> v4.3.1 Changelog</legend>
-  <ul>    
-    <li>Important security update <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong> to reflect the current Zen Cart code standards</li>
-    </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>4</sup> v4.3.1 Changelog</legend>
+                        <ul>    
+                            <li>Important security update <strong>/includes/templates/YOUR_TEMPLATE/popup_image_additional/tpl_main_page.php</strong> to reflect the current Zen Cart code standards</li>
+                        </ul>
+                    </fieldset>
 
-<hr>
+                    <hr />
 
-<fieldset>
-  <legend>Image Handler<sup>4</sup> v4.1 Changelog</legend>
-  <ul>    
-    <li>Backup files generated by the auto-installer are now given the OLD.IH4 extension instead of the BAK extension (which some server configurations disallowed)</li>
-    <li>Configuration settings are now consistently and correctly appended to the default Images configuration section</li>    
-    <li>Updates to the readme file.</li>
-    </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>4</sup> v4.1 Changelog</legend>
+                        <ul>    
+                            <li>Backup files generated by the auto-installer are now given the OLD.IH4 extension instead of the BAK extension (which some server configurations disallowed)</li>
+                            <li>Configuration settings are now consistently and correctly appended to the default Images configuration section</li>    
+                            <li>Updates to the readme file.</li>
+                        </ul>
+                    </fieldset>
 
-<hr>
+                    <hr />
 
-<fieldset>
-  <legend>Image Handler<sup>4</sup> v4.0 Changelog</legend>
-  <ul>    
-    <li>Updated to work with Zen Cart v1.5 (not backwards compatible!!)</li>
-    <li>Cleaned up  some of the old outdated crap from the fileset. (Yes it's the end of the --who  knows why it was here in the first place-- .keep file!!!)</li>
-    <li>Made changes to image_handler.php file just to get rid of the sections that  were to do with install and uninstall.</li>
-    <li>In addition to that stupid .keep file all of the thumbs.db have been deleted  too</li>
-    <li>Addition of autoinstaller</li>
-    <li>The install has been cleaned up as well to make sure that obsolete image  configuration settings are removed if someone was running an OLD version of  Image Handler prior to installing this new version.</li>
-    <li>Updates to improve error handling including improved better on-screen text to deter improper image uploads</li>
-    <li>Removed all hardcoded text and moved to proper language files.</li>    
-    <li>Re-format and re-write readme file. Among the changes includes:
-      <ul>
-        <li>Installation instructions now include both a short version of instructions for advanced users, as well as a step-by-step guide for those new to Zen Cart and/or Image Handler<sup>5</sup></li>
-        <li>Uninstall instructions now include a step-by-step guide to successfully uninstalling Image Handler<sup>5</sup>for those new to Zen Cart and/or Image Handler<sup>5</sup></li>
-        <li>Detailed, step-by-step instructions have been provided for use of the Image Handler<sup>5</sup> interface in <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, with a particular focus on the image upload process</li>
-      </ul>
-    </li>
-    </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>4</sup> v4.0 Changelog</legend>
+                        <ul>    
+                            <li>Updated to work with Zen Cart v1.5 (not backwards compatible!!)</li>
+                            <li>Cleaned up  some of the old outdated crap from the fileset. (Yes it's the end of the --who  knows why it was here in the first place-- .keep file!!!)</li>
+                            <li>Made changes to image_handler.php file just to get rid of the sections that  were to do with install and uninstall.</li>
+                            <li>In addition to that stupid .keep file all of the thumbs.db have been deleted  too</li>
+                            <li>Addition of autoinstaller</li>
+                            <li>The install has been cleaned up as well to make sure that obsolete image  configuration settings are removed if someone was running an OLD version of  Image Handler prior to installing this new version.</li>
+                            <li>Updates to improve error handling including improved better on-screen text to deter improper image uploads</li>
+                            <li>Removed all hardcoded text and moved to proper language files.</li>    
+                            <li>Re-format and re-write readme file. Among the changes includes:<ul>
+                                <li>Installation instructions now include both a short version of instructions for advanced users, as well as a step-by-step guide for those new to Zen Cart and/or Image Handler<sup>5</sup></li>
+                                <li>Uninstall instructions now include a step-by-step guide to successfully uninstalling Image Handler<sup>5</sup>for those new to Zen Cart and/or Image Handler<sup>5</sup></li>
+                                <li>Detailed, step-by-step instructions have been provided for use of the Image Handler<sup>5</sup> interface in <strong>Admin &gt; Tools &gt; Image Handler<sup>5</sup></strong>, with a particular focus on the image upload process</li>
+                            </ul></li>
+                        </ul>
+                    </fieldset>
 
-<hr />
+                    <hr />
 
-<fieldset>
-  <legend>Image Handler<sup>3</sup> v3.0 Changelog</legend>
-  <ul>    
-    <li>Updated javascript file which addresses Internet Explorer 9 issue</li>
-    <li>Modify filecase management to prevent issues  from uploading images with mismatched file extension case (main image is JPG, additional image is jpg) -- This change ensures that the additional images file extension will match the case of  the main image (i.e. if main image extension is uppercase, additional images extensions will also be uppercase)</li>
-    <li>Fix fancy quotes.</li>
-    <li>Correct minor issue where image file paths would include an un-needed &quot;/&quot;</li>
-    <li>Add an admin configurable option whereby shopowners can choose whether or not the large or medium image will display in the &quot;on hover&quot; image effect</li>
-    <li>Revise module version numbering for (hopefully) the last time. Eliminating the &quot;Rev&quot; numbers format. The current version number is based on the number of releases from inception to current and what the version number SHOULD have been had a more conventional version numbering system been used for this and all prior releases</li>
-    <li>Re-format and re-write readme file. Among the changes includes:
-      <ul>
-        <li>Better (and MORE) images</li>
-        <li>Full integration of  Tim Kroeger's AWESOME original documentation</li>
-      </ul>
-    </li>
-  </ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Image Handler<sup>3</sup> v3.0 Changelog</legend>
+                        <ul>    
+                            <li>Updated javascript file which addresses Internet Explorer 9 issue</li>
+                            <li>Modify filecase management to prevent issues  from uploading images with mismatched file extension case (main image is JPG, additional image is jpg) -- This change ensures that the additional images file extension will match the case of  the main image (i.e. if main image extension is uppercase, additional images extensions will also be uppercase)</li>
+                            <li>Fix fancy quotes.</li>
+                            <li>Correct minor issue where image file paths would include an un-needed &quot;/&quot;</li>
+                            <li>Add an admin configurable option whereby shopowners can choose whether or not the large or medium image will display in the &quot;on hover&quot; image effect</li>
+                            <li>Revise module version numbering for (hopefully) the last time. Eliminating the &quot;Rev&quot; numbers format. The current version number is based on the number of releases from inception to current and what the version number SHOULD have been had a more conventional version numbering system been used for this and all prior releases</li>
+                            <li>Re-format and re-write readme file. Among the changes includes:<ul>
+                                <li>Better (and MORE) images</li>
+                                <li>Full integration of  Tim Kroeger's AWESOME original documentation</li>
+                            </ul></li>
+                        </ul>
+                    </fieldset>
 
-<hr>
+                    <hr />
 
-<fieldset>
-<legend>Image Handler<sup>2</sup> Rev 8 Changelog</legend>
+                    <fieldset>
+                        <legend>Image Handler<sup>2</sup> Rev 8 Changelog</legend>
 
-<ul>
-  <li>(Rev 8) Updated to add PHP 5.3.x compatibility (tested to for backwards compatibility through PHP 5.2.x). Lots of code in Rev. 7 was inconsistent, so this version is not only compatible with 1.3.9 and PHP5.3.x, but it will also improve performance on PHP 5.2.x Many support issues will be solved by just upgrading to Rev 8.</li>
-  <li>(Rev 8) Clean up HTML to remove deprecated HTML tags</li>
-  <li>(Rev 8) Updated javascript which now support full cross browser compatibility (tested in Chrome, Safari, Internet Explorer 8 and Firefox for Windows)</li>
-  <li>(Rev 8) No more image hotzones - The hotzone feature added no real value to Image Handler<sup>3</sup>, and it has been removed. The configuration settings for hotzones have also been removed from <strong>Admin &gt; Configuration &gt; Images</strong>. In case anyone is wondering, the image hover feature works just fine <strong>WITHOUT</strong> hotzones.<img src="http://www.zen-cart.com/forum/images/smilies/smile.gif" alt="Smile" title="Smile" class="inlineimg" border="0"></li>
-  <li>(Rev 8) The <strong>IH zoom medium images</strong> configuration setting has also been removed from <strong>Admin &gt; Configuration &gt; Images</strong>. This feature (zoom on medium images) was a future enhancement that was NEVER IMPLEMENTED in any Image Handler<sup>3</sup> release. Continuing to leave this configuration setting in place for non-existent functionality has been a long source of confusion in the Image Handler<sup>3</sup> support thread, and therefore it will be removed.</li>
-  <li>(Rev 8b) Corrected the following files based on current version of Zen Cart:
-        <ul>
-          <li>admin/includes/modules/category_product_listing.php</li>
-          <li>includes/modules/additional_images.php</li>
-        </ul>
-  </li>
-  <li>(Rev 8b) Moved the following files to the correct Zen Cart override folders:
-        <ul>
-          <li>includes/modules/main_product_image.php<br>
-            <small>(moved to includes/modules/YOUR_TEMPLATE/additional_images.php)</small></li>
-          <li>includes/modules/additional_images.php<br>
-            <small>(moved to includes/modules/YOUR_TEMPLATE/additional_images.php)</small></li>
-        </ul>
-  </li>
-  <li>(Rev 8b) The following were deleted from the install package (they are now obsolete)</li>
-  <li>
-      <ul>
-        <li>images/zoom.png</li>
-        <li>images/medium/zoom_MED.png</li>
-        <li>images/large/zoom_LRG.png</li>
-        <li>includes/template/default_template</li>
-        <li>includes/template/classic (this folder and all the FILES in it were removed in it's entirety)</li>
-      </ul>
-  </li>
-  <li>(Rev 8c) Correct minor issue where additional large images were not being watermarked in some server configurations.</li>
-  <li>(Rev 8c) Issues with some hosting configurations not setting the file permissions of the bmz_cache child folders correctly</li>
-  <li>(Rev 8c) Added .htaccess with directives to help better protect the bmz_cache folder</li>
-  <li>(Rev 8c) Correct minor issue for product names which contain single quotes.</li>
-  <li>(Rev 8d) Corrected minor issue where the "<strong>Clear Cache</strong>" function removes the <strong>.htaccess</strong> and <strong>.keep</strong> files from "<strong>bmz_cache</strong>" folder (requiring you to manually FTP these files back after clearing the cache from the admin). Clearing the cache from the IH2 admin no longer removes these files.</li>
-</ul>
-</fieldset>
+                        <ul>
+                            <li>(Rev 8) Updated to add PHP 5.3.x compatibility (tested to for backwards compatibility through PHP 5.2.x). Lots of code in Rev. 7 was inconsistent, so this version is not only compatible with 1.3.9 and PHP5.3.x, but it will also improve performance on PHP 5.2.x Many support issues will be solved by just upgrading to Rev 8.</li>
+                            <li>(Rev 8) Clean up HTML to remove deprecated HTML tags</li>
+                            <li>(Rev 8) Updated javascript which now support full cross browser compatibility (tested in Chrome, Safari, Internet Explorer 8 and Firefox for Windows)</li>
+                            <li>(Rev 8) No more image hotzones - The hotzone feature added no real value to Image Handler<sup>3</sup>, and it has been removed. The configuration settings for hotzones have also been removed from <strong>Admin &gt; Configuration &gt; Images</strong>. In case anyone is wondering, the image hover feature works just fine <strong>WITHOUT</strong> hotzones.<img src="http://www.zen-cart.com/forum/images/smilies/smile.gif" alt="Smile" title="Smile" class="inlineimg" border="0"></li>
+                            <li>(Rev 8) The <strong>IH zoom medium images</strong> configuration setting has also been removed from <strong>Admin &gt; Configuration &gt; Images</strong>. This feature (zoom on medium images) was a future enhancement that was NEVER IMPLEMENTED in any Image Handler<sup>3</sup> release. Continuing to leave this configuration setting in place for non-existent functionality has been a long source of confusion in the Image Handler<sup>3</sup> support thread, and therefore it will be removed.</li>
+                            <li>(Rev 8b) Corrected the following files based on current version of Zen Cart:<ul>
+                                <li>admin/includes/modules/category_product_listing.php</li>
+                                <li>includes/modules/additional_images.php</li>
+                            </ul></li>
+                            <li>(Rev 8b) Moved the following files to the correct Zen Cart override folders:<ul>
+                                <li>includes/modules/main_product_image.php<br /><small>(moved to includes/modules/YOUR_TEMPLATE/additional_images.php)</small></li>
+                                <li>includes/modules/additional_images.php<br /><small>(moved to includes/modules/YOUR_TEMPLATE/additional_images.php)</small></li>
+                            </ul></li>
+                            <li>(Rev 8b) The following were deleted from the install package (they are now obsolete)</li>
+                            <li><ul>
+                                <li>images/zoom.png</li>
+                                <li>images/medium/zoom_MED.png</li>
+                                <li>images/large/zoom_LRG.png</li>
+                                <li>includes/template/default_template</li>
+                                <li>includes/template/classic (this folder and all the FILES in it were removed in its entirety)</li>
+                            </ul></li>
+                            <li>(Rev 8c) Correct minor issue where additional large images were not being watermarked in some server configurations.</li>
+                            <li>(Rev 8c) Issues with some hosting configurations not setting the file permissions of the bmz_cache child folders correctly</li>
+                            <li>(Rev 8c) Added .htaccess with directives to help better protect the bmz_cache folder</li>
+                            <li>(Rev 8c) Correct minor issue for product names which contain single quotes.</li>
+                            <li>(Rev 8d) Corrected minor issue where the "<strong>Clear Cache</strong>" function removes the <strong>.htaccess</strong> and <strong>.keep</strong> files from "<strong>bmz_cache</strong>" folder (requiring you to manually FTP these files back after clearing the cache from the admin). Clearing the cache from the IH2 admin no longer removes these files.</li>
+                        </ul>
+                    </fieldset>
 
-<hr>
+                    <hr />
 
-<fieldset>
-<legend>Acknowledgments</legend>
-<ul>
-  <li>First, thanks to Tim Kroeger from www.breakmyzencart.com for crafting the original version of Image Handler<sup>2</sup>  only on the basis of donation-ware.</li>
-  <li>Thanks to ckosloff and DerManoMann for their gracious and hard work on the Image Handler<sup>2</sup> Rev 7 and Rev 8 versions of Image Handler.</li>
-  <li>Thanks to Nigel for all of his hardwork in providing improvements in the error messaging output, and creating a truly cross browser compatible version of the jscript_imagehover.js and the zoom image size code.</li>
-  <li>Thanks to tophand and yellow 1912 for previous contributions to the Image Handler<sup>2</sup> codebase (from Rev 6 &amp; 7).</li>
-  <li>Thanks to Bryan Tyler and Alex Clarke for those great add-ons to Zen Cart: Fual Slimbox and Zen Lightbox.</li>
-  <li>Thanks to N. Collie for the KICK ASSED autoinstaller program making image Handler easier than EVER to install!!!</li>
-  <li>Thanks to ScriptJunkie for taking on the job of updating the readme when my schedule got in the way of doing it!!</li>
-  <li>Thanks to nagelkruid for the refinement of the fancy quotes code.</li>
-</ul>
-</fieldset>
+                    <fieldset>
+                        <legend>Acknowledgments</legend>
+                        <ul>
+                            <li>First, thanks to Tim Kroeger from www.breakmyzencart.com for crafting the original version of Image Handler<sup>2</sup>  only on the basis of donation-ware.</li>
+                            <li>Thanks to ckosloff and DerManoMann for their gracious and hard work on the Image Handler<sup>2</sup> Rev 7 and Rev 8 versions of Image Handler.</li>
+                            <li>Thanks to Nigel for all of his hardwork in providing improvements in the error messaging output, and creating a truly cross browser compatible version of the jscript_imagehover.js and the zoom image size code.</li>
+                            <li>Thanks to tophand and yellow 1912 for previous contributions to the Image Handler<sup>2</sup> codebase (from Rev 6 &amp; 7).</li>
+                            <li>Thanks to Bryan Tyler and Alex Clarke for those great add-ons to Zen Cart: Fual Slimbox and Zen Lightbox.</li>
+                            <li>Thanks to N. Collie for the KICK ASSED autoinstaller program making image Handler easier than EVER to install!!!</li>
+                            <li>Thanks to ScriptJunkie for taking on the job of updating the readme when my schedule got in the way of doing it!!</li>
+                            <li>Thanks to nagelkruid for the refinement of the fancy quotes code.</li>
+                        </ul>
+                    </fieldset>
 
-</div>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc5-->
 
 <!--Begin sc6-->
-<div class="tabcontent" id="sc6" style="display: block;">
-<div class="textcontent">
-<div class="regularlist">
+        <div class="tabcontent" id="sc6" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
 
-<h3>TROUBLESHOOTING</h3>
+                    <h3>TROUBLESHOOTING</h3>
 
-<fieldset>
-<legend>Basics</legend>
-<p>Make sure your custom template is active. (Admin &gt; Tools &gt; Template Selection)</p>
-<p>Make sure Image Handler<sup>5</sup> is installed. <strong>Admin
-&gt; Tools &gt; Image Handler<sup>5</sup> &gt; Admin</strong>.
-Set permissions in both your <strong>images</strong> and <strong>bmz_cache</strong> folders to 755 or 777, depending on what your webhost allows. (<strong>Both </strong>of these folders need
-to have  the same permissions).</p>
-<p>If Image Handler<sup>5</sup> does not work or gives you errors:</p>
+                    <fieldset>
+                        <legend>Basics</legend>
+                        <p>Make sure your custom template is active. (Admin &gt; Tools &gt; Template Selection)</p>
+                        <p>Make sure Image Handler<sup>5</sup> is installed. <strong>Admin
+                        &gt; Tools &gt; Image Handler<sup>5</sup> &gt; Admin</strong>.
+                        Set permissions in both your <strong>images</strong> and <strong>bmz_cache</strong> folders to 755 or 777, depending on what your webhost allows. (<strong>Both </strong>of these folders need
+                        to have  the same permissions).</p>
+                        <p>If Image Handler<sup>5</sup> does not work or gives you errors:</p>
+                        <ul>
+                          <li>Make sure all files are in correct location</li>
+                          <li>Make sure you uploaded ALL the Image Handler<sup>5</sup> files</li>
+                          <li>Make sure the files are not corrupt from bad FTP transfers</li>
+                          <li>Make sure your file merge edits are correct</li>
+                          <li>MAKE SURE YOU RE-READ THE CONFIGURATION AND USAGE SECTIONS!!!</li>
+                          <li>Make sure that there are no javascript conflicts</li>
+                          <li>Make sure that your main product image files names DO NOT contain any special characters (<font>non-alphanumeric characters such as / \ :
+                        ! @ # $ % ^ &lt; &gt; , [ ] { } &amp; * ( ) + = </font>). Always use proper file-naming practices when naming your images &mdash; see this document as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming_20080508_final.pdf" target="_blank">http://www.records.ncdcr.gov/erecords/filenaming_20080508_final.pdf\</a></small></li>
+                        </ul>
+                    </fieldset>
 
-<ul>
-  <li>Make sure all files are in correct location</li>
-  <li>Make sure you uploaded ALL the Image Handler<sup>5</sup> files</li>
-  <li>Make sure the files are not corrupt from bad FTP transfers</li>
-  <li>Make sure your file merge edits are correct</li>
-  <li>MAKE SURE YOU RE-READ THE CONFIGURATION AND USAGE SECTIONS!!!</li>
-  <li>Make sure that there are no javascript conflicts</li>
-  <li>Make sure that your main product image files names DO NOT contain
-any special characters (<font>non-alphanumeric characters such as / \ :
-! @ # $ % ^ &lt; &gt; , [ ] { } &amp; * ( ) + = </font>). Always use
-proper filenaming practices when naming your images - See this document
-as a reference: <small><a href="http://www.records.ncdcr.gov/erecords/filenaming_20080508_final.pdf" target="_blank">http://www.records.ncdcr.gov/erecords/filenaming_20080508_final.pdf\</a></small></li>
-</ul>
-</fieldset>
+                    <hr />
 
-<hr>
+                    <fieldset>
+                        <legend> Prepare Your Site for Growth</legend>
+                        <p>Not many users are aware that Image Handler<sup>5</sup> can manage the needs of a very large site as easily as it does a small one. When first building a site, the owner of a small site needs only to load images to the images folder. But when the site gets bigger and images multiply like rabbits, this can cause file naming confusions for Zen Cart and slow down the site. Preparing for your business to grow from the beginning will save you hours of work later on!</p>
+                        <p>Without Image Handler<sup>5</sup> installed, Zen Cart requires you to create, optimize, and upload three different size images for each image you want to use. You must name these images using naming suffixes, and place them in corresponding folders inside your main image folder. For example: A product called &quot;Widget&quot; requires images/widget.jpg (small image) images/medium/widget_MED.jpg (medium image) and images/large/widget_LRG.jpg. This is such a hassle, especially if many of your products have multiple images. And as your site grows, it becomes an impossible task!</p>
+                        <p>With Image Handler<sup>5</sup>, you no longer have to make three sizes of the same images and place them in different folders (unless you want to)! Instead, you need upload only one image in one folder and Image Handler<sup>5</sup> will do the rest! Simply upload your largest highest quality image and Image Handler<sup>5</sup> will resize and optimize your image as needed, and serve up small, medium, or large image sizes appropriate to the page loaded - all automatically and all without actually modifying your original image file in any way! Check out the Configuration Tab of this ReadMe for more info about this awesome functionality!</p>
+                        <p>Prepare your site for growth by simply creating sub-folders in your main images folder. For example, you may want to put all your &quot;widget&quot; images in a folder called &quot;widgets&quot; and all your doodad images in a folder called &quot;doodads&quot; , like this:<br>
+                        </p>
+                        <p>Product: Blue Widget with 3 images<br>
+                          ---------------------------------- <br>
+                          /images/widgets/blue_widget1.jpg (main product image for a blue widget, i.e. front view)<br>
+                          /images/widgets/blue_widget2.jpg (additional product image for a blue widget, i.e. side view)<br>
+                          /images/widgets/blue_widget3.jpg (additional product image for a blue widget, i.e. rear view)</p>
+                        <p>&nbsp;</p>
+                        <p>Product: Red Widget with 1 image<br>
+                          --------------------------------<br>
+                          /images/widgets/red_widget.jpg (main product image for a red widget)</p>
+                        <p>&nbsp;</p>
+                        <p>Product: Gold Doodad with 2 images<br>
+                          ----------------------------------<br>
+                          /images/doodads/gold_doodad1.jpg (main product image for a gold doodad, i.e. view from above)<br>
+                          /images/doodads/gold_doodad2.jpg (additional product image for a gold doodad, i.e. view from side)</p>
+                        <p>&nbsp;</p>
+                        <p>Product: Silver Doodad with 3 images<br>
+                          ------------------------------------<br>
+                          /images/doodads/silver_doodad1.jpg (main product image for a silver doodad, i.e. product)<br>
+                          /images/doodads/silver_doodad2.jpg (additional product image for a silver doodad, i.e. product detail)<br>
+                          /images/doodads/silver_doodad3.jpg (additional product image for a silver doodad, i.e. product's silver stamp)<br>
+                        </p>
+                        <p>Using Image Handler<sup>5</sup>, you can easily sort and manage thousands of images without confusion or hassle! When selecting the main image for a product in the Image Handler<sup>5</sup> interface, Image Handler<sup>5</sup> lets you pick the location for this image. This prompt disappears afterwards because Image Handler<sup>5</sup> knows that additional images need to be in the same folder as their main product image and handles that automatically!</p>
+                    </fieldset>
 
-<fieldset>
-<legend> Prepare Your Site for Growth</legend>
-<p>Not many users are aware that Image Handler<sup>5</sup> can manage the needs of a very large site as easily as it does a small one. When first building a site, the owner of a small site needs only to load images to the images folder. But when the site gets bigger and images multiply like rabbits, this can cause file naming confusions for Zen Cart and slow down the site. Preparing for your business to grow from the beginning will save you hours of work later on!</p>
-<p>Without Image Handler<sup>5</sup> installed, Zen Cart requires you to create, optimize, and upload three different size images for each image you want to use. You must name these images using naming suffixes, and place them in corresponding folders inside your main image folder. For example: A product called &quot;Widget&quot; requires images/widget.jpg (small image) images/medium/widget_MED.jpg (medium image) and images/large/widget_LRG.jpg. This is such a hassle, especially if many of your products have multiple images. And as your site grows, it becomes an impossible task!</p>
-<p>With Image Handler<sup>5</sup>, you no longer have to make three sizes of the same images and place them in different folders (unless you want to)! Instead, you need upload only one image in one folder and Image Handler<sup>5</sup> will do the rest! Simply upload your largest highest quality image and Image Handler<sup>5</sup> will resize and optimize your image as needed, and serve up small, medium, or large image sizes appropriate to the page loaded - all automatically and all without actually modifying your original image file in any way! Check out the Configuration Tab of this ReadMe for more info about this awesome functionality!</p>
-<p>Prepare your site for growth by simply creating sub-folders in your main images folder. For example, you may want to put all your &quot;widget&quot; images in a folder called &quot;widgets&quot; and all your doodad images in a folder called &quot;doodads&quot; , like this:<br>
-</p>
-<p>Product: Blue Widget with 3 images<br>
-  ---------------------------------- <br>
-  /images/widgets/blue_widget1.jpg (main product image for a blue widget, i.e. front view)<br>
-  /images/widgets/blue_widget2.jpg (additional product image for a blue widget, i.e. side view)<br>
-  /images/widgets/blue_widget3.jpg (additional product image for a blue widget, i.e. rear view)</p>
-<p>&nbsp;</p>
-<p>Product: Red Widget with 1 image<br>
-  --------------------------------<br>
-  /images/widgets/red_widget.jpg (main product image for a red widget)</p>
-<p>&nbsp;</p>
-<p>Product: Gold Doodad with 2 images<br>
-  ----------------------------------<br>
-  /images/doodads/gold_doodad1.jpg (main product image for a gold doodad, i.e. view from above)<br>
-  /images/doodads/gold_doodad2.jpg (additional product image for a gold doodad, i.e. view from side)</p>
-<p>&nbsp;</p>
-<p>Product: Silver Doodad with 3 images<br>
-  ------------------------------------<br>
-  /images/doodads/silver_doodad1.jpg (main product image for a silver doodad, i.e. product)<br>
-  /images/doodads/silver_doodad2.jpg (additional product image for a silver doodad, i.e. product detail)<br>
-  /images/doodads/silver_doodad3.jpg (additional product image for a silver doodad, i.e. product's silver stamp)<br>
-</p>
-<p>Using Image Handler<sup>5</sup>, you can easily sort and manage thousands of images without confusion or hassle! When selecting the main image for a product in the Image Handler<sup>5</sup> interface, Image Handler<sup>5</sup> lets you pick the location for this image. This prompt disappears afterwards because Image Handler<sup>5</sup> knows that additional images need to be in the same folder as their main product image and handles that automatically!</p>
-</fieldset>
+                    <hr />
 
-<hr>
+                    <fieldset>
+                        <legend>Zen Cart and Image Management</legend>
+                        <p>Image Handler<sup>5</sup> is meant to ease the work required to setup images for your store.   It works WITH default Zen Cart functionality, it does not replace it.   Here's some additional FAQs which discuss how product images work in Zen Cart.</p>
+                        <ul>
+                            <li><a href="http://tutorials.zen-cart.com/index.php?article=224" target="_blank">Image Preparation - How-to</a></li>
+                            <li><a href="http://tutorials.zen-cart.com/index.php?article=30" target="_blank">My images are distorted/fuzzy/squished, help?</a><br>
+                          </li>
+                        </ul>
+                        <p>Information on how Zen Cart   identifies/manages additional product images can be found on these Zen Cart FAQs:</p>
+                        <ul>
+                            <li><a href="http://tutorials.zen-cart.com/index.php?article=315" target="_blank">Why am I seeing images for other products on my product pages?</a></li>
+                            <li><a href="http://tutorials.zen-cart.com/index.php?article=58" target="_blank">How do I add multiple images to a product?</a></li>
+                            <li><a href="http://tutorials.zen-cart.com/index.php?article=202" target="_blank">How do I add more than one image of a product?  I want to have a main image   and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!</a></li>
+                        </ul>
+                        <p>Check out these FAQs and see if they help clarify how Zen Cart works with product images.</p>
+                    </fieldset>
 
-<fieldset>
-<legend>Zen Cart and Image Management</legend>
-<p>Image Handler<sup>5</sup> is meant to ease the work required to setup images for your store.   It works WITH default Zen Cart functionality, it does not replace it.   Here's some additional FAQs which discuss how product images work in Zen Cart.</p>
-<ul>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=224" target="_blank">Image Preparation - How-to</a></li>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=30" target="_blank">My images are distorted/fuzzy/squished, help?</a><br>
-  </li>
-</ul>
-<p>Information on how Zen Cart   identifies/manages additional product images can be found on these Zen Cart FAQs:</p>
-<ul>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=315" target="_blank">Why am I seeing images for other products on my product pages?</a></li>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=58" target="_blank">How do I add multiple images to a product?</a></li>
-  <li><a href="http://tutorials.zen-cart.com/index.php?article=202" target="_blank">How do I add more than one image of a product?  I want to have a main image   and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!</a></li>
-</ul>
-<p>Check out these FAQs and see if they help clarify how Zen Cart works with product images.</p>
-</fieldset>
-
-</div>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc6-->
 
 <!--Begin sc7-->
-<div class="tabcontent" id="sc7" style="display: block;">
-  <div class="textcontent">
-    <div class="regularlist">
+        <div class="tabcontent" id="sc7" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
 
-      <h3>Files in the <em>Image Handler</em> Distribution</h3>
-      <p>Image Handler<sup>5</sup> makes minor modifications to two (2) Zen Cart modules, via template-override.  If you've installed other plugins in your store, you should use a program like WinMerge or Beyond Compare to merge <em>IH<sup>5</sup></em>'s required changes into your existing store files.  If you're installing <em>IH<sup>5</sup></em> on a fresh (vanilla) Zen Cart installation, you can simply create a template-override version of those files.</p>
+                    <h3>Files in the <em>Image Handler</em> Distribution</h3>
+                    <p>Image Handler<sup>5</sup> makes minor modifications to two (2) Zen Cart modules, via template-override.  If you've installed other plugins in your store, you should use a program like WinMerge or Beyond Compare to merge <em>IH<sup>5</sup></em>'s required changes into your existing store files.  If you're installing <em>IH<sup>5</sup></em> on a fresh (vanilla) Zen Cart installation, you can simply create a template-override version of those files.</p>
 
-      <p>Here is the the list of pre-existing Zen Cart files that are <em>modified</em> by Image Handler<sup>5</sup>, using the Zen Cart 1.5.5e version of the file as the change-basis: 
-      <ul>
-        <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
-        <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
-      </ul>
-      
-      <p>The full list of non-readme processing files distributed within the <em>IH<sup>5</sup></em> zip-file follows.</p>
-      <table id="files-list">
-        <tr>
-          <th>File Name</th>
-          <th>Comments</th>
-        </tr>
-        <tr>
-          <td>/bmz_cache/.htaccess</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/images/watermark.png</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/images/medium/watermark_MED.png</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/images/large/watermark_LRG.png</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/auto_loaders/config.colorbox.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/includes/auto_loaders/config.fual_slimbox.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/includes/auto_loaders/config.image_handler.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/includes/classes/bmz_gif_info.class.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/classes/bmz_image_handler.class.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/classes/observers/ColorBoxObserver.php</td>
-          <td>&nbsp;Added in v5.0.0.</td>
-          <tr>
-          <td>/includes/classes/observers/FualSlimboxObserver.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/includes/classes/observers/ImageHandlerObserver.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        </tr>
-        <tr>
-          <td>/includes/extra_configures/bmz_image_handler_conf.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/extra_configures/bmz_io_conf.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/functions/extra_functions/functions_bmz_io.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><span class="template">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><span class="template">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/image_handler_uninstall.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/ih_manager.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/auto_loaders/config.image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</td>
-          <td>Added in v5.0.0. Contains functions used by image_handler.php, moved from that module.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/extra_configures/bmz_image_handler_conf.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/extra_configures/bmz_io_conf.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/extra_datafiles/image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_io.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/image_handler.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/image_handler_about.php</td>
-          <td>Added in v5.0.1.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/image_handler_uninstall.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_image_handler.php</td>
-          <td>Comments only for v5.0.0; definitions moved to image_handler.php.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_language_admin.php</td>
-          <td>Comments only for v5.0.0; definitions moved to image_handler_extra_definitions.php.</td>
-        </tr>
-        <tr>
-          <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/image_handler_extra_definitions.php</td>
-          <td>Added in v5.0.0.</td>
-        </tr>
-      </table>
+                    <p>Here is the the list of pre-existing Zen Cart files that are <em>modified</em> by Image Handler<sup>5</sup>, using the Zen Cart 1.5.5e version of the file as the change-basis: 
+                    <ul>
+                        <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+                        <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
+                    </ul>
+          
+                    <p>The full list of non-readme processing files distributed within the <em>IH<sup>5</sup></em> zip-file follows.</p>
+                    <table id="files-list">
+                        <tr>
+                            <th>File Name</th>
+                            <th>Comments</th>
+                        </tr>
+                        <tr>
+                            <td>/bmz_cache/.htaccess</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/images/watermark.png</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/images/medium/watermark_MED.png</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/images/large/watermark_LRG.png</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/auto_loaders/config.colorbox.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/auto_loaders/config.fual_slimbox.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/auto_loaders/config.image_handler.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/classes/bmz_gif_info.class.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/classes/bmz_image_handler.class.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/classes/observers/ColorBoxObserver.php</td>
+                            <td>&nbsp;Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/classes/observers/FualSlimboxObserver.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/classes/observers/ImageHandlerObserver.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>/includes/extra_configures/bmz_image_handler_conf.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/extra_configures/bmz_io_conf.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/functions/extra_functions/functions_bmz_io.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><span class="template">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><span class="template">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/image_handler_uninstall.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/ih_manager.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/auto_loaders/config.image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</td>
+                            <td>Added in v5.0.0. Contains functions used by image_handler.php, moved from that module.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/extra_configures/bmz_image_handler_conf.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/extra_configures/bmz_io_conf.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/extra_datafiles/image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_io.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/image_handler.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/image_handler_about.php</td>
+                            <td>Added in v5.0.1.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/image_handler_uninstall.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_image_handler.php</td>
+                            <td>Comments only for v5.0.0; definitions moved to image_handler.php.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/bmz_language_admin.php</td>
+                            <td>Comments only for v5.0.0; definitions moved to image_handler_extra_definitions.php.</td>
+                        </tr>
+                        <tr>
+                            <td>/YOUR_ADMIN/includes/languages/english/extra_definitions/image_handler_extra_definitions.php</td>
+                            <td>Added in v5.0.0.</td>
+                        </tr>
+                    </table>
 
-    </div>
-  </div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc7-->
 
 <!--Begin sc8-->
-<div class="tabcontent" id="sc8" style="display: block;">
-  <div class="textcontent">
-    <div class="regularlist">
+        <div class="tabcontent" id="sc8" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
 
-      <h3>Miscellaneous Items</h3>
+                    <h3>Miscellaneous Items</h3>
 
-      <fieldset>
-        <legend><a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> or <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a> with Image Handler<sup>5</sup></legend>
-          <p>Both of these plugins provide a large-image popup using jQuery methods and are pre-integrated with <em>IH<sup>5</sup></em>.  <em>IH<sup>5</sup></em> was validated using <em>Fual Slimbox</em> v2.0.1a and <em>ColorBox for Zen Cart</em> v2.1.1 on Zen Cart 1.5.5e.</p>
+                    <fieldset>
+                        <legend><a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> or <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a> with Image Handler<sup>5</sup></legend>
+                        <p>Both of these plugins provide a large-image popup using jQuery methods and are pre-integrated with <em>IH<sup>5</sup></em>.  <em>IH<sup>5</sup></em> was validated using <em>Fual Slimbox</em> v2.0.1a and <em>ColorBox for Zen Cart</em> v2.1.1 on Zen Cart 1.5.5e.</p>
           
-          <p>When your store is using <em>IH<sup>5</sup></em> along with one of these plugins, the order in which the plugin and <em>IH<sup>5</sup></em> are installed is important:</p>
-          <table class="misc-table">
-            <tr>
-              <th>If your store &hellip;</th>
-              <th>&hellip; then &hellip;</th>
-            </tr>
-            <tr>
-              <td>&hellip; has an <em>existing</em> installation of either large-image popup plugin &hellip;</td>
-              <td>Install <em>IH<sup>5</sup></em> as if you had a &quot;fresh&quot; Zen Cart installation, overwriting (or creating) the two template-override files required by <em>IH<sup>5</sup></em>.</td>
-            </tr>
-            <tr>
-              <td>&hellip; has an <em>existing</em> installation of <em>IH<sup>5</sup></em> and you are now going to install one of the large-image popup plugins &hellip;</td>
-              <td>Install the large-image popup as instructed <b>but do not overwrite the two template-override files required by <em>IH<sup>5</sup></em></b>.  The <em>IH<sup>5</sup></em> installation already included modules that enable that large-image popup to do its thing.</td>
-            </tr>
-            <tr>
-              <td>&hellip; has neither <em>IH<sup>5</sup></em> nor an <em>existing</em> large-image popup plugin &hellip;</td>
-              <td>Install <em>IH<sup>5</sup></em>, copying all its distributed files, then proceed to install the large-image popup plugin as described above.</td>
-            </tr>
-          </table>
+                        <p>When your store is using <em>IH<sup>5</sup></em> along with one of these plugins, the order in which the plugin and <em>IH<sup>5</sup></em> are installed is important:</p>
+                        <table class="misc-table">
+                            <tr>
+                                <th>If your store &hellip;</th>
+                                <th>&hellip; then &hellip;</th>
+                            </tr>
+                            <tr>
+                                <td>&hellip; has an <em>existing</em> installation of either large-image popup plugin &hellip;</td>
+                                <td>Install <em>IH<sup>5</sup></em> as if you had a &quot;fresh&quot; Zen Cart installation, overwriting (or creating) the two template-override files required by <em>IH<sup>5</sup></em>.</td>
+                            </tr>
+                            <tr>
+                                <td>&hellip; has an <em>existing</em> installation of <em>IH<sup>5</sup></em> and you are now going to install one of the large-image popup plugins &hellip;</td>
+                                <td>Install the large-image popup as instructed <b>but do not overwrite the two template-override files required by <em>IH<sup>5</sup></em></b>.  The <em>IH<sup>5</sup></em> installation already included modules that enable that large-image popup to do its thing.</td>
+                            </tr>
+                            <tr>
+                                <td>&hellip; has neither <em>IH<sup>5</sup></em> nor an <em>existing</em> large-image popup plugin &hellip;</td>
+                                <td>Install <em>IH<sup>5</sup></em>, copying all its distributed files, then proceed to install the large-image popup plugin as described above.</td>
+                            </tr>
+                        </table>
           
-          <p><em>IH<sup>5</sup></em>'s distribution contains the following files that provide its interoperability with these two large-image popup plugins.  If your store uses a different popup plugin, you'll need to review the code associated with one of the plugin integrations provided.</p>
-          <table class="misc-table">
-            <tr>
-              <th>Plugin Name</th>
-              <th>/includes/auto_loaders File</th>
-              <th>/includes/classes/observers File</th>
-            </tr>
-            <tr>
-              <td><b>Fual Slimbox</b></td>
-              <td>config.fual_slimbox.php</td>
-              <td>FualSlimboxObserver.php</td>
-            </tr>
-            <tr>
-              <td><b>ColorBox</b></td>
-              <td>config.colorbox.php</td>
-              <td>ColorBoxObserver.php</td>
-            </tr>
-          </table>
+                        <p><em>IH<sup>5</sup></em>'s distribution contains the following files that provide its interoperability with these two large-image popup plugins.  If your store uses a different popup plugin, you'll need to review the code associated with one of the plugin integrations provided.</p>
+                        <table class="misc-table">
+                            <tr>
+                                <th>Plugin Name</th>
+                                <th>/includes/auto_loaders File</th>
+                                <th>/includes/classes/observers File</th>
+                            </tr>
+                            <tr>
+                                <td><b>Fual Slimbox</b></td>
+                                <td>config.fual_slimbox.php</td>
+                                <td>FualSlimboxObserver.php</td>
+                            </tr>
+                            <tr>
+                                <td><b>ColorBox</b></td>
+                                <td>config.colorbox.php</td>
+                                <td>ColorBoxObserver.php</td>
+                            </tr>
+                        </table>
 
-      </fieldset>
+                    </fieldset>
 
-      <hr />
+                    <hr />
 
-      <fieldset>
-        <legend>One last thing &mdash; Zoom on Medium Images Functionality</legend>
+                    <fieldset>
+                        <legend>One last thing &mdash; Zoom on Medium Images Functionality</legend>
 
-        <p>The code for zoom on medium images was never included in Tim Kroeger's original contribution or any subsequent Image Handler<sup>3</sup>update.<strong> This has not changed in Image Handler<sup>4</sup> or <em>IH<sup>5</sup></em>.</strong> The history of this functionality can be found below, for those who are interested.</p>
-        <p>It is more than likely that the reason this functionality was never included in the original Image Handler code is largely due to the likely conflicts it would cause between the various lightbox contributions and any medium image hovering/zooming code.</p>
-        <p>Rev 6 of Image Handler<sup>2</sup> (the Image Handler<sup>2</sup> version dated Jul 16 2009) saw the introduction of the "Optional Extras" files.</p>
-        <p>For Rev 6 of Image Handler<sup>2</sup>, an "Optional Extras" folder was added to the download package. The source of the updated files in "Optional Extras" folder comes from this thread:<br />
-        <a href="http://www.zen-cart.com/forum/showpost.php?p=753368&amp;postcount=4034" target="_blank">http://www.zen-cart.com/forum/showpost.php?p=753368&amp;postcount=4034</a></p>
-        
-        <p>The documentation for these files was not clearly written, but seemed to indicate that the files in the "Optional Extras" folder provided the following functionality:</p>
-        <ul>
-          <li>Allowing zoom behavior on medium images.</li>
-          <li>Disabling stock Zen Cart "large image" popup behavior on medium images and have Image Handler<sup>2</sup> zoom behavior applied.</li>
-          <li>Disabling zoom and "larger image" popup behavior on default (no_picture.gif) product images.</li>
-        </ul>
-        <p>The introduction of the "Optional Extras" files to the Image Handler<sup>2</sup>codebase was both poorly documented and poorly supported by the contributing author. The little bit of documentation available also failed to clearly explain that the use of this code would disable any lightbox or jquery contributions. The "Optional Extras" files rendered these kinds of contributions non-workable.</p>
+                        <p>The code for zoom on medium images was never included in Tim Kroeger's original contribution or any subsequent Image Handler<sup>3</sup>update.<strong> This has not changed in Image Handler<sup>4</sup> or <em>IH<sup>5</sup></em>.</strong> The history of this functionality can be found below, for those who are interested.</p>
+                        <p>It is more than likely that the reason this functionality was never included in the original Image Handler code is largely due to the likely conflicts it would cause between the various lightbox contributions and any medium image hovering/zooming code.</p>
+                        <p>Rev 6 of Image Handler<sup>2</sup> (the Image Handler<sup>2</sup> version dated Jul 16 2009) saw the introduction of the "Optional Extras" files.</p>
+                        <p>For Rev 6 of Image Handler<sup>2</sup>, an "Optional Extras" folder was added to the download package. The source of the updated files in "Optional Extras" folder comes from this thread:<br /><a href="http://www.zen-cart.com/forum/showpost.php?p=753368&amp;postcount=4034" target="_blank">http://www.zen-cart.com/forum/showpost.php?p=753368&amp;postcount=4034</a></p>
 
-        <p>Zen Lightbox and Fual Slimbox have been carefully crafted to be completely compatible with Zen Cart and Image Handler<sup>3</sup>. Therefore, it is <strong>NOT</strong> advised that you make the code changes required for zooming on medium images if you are using ANY kind of lightbox contribution as they will stop the lightbox from functioning correctly.</p>
+                        <p>The documentation for these files was not clearly written, but seemed to indicate that the files in the "Optional Extras" folder provided the following functionality:</p>
+                        <ul>
+                            <li>Allowing zoom behavior on medium images.</li>
+                            <li>Disabling stock Zen Cart "large image" popup behavior on medium images and have Image Handler<sup>2</sup> zoom behavior applied.</li>
+                            <li>Disabling zoom and "larger image" popup behavior on default (no_picture.gif) product images.</li>
+                        </ul>
+                        <p>The introduction of the "Optional Extras" files to the Image Handler<sup>2</sup>codebase was both poorly documented and poorly supported by the contributing author. The little bit of documentation available also failed to clearly explain that the use of this code would disable any lightbox or jquery contributions. The "Optional Extras" files rendered these kinds of contributions non-workable.</p>
 
-        <p>The decision to remove the "Optional Extras" folders from Rev 7 of Image Handler<sup>2</sup> wasn't just made simply because the contributors &quot;didn't like&quot; the feature. It was removed because &mdash; based on the related posts in the support thread &mdash; after its introduction, the "Optional Extras" files created more problems for store owners than actual solutions. The contributor of the "Optional Extras" code also never supported these store owners with their questions/issues. The sheer number of support posts related to problems caused by the "Optional Extras" files made it clear that it would be an unwise decision to include these files/folders in Rev 7 of Image Handler<sup>2</sup> (the version in which the "Optional Extras" files were removed from the download package).</p>
+                        <p>Zen Lightbox and Fual Slimbox have been carefully crafted to be completely compatible with Zen Cart and Image Handler<sup>3</sup>. Therefore, it is <strong>NOT</strong> advised that you make the code changes required for zooming on medium images if you are using ANY kind of lightbox contribution as they will stop the lightbox from functioning correctly.</p>
 
-        <p>However, for those <b>really</b> desiring this functionality, this detailed explanation and links to the how-to instructions have been included so that anyone who would like to add these features (hover on medium images) can freely add them to their store. Keep in mind that this code will likely interfere with the MANY contributions which affect product image behavior. For example:</p>
-        <ol>
-          <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=994" target="_blank">Attribute image replaces main product image on selecting attribute</a></strong></li>
-          <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=616" target="_blank">Attribute Pop-up (Large Images)</a></strong></li>
-          <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=1582" target="_blank">External Product Images</a></strong></li>
-          <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=830" target="_blank">Fual Slimbox (Lightbox)</a></strong></li>
-          <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=273" target="_blank">Zen Lightbox</a></strong></li>
-        </ol>
-        <p>In an analysis of the Image Handler code, it was realized that the best way to add zoom on medium images and still provide support for those store owners who like/want lightbox features (and other similar product image effects) would probably require incorporating all of these features directly into the Image Handler codebase. To maintain full store owner control and flexibility, the Image Handler codebase would also probably also have to include the following features:</p>
-        <ol>
-          <li>Admin configurable zoom on medium images</li>
-          <li>Admin configurable lightbox effects</li>
-          <li>The ability for zoom on medium images to work if lightbox features are activated.</li>
-        </ol>
-        <p>Based on this analysis, it was determined that in order to make these changes the RIGHT WAY (AKA not in a hacky sub-standard manner) which will keep the module in a sustainable/supportable state required a lot more coding work than ckosloff and Mano were willing/able to invest on a <strong>volunteer</strong> basis.</p>
+                        <p>The decision to remove the "Optional Extras" folders from Rev 7 of Image Handler<sup>2</sup> wasn't just made simply because the contributors &quot;didn't like&quot; the feature. It was removed because &mdash; based on the related posts in the support thread &mdash; after its introduction, the "Optional Extras" files created more problems for store owners than actual solutions. The contributor of the "Optional Extras" code also never supported these store owners with their questions/issues. The sheer number of support posts related to problems caused by the "Optional Extras" files made it clear that it would be an unwise decision to include these files/folders in Rev 7 of Image Handler<sup>2</sup> (the version in which the "Optional Extras" files were removed from the download package).</p>
 
-        <p>All involved in this module's support and update are aware that improvements can be made to Image Handler<sup>3</sup>. The current updates to Image Handler<sup>3</sup> were not designed to produce a re-written version
-      of Image Handler. The purpose was to provide a leaner/cleaner set of download files, with much clearer directions that would not lay waste to the work of other popular contributions that currently work with Image Handler<sup>3</sup>. (for example, Fual Slimbox and Zen Lightbox). The intent of the Rev 8 releases were meant to further the code cleanup from Rev 7 along with incorporating PHP 5.3.x compatibility.</p>
+                        <p>However, for those <b>really</b> desiring this functionality, this detailed explanation and links to the how-to instructions have been included so that anyone who would like to add these features (hover on medium images) can freely add them to their store. Keep in mind that this code will likely interfere with the MANY contributions which affect product image behavior. For example:</p>
+                        <ol>
+                            <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=994" target="_blank">Attribute image replaces main product image on selecting attribute</a></strong></li>
+                            <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=616" target="_blank">Attribute Pop-up (Large Images)</a></strong></li>
+                            <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=1582" target="_blank">External Product Images</a></strong></li>
+                            <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=830" target="_blank">Fual Slimbox (Lightbox)</a></strong></li>
+                            <li><strong><a href="http://www.zen-cart.com/index.php?main_page=product_contrib_info&amp;products_id=273" target="_blank">Zen Lightbox</a></strong></li>
+                        </ol>
+                        <p>In an analysis of the Image Handler code, it was realized that the best way to add zoom on medium images and still provide support for those store owners who like/want lightbox features (and other similar product image effects) would probably require incorporating all of these features directly into the Image Handler codebase. To maintain full store owner control and flexibility, the Image Handler codebase would also probably also have to include the following features:</p>
+                        <ol>
+                            <li>Admin configurable zoom on medium images</li>
+                            <li>Admin configurable lightbox effects</li>
+                            <li>The ability for zoom on medium images to work if lightbox features are activated.</li>
+                        </ol>
+                        <p>Based on this analysis, it was determined that in order to make these changes the RIGHT WAY (AKA not in a hacky sub-standard manner) which will keep the module in a sustainable/supportable state required a lot more coding work than ckosloff and Mano were willing/able to invest on a <strong>volunteer</strong> basis.</p>
 
-        <p>So in the end the work of adding zoom on medium images functionality is left to anyone else in the open source community who wants to tackle a REAL re-write (versus a hacked set of files) of Image Handler<sup>3</sup> to fully incorporate (and hopefully <strong>SUPPORT</strong>) the addition of these features. Yes, it's open source software and while anyone certainly can add a hack to cobble in zoom on medium images, bundle it up and submit it to the downloads section; most of these kinds of hacked contributions usually go largely unsupported by the author of the hacked version and generally only serve the person who submits the hacked version.</p>
+                        <p>All involved in this module's support and update are aware that improvements can be made to Image Handler<sup>3</sup>. The current updates to Image Handler<sup>3</sup> were not designed to produce a re-written version
+                        of Image Handler. The purpose was to provide a leaner/cleaner set of download files, with much clearer directions that would not lay waste to the work of other popular contributions that currently work with Image Handler<sup>3</sup>. (for example, Fual Slimbox and Zen Lightbox). The intent of the Rev 8 releases were meant to further the code cleanup from Rev 7 along with incorporating PHP 5.3.x compatibility.</p>
 
-        <p>Since Image Handler has always been a well written contribution, any added functionality should be included in the same careful manner. Following this development approach ensures that this open source application remains <strong>usable</strong> for the <strong>WIDEST</strong> possible audience out the box. Hacked additions often do not take this community interest into consideration.</p>
+                        <p>So in the end the work of adding zoom on medium images functionality is left to anyone else in the open source community who wants to tackle a REAL re-write (versus a hacked set of files) of Image Handler<sup>3</sup> to fully incorporate (and hopefully <strong>SUPPORT</strong>) the addition of these features. Yes, it's open source software and while anyone certainly can add a hack to cobble in zoom on medium images, bundle it up and submit it to the downloads section; most of these kinds of hacked contributions usually go largely unsupported by the author of the hacked version and generally only serve the person who submits the hacked version.</p>
 
-        <p>In the meantime, for those who desire zoom on medium images, this section of the readme with links to the thread which shows how to add zoom on medium images along with the appropriate cautions about incompatibility with lightbox and other similar contributions should provide the basic information needed to add this functionality to Image Handler<sup>3</sup>. If you make these changes, you will also need to run the Image Handler<sup>3</sup> uninstall, then&nbsp; update the <strong>admin/includes/functions/extra_functions/functions_bmz_image_handler_update.php</strong> to re-add the zoom configuration options back to Image Handler<sup>3</sup>, and then re-run the Image Handler<sup>3</sup> install again.</p>
+                        <p>Since Image Handler has always been a well written contribution, any added functionality should be included in the same careful manner. Following this development approach ensures that this open source application remains <strong>usable</strong> for the <strong>WIDEST</strong> possible audience out the box. Hacked additions often do not take this community interest into consideration.</p>
 
-        <p>Fancy image functions such as image zooming on hover are really just extra features. Nice to have features for sure, but they are not "THE reason" (nor the REAL purpose) to use Image Handler<sup>3</sup>.</p>
+                        <p>In the meantime, for those who desire zoom on medium images, this section of the readme with links to the thread which shows how to add zoom on medium images along with the appropriate cautions about incompatibility with lightbox and other similar contributions should provide the basic information needed to add this functionality to Image Handler<sup>3</sup>. If you make these changes, you will also need to run the Image Handler<sup>3</sup> uninstall, then&nbsp; update the <strong>admin/includes/functions/extra_functions/functions_bmz_image_handler_update.php</strong> to re-add the zoom configuration options back to Image Handler<sup>3</sup>, and then re-run the Image Handler<sup>3</sup> install again.</p>
 
-      </fieldset>
+                        <p>Fancy image functions such as image zooming on hover are really just extra features. Nice to have features for sure, but they are not "THE reason" (nor the REAL purpose) to use Image Handler<sup>3</sup>.</p>
 
-    </div>
-  </div>
-</div>
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
 <!--End sc8-->
 
 <!--Begin sc9-->
-<div class="tabcontent" id="sc9" style="display: block;">
-<div class="textcontent">
-<div class="regularlist">
+        <div class="tabcontent" id="sc9" style="display: block;">
+            <div class="textcontent">
+                <div class="regularlist">
 
-<h3>LICENSE</h3>
-<p><strong>Image Handler<sup>5</sup></strong> is released under the General Public License (see LICENSE.txt)</p>
+                    <h3>LICENSE</h3>
+                    <p><strong>Image Handler<sup>5</sup></strong> is released under the General Public License (see LICENSE.txt)</p>
 
-<p>This script is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
-<p>Always backup your shop and database before making changes.</p>
+                    <p>This script is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+                    <p>Always backup your shop and database before making changes.</p>
 
-</div>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
 <!--End sc9-->
 
-</div>
+    </div>
 </div>
 <!--end tabcontainer-->
 <script type="text/javascript">document.getElementById('sc2').style.display = 'none';</script>
