@@ -23,7 +23,7 @@ class ImageHandlerAdmin
         $image_size = @getimagesize($filename);
         $image_fs_size = filesize($filename);
 
-        $str .= $image_size[0] . "x" . $image_size[1];
+        $str = $image_size[0] . "x" . $image_size[1];
         $str .= "<br /><strong>" . round($image_fs_size/1024, 2) . "Kb</strong>";
 
         return $str;

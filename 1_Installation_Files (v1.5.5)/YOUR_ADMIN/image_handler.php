@@ -39,7 +39,7 @@ if (isset($_POST['action'])) {
 //-------End Nigel
 //  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $products_filter = (isset($_GET['products_filter']) ? $_GET['products_filter'] : '');
-$current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
+$current_category_id = (isset($_GET['current_category_id'])) ? $_GET['current_category_id'] : (isset($current_category_id) ? $current_category_id : '');
 $currencies = new currencies();
 $import_info = null;
 
@@ -394,6 +394,8 @@ if ($ih_page == 'manager') {
             $products_image_directory = $image_info['dirname'];
             if ($products_image_directory != '.') {
                 $products_image_directory .= '/';
+            } else {
+                $products_image_directory = '';
             }
             $products_image_base = $image_info['filename'];
             $products_image_extension = '.' . $image_info['extension'];
@@ -431,7 +433,8 @@ if ($ih_page == 'manager') {
 <?php
             $selected_image_suffix = '';
             // no images
-            $no_images = (0 == $count = count($products_image_match_array));
+            $count = count($products_image_match_array);
+            $no_images = ($count == 0);
             if ($no_images) {
 ?>
                 <tr>
@@ -520,7 +523,7 @@ if ($ih_page == 'manager') {
                 $preview_image = $tmp_image_medium_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
                 list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
                 $width = min($width, intval(IMAGE_SHOPPING_CART_WIDTH));
-                $height = min ($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
+                $height = min($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
                 echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br />';
                 echo $text_medium_size . '<br />';
                 if (is_file($image_file_medium_full)) {
@@ -577,7 +580,7 @@ if ($ih_page == 'manager') {
                     );
                     $contents = array(
                         'align' => 'center', 
-                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'ih_page=' . $_GET['ih_page'] . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
+                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'ih_page=' . $ih_page . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
                     );
                     $contents[] = array
                         ('text' => '<strong>' . TEXT_INFO_NAME. ': </strong>' . $selected_image_name . '<br />'
