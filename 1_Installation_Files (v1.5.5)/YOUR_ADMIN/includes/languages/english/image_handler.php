@@ -15,6 +15,7 @@ define('ICON_IMAGE_HANDLER', 'Image Handler ' . IH_VERSION);
 define('IH_VERSION_VERSION', 'Version');
 define('IH_VERSION_NOT_FOUND', 'No Image Handler information found.');
 define('IH_REMOVE', 'Uninstall Image Handler.  (Please backup your site and database first)');
+define('IH_VIEW_CONFIGURATION', 'View Image Handler Configuration');
 define('IH_CLEAR_CACHE', 'Clear image cache');
 define('IH_CACHE_CLEARED', 'Image cache cleared.');
 
