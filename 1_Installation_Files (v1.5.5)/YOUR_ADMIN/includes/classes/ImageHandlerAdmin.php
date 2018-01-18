@@ -12,6 +12,7 @@ class ImageHandlerAdmin
     {
         $this->debug = (IH_DEBUG == 'true');
         $this->debugLogfile = DIR_FS_LOGS . '/ih_debug.log';
+        $this->validFiletypes = array('gif', 'jpg', 'png', 'no_change');
     }
     
     public function getImageDetailsString($filename) 
@@ -95,6 +96,44 @@ class ImageHandlerAdmin
             }
         }
         return ($error) ? 0 : 1;
+    }
+    
+    public function validatePositiveInteger($value)
+    {
+        return (((int)$value) != $value || $value <= 0);
+    }
+    
+    public function validateQuality($value)
+    {
+        return (((int)$value) != $value || $value < 0 || $value > 85);
+    }
+    
+    public function validateBackground($value)
+    {
+        $entry_error = false;
+        $background = trim(str_replace('transparent', '', $value));
+        $rgb_values = preg_split('/[, :]/', $background);
+        
+        if (!is_array($rgb_values) || count($rgb_values) != 3) {
+            $entry_error = true;
+        } else {
+            foreach ($rgb_values as $rgb_value) {
+                if (preg_match('/^[0-9]{1,3}$/', $rgb_value) == 0 || $rgb_value > 255) {
+                    $entry_error = true;
+                }
+            }
+        }
+        return $entry_error;
+    }
+    
+    public function validateFiletype($value)
+    {
+        return !in_array($value, $this->validFiletypes);
+    }
+    
+    public function validateBoolean($value)
+    {
+        return !($value === true || $value === false);
     }
     
     public function debugLog($message) {

@@ -205,6 +205,7 @@ $ih_admin_actions = array();
 $ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : 'manager';
 if ($ih_page == 'admin') {
     $ih_admin_actions['ih_uninstall'] = IH_REMOVE;
+    $ih_admin_actions['ih_view_config'] = IH_VIEW_CONFIGURATION;
     $ih_admin_actions['ih_clear_cache'] = IH_CLEAR_CACHE;
 }
 
@@ -218,6 +219,13 @@ if (count($ih_admin_actions) > 0) {
             if (zen_is_superuser() || check_page(FILENAME_IMAGE_HANDLER_UNINSTALL, '')) {
                 echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
             }
+        } elseif ($action_name == 'ih_view_config') {
+            // -----
+            // Include the "View Configuration" page in the menu only if the admin is currently authorized.
+            //
+            if (zen_is_superuser() || check_page(FILENAME_IMAGE_HANDLER_VIEW_CONFIG, '')) {
+                echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_VIEW_CONFIG) . '">' . $link_name . '</a></li>';
+            }            
         } else {
             echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=admin&amp;action=' . $action_name) . '">' . $link_name . '</a></li>';
         }

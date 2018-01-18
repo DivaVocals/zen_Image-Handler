@@ -11,6 +11,7 @@
 //
 define('BOX_TOOLS_IMAGE_HANDLER', 'Image Handler<sup>5</sup>');
 define('BOX_TOOLS_IMAGE_HANDLER_UNINSTALL', 'Image Handler<sup>5</sup> Uninstall');
+define('BOX_TOOLS_IMAGE_HANDLER_VIEW_CONFIG', 'View Image Handler<sup>5</sup> Configuration');
 
 // -----
 // Messages issued by /admin/includes/init_includes/init_image_handler.php

@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
 //
 require 'includes/application_top.php';
 
@@ -43,13 +43,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
             'languages/english/image_handler.php',
             'languages/english/image_handler_about.php',
             'languages/english/image_handler_uninstall.php',
+            'languages/english/image_handler_view_config.php',
             'languages/english/extra_definitions/bmz_image_handler.php',
             'languages/english/extra_definitions/bmz_language_admin.php',
             'languages/english/extra_definitions/image_handler_extra_definitions.php'
         ),
         'admin_root' => array(
             'image_handler.php',
-            'image_handler_uninstall.php'
+            'image_handler_uninstall.php',
+            'image_handler_view_config.php'
         ),
     );
     
@@ -115,7 +117,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
     );
     $db->Execute(
         "DELETE FROM " . TABLE_ADMIN_PAGES . "
-          WHERE page_key IN ('configImageHandler4', 'toolsImageHandlerUninstall' )"
+          WHERE page_key IN ('configImageHandler4', 'toolsImageHandlerUninstall', 'toolsImageHandlerViewConfig' )"
     );
     
     // -----
