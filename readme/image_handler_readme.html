@@ -253,7 +253,7 @@
                         <p>Zen Cart will only recognize and display product images that have the <strong>exact same file format</strong> for each image size. In other words, all small images must be the same filetype, all medium images must be the same filetype, and all large images must be the same filetype. </p>
                         <p><strong>But &hellip;</strong></p>
                         <p>Amongst the various images sizes you can have a &quot;mixed bag&quot;. For example, you might decide that all small images will be <strong>gif</strong>'s, all medium images will be <strong>jpg</strong>'s, and all large images will be <strong>png</strong>'s. The filetype feature allows you to do just that.</p>
-                        <p><b><i>Caution</i></b>: Image Handler<sup>5</sup> will allow you to add any valid image format as an additional image to a product &mdash; even if the additional image being uploaded is in a different file format than the main product image (e.g. the main image is a jpg and the additional images are png). Image Handler<sup>5</sup> will display mismatched file extensions in <span class="red">red</span> in the  additional images table. This  visual indication tells you that you've uploaded an additional image with a different filetype than the main product image. <em>Zen Cart will not &quot;see&quot; this additional image</em> because the file format of the new image does not match that of the main product image.</p>
+                        <p><b><i>Caution</i></b>: Image Handler<sup>5</sup> will allow you to add any valid image format as an additional image to a product &mdash; even if the additional image being uploaded is in a different file format than the main product image (e.g. the main image is a jpg and the additional images are png). Image Handler<sup>5</sup> will display mismatched file extensions in <span class="red">red</span> in the  additional images table. This  visual indication tells you that you've uploaded an additional image with a different filetype than the main product image. <em class="red">Zen Cart will not &quot;see&quot; this additional image</em> because the file format of the new image does not match that of the main product image.</p>
                         <p><strong>Filetype Notes:</strong>:</p>
                         <ol>
                             <li></acronym><em><acronym title="Graphics Interchange Format">GIF</acronym></em> is ok for small thumbnails and features some basic transparency.</li>
@@ -581,6 +581,7 @@
                         <ul>
                             <li>v5.0.1, 2018-01-xx:<ul>
                                 <li>CHANGE: Added <em>View Image Handler Configuration</em> to the <em>IH</em><sup>5</sup> admin menu.</li>
+                                <li>CHANGE: Removed <em>Scan for old images</em> tool from the <em>IH</em><sup>5</sup> admin menu.</li>
                                 <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
                                 <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
                                 <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>

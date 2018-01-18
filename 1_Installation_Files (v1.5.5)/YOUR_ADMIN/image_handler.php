@@ -38,14 +38,13 @@ if (isset($_POST['action'])) {
 }
 //-------End Nigel
 //  $action = (isset($_GET['action']) ? $_GET['action'] : '');
-$products_filter = (isset($_GET['products_filter']) ? $_GET['products_filter'] : '');
-$current_category_id = (isset($_GET['current_category_id'])) ? $_GET['current_category_id'] : (isset($current_category_id) ? $current_category_id : '');
+$products_filter = (isset($_GET['products_filter']) ? ((int)$_GET['products_filter']) : '');
+$current_category_id = (isset($_GET['current_category_id'])) ? ((int)$_GET['current_category_id']) : (isset($current_category_id) ? $current_category_id : '');
 $currencies = new currencies();
 $import_info = null;
 
 if ($action == 'set_products_filter') {  
-    $_GET['products_filter'] = $_POST['products_filter']; 
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . $_GET['products_filter']));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . (int)$_POST['products_filter']));
 }
 
 if ($ih_page == 'manager') {
@@ -89,6 +88,10 @@ h5 {font-size: 100%}
 h1 a, h2 a, h3 a, h4 a, h5 a { font-weight: bold;  letter-spacing: 0.1em;  word-spacing: 0.2em;}
 
 input[type="text"], input[type="submit"], input[type="file"], select {border: 1px solid #CCCCCC; background-color: #FFFFFF;}
+
+#ih-p-info { border-collapse: collapse; }
+#ih-p-info td { padding: 5px; border: 1px solid #444; }
+#ih-p-info td:first-child { font-weight: bold; }
 
 div.adminbox {padding: 10px;}
 div.aboutbox {width: 95%;}
@@ -242,7 +245,7 @@ if ($ih_page == 'manager') {
     <table summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
 <?php
     echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
-    echo zen_draw_hidden_field('products_filter', $_GET['products_filter']); 
+    echo zen_draw_hidden_field('products_filter', $products_filter); 
 ?> 
     <table summary="Manager Table" border="0" cellspacing="0" cellpadding="2">
         <tr>
@@ -255,16 +258,22 @@ if ($ih_page == 'manager') {
 <?php   
     //----- Nigel - Another ugly hack - probably need to clean up the attributes section - not really sure why the attributes section matters to IH - ask Diva
     if (isset($_POST['products_filter'])) { 
-        $_GET['products_filter'] = $_POST['products_filter'];
+        $products_filter = $_GET['products_filter'] = (int)$_POST['products_filter'];
     } 
     //------  Nigel --End ugly hack
 // FIX HERE
-    if ($_GET['products_filter'] != '') {//a category with products has been selected
-        $display_priced_by_attributes = zen_get_products_price_is_priced_by_attributes($_GET['products_filter']);
+    if ($products_filter != '') {//a category with products has been selected
+        $display_priced_by_attributes = zen_get_products_price_is_priced_by_attributes($products_filter);
         echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br />' : '');
-        echo zen_get_products_display_price($_GET['products_filter']) . '<br /><br />';
-        echo zen_get_products_quantity_min_units_display($_GET['products_filter'], $include_break = true);
-        $not_for_cart = $db->Execute("select p.products_id from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCT_TYPES . " pt on p.products_type= pt.type_id where pt.allow_add_to_cart = 'N'");
+        echo zen_get_products_display_price($products_filter) . '<br /><br />';
+        echo zen_get_products_quantity_min_units_display($products_filter, $include_break = true);
+        $not_for_cart = $db->Execute(
+            "SELECT p.products_id 
+               FROM " . TABLE_PRODUCTS . " p 
+                    LEFT JOIN " . TABLE_PRODUCT_TYPES . " pt 
+                        ON p.products_type= pt.type_id 
+              WHERE pt.allow_add_to_cart = 'N'"
+        );
     } else { //no category with products has been selected or its the first landing on admin page: nothing to show in products drop down
         echo '';
         $not_for_cart = new stdClass();
@@ -273,9 +282,9 @@ if ($ih_page == 'manager') {
 ?>
             </td>
 <?php
-    if (isset($products_filter)) { //prevent creation of empty Select 
+    if ($products_filter != '') { //prevent creation of empty Select 
 ?>
-            <td class="attributes-even" align="center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', $not_for_cart->fields, true, $_GET['products_filter'], true, true); ?></td>
+            <td class="attributes-even" align="center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', $not_for_cart->fields, true, $products_filter, true, true); ?></td>
             <td class="main" align="center" valign="top"><?php echo zen_image_submit('button_display.gif', IMAGE_DISPLAY); ?></td>
 <?php
     } else {
@@ -292,7 +301,7 @@ if ($ih_page == 'manager') {
                 <table summary="Product List">
 <?php
     // show when product is linked
-    if ((isset($products_filter)) && zen_get_product_is_linked($products_filter) == 'true') {
+    if ($products_filter != '' && zen_get_product_is_linked($products_filter) == 'true') {
 ?>
                     <tr>
                         <td class="main" align="center" valign="bottom">
@@ -305,13 +314,13 @@ if ($ih_page == 'manager') {
                     <tr>
                         <td class="main" align="center" valign="bottom">
 <?php
-    if ($_GET['products_filter'] != '') {
+    if ($products_filter != '') {
         echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'action=new_product' . '&amp;cPath=' . $current_category_id . '&amp;pID=' . $products_filter . '&amp;product_type=' . zen_get_products_type($products_filter)) . '">' . zen_image_button('button_edit_product.gif', IMAGE_EDIT_PRODUCT) . '<br />' . TEXT_PRODUCT_EDIT . '</a>';
         echo '</td><td class="main" align="center" valign="bottom">';
         echo '<a href="' . zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, 'products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id, 'NONSSL') . '">' . zen_image_button('button_edit_attribs.gif', IMAGE_EDIT_ATTRIBUTES) . '<br />' . TEXT_ATTRIBUTE_EDIT . '</a>' . '&nbsp;&nbsp;&nbsp;';
     }
 ?>
-                </td>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -336,7 +345,7 @@ if ($ih_page == 'manager') {
                     p.products_discount_type, p.products_discount_type_from, p.products_price_sorter,
                     pd.products_name, p.master_categories_id
                FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
-              WHERE p.products_id = " . (int)$_GET['products_filter'] . "
+              WHERE p.products_id = $products_filter
                 AND p.products_id = pd.products_id
                 AND pd.language_id = " . (int)$_SESSION['languages_id'] . "
               LIMIT 1"
@@ -364,19 +373,43 @@ if ($ih_page == 'manager') {
 
         if ($pInfo->products_id != '') {
 ?>
-    <h4>
+    <table id="ih-p-info">
+        <tr>
+            <td><?php echo TEXT_PRODUCT_INFO; ?></td>
+            <td><?php echo '#' . $pInfo->products_id . ' &mdash; ' . $pInfo->products_name; ?></td>
+        </tr>
 <?php 
-            echo TEXT_PRODUCT_INFO . ': #' . $pInfo->products_id . '&nbsp;&nbsp;' . $pInfo->products_name;
             if ($pInfo->products_model != '') {
-                echo '<br />'.TEXT_PRODUCTS_MODEL . ': ' . $pInfo->products_model; 
+?>
+        <tr>
+            <td><?php echo TEXT_PRODUCTS_MODEL; ?></td>
+            <td><?php echo $pInfo->products_model; ?></td>
+        </tr>
+<?php
             }
             if ($pInfo->products_image != '') {
-                if (preg_match("/^([^\/]+)\//", $pInfo->products_image, $matches)) {
-                    echo TEXT_IMAGE_BASE_DIR . ': ' . $matches[1];
+                $products_image_base = DIR_FS_CATALOG . DIR_WS_IMAGES . $pInfo->products_image;
+                if (!file_exists($products_image_base)) {
+                    $file_info = ' <span class="ih-error">' . TEXT_MSG_FILE_NOT_FOUND . '</span>';
+                } else {
+                    $image_info = @getimagesize($products_image_base);
+                    if (!is_array($image_info)) {
+                        $php_error = error_get_last();
+                        $file_info = ' <span class="ih-error">' . TEXT_MSG_ERROR_RETRIEVING_IMAGESIZE . ' (' . $php_error['message'] . ')</span>';
+                    } else {
+                        $file_size = filesize($products_image_base) / 1024;
+                        $file_info = ' <span>(' . $image_info[0] . ' x ' . $image_info[1] . ', ' . round($file_size, 2) . 'Kb)</span>';
+                    }
                 }
+?>
+        <tr>
+            <td><?php echo TEXT_IMAGE_BASE_IMAGE; ?></td>
+            <td><?php echo $products_image_base . $file_info; ?></td>
+        </tr>
+<?php
             }
 ?>
-    </h4>
+    </table>
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -401,14 +434,15 @@ if ($ih_page == 'manager') {
 <?php 
             }
 
-            $default_extension = 'bob';
+            $default_extension = false;
             $first = 1;
             for ($i=0; $i < $count; $i++) {
                 // there are some pictures, show them!
-                $splitpos = strrpos($products_image_match_array[$i], '.');
-                $tmp_image_name = substr($products_image_match_array[$i], 0, $splitpos);
-                $products_image_extension = substr($products_image_match_array[$i], $splitpos);
-                if ($default_extension == 'bob') {
+                $current_image = $products_image_match_array[$i];
+                $image_info = pathinfo($current_image);
+                $tmp_image_name = $image_info['filename'];
+                $products_image_extension = '.' . $image_info['extension'];
+                if ($default_extension === false) {
                     $default_extension = $products_image_extension;
                 }//added nigel
                 $image_file = DIR_WS_IMAGES . $products_image_directory . $tmp_image_name . $products_image_extension;
@@ -446,10 +480,10 @@ if ($ih_page == 'manager') {
                     $tmp_image_link = zen_catalog_href_link(FILENAME_POPUP_IMAGE_ADDITIONAL, 'pID=' . $pInfo->products_id . '&amp;pic=' . ($i) . "&amp;products_image_large_additional=$tmp_image_file_large");
                 }
 
-                if ( isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name ) {
+                if (isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name ) {
                     // an image is selected, highlight it
                     echo '<tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' 
-                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] 
+                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
                         . '&amp;imgName=' .$tmp_image_name . '&amp;action=layout_edit') . '\'">' . "\n";
                     // set some details for later usage
                     $selected_image_file = DIR_WS_CATALOG . $tmp_image_file_medium;
@@ -460,7 +494,7 @@ if ($ih_page == 'manager') {
                     $selected_image_extension = $products_image_extension;
                 } else {
                     echo '<tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\''
-                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] 
+                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
                         . '&amp;imgName=' . $tmp_image_name . '&amp;action=layout_info') . '\'">' . "\n";
                 }
 ?>
@@ -486,7 +520,7 @@ if ($ih_page == 'manager') {
                 echo $text_medium_size . '<br />';
                 if (is_file($image_file_medium_full)) {
                     echo ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                        . $image_file_medium . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=quick_delete') . '">' 
+                        . $image_file_medium . '&amp;products_filter=' . $products_filter . '&amp;action=quick_delete') . '">' 
                         . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
                 }
 ?>
@@ -501,7 +535,7 @@ if ($ih_page == 'manager') {
                 echo $text_large_size . '<br />';
                 if (is_file($image_file_large_full)) {
                     echo ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                        . $image_file_large . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=quick_delete') . '">' 
+                        . $image_file_large . '&amp;products_filter=' . $products_filter . '&amp;action=quick_delete') . '">' 
                         . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
                 }
 ?>
@@ -511,7 +545,7 @@ if ($ih_page == 'manager') {
                 if ( isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name ) { 
                     echo zen_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); 
                 } else { 
-                    echo '<a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] 
+                    echo '<a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
                         . '&amp;imgName=' . $tmp_image_name . '&amp;action=layout_info') 
                         . '">' . zen_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>';
                 } 
@@ -538,7 +572,7 @@ if ($ih_page == 'manager') {
                     );
                     $contents = array(
                         'align' => 'center', 
-                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'ih_page=' . $ih_page . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
+                        'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 'ih_page=' . $ih_page . '&amp;products_filter=' . $products_filter . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
                     );
                     $contents[] = array
                         ('text' => '<strong>' . TEXT_INFO_NAME. ': </strong>' . $selected_image_name . '<br />'
@@ -565,13 +599,13 @@ if ($ih_page == 'manager') {
                         'align' => 'center', 
                         'text' => '<br />' .
                             ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                            . $_GET['imgName'] . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=layout_edit') . '">' 
+                            . $_GET['imgName'] . '&amp;products_filter=' . $products_filter . '&amp;action=layout_edit') . '">' 
                             . zen_image_button('button_edit.gif', IH_IMAGE_EDIT) . '</a> &nbsp; '
                             . ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                            . $_GET['imgName'] . '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=layout_delete') . '">' 
+                            . $_GET['imgName'] . '&amp;products_filter=' . $products_filter . '&amp;action=layout_delete') . '">' 
                             . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a> &nbsp;'
                             .' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 
-                            '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=layout_new') . '">' 
+                            '&amp;products_filter=' . $products_filter . '&amp;action=layout_new') . '">' 
                             . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>'
                     );
                     break;
@@ -598,7 +632,7 @@ if ($ih_page == 'manager') {
               
                     $contents = array(
                         'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, 
-                            '&products_filter=' . $_GET['products_filter'] . $imgNameStr
+                            '&products_filter=' . $products_filter . $imgNameStr
                             . '&amp;action=save', 'post', 'enctype="multipart/form-data"')
                     ); //steve check this &products_filter=
 
@@ -736,7 +770,7 @@ if ($ih_page == 'manager') {
                     $contents[] = array(
                         'align' => 'center', 
                         'text' => '<br />'
-                        .' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=delete' . $imgStr ) . '">' 
+                        .' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $products_filter . '&amp;action=delete' . $imgStr ) . '">' 
                         . zen_image_button( 'button_delete.gif', IMAGE_DELETE ) . '</a>'
                     );
                     break;
@@ -750,18 +784,18 @@ if ($ih_page == 'manager') {
                         'form' => zen_draw_form('image_define', FILENAME_PRODUCT_TYPES, 'ih_page=' . $_GET['ih_page'] . '&amp;action=new', 'post', 'enctype="multipart/form-data"')
                     );
                     $contents[] = array(
-                        'text' => '<br />' . TEXT_INFO_CLICK_TO_ADD
+                        'text' => '<br />' . (($no_images) ? TEXT_INFO_CLICK_TO_ADD_MAIN : TEXT_INFO_CLICK_TO_ADD_ADDL)
                     );
                     $contents[] = array(
                         'align' => 'center', 
                         'text' => '<br />'
-                            . ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $_GET['products_filter'] . '&amp;action=layout_new') . '">' 
+                            . ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $products_filter . '&amp;action=layout_new') . '">' 
                             . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>'
                     );
                     break;
             }
           
-            if ((zen_not_null($heading)) && (zen_not_null($contents))) {
+            if (zen_not_null($heading) && zen_not_null($contents)) {
                 $box = new box;
 ?>
             <td width="25%" valign="top"><?php echo $box->infoBox($heading, $contents); ?></td>
