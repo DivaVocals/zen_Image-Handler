@@ -181,6 +181,7 @@ if ($action == 'save') {
             // -----
             // If no additional images exist, use the _01 suffix.
             //
+            $file_count = count($matching_files);
             if ($file_count == 1) {
                 $data['imgSuffix'] = '_01';
             } else {
@@ -190,7 +191,7 @@ if ($action == 'save') {
                 //
                 for ($suffix = 1, $found = false; $suffix < 99; $suffix++) {
                     $suffix_string = sprintf('_%02u', $suffix);
-                    if (!in_array($data['imgBase'] . $suffix_string . $data['imgExtension'])) {
+                    if (!in_array($data['imgBase'] . $suffix_string . $data['imgExtension'], $matching_files)) {
                         $found = true;
                         $data['imgSuffix'] = $suffix_string;
                         break;
@@ -333,7 +334,7 @@ if ($action == 'quick_delete') {
         // could not find file to delete
         $messageStack->add_session(TEXT_MSG_IMAGE_NOT_FOUND, 'error');
     }
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
 }
 
 if ($action == 'delete') {
@@ -343,14 +344,16 @@ if ($action == 'delete') {
     $data['imgSuffix'] = $_GET['imgSuffix'];
 
     // add slash to base dir
-    if (($data['imgBaseDir'] != '') && !preg_match("|\/$|", $data['imgBaseDir'])) {
+    if ($data['imgBaseDir'] != '' && !preg_match("|\/$|", $data['imgBaseDir'])) {
         $data['imgBaseDir'] .= '/'; 
     }
 
     // Determine file names
-    $data['defaultFileName'] = DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . $data['imgExtension'];
-    $data['mediumFileName'] = DIR_FS_CATALOG . DIR_WS_IMAGES . 'medium/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_MEDIUM . $data['imgExtension'];
-    $data['largeFileName'] = DIR_FS_CATALOG . DIR_WS_IMAGES . 'large/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_LARGE . $data['imgExtension'];
+    $base_name =  $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'];
+    $image_dir = DIR_FS_CATALOG . DIR_WS_IMAGES;
+    $data['defaultFileName'] = $image_dir . $base_name . $data['imgExtension'];
+    $data['mediumFileName'] = $image_dir . 'medium/' . $base_name . IMAGE_SUFFIX_MEDIUM . $data['imgExtension'];
+    $data['largeFileName'] = $image_dir . 'large/' . $base_name . IMAGE_SUFFIX_LARGE . $data['imgExtension'];
 
     if ($_POST['delete_from_db_only'] != "Y") {
         // check for each file, and delete it!
@@ -390,11 +393,11 @@ if ($action == 'delete') {
             $messageStack->add(TEXT_MSG_INVALID_SQL, "error");
         }
     }
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
 }
 
 if ($action == 'cancel') {
     // set edit message
     $messageStack->add_session(PRODUCT_WARNING_UPDATE_CANCEL, 'warning');
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $_GET['products_filter'] . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
 }

@@ -89,9 +89,18 @@ h1 a, h2 a, h3 a, h4 a, h5 a { font-weight: bold;  letter-spacing: 0.1em;  word-
 
 input[type="text"], input[type="submit"], input[type="file"], select {border: 1px solid #CCCCCC; background-color: #FFFFFF;}
 
+#ih-head { float:left; padding: 8px 5px; }
+#ih-search { float: right; padding: 5px; }
+#ih-admin { background-color: #F5F5F5; border: solid #CCCCCC; border-width: 1px 0px; }
+
 #ih-p-info { border-collapse: collapse; }
 #ih-p-info td { padding: 5px; border: 1px solid #444; }
 #ih-p-info td:first-child { font-weight: bold; }
+
+.ih-center { text-align: center; }
+.ih-right { text-align: right; }
+.ih-vtop { vertical-align: top; }
+.ih-vbot { vertical-align: bottom; }
 
 div.adminbox {padding: 10px;}
 div.aboutbox {width: 95%;}
@@ -153,7 +162,7 @@ a.wikilink1:hover { color:#009900; text-decoration: underline; }
 <!-- body //-->
 
 <div>
-    <div style="float:left; padding: 8px 5px;">
+    <div id="ih-head">
         <h1><?php echo HEADING_TITLE; ?></h1>
 <?php
 if (defined('IH_VERSION')) {
@@ -167,7 +176,7 @@ if (defined('IH_VERSION')) {
 if ($ih_page == 'manager') {
     // SEARCH DIALOG BOX
 
-    echo '<div style="float: right; padding: 5px;">' . zen_draw_form('search', FILENAME_CATEGORIES, '', 'get');
+    echo '<div id="ih-search">' . zen_draw_form('search', FILENAME_CATEGORIES, '', 'get');
     // show reset search
     if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
         echo '<a href="' . zen_href_link(FILENAME_CATEGORIES) . '">' . zen_image_button('button_reset.gif', IMAGE_RESET) . '</a>&nbsp;&nbsp;';
@@ -184,7 +193,7 @@ if ($ih_page == 'manager') {
 
 <div class="clearBoth"></div>
 
-<ul style="background-color:#F5F5F5; border: solid #CCCCCC; border-width: 1px 0px;">
+<ul id="ih-admin">
     <li class="page-links <?php echo ($ih_page == 'manager') ? 'page-current' : ''; ?>">
         <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager') ?>"><?php echo IH_MENU_MANAGER; ?></a>
     </li>
@@ -249,12 +258,12 @@ if ($ih_page == 'manager') {
 ?> 
     <table summary="Manager Table" border="0" cellspacing="0" cellpadding="2">
         <tr>
-            <td class="main" width="200" align="left" valign="top">&nbsp;</td>
+            <td class="main ih-vtop" width="200" align="left">&nbsp;</td>
             <td colspan="2" class="main"><?php if (isset($_POST['products_filter'])) echo TEXT_PRODUCT_TO_VIEW; ?></td>
         </tr>
         
         <tr>
-            <td class="main" width="200" align="center" valign="top">
+            <td class="main ih-center ih-vtop" width="200">
 <?php   
     //----- Nigel - Another ugly hack - probably need to clean up the attributes section - not really sure why the attributes section matters to IH - ask Diva
     if (isset($_POST['products_filter'])) { 
@@ -284,8 +293,8 @@ if ($ih_page == 'manager') {
 <?php
     if ($products_filter != '') { //prevent creation of empty Select 
 ?>
-            <td class="attributes-even" align="center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', $not_for_cart->fields, true, $products_filter, true, true); ?></td>
-            <td class="main" align="center" valign="top"><?php echo zen_image_submit('button_display.gif', IMAGE_DISPLAY); ?></td>
+            <td class="attributes-even ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', $not_for_cart->fields, true, $products_filter, true, true); ?></td>
+            <td class="main ih-center ih-vtop"><?php echo zen_image_submit('button_display.gif', IMAGE_DISPLAY); ?></td>
 <?php
     } else {
 ?>   
@@ -304,7 +313,7 @@ if ($ih_page == 'manager') {
     if ($products_filter != '' && zen_get_product_is_linked($products_filter) == 'true') {
 ?>
                     <tr>
-                        <td class="main" align="center" valign="bottom">
+                        <td class="main ih-center ih-vbot">
                             <?php echo zen_image(DIR_WS_IMAGES . 'icon_yellow_on.gif', IMAGE_ICON_LINKED) . '&nbsp;&nbsp;' . TEXT_LEGEND_LINKED . ' ' . zen_get_product_is_linked($products_filter, 'true'); ?>
                         </td>
                     </tr>
@@ -312,11 +321,11 @@ if ($ih_page == 'manager') {
     } 
 ?>
                     <tr>
-                        <td class="main" align="center" valign="bottom">
+                        <td class="main ih-center ih-vbot">
 <?php
     if ($products_filter != '') {
         echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'action=new_product' . '&amp;cPath=' . $current_category_id . '&amp;pID=' . $products_filter . '&amp;product_type=' . zen_get_products_type($products_filter)) . '">' . zen_image_button('button_edit_product.gif', IMAGE_EDIT_PRODUCT) . '<br />' . TEXT_PRODUCT_EDIT . '</a>';
-        echo '</td><td class="main" align="center" valign="bottom">';
+        echo '</td><td class="main ih-center ih-vbot">';
         echo '<a href="' . zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, 'products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id, 'NONSSL') . '">' . zen_image_button('button_edit_attribs.gif', IMAGE_EDIT_ATTRIBUTES) . '<br />' . TEXT_ATTRIBUTE_EDIT . '</a>' . '&nbsp;&nbsp;&nbsp;';
     }
 ?>
@@ -388,23 +397,12 @@ if ($ih_page == 'manager') {
 <?php
             }
             if ($pInfo->products_image != '') {
-                $products_image_base = DIR_FS_CATALOG . DIR_WS_IMAGES . $pInfo->products_image;
-                if (!file_exists($products_image_base)) {
-                    $file_info = ' <span class="ih-error">' . TEXT_MSG_FILE_NOT_FOUND . '</span>';
-                } else {
-                    $image_info = @getimagesize($products_image_base);
-                    if (!is_array($image_info)) {
-                        $php_error = error_get_last();
-                        $file_info = ' <span class="ih-error">' . TEXT_MSG_ERROR_RETRIEVING_IMAGESIZE . ' (' . $php_error['message'] . ')</span>';
-                    } else {
-                        $file_size = filesize($products_image_base) / 1024;
-                        $file_info = ' <span>(' . $image_info[0] . ' x ' . $image_info[1] . ', ' . round($file_size, 2) . 'Kb)</span>';
-                    }
-                }
+                $image_info = pathinfo($pInfo->products_image);
+                $dirname = ($image_info['dirname'] == '.') ? '' : $image_info['dirname'];
 ?>
         <tr>
-            <td><?php echo TEXT_IMAGE_BASE_IMAGE; ?></td>
-            <td><?php echo $products_image_base . $file_info; ?></td>
+            <td><?php echo TEXT_IMAGE_BASE_DIR; ?></td>
+            <td><?php echo DIR_WS_IMAGES . $dirname; ?></td>
         </tr>
 <?php
             }
@@ -412,14 +410,15 @@ if ($ih_page == 'manager') {
     </table>
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td class="ih-vtop"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                 <tr class="dataTableHeadingRow">
                     <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PHOTO_NAME; ?></td>
                     <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FILETYPE; ?></td><?php //added nigel ?>
-                    <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DEFAULT_SIZE; ?></td>
-                    <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_MEDIUM_SIZE; ?></td>
-                    <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LARGE_SIZE; ?></td>
-                    <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                    <td class="dataTableHeadingContent ih-center"><?php echo TABLE_HEADING_BASE_SIZE; ?></td>
+                    <td class="dataTableHeadingContent ih-center"><?php echo TABLE_HEADING_SMALL_SIZE; ?></td>
+                    <td class="dataTableHeadingContent ih-center"><?php echo TABLE_HEADING_MEDIUM_SIZE; ?></td>
+                    <td class="dataTableHeadingContent ih-center"><?php echo TABLE_HEADING_LARGE_SIZE; ?></td>
+                    <td class="dataTableHeadingContent ih-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
                 </tr>
 <?php
             $selected_image_suffix = '';
@@ -429,7 +428,7 @@ if ($ih_page == 'manager') {
             if ($no_images) {
 ?>
                 <tr>
-                    <td colspan="6" class="dataTableContent" align="center"><?php echo TEXT_NO_PRODUCT_IMAGES; ?></td>
+                     <td colspan="6" class="dataTableContent ih-center"><?php echo TEXT_NO_PRODUCT_IMAGES; ?></td>
                 </tr>
 <?php 
             }
@@ -468,7 +467,8 @@ if ($ih_page == 'manager') {
                 $tmp_image_file_large_full = DIR_FS_CATALOG . $tmp_image_file_large;
                 $tmp_image_large_preview = new ih_image($tmp_image_file_large, IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT);
 
-                // Get file details 
+                // Get file details
+                $text_base_size = $ih_admin->getImageDetailsString(DIR_FS_CATALOG . $image_file);
                 $text_default_size = $ih_admin->getImageDetailsString($tmp_image_file_full);
                 $text_medium_size = $ih_admin->getImageDetailsString($tmp_image_file_medium_full);
                 $text_large_size = $ih_admin->getImageDetailsString($tmp_image_file_large_full);
@@ -483,8 +483,7 @@ if ($ih_page == 'manager') {
                 if (isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name ) {
                     // an image is selected, highlight it
                     echo '<tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' 
-                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
-                        . '&amp;imgName=' .$tmp_image_name . '&amp;action=layout_edit') . '\'">' . "\n";
+                        . $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_edit') . '\'">' . "\n";
                     // set some details for later usage
                     $selected_image_file = DIR_WS_CATALOG . $tmp_image_file_medium;
                     $selected_image_file_large = DIR_WS_CATALOG . $tmp_image_file_large;
@@ -494,13 +493,13 @@ if ($ih_page == 'manager') {
                     $selected_image_extension = $products_image_extension;
                 } else {
                     echo '<tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\''
-                        . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
-                        . '&amp;imgName=' . $tmp_image_name . '&amp;action=layout_info') . '\'">' . "\n";
+                        . $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_info') . '\'">' . "\n";
                 }
 ?>
                     <td class="dataTableContent"><?php echo $tmp_image_name; ?></td>
                     <td class="dataTableContent"<?php if ($products_image_extension != $default_extension){echo 'style="color:red;"';} ?>><?php echo $products_image_extension; ?></td>
-                    <td class="dataTableContent" align="center" valign="top">
+                    <td class="dataTableContent ih-center"><?php echo $text_base_size; ?></td>
+                    <td class="dataTableContent ih-center ih-vtop">
 <?php
                 $preview_image = $tmp_image_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
                 list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
@@ -510,7 +509,7 @@ if ($ih_page == 'manager') {
                 echo $text_default_size; 
 ?>
                     </td>
-                    <td class="dataTableContent" align="center" valign="top">
+                    <td class="dataTableContent ih-center ih-vtop">
 <?php
                 $preview_image = $tmp_image_medium_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
                 list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
@@ -519,13 +518,11 @@ if ($ih_page == 'manager') {
                 echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br />';
                 echo $text_medium_size . '<br />';
                 if (is_file($image_file_medium_full)) {
-                    echo ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                        . $image_file_medium . '&amp;products_filter=' . $products_filter . '&amp;action=quick_delete') . '">' 
-                        . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
+                    echo ' <a href="' . $ih_admin->imageHandlerHrefLink($image_file_medium, $products_filter, 'quick_delete') . '">' . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
                 }
 ?>
                     </td>
-                    <td class="dataTableContent" align="center" valign="top">
+                    <td class="dataTableContent ih-center ih-vtop">
 <?php
                 $preview_image = $tmp_image_large_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
                 list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
@@ -534,20 +531,16 @@ if ($ih_page == 'manager') {
                 echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br />';
                 echo $text_large_size . '<br />';
                 if (is_file($image_file_large_full)) {
-                    echo ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                        . $image_file_large . '&amp;products_filter=' . $products_filter . '&amp;action=quick_delete') . '">' 
-                        . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
+                    echo ' <a href="' . $ih_admin->imageHandlerHrefLink($image_file_large, $products_filter, 'quick_delete') . '">' . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
                 }
 ?>
                     </td>
-                    <td class="dataTableContent" align="right">
+                    <td class="dataTableContent ih-right">
 <?php 
                 if ( isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name ) { 
                     echo zen_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); 
-                } else { 
-                    echo '<a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'products_filter=' . $products_filter
-                        . '&amp;imgName=' . $tmp_image_name . '&amp;action=layout_info') 
-                        . '">' . zen_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>';
+                } else {
+                    echo ' <a href="' . $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_info') . '">' . zen_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>';
                 } 
 ?>
                     &nbsp;</td>
@@ -598,14 +591,11 @@ if ($ih_page == 'manager') {
                     $contents[] = array(
                         'align' => 'center', 
                         'text' => '<br />' .
-                            ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                            . $_GET['imgName'] . '&amp;products_filter=' . $products_filter . '&amp;action=layout_edit') . '">' 
+                            ' <a href="' . $ih_admin->imageHandlerHrefLink($_GET['imgName'], $products_filter, 'layout_edit') . '">'
                             . zen_image_button('button_edit.gif', IH_IMAGE_EDIT) . '</a> &nbsp; '
-                            . ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 'imgName=' 
-                            . $_GET['imgName'] . '&amp;products_filter=' . $products_filter . '&amp;action=layout_delete') . '">' 
+                            . ' <a href="' . $ih_admin->imageHandlerHrefLink($_GET['imgName'], $products_filter, 'layout_delete') . '">'
                             . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a> &nbsp;'
-                            .' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, 
-                            '&amp;products_filter=' . $products_filter . '&amp;action=layout_new') . '">' 
+                            . ' <a href="' . $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new') . '">'
                             . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>'
                     );
                     break;
@@ -770,7 +760,7 @@ if ($ih_page == 'manager') {
                     $contents[] = array(
                         'align' => 'center', 
                         'text' => '<br />'
-                        .' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $products_filter . '&amp;action=delete' . $imgStr ) . '">' 
+                        .' <a href="' . $ih_admin->imageHandlerHrefLink('', $products_filter, 'delete', $imgStr) . '">' 
                         . zen_image_button( 'button_delete.gif', IMAGE_DELETE ) . '</a>'
                     );
                     break;
@@ -789,7 +779,7 @@ if ($ih_page == 'manager') {
                     $contents[] = array(
                         'align' => 'center', 
                         'text' => '<br />'
-                            . ' <a href="' . zen_href_link(FILENAME_IMAGE_HANDLER, '&amp;products_filter=' . $products_filter . '&amp;action=layout_new') . '">' 
+                            . ' <a href="' . $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new') . '">' 
                             . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>'
                     );
                     break;
@@ -798,7 +788,7 @@ if ($ih_page == 'manager') {
             if (zen_not_null($heading) && zen_not_null($contents)) {
                 $box = new box;
 ?>
-            <td width="25%" valign="top"><?php echo $box->infoBox($heading, $contents); ?></td>
+            <td width="25%" class="ih-vtop"><?php echo $box->infoBox($heading, $contents); ?></td>
 <?php
             }
 ?>  
