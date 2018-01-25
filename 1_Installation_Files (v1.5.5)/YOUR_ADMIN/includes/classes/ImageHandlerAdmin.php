@@ -136,6 +136,12 @@ class ImageHandlerAdmin
         return !($value === true || $value === false);
     }
     
+    public function imageHandlerHrefLink($image_name, $products_filter, $action, $more = '')
+    {
+        $imgName = ($image_name == '') ? '' : "&amp;imgName=$image_name";
+        return zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter&amp;action=$action$imgName$more"); 
+    }
+    
     public function debugLog($message) {
         if ($this->debug) {
             error_log(PHP_EOL . date('Y-m-d H:i:s: ') . $message . PHP_EOL, 3, $this->debugLogfile);

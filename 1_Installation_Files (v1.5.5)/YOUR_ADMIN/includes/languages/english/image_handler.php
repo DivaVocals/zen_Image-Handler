@@ -35,7 +35,7 @@ define('IH_HEADING_TITLE_PRODUCT_SELECT','Please select a product to manage the 
 
 define('TABLE_HEADING_PHOTO_NAME', 'Image name');
 define('TABLE_HEADING_BASE_SIZE', 'Base size');
-define('TABLE_HEADING_DEFAULT_SIZE','Small size');
+define('TABLE_HEADING_SMALL_SIZE','Small size');
 define('TABLE_HEADING_MEDIUM_SIZE', 'Medium size');
 define('TABLE_HEADING_LARGE_SIZE','Large size');
 define('TABLE_HEADING_ACTION', 'Action');
@@ -43,7 +43,7 @@ define('TABLE_HEADING_FILETYPE', 'File Type');
 
 define('TEXT_PRODUCT_INFO', 'Product');
 define('TEXT_PRODUCTS_MODEL', 'Model');
-define('TEXT_IMAGE_BASE_IMAGE', 'Main image');
+define('TEXT_IMAGE_BASE_DIR', 'Image Directory');
 define('TEXT_NO_PRODUCT_IMAGES', 'There are no images for this product');
 define('TEXT_CLICK_TO_ENLARGE', 'Click to enlarge');
 define('TEXT_PRICED_BY_ATTRIBUTES', 'Priced by attributes');
