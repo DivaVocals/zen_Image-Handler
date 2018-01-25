@@ -13,6 +13,7 @@
  */
  
 if (!defined('IH_DEBUG')) {
+    define('IH_DEBUG', 'false');
 }
 class ih_image
 {
