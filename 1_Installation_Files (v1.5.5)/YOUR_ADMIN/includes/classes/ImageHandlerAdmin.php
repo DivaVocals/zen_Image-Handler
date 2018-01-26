@@ -3,15 +3,15 @@
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
 // Copyright (c) 2017 Vinos de Frutas Tropicales
 //
-if (!defined('IH_DEBUG')) {
-    define('IH_DEBUG', 'true'); //-Either 'true' or 'false'
+if (!defined('IH_DEBUG_ADMIN')) {
+    define('IH_DEBUG_ADMIN', 'true'); //-Either 'true' or 'false'
 }
 class ImageHandlerAdmin
 {
     public function __construct()
     {
-        $this->debug = (IH_DEBUG == 'true');
-        $this->debugLogfile = DIR_FS_LOGS . '/ih_debug.log';
+        $this->debug = (IH_DEBUG_ADMIN == 'true');
+        $this->debugLogfile = DIR_FS_LOGS . '/ih_debug_admin.log';
         $this->validFiletypes = array('gif', 'jpg', 'png', 'no_change');
     }
     
