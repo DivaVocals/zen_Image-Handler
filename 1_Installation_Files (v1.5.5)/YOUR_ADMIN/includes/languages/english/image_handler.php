@@ -34,10 +34,10 @@ define('IH_HEADING_TITLE', 'Image Handler<sup>5</sup>');
 define('IH_HEADING_TITLE_PRODUCT_SELECT','Please select a product to manage the images.');
 
 define('TABLE_HEADING_PHOTO_NAME', 'Image name');
-define('TABLE_HEADING_BASE_SIZE', 'Base size');
-define('TABLE_HEADING_SMALL_SIZE','Small size');
-define('TABLE_HEADING_MEDIUM_SIZE', 'Medium size');
-define('TABLE_HEADING_LARGE_SIZE','Large size');
+define('TABLE_HEADING_BASE_SIZE', 'Base image');
+define('TABLE_HEADING_SMALL_SIZE','Small image');
+define('TABLE_HEADING_MEDIUM_SIZE', 'Medium image');
+define('TABLE_HEADING_LARGE_SIZE','Large image');
 define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_FILETYPE', 'File Type');
 
