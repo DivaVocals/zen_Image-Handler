@@ -12,9 +12,17 @@
  * Last Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  */
  
-if (!defined('IH_DEBUG')) {
-    define('IH_DEBUG', 'false');
+if (!defined('IH_DEBUG_ADMIN')) {
+    define('IH_DEBUG_ADMIN', 'true');
 }
+if (!defined('IH_DEBUG_STOREFRONT')) {
+    define('IH_DEBUG_STOREFRONT', 'false');
+}
+
+if (!defined('IS_ADMIN_FLAG')) {
+    exit('Illegal access');
+}
+
 class ih_image
 {
     /**
@@ -53,8 +61,15 @@ class ih_image
         $this->width = $width;
         $this->height = $height;
         $this->zoom = array();
-        $this->debug = (defined('IH_DEBUG') && IH_DEBUG == 'true');
-
+        
+        if (IS_ADMIN_FLAG === true) {
+            $this->debug = (IH_DEBUG_ADMIN == 'true');
+            $this->debugLogFile = DIR_FS_LOGS . '/ih_debug_admin.log';
+        } else {
+            $this->debug = (IH_DEBUG_STOREFRONT == 'true');
+            $this->debugLogFile = DIR_FS_LOGS . '/ih_debug.log';
+        }
+        
         $this->determine_image_sizetype();
     
         if ((($this->sizetype == 'large') || ($this->sizetype == 'medium')) && $this->file_not_found()) {
@@ -62,6 +77,7 @@ class ih_image
             // now we can actually access the default image referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
+
         $this->filename = $ihConf['dir']['docroot'] . $this->src;
         $this->extension = substr($this->src, strrpos($this->src, '.'));
 
@@ -79,15 +95,36 @@ class ih_image
     public function file_not_found() 
     {
         global $ihConf;
-        // try to find file by using different file extensions if initial
-        // source doesn't succeed
+
+        // -----
+        // If the file is found ... it's not "not-found"!
+        //
         if (is_file($ihConf['dir']['docroot'] . $this->src)) {
             return false;
+            
+        // -----
+        // Otherwise, see if the file exists with a capitalized version of the file-extension.
+        //
         } else {
-            // do a quick search for files with common extensions
-            $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
-            $base = substr($this->src, 0, strrpos($this->src, '.'));
-            for ($i=0; $i<count($extensions); $i++) {
+            $pathinfo = pathinfo($this->src);
+            $base = $pathinfo['filename'];
+            $baseext = strtolower($pathinfo['extension']);
+            switch ($baseext) {
+                case 'jpg':
+                    $extensions = array('.jpg', '.JPG', '.jpeg', '.JPEG');
+                    break;
+                case 'gif':
+                    $extensions = array('.gif', '.GIF');
+                    break;
+                case 'png':
+                    $extensions = array('.png', '.PNG');
+                    break;
+                default:
+                    $extensions = array();
+                    break;
+            }
+
+            for ($i = 0, $n = count($extensions); $i < $n; $i++) {
                 if (is_file($ihConf['dir']['docroot'] . $base . $extensions[$i])) {
                     $this->src = $base . $extensions[$i];
                     return false;
@@ -132,9 +169,9 @@ class ih_image
     {
         global $ihConf;
         
-        if (strstr($this->src, $ihConf['large']['suffix'])) {
+        if (strpos($this->src, $ihConf['large']['suffix']) !== false) {
             $this->sizetype = 'large';
-        } elseif (strstr($this->src, $ihConf['medium']['suffix'])) {
+        } elseif (strpos($this->src, $ihConf['medium']['suffix']) !== false) {
             $this->sizetype = 'medium';
         } elseif ((intval($this->width) == intval($ihConf['small']['width'])) && (intval($this->height) == intval($ihConf['small']['height']))) {
             $this->sizetype = 'small';
@@ -197,7 +234,9 @@ class ih_image
     
     public function get_local() 
     {
-        if ($this->local) return $this->local;
+        if ($this->local) {
+            return $this->local;
+        }
         // check if image handler is available and if we should resize at all
         if ($this->resizing_allowed()) {
             $this->local = $this->get_resized_image($this->width, $this->height);
@@ -209,16 +248,15 @@ class ih_image
 
     public function resizing_allowed() 
     {
-        global $bmzConf;
-        global $ihConf;
+        global $bmzConf, $ihConf;
         // only resize if resizing is turned on
         // don't resize template images so test for the configured images directory.
         // if $ihConf['noresize_key'] is found within the string, don't resize either.
         $allowed = false;
         if ($ihConf['resize'] && 
-            ((strpos($this->src, $ihConf['dir']['images']) === 0) || 
-            ((strpos($this->src, substr($bmzConf['cachedir'], strlen($ihConf['dir']['docroot']))) === 0))) &&
-            (strpos($this->src, $ihConf['noresize_key']) === false)) {
+            ( strpos($this->src, $ihConf['dir']['images']) === 0 || 
+              strpos($this->src, substr($bmzConf['cachedir'], strlen($ihConf['dir']['docroot']))) === 0) &&
+            strpos($this->src, $ihConf['noresize_key']) === false) {
             $allowed = true;
             for ($i=0; $i++; $i<count($ihConf)) {
                 $allowed &= (strpos($this->src, $ihConf['dir']['images'] . $ihConf['noresize_dirs'][$i] . '/') !== 0);
@@ -812,7 +850,7 @@ class ih_image
     protected function ihLog($message)
     {
         if ($this->debug) {
-            error_log(date('Y-m-d H:i:s: ') . $this->filename . ', ' . $message . PHP_EOL . PHP_EOL, 3, DIR_FS_LOGS . '/ih_debug.log');
+            error_log(date('Y-m-d H:i:s: ') . $this->filename . ', ' . $message . PHP_EOL . PHP_EOL, 3, $this->debugLogFile);
         }
     }
 }
