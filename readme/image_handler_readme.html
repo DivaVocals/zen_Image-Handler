@@ -584,8 +584,10 @@
                                 <li>CHANGE: Removed <em>Scan for old images</em> tool from the <em>IH</em><sup>5</sup> admin menu.</li>
                                 <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
                                 <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
+                                <li>BUGFIX: Background checker not recognizing &quot;transparent&quot; (with no RGB) as a valid setting.</li>
                                 <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                                     <li>/includes/classes/bmz_image_handler.class.php</li>
+                                    <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
                                     <li>/YOUR_ADMIN/image_handler.php</li>
                                     <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
                                     <li>/YOUR_ADMIN/image_handler_view_config.php <span class="smaller">(Added)</span></li>
