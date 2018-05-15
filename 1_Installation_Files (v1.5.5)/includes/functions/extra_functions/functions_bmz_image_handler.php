@@ -62,6 +62,10 @@ $ihConf['large']['bg'] = ihValidateBackground('large');
 //
 // rrr:ggg:bbb[ transparent]
 //
+// or
+//
+// transparent
+//
 // where the rrr/ggg/bbb values can range from 0 to 255.
 //
 // If an invalid specification is found, log an error and reset to 'transparent 255:255:255'.
@@ -76,7 +80,7 @@ function ihValidateBackground($which_background)
     
     $background_error = false;
     if (!is_array($rgb_values) || count($rgb_values) != 3) {
-        $background_error = true;
+        $background_error = ($background != '');
     } else {
         foreach ($rgb_values as $rgb_value) {
             if (preg_match('/^[0-9]{1,3}$/', $rgb_value) == 0 || $rgb_value > 255) {
