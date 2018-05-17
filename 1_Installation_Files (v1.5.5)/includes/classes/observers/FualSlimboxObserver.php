@@ -3,13 +3,13 @@
 // An observer-class to enable the "Fual Slimbox" plugin to operate with the notification updates in the
 // main_product_image and additional_images processing, provided by "Image Handler" v5.0.0 and later.
 //
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
 //
 class FualSlimboxObserver extends base 
 {
     public function __construct() 
     {
-        if ((defined('ZEN_LIGHTBOX_STATUS') && ZEN_LIGHTBOX_STATUS == 'true') || (defined('FUAL_SLIMBOX') && FUAL_SLIMBOX == 'true')) {
+        if (function_exists('zen_lightbox') && ((defined('ZEN_LIGHTBOX_STATUS') && ZEN_LIGHTBOX_STATUS == 'true') || (defined('FUAL_SLIMBOX') && FUAL_SLIMBOX == 'true'))) {
             $this->attach(
                 $this,
                 array(
