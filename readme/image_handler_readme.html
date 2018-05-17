@@ -110,8 +110,8 @@
                         <legend>Before You Install &hellip; </legend>
                         <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites, but there are two (2) template-override files required:</p>
                         <ol>
-                            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php <span class="smaller">(4 marked change-sections)</span></li>
-                            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php <span class="smaller">(3 marked change-sections)</span></li>
+                            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php <span class="smaller">(4 change-sections)</span></li>
+                            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php <span class="smaller">(3 change-sections)</span></li>
                         </ol>
                         <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart distribution, starting with v1.5.6!</p>
                         <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
@@ -579,19 +579,22 @@
                     <fieldset>
                         <legend>Image Handler<sup>5</sup></legend>
                         <ul>
-                            <li>v5.0.1, 2018-01-xx:<ul>
+                            <li>v5.0.1, 2018-05-xx:<ul>
                                 <li>CHANGE: Added <em>View Image Handler Configuration</em> to the <em>IH</em><sup>5</sup> admin menu.</li>
                                 <li>CHANGE: Removed <em>Scan for old images</em> tool from the <em>IH</em><sup>5</sup> admin menu.</li>
                                 <li>BUGFIX: Invalid &quot;quality&quot; parameter supplied to <code>imagepng</code>, resulting in oversized images being created.</li>
                                 <li>CHANGE: Move <em>Image Handler</em><sup>5</sup> help-text to a separate language file.</li>
                                 <li>BUGFIX: Background checker not recognizing &quot;transparent&quot; (with no RGB) as a valid setting.</li>
+                                <li>BUGFIX: Notifiers in the additional- and main-product-image modules need to be &quot;globalized&quot;.</li>
                                 <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                                     <li>/includes/classes/bmz_image_handler.class.php</li>
                                     <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
+                                    <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+                                    <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
                                     <li>/YOUR_ADMIN/image_handler.php</li>
                                     <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
                                     <li>/YOUR_ADMIN/image_handler_view_config.php <span class="smaller">(Added)</span></li>
-                                    <li>/YOUR_ADMIN/ih_manager.php</li>
+                                    <li>/YOUR_ADMIN/includes/ih_manager.php</li>
                                     <li>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</li>
                                     <li>/YOUR_ADMIN/includes/extra_datafiles/image_handler.php</li>
                                     <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>

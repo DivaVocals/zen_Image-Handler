@@ -12,19 +12,16 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-//-bof-image_handler-lat9  *** 1 of 3 ***
 // -----
 // This notifier lets an observer know that the module has begun its processing.
 //
-$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_START');
-//-eof-image_handler-lat9  *** 1 of 3 ***
+$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_START');
 
 $products_image_extension = substr($products_image, strrpos($products_image, '.'));
 $products_image_base = str_replace($products_image_extension, '', $products_image);
 $products_image_medium = $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
 $products_image_large = $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
 
-//-bof-image_handler-lat9  *** 2 of 3 ***
 // -----
 // This notifier lets an image-handling observer know that it's time to determine the image information,
 // providing the following parameters:
@@ -40,7 +37,7 @@ $products_image_large = $products_image_base . IMAGE_SUFFIX_LARGE . $products_im
 // other values have been updated for separate handling.
 //
 $main_image_handled = false;
-$zco_notifier->notify(
+$GLOBALS['zco_notifier']->notify(
     'NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_FILENAME',
     $products_image,
     $main_image_handled,
@@ -51,8 +48,6 @@ $zco_notifier->notify(
 );
 
 if ($main_image_handled !== true) {
-//-eof-image_handler-lat9  *** 2 of 3 ***
-
     // check for a medium image else use small
     if (!file_exists(DIR_WS_IMAGES . 'medium/' . $products_image_medium)) {
         $products_image_medium = DIR_WS_IMAGES . $products_image;
@@ -77,9 +72,6 @@ if ($main_image_handled !== true) {
     'Large ' . $products_image_large . '<br><br>';
     */
     // to be built into a single variable string
-    
-//-bof-image_handler-lat9  *** 3 of 3 ***
 }
 
-$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_END');
-//-eof-image_handler-lat9  *** 3 of 3 ***
+$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_END');
