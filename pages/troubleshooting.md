@@ -1,4 +1,4 @@
-[Back](README.md "Return to the main page")
+[Back](../README.md "Return to the main page")
 # Troubleshooting
 
 ## Basics
