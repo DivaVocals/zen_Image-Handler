@@ -6,7 +6,7 @@ Let's say that you want the _large_ and _medium_ images to be .png files:
 
 1. Choose **.png** for your IH medium images filetype and IH large images filetype settings.
 1. Leave the small image at the default setting of no_change.
-1. LUpload a **.jpg** file to the product you are updating.
+1. Upload a **.jpg** file to the product you are updating.
 
 IH<sup>5</sup> will
 
