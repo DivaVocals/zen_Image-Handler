@@ -67,24 +67,24 @@ Prepare your site for growth by simply creating sub-directories in your main `im
 
 ### Product: Blue Widget with 3 images
 
-`/images/widgets/blue_widget1.jpg` (main product image for a blue widget, e.g. front view)
-`/images/widgets/blue_widget1_1.jpg` (additional product image for a blue widget, e.g. side view)
-`/images/widgets/blue_widget1_2.jpg` (additional product image for a blue widget, e.g. rear view)
+- `/images/widgets/blue_widget1.jpg` (main product image for a blue widget, e.g. front view)
+- `/images/widgets/blue_widget1_1.jpg` (additional product image for a blue widget, e.g. side view)
+- `/images/widgets/blue_widget1_2.jpg` (additional product image for a blue widget, e.g. rear view)
 
 ### Product: Red Widget with 1 image
 
-`/images/widgets/red_widget.jpg` (main product image for a red widget)
+ - `/images/widgets/red_widget.jpg` (main product image for a red widget)
 
 ### Product: Gold Doodad with 2 images
 
-`/images/doodads/gold_doodad1.jpg` (main product image for a gold doodad, e.g. view from above)
-`/images/doodads/gold_doodad1_1.jpg` (additional product image for a gold doodad, e.g. view from side)
+- `/images/doodads/gold_doodad1.jpg` (main product image for a gold doodad, e.g. view from above)
+- `/images/doodads/gold_doodad1_1.jpg` (additional product image for a gold doodad, e.g. view from side)
 
 ### Product: Silver Doodad with 3 images
 
-`/images/doodads/silver_doodad1.jpg` (main product image for a silver doodad, e.g. product)
-`/images/doodads/silver_doodad1_1.jpg` (additional product image for a silver doodad, e.g. product detail)
-`/images/doodads/silver_doodad1_3.jpg` (additional product image for a silver doodad, e.g. product's silver stamp)
+- `/images/doodads/silver_doodad1.jpg` (main product image for a silver doodad, e.g. product)
+- `/images/doodads/silver_doodad1_1.jpg` (additional product image for a silver doodad, e.g. product detail)
+- `/images/doodads/silver_doodad1_3.jpg` (additional product image for a silver doodad, e.g. product's silver stamp)
 
 --------------
 
