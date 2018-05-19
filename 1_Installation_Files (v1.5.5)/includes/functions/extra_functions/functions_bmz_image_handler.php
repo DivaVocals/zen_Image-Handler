@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 4.3.3
+ * mod Image Handler 5.0.1
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -111,7 +111,7 @@ function handle_image($src, $alt, $width, $height, $parameters)
         }
     } else {
         // default to standard Zen-Cart fallback behavior for large -> medium -> small images
-        $image_ext = substr($src, strrpos($src, '.'));
+        $image_ext = '.' . pathinfo($src, PATHINFO_EXTENSION);
         $image_base = substr($src, strlen(DIR_WS_IMAGES), -strlen($image_ext));
         if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file(DIR_FS_CATALOG . $src)) {
             //large image wanted but not found
