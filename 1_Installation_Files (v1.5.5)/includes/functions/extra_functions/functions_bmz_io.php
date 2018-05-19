@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 4.3.3
+ * mod Image Handler 5.0.1
  * functions_bmz_io.php
  * general filesystem access handling
  *
@@ -10,7 +10,8 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: functions_bmz_io.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Modified by DerManoMann 2010-05-31 23:46:50 
- * Last Modified by lat9: 2017-07-17, applying PSR-2 formatting.
+ * Modified by lat9: 2017-07-17, applying PSR-2 formatting.
+ * Modified by lat9: 2018-05-19, moving getCacheName to the ih_image class
  */
 
 /**
@@ -59,25 +60,8 @@ function io_unlock($file)
     @ignore_user_abort(0);
 }
 
-/**
- * Returns the name of a cachefile from given data
- *
- * The needed directory is created by this function!
- *
- * @author Andreas Gohr <andi@splitbrain.org>
- * @author Tim Kroeger <tim@breakmyzencart.com>
- *
- * @param string $data  This data is used to create a unique md5 name
- * @param string $ext   This is appended to the filename if given
- * @return string       The filename of the cachefile
- */
-function getCacheName($data, $ext='') 
-{
-    $md5  = (IH_CACHE_NAMING == 'Hashed') ? md5($data) : $data;
-    $file = $GLOBALS['bmzConf']['cachedir'] . '/' . $md5{0} . '/' . $md5 . $ext;
-    io_makeFileDir($file);
-    return $file;
-}
+//-bof-IH5.0.1-lat9-getCacheName function moved to bmz_image_handler_class.php
+
 
 /**
  * Create the directory needed for the given file
@@ -87,8 +71,7 @@ function getCacheName($data, $ext='')
  */
 function io_makeFileDir($file)
 {
-    global $messageStack;
-    global $bmzConf;
+    global $messageStack, $bmzConf;
 
     $dir = dirname($file);
     $dmask = $bmzConf['dmask'];
