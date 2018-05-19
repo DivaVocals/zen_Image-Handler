@@ -365,6 +365,7 @@ if ($ih_page == 'manager') {
 
         // Determine if there are any images and work out the file names
         // (based on code from modules/pages/product_info/main_template_vars_images(& _additional) (copying is evil!))
+        $products_image_match_array = array();
         if ($pInfo->products_image != '') {
             $image_info = pathinfo($pInfo->products_image);
             $products_image_directory = $image_info['dirname'];
@@ -376,7 +377,6 @@ if ($ih_page == 'manager') {
             $products_image_base = $image_info['filename'];
             $products_image_extension = '.' . $image_info['extension'];
             
-            $products_image_match_array = array();
             $ih_admin->findAdditionalImages($products_image_match_array, $products_image_directory, $products_image_extension, $products_image_base);
         }
 
@@ -435,7 +435,7 @@ if ($ih_page == 'manager') {
 
             $default_extension = false;
             $first = 1;
-            for ($i=0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 // there are some pictures, show them!
                 $current_image = $products_image_match_array[$i];
                 $image_info = pathinfo($current_image);
@@ -489,7 +489,7 @@ if ($ih_page == 'manager') {
                     $selected_image_file_large = DIR_WS_CATALOG . $tmp_image_file_large;
                     $selected_image_link = $tmp_image_link;
                     $selected_image_name = $tmp_image_name;
-                    $selected_image_suffix = preg_replace("/^".$products_image_base."/", '', $tmp_image_name);
+                    $selected_image_suffix = preg_replace("/^" . $products_image_base . "/", '', $tmp_image_name);
                     $selected_image_extension = $products_image_extension;
                 } else {
                     echo '<tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\''

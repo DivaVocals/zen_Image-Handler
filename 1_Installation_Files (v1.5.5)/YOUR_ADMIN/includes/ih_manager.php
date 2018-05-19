@@ -273,7 +273,7 @@ if ($action == 'save') {
         }  // End special idiots hack
         // medium image
         if ($_FILES['medium_image']['name'] != '') {
-            $data['mediumImgExtension'] = substr( $_FILES['medium_image']['name'], strrpos($_FILES['medium_image']['name'], '.'));
+            $data['mediumImgExtension'] = '.' . pathinfo($_FILES['medium_image']['name'], PATHINFO_EXTENSION);
             $data['mediumFileName'] ='medium/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_MEDIUM . $data['mediumImgExtension'];
             io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['mediumFileName']);
             $source_name = $_FILES['medium_image']['tmp_name'];
@@ -285,7 +285,7 @@ if ($action == 'save') {
         }
         // large image
         if ($_FILES['large_image']['name'] != '') {
-            $data['largeImgExtension'] = substr( $_FILES['large_image']['name'], strrpos($_FILES['large_image']['name'], '.'));
+            $data['largeImgExtension'] = '.' . pathinfo($_FILES['large_image']['name'], PATHINFO_EXTENSION);
             $data['largeFileName'] = 'large/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_LARGE . $data['largeImgExtension'];
             io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['largeFileName']);
             $source_name = $_FILES['large_image']['tmp_name'];
