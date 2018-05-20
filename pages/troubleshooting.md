@@ -9,13 +9,13 @@ Make sure Image Handler<sup>5</sup> is installed. Set permissions in both your `
 
 If IH<sup>5</sup> does not work or gives you errors:
 
--     Make sure all files are in correct location
--     Make sure you uploaded ALL the Image Handler5 files
--     Make sure the files are not corrupt from bad FTP transfers
--     Make sure your file merge edits are correct
--     Make sure you re-read the [Configuration](configuration.md) and [Admin: Image Handler](image_handler.md) sections!!!
--     Make sure that there are no javascript conflicts
--     Make sure that your main product image files names DO NOT contain any special characters (non-alphanumeric characters such as / \ : ! @ # $ % ^ < > , [ ] { } & * ( ) + = ). Always use proper file-naming practices when naming your images.
+- Make sure all files are in correct location
+- Make sure you uploaded ALL the Image Handler5 files
+- Make sure the files are not corrupt from bad FTP transfers
+- Make sure your file merge edits are correct
+- Make sure you re-read the [Configuration](configuration.md) and [Admin: Image Handler](image_handler.md) sections!!!
+- Make sure that there are no javascript conflicts
+- Make sure that your main product image files names DO NOT contain any special characters (non-alphanumeric characters such as / \ : ! @ # $ % ^ < > , [ ] { } & * ( ) + = ). Always use proper file-naming practices when naming your images.
 
 ## Activate the IH<sup>5</sup> Logging
 
@@ -67,24 +67,24 @@ Prepare your site for growth by simply creating sub-directories in your main `im
 
 ### Product: Blue Widget with 3 images
 
-`/images/widgets/blue_widget1.jpg` (main product image for a blue widget, e.g. front view)
-`/images/widgets/blue_widget1_1.jpg` (additional product image for a blue widget, e.g. side view)
-`/images/widgets/blue_widget1_2.jpg` (additional product image for a blue widget, e.g. rear view)
+- `/images/widgets/blue_widget1.jpg` (main product image for a blue widget, e.g. front view)
+- `/images/widgets/blue_widget1_1.jpg` (additional product image for a blue widget, e.g. side view)
+- `/images/widgets/blue_widget1_2.jpg` (additional product image for a blue widget, e.g. rear view)
 
 ### Product: Red Widget with 1 image
 
-`/images/widgets/red_widget.jpg` (main product image for a red widget)
+ - `/images/widgets/red_widget.jpg` (main product image for a red widget)
 
 ### Product: Gold Doodad with 2 images
 
-`/images/doodads/gold_doodad1.jpg` (main product image for a gold doodad, e.g. view from above)
-`/images/doodads/gold_doodad1_1.jpg` (additional product image for a gold doodad, e.g. view from side)
+- `/images/doodads/gold_doodad1.jpg` (main product image for a gold doodad, e.g. view from above)
+- `/images/doodads/gold_doodad1_1.jpg` (additional product image for a gold doodad, e.g. view from side)
 
 ### Product: Silver Doodad with 3 images
 
-`/images/doodads/silver_doodad1.jpg` (main product image for a silver doodad, e.g. product)
-`/images/doodads/silver_doodad1_1.jpg` (additional product image for a silver doodad, e.g. product detail)
-`/images/doodads/silver_doodad1_3.jpg` (additional product image for a silver doodad, e.g. product's silver stamp)
+- `/images/doodads/silver_doodad1.jpg` (main product image for a silver doodad, e.g. product)
+- `/images/doodads/silver_doodad1_1.jpg` (additional product image for a silver doodad, e.g. product detail)
+- `/images/doodads/silver_doodad1_3.jpg` (additional product image for a silver doodad, e.g. product's silver stamp)
 
 --------------
 
@@ -94,13 +94,13 @@ Using Image Handler<sup>5</sup>, you can easily sort and manage thousands of ima
 
 Image Handler<sup>5</sup> reduces the effort required to setup images for your store. It works **with** default Zen Cart functionality, it does not *replace* it. Here are some additional FAQs which discuss how product images work in Zen Cart.
 
-1.     [Image Preparation - How-to](https://www.zen-cart.com/content.php?223-image-preparation-how-to)
-1.     [My images are distorted/fuzzy/squished, help?](https://www.zen-cart.com/content.php?72-my-images-are-distorted-fuzzy-squished)
+1. [Image Preparation - How-to](https://www.zen-cart.com/content.php?223-image-preparation-how-to)
+1. [My images are distorted/fuzzy/squished, help?](https://www.zen-cart.com/content.php?72-my-images-are-distorted-fuzzy-squished)
 
 Information on how Zen Cart identifies/manages additional product images can be found on these Zen Cart FAQs:
 
-1.     [Why am I seeing images for other products on my product pages?](https://www.zen-cart.com/content.php?273-why-am-i-seeing-images-for-other-products-on-my-product-pages)
-1.     [How do I add multiple images to a product?](https://www.zen-cart.com/content.php?100-how-do-i-add-multiple-images-to-a-product)
-1.     [How do I add more than one image of a product?](https://www.zen-cart.com/content.php?211-how-do-i-add-more-than-one-image-of-a-product) I want to have a main image and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!
+1. [Why am I seeing images for other products on my product pages?](https://www.zen-cart.com/content.php?273-why-am-i-seeing-images-for-other-products-on-my-product-pages)
+1. [How do I add multiple images to a product?](https://www.zen-cart.com/content.php?100-how-do-i-add-multiple-images-to-a-product)
+1. [How do I add more than one image of a product?](https://www.zen-cart.com/content.php?211-how-do-i-add-more-than-one-image-of-a-product) I want to have a main image and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!
 
 Check out these FAQs and see if they help clarify how Zen Cart works with product images.

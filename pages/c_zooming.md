@@ -5,29 +5,29 @@ When you have enabled **IH small images zoom on hover**, the medium or large pro
 
 **Note:**
 
-1.     If you have enabled this feature, you might have found that the zoom feature can be disruptive to your customers using smaller, hand-held devices. The as-shipped `style_imagehover.css` includes examples using CSS3 Media Queries to control whether or not the image-hover is displayed. The defaults in that file disable the image-hover display on screen-sizes that are 480px or smaller in width.
+1. If you have enabled this feature, you might have found that the zoom feature can be disruptive to your customers using smaller, hand-held devices. The as-shipped `style_imagehover.css` includes examples using CSS3 Media Queries to control whether or not the image-hover is displayed. The defaults in that file disable the image-hover display on screen-sizes that are 480px or smaller in width.
 
 For this feature to work on these product-listing pages:
 
-1.     All Products
-1.     New Products
-1.     Featured Products
-1.     Special Products
+1. All Products
+1. New Products
+1. Featured Products
+1. Special Products
 
 ... these base Zen Cart **Configuration->Images** settings <span style="color: red;">must match</span> the respective **Small Image Width** and **Small Image Height** settings:
 
-1.     Subcategory Image Width
-1.     Subcategory Image Height
-1.     Image - Product Listing Width
-1.     Image - Product Listing Height
-1.     Image - Product New Listing Width
-1.     Image - Product New Listing Height
-1.     Image - New Products Width
-1.     Image - New Products Height
-1.     Image - Featured Products Width
-1.     Image - Featured Products Height
-1.     Image - Product All Listing Width
-1.     Image - Product All Listing Height
+1. Subcategory Image Width
+1. Subcategory Image Height
+1. Image - Product Listing Width
+1. Image - Product Listing Height
+1. Image - Product New Listing Width
+1. Image - Product New Listing Height
+1. Image - New Products Width
+1. Image - New Products Height
+1. Image - Featured Products Width
+1. Image - Featured Products Height
+1. Image - Product All Listing Width
+1. Image - Product All Listing Height
 
 **Notes:**
 1. If you want to add the hover effect to _category_ images, you must set *Category Icon Image Width - Product Info Pages* and *Category Icon Image Height - Product Info Pages* to match **Small Image Width** and **Small Image Height**, respectively.
