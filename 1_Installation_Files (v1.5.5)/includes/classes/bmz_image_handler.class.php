@@ -11,6 +11,7 @@
  * Modified by DerManoMann 2010-05-31 23:40:21
  * Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  * Modified by lat9: 2018-05-19, various refinements (see GitHub #106).
+ * Modified by lat9: 2018-05-20, Remove handling for mixed-case file extensions from file_not_found method (see GitHub #89)
  */
  
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -140,24 +141,6 @@ class ih_image
                 if (is_file($ihConf['dir']['docroot'] . $base . $extensions[$i])) {
                     $this->src = $base . $extensions[$i];
                     return false;
-                }
-            }
-            // not found? maybe mixed case file extension?
-            if ($ihConf['allow_mixed_case_ext']) {
-                // this can cost some time for every displayed image so default is
-                // to not do this search
-                $directory = dirname($ihConf['dir']['docroot'] . $this->src);
-                $dir = @dir($directory);
-                while ($file = $dir->read()) {
-                    if (!is_dir($directory . $file)) {
-                        if (preg_match("/^" . $ihConf['dir']['docroot'] . $base . "/i", $file) == '1') {
-                            $file_ext = substr($file, strrpos($file, '.'));
-                            if (is_file($ihConf['dir']['docroot'] . $base . $file_ext)) {
-                                $this->src = $base . $file_ext;
-                                return false;
-                            } 
-                        }
-                    }
                 }
             }
         }

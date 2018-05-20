@@ -1,4 +1,4 @@
-[Back](readme.md "Return to the main page")
+[Back](../README.md "Return to the main page")
 # Configuration
 
 This page contains information and, in most cases, sub-links regarding the configuration of IH<sup>5</sup>.

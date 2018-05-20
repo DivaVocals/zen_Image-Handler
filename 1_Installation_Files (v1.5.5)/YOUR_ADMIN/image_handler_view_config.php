@@ -100,7 +100,6 @@ $config_values = array(
         'trans_threshold' => array('check' => CHECK_NONE),
         'im_convert' => array('check' => CHECK_NONE),
         'gdlib' => array('check' => CHECK_INTEGER),
-        'allow_mixed_case_ext' => array('check' => CHECK_BOOLEAN),
         'default' => array(
             'check' => CHECK_ARRAY,
             'fields' => array(

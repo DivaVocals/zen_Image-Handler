@@ -1,4 +1,4 @@
-[Back](readme.md "Return to the main page")
+[Back](../README.md "Return to the main page")
 # Using the Admin "Image Handler" Tool
 
 There are two ways to access the Zen Cart admin's **Image Handler<sup>5</sup>** tool:
