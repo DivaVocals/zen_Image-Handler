@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
 //
 if (!defined('IH_DEBUG_ADMIN')) {
     define('IH_DEBUG_ADMIN', 'true'); //-Either 'true' or 'false'
@@ -13,6 +13,7 @@ class ImageHandlerAdmin
         $this->debug = (IH_DEBUG_ADMIN == 'true');
         $this->debugLogfile = DIR_FS_LOGS . '/ih_debug_admin.log';
         $this->validFiletypes = array('gif', 'jpg', 'png', 'no_change');
+        $this->validFileExtensions = array('.gif', '.jpg', '.jpeg', '.png');
     }
     
     public function getImageDetailsString($filename) 
@@ -46,7 +47,7 @@ class ImageHandlerAdmin
     // The function returns a simple, sorted array containing the matching filenames (without the
     // directory information).
     //
-    public function findAdditionalImages(&$array, $directory, $extension, $base) 
+    public function findAdditionalImages(&$array, $directory, $base) 
     {
         // -----
         // Set up the to-be-matched image name, depending on whether the search is being
@@ -65,7 +66,7 @@ class ImageHandlerAdmin
             $image_dir = new DirectoryIterator(DIR_FS_CATALOG . DIR_WS_IMAGES . $directory);
         } catch(Exception $e) {
             $error = true;
-            $this->debugLog("findAdditionalImages(array, $directory, $extension, $base), could not iterate directory." . $e->getMessage());
+            $this->debugLog("findAdditionalImages(array, $directory, $base), could not iterate directory." . $e->getMessage());
         }
         
         // -----
@@ -74,10 +75,10 @@ class ImageHandlerAdmin
         if (!$error) {
             // -----
             // The quotemeta function properly escapes any "regex" special characters that
-            // might be present in either the image's base name or file extension, e.g. '.jpg'
-            // will be converted to '\.jpg'.
+            // might be present in the image's base name, e.g. any intervening '.'s will be
+            // converted to '\.'.
             //
-            $filename_match = quotemeta($base) . $image_match . quotemeta($extension);
+            $filename_match = quotemeta($base) . $image_match . '\.(jpg|jpeg|png|gif)';
             
             // -----
             // Now, do a regex search of the specified directory, looking for matches on the
@@ -136,10 +137,22 @@ class ImageHandlerAdmin
         return !($value === true || $value === false);
     }
     
-    public function imageHandlerHrefLink($image_name, $products_filter, $action, $more = '')
+    public function validateFileExtension($value)
+    {
+        return in_array(strtolower($value), $this->validFileExtensions);
+    }
+    
+    public function getSupportedFileExtensions()
+    {
+        return implode(', ', $this->validFileExtensions);
+    }
+    
+    public function imageHandlerHrefLink($image_name, $products_filter, $action = '', $more = '')
     {
         $imgName = ($image_name == '') ? '' : "&amp;imgName=$image_name";
-        return zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter&amp;action=$action$imgName$more"); 
+        $action = ($action == '') ? '' : "&amp;action=$action";
+
+        return zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter$action$imgName$more"); 
     }
     
     public function debugLog($message) {

@@ -1,6 +1,6 @@
 <?php
 /**IH4-1
- * mod Image Handler 4.3.3
+ * mod Image Handler 5.1.0
  * ih_manager.php
  * manager module for IH4 admin interface
  *
@@ -10,6 +10,7 @@
  * @version $Id: ih_manager.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50
  * Re-factored for IH-5 by lat9 2017-12-02
+ * Restructuring for IH-5.1.0 and later by lat9, 2018-05-22.
  */
 if ($action == 'new_cat') {
     $current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
@@ -59,20 +60,42 @@ if ($products_filter == '' && $current_category_id != '') {
 require DIR_WS_MODULES . FILENAME_PREV_NEXT;
 
 // -----
-// The "save" form gathers up to three (3) separate image files:  default (aka small), medium and large.  That form is used
+// Note:  On entry, if a product has been selected, the main image_handler module has created the $products
+// variable, containing the database information associated with the selected product's image.  The 
+// information in that array will be used to determine the product's base-name as well as its base
+// image directory.
+//
+// If a product has **not** been selected, simply return from this module back to the main handler,
+// since no actions are possible.
+//
+if (!isset($product)) {
+    return;
+}
+
+// -----
+// Set the images' directory, using the values specified in the $ihConf array.
+//
+$images_directory = $ihConf['dir']['docroot'] . $ihConf['dir']['images'];
+
+// -----
+// The "save" form gathers up to three (3) separate image files:  base, medium and large.  That form is used
 // for two different cases:
 //
 // 1) Uploading a new image, either:
 //    a) A main product-image, for a product that does not yet have a products_image defined.
+//       - In this case, $_GET['imgNew'] is set to 'main'.
 //    b) An additional product-image, when the product has its main image defined.
-// 2) Modifying an existing image.  In this case, the variable $_GET['imgEdit'] is set to the value of 1.
+//       - In this case, $_GET['imgNew'] is set to 'addl'
+// 2) Modifying an existing image.
+//    - In this case, $_GET['imgNew'] is *not* supplied, but $_GET['imgSuffix'] will identify
+//      the "image-suffix" being edited; if the value is empty, it's the main image being edited.
 //
 // There are a couple of "rules" associated with those uploaded images:
 //
-// 1) If the associated product DOES NOT currently have an image, the default image is **required**.
-// 2) The file-extension of any medium or large image MUST MATCH that of the associated default.
-//    a) If a new default image is being uploaded, the medium/large extension must match that of the uploaded default.
-//    b) If the existing default image is being used, the medium/large extension must match that of the current default.
+// 1) If the associated product DOES NOT currently have an image, the base image is **required**.
+// 2) The file-extension of any medium or large image is controlled by their respective Configuration->Images
+//    configuration settings.  Those values are one of 'png', 'jpg', 'gif', or 'no_change'.  If the value is
+//    set to 'no_change', the medium/large image is the same file-extension as the main-product image.
 //
 if ($action == 'save') {
     // -----
@@ -86,138 +109,223 @@ if ($action == 'save') {
     );
     
     // -----
-    // Set some processing flags, based on the type of upload being performed.
+    // If the "saveType" wasn't supplied with the form, redirect back to the main IH
+    // manager page without message (since it "shouldn't" happen).
     //
-    $editing = (isset($_GET['imgEdit']) && $_GET['imgEdit'] == '1');
-    $new_image = (isset($_GET['newImg']) && $_GET['newImg'] == '1');
-    $main_image = (!isset($_GET['imgSuffix']) || $_GET['imgSuffix'] == '');
-    $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] == 'keep_name');
+    if (empty($_POST['saveType'])) {
+        zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER));
+    }
     
+    // -----
+    // Initialize some internal "handling" variables.
+    //
     $data = array();
     $data_ok = true;
+    $keep_name = false;
+    $editing = false;
+    $is_main = false;
+    $uploaded_default_extension = false;
+    $uploaded_medium_extension = false;
+    $uploaded_large_extension = false;
+        
+    // -----
+    // Verify that any uploaded images' file-extension is one of those 'allowed'.
+    //
+    $supported_extensions = $ih_admin->getSupportedFileExtensions();
     
     // -----
-    // Determine the extension required for any uploaded images.
+    // If a default/base image was uploaded, make sure that its file-extension is 'allowed'.
     //
-    // 1) A new main-image (and any medium/large) use the extension from the (required) default image suppied.
-    // 2) A new additional image's files use the extension from the pre-existing main-image.
-    // 3) Editing an image uses the pre-existing file extension.
-    //
-    if ($new_image) {
-        if ($_FILES['default_image']['name'] == '') {
-            $messageStack->add(TEXT_MSG_NO_DEFAULT, 'error');
+    if (!empty($_FILES['default_image']['name'])) {
+        $uploaded_default_extension = '.' . pathinfo($_FILES['default_image']['name'], PATHINFO_EXTENSION);
+        if (!$ih_admin->validateFileExtension($uploaded_default_extension)) {
+            $messageStack->add(sprintf(TEXT_MSG_INVALID_EXTENSION, TEXT_BASE, $uploaded_default_extension, $supported_extensions), 'error');
             $data_ok = false;
-        } else {
-            $data['imgExtension'] = '.' . pathinfo($_FILES['default_image']['name'], PATHINFO_EXTENSION);
         }
-    } else {
-        $data['imgExtension'] = $_GET['imgExtension'];
     }
-
+    
     // -----
-    // If the file-upload is in support of a new main image or the main image is being edited ...
+    // If a medium or large image was uploaded, make sure that its file-extension is also 'allowed'.
     //
-    if ($new_image || ($editing && $main_image && !$keep_name && $_FILES['default_image']['name'] != '')) {
-        // New Image Name and Base Dir
-        if (isset($_POST['imgBase']) && $_POST['imgBase'] != '') {
-            $data['imgBase'] = $_POST['imgBase'];
-        } else {
-            // Extract the name from the default file
-            if ($_FILES['default_image']['name'] != '') {
-                $data['imgBase'] = pathinfo($_FILES['default_image']['name'], PATHINFO_FILENAME);
-            } else {
-                $messageStack->add(TEXT_MSG_AUTO_BASE_ERROR, 'error');
+    if (!empty($_FILES['medium_image']['name'])) {
+        $uploaded_medium_extension = '.' . pathinfo($_FILES['medium_image']['name'], PATHINFO_EXTENSION);
+        if (!$ih_admin->validateFileExtension($uploaded_medium_extension)) {
+            $messageStack->add(sprintf(TEXT_MSG_INVALID_EXTENSION, TEXT_MEDIUM, $uploaded_medium_extension, $supported_extensions), 'error');
+            $data_ok = false;
+        }
+    }
+    
+    if (!empty($_FILES['large_image']['name'])) {
+        $uploaded_large_extension = '.' . pathinfo($_FILES['large_image']['name'], PATHINFO_EXTENSION);
+        if (!$ih_admin->validateFileExtension($uploaded_large_extension)) {
+            $messageStack->add(sprintf(TEXT_MSG_INVALID_EXTENSION, TEXT_LARGE, $uploaded_large_extension, $supported_extensions), 'error');
+            $data_ok = false;
+        }
+    }
+    
+    // -----
+    // If any of the uploaded files' extensions were found to be 'invalid', simply return to the main
+    // image_handler processing for display.
+    //
+    if (!$data_ok) {
+        return;
+    }
+    
+    // -----
+    // Otherwise, set some processing flags and gather information, based on the type of image being saved.
+    //
+    switch ($_POST['saveType']) {
+        // -----
+        // Updating an existing image.
+        //
+        case 'edit':
+            if (!isset($_POST['imgSuffix'])) {
                 $data_ok = false;
-            }
-        }
-  
-        // catch nasty characters
-        if (strpos($data['imgBase'], '+') !== false) {
-            $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
-            $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
-        }
-  
-        if (isset($_POST['imgNewBaseDir']) && $_POST['imgNewBaseDir'] != '') {
-            $data['imgBaseDir'] = $_POST['imgNewBaseDir'];
-        } elseif (isset($_POST['imgBaseDir'])) {
-            $data['imgBaseDir'] = $_POST['imgBaseDir'];
-        } else {
-            $data['imgBaseDir'] = $_GET['imgBaseDir'];
-        }
-  
-        $data['imgSuffix'] = '';
-
-/*
-        if ($_POST['imgNaming'] == 'new_copy') {
-            // need to copy/rename additional images for new default image
-            // this will be implemented in a future release
-        }
-*/
-    // -----
-    // Otherwise, if we're editing an additional product image ...
-    //
-    } elseif ($editing) {
-        $data['imgBaseDir'] = $_GET['imgBaseDir'];
-        $data['imgBase'] = $_GET['imgBase'];
-        $data['imgSuffix'] = $_GET['imgSuffix'];
-    // -----
-    // Otherwise, we're adding an additional product image ...
-    //
-    } else {
-        // An additional image is being added
-        $data['imgBaseDir'] = $_GET['imgBaseDir'];
-        $data['imgBase'] = $_GET['imgBase'];
-        
-        // Image Suffix (if set)
-        if ($_POST['imgSuffix'] != '') {
-            $data['imgSuffix'] = '_' . $_POST['imgSuffix'];
-        } else {
-            // -----
-            // Get additional images' list; the class function takes care of sorting the files
-            //
-            $matching_files = array();
-            $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgExtension'], $data['imgBase']);
-            
-            // -----
-            // If no additional images exist, use the _01 suffix.
-            //
-            $file_count = count($matching_files);
-            if ($file_count == 1) {
-                $data['imgSuffix'] = '_01';
             } else {
-                // -----
-                // Otherwise, find the first unused suffix in the range _01 to _99.  Note that the first
-                // (ignored) element of the find-array "should be" the main image's name!
-                //
-                for ($suffix = 1, $found = false; $suffix < 99; $suffix++) {
-                    $suffix_string = sprintf('_%02u', $suffix);
-                    if (!in_array($data['imgBase'] . $suffix_string . $data['imgExtension'], $matching_files)) {
-                        $found = true;
-                        $data['imgSuffix'] = $suffix_string;
-                        break;
+                $editing = true;
+                $data['imgSuffix'] = $_POST['imgSuffix'];
+                $data['imgBaseDir'] = $products_image_directory;
+                $is_main = ($_POST['imgSuffix'] == '');
+                
+                $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] == 'keep_name');
+                if ($is_main && !$keep_name) {
+                    if (empty($_FILES['default_image']['name'])) {
+                        $messageStack->add(TEXT_MSG_NO_DEFAULT_ON_NAME_CHANGE, 'error');
+                        $data_ok = false;
+                    } else {
+                        $data['imgBase'] = pathinfo($_FILES['default_image']['name'], PATHINFO_FILENAME);
+                        $data['imgExtension'] = $uploaded_default_extension;
+                    }
+                } else {
+                    $data['imgBase'] = $products_image_base;
+                    $data['imgExtension'] = $products_image_extension;
+                }
+            }
+            break;
+            
+        // -----
+        // Creating a new, main image.  There are additional variables passed in that version of the
+        // data-gathering form.
+        //
+        // - imgBase ....... The "base" name for the image, overriding the name associated with any uploaded image.
+        // - imgBaseDir .... The "base" directory for the image, selected from existing image-directory sub-directories.
+        // - imgNewBaseDir . A new sub-directory to be created under the image-directory for this image.
+        //
+        case 'new_main':
+            $is_main = true;
+            if (!empty($_POST['imgBase'])) {
+                $data['imgBase'] = $_POST['imgBase'];
+            } else {
+                if (empty($_FILES['default_image']['name'])) {
+                    $messageStack->add(TEXT_MSG_AUTO_BASE_ERROR, 'error');
+                    $data_ok = false;
+                } else {
+                    $data['imgBase'] = pathinfo($_FILES['default_image']['name'], PATHINFO_FILENAME);
+                    $data['imgExtension'] = $uploaded_default_extension;
+                }
+            }
+            if (!empty($_POST['imgNewBaseDir'])) {
+                $data['imgBaseDir'] = $_POST['imgNewBaseDir'];
+                $base_is_new = true;
+            } else {
+                $data['imgBaseDir'] = $_POST['imgBaseDir'];
+                $base_is_new = false;
+            }
+            $data['imgSuffix'] = '';
+            break;
+            
+        // -----
+        // Creating a new additional image for a product.  The image is created in the same directory
+        // with the same name as the default/main image.
+        //
+        // The 'imgSuffix' variable, if specified, identifies the suffix (e.g. _01) to apply to this
+        // additional image.  If the value is not supplied, determine the next available suffix (in the
+        // range _01 to _99 to apply to this image.
+        //
+        case 'new_addl':
+            if ($_FILES['default_image']['name'] == '') {
+                $messageStack->add(TEXT_MSG_NO_DEFAULT, 'error');
+                $data_ok = false;
+            } else {
+                $data['imgBaseDir'] = $products_image_directory;
+                $data['imgBase'] = $products_image_base;
+                $data['imgExtension'] = $uploaded_default_extension;
+                
+                if ($_POST['imgSuffix'] != '') {
+                    $data['imgSuffix'] = '_' . $_POST['imgSuffix'];
+                } else {
+                    // -----
+                    // Get additional images' list; the class function takes care of sorting the files
+                    //
+                    $matching_files = array();
+                    $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgExtension'], $data['imgBase']);
+                    
+                    // -----
+                    // If no additional images exist, use the _01 suffix.
+                    //
+                    $file_count = count($matching_files);
+                    if ($file_count == 1) {
+                        $data['imgSuffix'] = '_01';
+                    } else {
+                        // -----
+                        // Otherwise, find the first unused suffix in the range _01 to _99.  Note that the first
+                        // (ignored) element of the find-array "should be" the main image's name!
+                        //
+                        for ($suffix = 1, $found = false; $suffix < 99; $suffix++) {
+                            $suffix_string = sprintf('_%02u', $suffix);
+                            if (!in_array($data['imgBase'] . $suffix_string . $data['imgExtension'], $matching_files)) {
+                                $found = true;
+                                $data['imgSuffix'] = $suffix_string;
+                                break;
+                            }
+                        }
+                        if (!$found) {
+                            $messageStack->add(TEXT_MSG_NO_SUFFIXES_FOUND, 'error');
+                            $data_ok = false;
+                        }
                     }
                 }
-                if (!$found) {
-                    $messageStack->add('Could not find an unused additional-image suffix in the range _01 to _99.', 'error');
-                    $data_ok = false;
-                }
             }
-        }
+            break;
+            
+        default:
+            $data_ok = false;
+            break;
+    }
+
+    // -----
+    // Correct some "nasty" characters in the image's name.
+    //
+    if (strpos($data['imgBase'], '+') !== false) {
+        $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
+        $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
     }
     
-    // determine the filenames 
+    // -----
+    // If the data supplied appears OK, perform a couple of pre-processing checks.
+    //
     if ($data_ok) {
-        // add slash to base dir
+        // -----
+        // If the image's base-directory doesn't currently end in either a / or \, append a / to that value.
+        //
         if ($data['imgBaseDir'] != '') {
             if (substr($data['imgBaseDir'], -1) != '/' && substr($data['imgBaseDir'], -1) != '\\') {
                 $data['imgBaseDir'] .= '/';
             }
         }
+
+        // -----
+        // Create the name of the base image file, less the store's specific images directory.
+        //
         $data['defaultFileName'] = $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . $data['imgExtension'];
 
-        // Check if the file already exists
-        if ($editing && file_exists(DIR_FS_CATALOG . DIR_WS_IMAGES . $data['defaultFileName'])) {
-            $messageStack->add(TEXT_MSG_FILE_EXISTS, 'error' );
+        // -----
+        // If a **main** image is being edited (i.e. its name is being changed) and the new file already exists, disallow
+        // the change.
+        //
+        if ($editing && $is_main && !$keep_name && file_exists($images_directory . $data['defaultFileName'])) {
+            $existing_file = $images_directory . $data['defaultFileName'];
+            $messageStack->add(sprintf(TEXT_MSG_FILE_EXISTS, $existing_file), 'error' );
             $data_ok = false;
         }
     }
@@ -226,7 +334,7 @@ if ($action == 'save') {
     // If no previous errors and we're either (a) creating a new main-image or (b) editing the main-image and a new name
     // is requested ...
     //
-    if ($data_ok && $new_image || ($editing && $main_image && !$keep_name && $_FILES['default_image']['name'] != '')) {
+    if ($data_ok && ($new_image || ($editing && $is_main && !$keep_name))) {
         // -----
         // ... first, check to see that the image's name is going to fit into the database field.
         //
@@ -234,64 +342,58 @@ if ($action == 'save') {
             $messageStack->add(sprintf(TEXT_MSG_NAME_TOO_LONG_ERROR, $data['defaultFileName'], zen_field_length(TABLE_PRODUCTS, 'products_image')), 'error');
             $data_ok = false;
         } else {
-            // update the database
-            $sql = 
+            $db->Execute(
                 "UPDATE " . TABLE_PRODUCTS . " 
-                    SET products_image = '" . $data['defaultFileName'] . "' 
+                    SET products_image = '" . $db->prepare_input($data['defaultFileName']) . "' 
                   WHERE products_id = " . (int)$products_filter . "
-                  LIMIT 1";
-            if (!$db->Execute($sql)) {
-                $messageStack->add(TEXT_MSG_INVALID_SQL, "error");
-                $data_ok = false;
-            }
+                  LIMIT 1"
+            );
         }
     }
 
+    // -----
+    // ... finally (!) create the images based on the validated user-input.  For each
+    // image-type supplied, create the file in destination directory and move the
+    // uploaded file to that destination.
+    //
     if ($data_ok) {
-        // check for destination directory and create, if they don't exist!
-        // Then move uploaded file to its new destination
-
-        // default image
+        // -----
+        // The "base" image ...
+        //
         if ($_FILES['default_image']['name'] != '') {
-            io_makeFileDir(DIR_FS_CATALOG_IMAGES . $data['defaultFileName']);
+            io_makeFileDir($images_directory . $data['defaultFileName']);
             $source_name = $_FILES['default_image']['tmp_name'];
-            $destination_name = DIR_FS_CATALOG_IMAGES . $data['defaultFileName'];
+            $destination_name = $images_directory . $data['defaultFileName'];
             if (!move_uploaded_file($source_name, $destination_name)) {
-                $messageStack->add(TEXT_MSG_NOUPLOAD_DEFAULT, "error" );
-                $data_ok = false;
-            }
-        } elseif ($_FILES['default_image']['name'] == '' && !$editing) {
-            // Nigel Hack for special idiots  
-            io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['defaultFileName']);
-            $source_name = $_FILES['default_image']['tmp_name'];
-            $destination_name = DIR_FS_CATALOG_IMAGES . $data['defaultFileName'];
-            if (!move_uploaded_file($source_name, $destination_name) ) {
-                $messageStack->add( 'you must select a default image', "error" );
-                $data_ok = false;
-                $_FILES['medium_image']['name'] = $_FILES['large_image']['name'] = '';
-            }
-        }  // End special idiots hack
-        // medium image
-        if ($_FILES['medium_image']['name'] != '') {
-            $data['mediumImgExtension'] = '.' . pathinfo($_FILES['medium_image']['name'], PATHINFO_EXTENSION);
-            $data['mediumFileName'] ='medium/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_MEDIUM . $data['mediumImgExtension'];
-            io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['mediumFileName']);
-            $source_name = $_FILES['medium_image']['tmp_name'];
-            $destination_name = DIR_FS_CATALOG_IMAGES . $data['mediumFileName'];
-            if (!move_uploaded_file($source_name, $destination_name)) {
-                $messageStack->add( TEXT_MSG_NOUPLOAD_MEDIUM, "error" );
+                $messageStack->add(TEXT_MSG_NOUPLOAD_DEFAULT, 'error' );
                 $data_ok = false;
             }
         }
-        // large image
-        if ($_FILES['large_image']['name'] != '') {
-            $data['largeImgExtension'] = '.' . pathinfo($_FILES['large_image']['name'], PATHINFO_EXTENSION);
-            $data['largeFileName'] = 'large/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_LARGE . $data['largeImgExtension'];
-            io_makeFileDir(DIR_FS_CATALOG_IMAGES.$data['largeFileName']);
-            $source_name = $_FILES['large_image']['tmp_name'];
-            $destination_name = DIR_FS_CATALOG_IMAGES . $data['largeFileName'];
+        
+        // -----
+        // The "medium" image ...
+        //
+        if ($data_ok && $_FILES['medium_image']['name'] != '') {
+            $medium_filename = 'medium/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_MEDIUM . $uploaded_medium_extension;
+            io_makeFileDir($images_directory . $medium_filename);
+            $source_name = $_FILES['medium_image']['tmp_name'];
+            $destination_name = $images_directory . $medium_filename;
             if (!move_uploaded_file($source_name, $destination_name)) {
-                $messageStack->add( TEXT_MSG_NOUPLOAD_LARGE, "error" );
+                $messageStack->add(TEXT_MSG_NOUPLOAD_MEDIUM, 'error');
+                $data_ok = false;
+            }
+        }
+        
+        // -----
+        // The "large" image ...
+        //
+        if ($data_ok && $_FILES['large_image']['name'] != '') {
+            $large_filename = 'large/' . $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'] . IMAGE_SUFFIX_LARGE . $uploaded_large_extension;
+            io_makeFileDir($images_directory . $large_filename);
+            $source_name = $_FILES['large_image']['tmp_name'];
+            $destination_name = $images_directory . $large_filename;
+            if (!move_uploaded_file($source_name, $destination_name)) {
+                $messageStack->add(TEXT_MSG_NOUPLOAD_LARGE, 'error');
                 $data_ok = false;
             }
         }  
@@ -304,100 +406,85 @@ if ($action == 'save') {
             $action = "layout_new";
         }
     } else {
-        // Data has been saved
-        // show the new image information
-        $messageStack->add(TEXT_MSG_IMAGE_SAVED, 'success');
-        // we might need to clear the cache if filenames are kept
-        if ($editing) {
-            $error = bmz_clear_cache();
-            if (!$error) {
-                $messageStack->add(IH_CACHE_CLEARED, 'success');
-            }
-        }
-        $_GET['imgName'] = $data['imgBase'] . $data['imgSuffix'];
-        $action = "layout_info";
+        $messageStack->add_session(TEXT_MSG_IMAGE_SAVED, 'success');
+        $redirect_parms = zen_get_all_get_params(array('action', 'imgName', 'imgSuffix', 'imgExtension'));
+        $redirect_parms .= '&amp;imgName=' . $data['imgBase'] . $data['imgSuffix'];
+        $redirect_parms .= '&amp;imgSuffix=' . $data['imgSuffix'];
+        $redirect_parms .= '&amp;imgExtension=' . $data['imgExtension'];
+        
+        zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, $redirect_parms . '&amp;action=layout_info'));
     }
 }
 
+// -----
+// A 'quick_delete' action enables the removal of a medium/large image file that is different from
+// the product's base image.
+//
 if ($action == 'quick_delete') {
-    $img_name = $_GET['imgName'];
-    $img_name_full = DIR_FS_CATALOG . $img_name;
-    if (is_file($img_name_full)) {
-        if (unlink($img_name_full)) {
-            // file successfully deleted
-            $messageStack->add_session(TEXT_MSG_IMAGE_DELETED, 'success');
+    if (!empty($_POST['qdFile'])) {
+        $img_name = DIR_FS_CATALOG . $_POST['qdFile'];
+        if (is_file($img_name)) {
+            if (unlink($img_name)) {
+                // file successfully deleted
+                $messageStack->add_session(sprintf(TEXT_MSG_IMAGE_DELETED, $img_name), 'success');
+            } else {
+                // couldn't delete file
+                $messageStack->add_session(sprintf(TEXT_MSG_IMAGE_NOT_DELETED, $img_name), 'error');
+            }
         } else {
-            // couldn't delete file
-            $messageStack->add_session(TEXT_MSG_IMAGE_NOT_DELETED, 'error');
+            // could not find file to delete
+            $messageStack->add_session(sprintf(TEXT_MSG_IMAGE_NOT_FOUND, $img_name), 'error');
         }
-    } else {
-        // could not find file to delete
-        $messageStack->add_session(TEXT_MSG_IMAGE_NOT_FOUND, 'error');
     }
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id"));
 }
 
+// -----
+// Delete a specified product image.
+//
 if ($action == 'delete') {
-    $data['imgBaseDir'] = $_GET['imgBaseDir'];
-    $data['imgBase'] = $_GET['imgBase'];
-    $data['imgExtension'] = $_GET['imgExtension'];
-    $data['imgSuffix'] = $_GET['imgSuffix'];
+    if (!empty($_POST['imgSuffix']) || $_POST['delete_from_db_only'] != 'Y') {
+        $base_name = $products_image_directory . $_POST['imgName'];
+        $image_ext = $_POST['imgExtension'];
 
-    // add slash to base dir
-    if ($data['imgBaseDir'] != '' && !preg_match("|\/$|", $data['imgBaseDir'])) {
-        $data['imgBaseDir'] .= '/'; 
-    }
-
-    // Determine file names
-    $base_name =  $data['imgBaseDir'] . $data['imgBase'] . $data['imgSuffix'];
-    $image_dir = DIR_FS_CATALOG . DIR_WS_IMAGES;
-    $data['defaultFileName'] = $image_dir . $base_name . $data['imgExtension'];
-    $data['mediumFileName'] = $image_dir . 'medium/' . $base_name . IMAGE_SUFFIX_MEDIUM . $data['imgExtension'];
-    $data['largeFileName'] = $image_dir . 'large/' . $base_name . IMAGE_SUFFIX_LARGE . $data['imgExtension'];
-
-    if ($_POST['delete_from_db_only'] != "Y") {
-        // check for each file, and delete it!
-        if (is_file($data['largeFileName'])) {
-            if (unlink($data['largeFileName'])) {
-                $messageStack->add(TEXT_MSG_LARGE_DELETED, "success");
+        $large_file = $images_directory . 'large/' . $base_name . IMAGE_SUFFIX_LARGE . $image_ext;
+        if (is_file($large_file)) {
+            if (unlink($large_file)) {
+                $messageStack->add_session(sprintf(TEXT_MSG_LARGE_DELETED, $large_file), 'success');
             } else {
-                $messageStack->add(TEXT_MSG_NO_DELETE_LARGE, "error");
+                $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_LARGE, $large_file), 'error');
             }
         }
-        if (is_file($data['mediumFileName'])) {
-            if (unlink($data['mediumFileName'])) {
-                $messageStack->add(TEXT_MSG_MEDIUM_DELETED, "success");
+        
+        $medium_file = $images_directory . 'medium/' . $base_name . IMAGE_SUFFIX_MEDIUM . $image_ext;
+        if (is_file($medium_file)) {
+            if (unlink($medium_file)) {
+                $messageStack->add_session(sprintf(TEXT_MSG_MEDIUM_DELETED, $medium_file), 'success');
             } else {
-                $messageStack->add(TEXT_MSG_NO_DELETE_MEDIUM, "error");
+                $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_MEDIUM, $medium), 'error');
             }
         }
-        if (is_file($data['defaultFileName'])) {
-            if (unlink($data['defaultFileName'])) {
-                $messageStack->add(TEXT_MSG_DEFAULT_DELETED, "success");
-            } else {
-                $messageStack->add(TEXT_MSG_NO_DELETE_DEFAULT, "error");
-            }
+        
+        $base_file = $images_directory . $base_name . $image_ext;
+        if (!is_file($base_file)) {
+            $messageStack->add_session(sprintf(TEXT_MSG_NO_DEFAULT_FILE_FOUND, $base_file), 'error');
         } else {
-            $messageStack->add(TEXT_MSG_NO_DEFAULT_FILE_FOUND.': '.$data['defaultFileName'], "error");
+            if (unlink($base_file)) {
+                $messageStack->add_session(sprintf(TEXT_MSG_DEFAULT_DELETED, $base_file), 'success');
+            } else {
+                $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_DEFAULT, $base_file), 'error');
+            }
         }
     }
 
     // update the database
-    if ($data['imgSuffix'] == '') {
-        $sql = 
+    if (empty($_POST['imgSuffix'])) {
+        $db->Execute(
             "UPDATE " . TABLE_PRODUCTS . " 
                 SET products_image = '' 
               WHERE products_id = " . (int)$products_filter . "
-              LIMIT 1";
-        if (!$db->Execute($sql)) {
-            $messageStack->add(TEXT_MSG_INVALID_SQL, "error");
-        }
+              LIMIT 1"
+        );
     }
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
-}
-
-if ($action == 'cancel') {
-    // set edit message
-    $messageStack->add_session(PRODUCT_WARNING_UPDATE_CANCEL, 'warning');
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter" . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id"));
 }

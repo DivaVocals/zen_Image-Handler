@@ -75,10 +75,10 @@ class ih_image
 
         if (IS_ADMIN_FLAG === true) {
             $this->debug = (IH_DEBUG_ADMIN == 'true');
-            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug_admin$logfile_suffix.log";
+            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug_admin-$logfile_suffix.log";
         } else {
             $this->debug = (IH_DEBUG_STOREFRONT == 'true');
-            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug$logfile_suffix.log";
+            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug-$logfile_suffix.log";
         }
         
         $this->determine_image_sizetype();
@@ -91,8 +91,11 @@ class ih_image
 
         $this->filename = $ihConf['dir']['docroot'] . $this->src;
         $this->extension = '.' . pathinfo($this->src, PATHINFO_EXTENSION);
-        
-        $this->ihLog("__constructor for {$this->filename}.", true);
+
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+        $caller = str_replace(DIR_FS_CATALOG, '', $backtrace[0]['file']);
+        $line_num = $backtrace[0]['line'];
+        $this->ihLog("__constructor for {$this->filename}, called by $caller at line number $line_num", true);
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
@@ -337,7 +340,7 @@ class ih_image
             }
             
             //echo $local . '<br />';    
-            $local_mtime = $this->fileModifiedTime($local); // 0 if not exists
+            $local_mtime = $this->fileModifiedTime($local); // (bool)false if not exists
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
             $zoom_mtime = $this->fileModifiedTime($this->zoom['file']);
@@ -356,7 +359,7 @@ class ih_image
     
     protected function fileModifiedTime($filename)
     {
-        return (is_file($filename)) ? filemtime($filename) : 0;
+        return (is_file($filename)) ? filemtime($filename) : false;
     }
   
     protected function sanitizeImageNames($name)
