@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.0.1-beta6');
+define('IH_CURRENT_VERSION', '5.1.0-beta1');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -273,7 +273,7 @@ if (isset($_SESSION['admin_id'])) {
             }
         }
         
-        if (version_compare(IH_VERSION, '5.0.1', '<')) {
+        if (version_compare(IH_VERSION, '5.1.0', '<')) {
             if (!zen_page_key_exists('toolsImageHandlerViewConfig')) {
                 zen_register_admin_page('toolsImageHandlerViewConfig', 'BOX_TOOLS_IMAGE_HANDLER_VIEW_CONFIG', 'FILENAME_IMAGE_HANDLER_VIEW_CONFIG', '', 'tools', 'N', 99);
             }
