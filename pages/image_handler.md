@@ -3,9 +3,10 @@
 
 1. [Accessing Image Handler](#accessing-image-handler)
 2. [Managing Images](#managing-images)
-   a. [Overview](#overview)
-   b. [Adding Images](#adding-images)
-   c. [Changing an Image](#changing-an-image)
+   - [Overview](#overview)
+   - [Adding Images](#adding-images)
+   - [Changing an Image](#editing-an-image)
+   - [Deleting an Image](#deleting-an-image)
 
 ## Accessing Image Handler
 
@@ -51,7 +52,7 @@ It's all very straightforward. But let's talk about where some folks get stuck: 
 
 ### Adding a Main Image
 
-<div style="float: left;">![](images/new_main_sidebar.png)</div>
+<div style="float: left;"><img src="images/new_main_sidebar.png" alt="New Main Image" /></div>
 
 When you add a new _main_ image to a product, the following fields are available:
 
@@ -74,7 +75,7 @@ Once you've chosen those options, click the `save` button to upload the selected
 
 ### Adding an Additional Image
 
-<div style="float: left;">![](images/new_addl_sidebar.png)</div>
+<div style="float: left;"><img src="images/new_addl_sidebar.png" alt="New Additional Image" /></div>
 
 When you add a new _additional_ image to a product, the following fields are available:
 
@@ -93,13 +94,13 @@ It's best to upload the largest version of your image, since this is the file th
 Once you've chosen those options, click the `save` button to upload the selected image(s) to your store's file-system or click the `cancel` button to return to the main IH display.
 
 
-## Editing/Changing an Image
+## Editing an Image
 
 Next, let's walk through the process of changing a product's main or additional images.  The options available are dependent on which type of image you are editing.
 
 ### Edit a Main Image
 
-<div style="float: left;">![](images/edit_main_sidebar.png)</div>
+<div style="float: left;"><img src="images/edit_main_sidebar.png" alt="Edit Main Image" /></div>
 
 When you edit the _main_ image for a product, the following fields are available:
 
@@ -116,7 +117,7 @@ You can choose to either _keep_ the existing image name (as displayed) or to use
 
 
 ### Edit an Additional Image
-<div style="float: left;">![](images/edit_addl_sidebar.png)</div>
+<div style="float: left;"><img src="images/edit_addl_sidebar.png" alt="Edit Additional Image" /></div>
 
 When you edit an _additional_ image for a product, the following fields are available:
 
@@ -134,7 +135,7 @@ Just like the image add and edit operations, the options you have for the image'
 
 ### Deleting a Main Image
 
-<div style="float: left;">![](images/delete_main_sidebar.png)</div>
+<div style="float: left;"><img src="images/delete_main_sidebar.png" alt="Delete Main Image" /></div>
 
 When you choose to delete a _main_ product image, you can choose to remove _only_ the database reference to the image-file.  Otherwise, the _main_ product image's base, medium and large images are deleted from your server in addition to updating the database to indicate that the product no longer has a defined image.
 
@@ -144,7 +145,7 @@ When you choose to delete a _main_ product image, you can choose to remove _only
 
 ### Deleting an Additional Image
 
-<div style="float: left;">![](images/delete_addl_sidebar.png)</div>
+<div style="float: left;"><img src="images/delete_addl_sidebar.png" alt="Delete Additional Image" /></div>
 
 When you choose to delete an additional image, that image's base and large images are both deleted from the server.
 
