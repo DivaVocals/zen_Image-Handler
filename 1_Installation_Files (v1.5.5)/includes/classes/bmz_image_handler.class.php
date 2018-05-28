@@ -65,6 +65,12 @@ class ih_image
         $this->height = $height;
         $this->zoom = array();
         
+        // -----
+        // Initially, **assume** that the requested file exists.  If not, this flag will be set to
+        // false by call to the calculate_size method.
+        //
+        $this->file_exists = true;
+        
         $this->first_access = false;
         if (!isset($GLOBALS['ih_logfile_suffix'])) {
             $d = new DateTime();
@@ -315,7 +321,7 @@ class ih_image
         $file_extension = ($filetype == '') ? $file_extension : $filetype;
         
         // Do we need to resize, watermark, zoom or convert to another filetype?
-        if ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension) {
+        if ($this->file_exists && ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension)) {
             if (IH_CACHE_NAMING == 'Hashed') {
                 $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
             } else {
@@ -399,6 +405,7 @@ class ih_image
         if (!file_exists($this->filename)) {
             $this->ihLog("calculate_size, file does not exist.");
             $width = $height = 0;
+            $this->file_exists = false;
         } else {
             list($width, $height) = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
