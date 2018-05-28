@@ -1,60 +1,155 @@
 [Back](../README.md "Return to the main page")
 # Using the Admin "Image Handler" Tool
 
-There are two ways to access the Zen Cart admin's **Image Handler<sup>5</sup>** tool:
-- **Catalog->Categories/Products**.  When you browse your categories and products, you can click on the small IH icon (![](images/icon_image_handler.gif)) to access the **Image Handler<sup>5</sup>** manager page _for a specific product_.
+1. [Accessing Image Handler](#accessing-image-handler)
+2. [Managing Images](#managing-images)
+   - [Overview](#overview)
+   - [Adding Images](#adding-images)
+   - [Changing an Image](#editing-an-image)
+   - [Deleting an Image](#deleting-an-image)
 
-![](images/ih_from_listing.png)
+## Accessing Image Handler
+
+There are two ways to access the Zen Cart admin's **Image Handler<sup>5</sup>** tool:
+
+1. Click the **Tools->Image Handler<sup>5</sup>** link in your admin's navigation header.
+2. From the **Catalog->Categories/Products** products' listing.  When you browse your categories and products, you can click on the small IH icon (![](images/icon_image_handler.gif)) to access the **Image Handler<sup>5</sup>** manager page, initially, _for a specific product_.
+
+![](images/ih_from_product_listing.png)
 
 - **Tools->Image Handler<sup>5</sup>**. When you access the **Image Handler<sup>5</sup>** manager page you can use its interface to browse categories and products or to add, change, or delete images from your products.
 
-![](images/ih_from_header.png)
+## Overview
 
-The IH<sup>5</sup> interface is designed to be highly intuitive and easy to use. Referencing the image above, you can see that all the action takes place on the "Manager" tab of the interface. For example:
+The IH<sup>5</sup> interface is designed to be highly intuitive and easy to use. Referencing the image below, you can see that all the action takes place on the _Image Manager_ tab of its interface. You can:
 
-- You can browse through your product categories using the "Previous" and "Next" buttons
-- You can select a specific product category using the product category dropdown list and allowing the page to refresh & display all the products in that category
-- You can select a specific product to view, add, or edit (change or delete) its image(s) by selecting the category, then highlighting the product that appears in the list, and clicking the "Display" button.
-- You can even jump to the "Edit Products" or "Product Attribute" pages by clicking either of those buttons.
+- Browse through your product categories using the `Previous` and `Next` buttons
+- Select a specific product-category using the drop-down list; after the page refreshes, all products in that category are displayed.
+- Select a specific product whose images are to be managed, by selecting the product from the product drop-down and clicking the `Display` button.
+- Jump to edit that product or its attributes by clicking the `edit product` or `Attribute Controller` button, respectively.
+
+The initial display for the selected-product depends on whether or not that product has a _base_ image defined: 
+
+![](images/ih_initial_display.png)
+
+![](images/ih_initial_display_no_images.png)
+
 
 ## Adding Images
 
-It's all very straightforward. But let's talk about where some folks get stuck: adding primary and additional product images. Let's begin by walking through the process of adding an image to a product. The important thing to understand is that the process is the same whether you're adding your first image or your tenth to a given product
+It's all very straightforward. But let's talk about where some folks get stuck: adding _base_ and _additional_ product images. Let's begin by walking through the process of adding an image to a product. The important thing to understand is that the process slightly different when adding a new _main_ image to the product vs. adding additional images to that product.
 
-1. Select the product you want to add an image to and click the "New File" button to the right of the product information
-1. Select the image directory from the dropdown list where you want the image to be stored on your server
-1. Click on the Default image file's "browse" button to navigate to the image you want to upload. It is best to upload the largest version of your image because this is the file that Image Handler5 will use to create small, medium, and large versions of that image.
-1. Click "Save". Notice that after clicking "Save", the page refreshes and you can now see your image(s) and all the sizes your image(s) will display as throughout various areas of your store.
 
 ### Important Notes:
 
-- You do not need to add an image to the "Medium" or "Large" fields **unless** you want your medium and large product images to be **different** images than that of your small product images.
-- IH<sup>5</sup> will take care of creating small, medium, and large versions of the large image you uploaded, using the image size settings you have [configured](configuration.md).
-- Attempting to add an image in the "Medium" or "Large" fields without **first** populating that "Default" field will result in an error. You **must** always upload an image to the "Default" field whether it is your first product image or your hundredth.
-- The "Medium" and "Large" fields are not the appropriate place to add your additional product images. Remember that the process for adding primary and additional images is the same. The "Default" field must be used
-- "Default" does not refer to "Primary Image". "Default" only refers to the image file you upload that IH<sup>5</sup> will use to make small medium and large versions of your image(s).
+- IH<sup>5</sup> allows the upload of image files with file-extensions of `.jpg, .jpeg, .png or .gif`; all other file-extensions are disallowed.
+	- The file-extension of any `additional` images uploaded for a product **must be the same** as the product's `main` image.
+- You do not need to add an image to the "Medium" or "Large" fields **unless** you want your medium and/or large product images to be **different** images than that of your small product images.
+- IH<sup>5</sup> will take care of creating small, medium, and large versions of any base image you uploaded, using the image size settings you have [configured](configuration.md).
+- Attempting to add a "Medium" or "Large" image without an accompanying "Base" image will result in an error. You **must** always upload a "Base" image for each main and additional product image uploaded.
+- "Base" does not refer to a "Primary Image". "Base" only refers to the image file you upload that IH<sup>5</sup> will use to make small medium and large versions of your image(s).
 - If all this talk about "primary images", "additional images", "large, medium, and small images", etc. has your head spinning, refer to the [Troubleshooting](troubleshooting.md) section of this readme and look at the "Prepare Your Site For Growth" section to gain a deeper understanding.
 
-## Changing an Image
+### Adding a Main Image
 
-Next, let's walk through the process of changing a product's primary or additional image.
+<div style="float: left;"><img src="images/new_main_sidebar.png" alt="New Main Image" /></div>
 
-1. Select the product whose image you'd like to change.
-1. Click the Action/info icon to the right of the image you want to change (whether it is the primary image or an additional image)
-1. Click the "Edit" button
-1. Click the Default image file's "browse" button to navigate to the image you want to upload, remembering that it is best to upload the largest version of your image because this is the file that Image Handler5 will use to create small, medium, and large versions of that image.
-1. Click the "Save" button
+When you add a new _main_ image to a product, the following fields are available:
 
-## Other Features
+**Image base name**.  Identify the base filename for the image.  If the image is to be named `my_image.png`, you'll enter _my_image_ in this field.  This "base" filename will be used for all additional product images, too.
 
-Finally, let's talk about those buttons and fields we skipped over, what they do, and how to use them.
+If you don't enter a value in this field, the product's base/main image name will be defined by the filename of the **Base image file** that you upload.
 
-1. The Action/info icon allows you to access the "edit" and "delete" buttons. We've already discussed the "edit" button and the "delete" button should be self explanatory.
-1. The optional "Image base name" (which only appears when adding a new primary image file) allows you to name your image something other than its filename. Leaving it blank results in your image file being uploaded with it's current filename.
-1. The optional "Image Suffix" (which only appears when adding a new additional image file) allows you to add your preferred suffix to your additional images (in order to link your primary and additional images together for a given product). Or if you prefer, leave it blank and let Image Handler5 create a suffix for you.
-1. As previously discussed, the "Medium" and "Large" image fields that you see when you add or edit an image are to be used if you want your medium and large product images to be different images than that of your small product images.
+**Image directory**.  This field identifies the directory (or sub-directory) within your store's `/images` directory into which all images for this product will be uploaded.  You can either use the drop-down list to choose an existing sub-directory or the input-field to identify a new sub-directory to be created to hold this product's images.
+
+**Base image file**.  Click the `Browse` button to select a file from your local system to be uploaded and used as the product's base/main image.  If you don't choose a separate Medium or Large image file, then IH<sup>5</sup> will automatically create those image sizes using the file you upload here.
+
+It's best to upload the largest version of your image, since this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large sizes for the product's display.
+
+**Medium image file**. Click the `Browse` button to select a _different_ image to be displayed as the product's "Medium" image.  The image's extension must be the same as the selected **Base image file**.
 
 
+**Large image file**. Click the `Browse` button to select a _different_ image to be displayed as the product's "Large" image.  The image's extension must be the same as the selected **Base image file**.
+
+Once you've chosen those options, click the `save` button to upload the selected image(s) to your store's file-system or click the `cancel` button to return to the main IH display.
+
+### Adding an Additional Image
+
+<div style="float: left;"><img src="images/new_addl_sidebar.png" alt="New Additional Image" /></div>
+
+When you add a new _additional_ image to a product, the following fields are available:
+
+**Image suffix**.  Identify the suffix to apply to this _additional_ image.  IH<sup>5</sup> appends this suffix (e.g. `_01`) to the main product image's _Base name_ to create a unique name for this additional image. 
+
+If you don't enter a value in this field, IH<sup>5</sup> will automatically create a unique suffix (in the range _01 to _99) for this image.
+
+
+**Base image file**.  Click the `Browse` button to select a file from your local system to be uploaded and used as the product's base/main image.  If you don't choose a separate Medium or Large image file, then IH<sup>5</sup> will automatically create those image sizes using the file you upload here.
+
+It's best to upload the largest version of your image, since this is the file that Image Handler<sup>5</sup> will use to create small, medium, and large sizes for the product's display.
+
+
+**Large image file**. Click the `Browse` button to select a _different_ image to be displayed as the this additional image's "Large" version.  The image's extension must be the same as the selected **Base image file**.
+
+Once you've chosen those options, click the `save` button to upload the selected image(s) to your store's file-system or click the `cancel` button to return to the main IH display.
+
+
+## Editing an Image
+
+Next, let's walk through the process of changing a product's main or additional images.  The options available are dependent on which type of image you are editing.
+
+### Edit a Main Image
+
+<div style="float: left;"><img src="images/edit_main_sidebar.png" alt="Edit Main Image" /></div>
+
+When you edit the _main_ image for a product, the following fields are available:
+
+**Base image file**.  Click the `Browse` button to upload a new file to be used as the base, main image.  This choice works with the radio-buttons displayed below.
+
+You can choose to either _keep_ the existing image name (as displayed) or to use the name of the uploaded, base image as the product's new base name.  If you choose to use a _new_ product-image name, all `additional` images associated with the product **will be deleted** from your server.
+
+**Medium image file**.  Click the `Browse` button to upload a new file to be used as the base for the main product's medium image.
+
+
+**Large image file**.  Click the `Browse` button to upload a new file to be used as the base for the main product's large image.
+
+<div style="clear: both;"</div>
+
+
+### Edit an Additional Image
+<div style="float: left;"><img src="images/edit_addl_sidebar.png" alt="Edit Additional Image" /></div>
+
+When you edit an _additional_ image for a product, the following fields are available:
+
+**Base image file**.  Click the `Browse` button to upload a new file to be used as the base, additional image.  
+
+
+**Large image file**.  Click the `Browse` button to upload a new file to be used as the base for the main product's large image.
+
+<div style="clear: both;"</div>
+
+
+## Deleting an Image
+
+Just like the image add and edit operations, the options you have for the image's removal depend on whether you are deleting a product's _main_ image or one of its _additional_ images.
+
+### Deleting a Main Image
+
+<div style="float: left;"><img src="images/delete_main_sidebar.png" alt="Delete Main Image" /></div>
+
+When you choose to delete a _main_ product image, you can choose to remove _only_ the database reference to the image-file.  Otherwise, the _main_ product image's base, medium and large images are deleted from your server in addition to updating the database to indicate that the product no longer has a defined image.
+
+**Note**: If the product has _additional_ images defined, you must delete those images separately.  The deletion of the product's main image **does not** result in the deletion of any product additional images!
+
+<div style="clear: both;"></div>
+
+### Deleting an Additional Image
+
+<div style="float: left;"><img src="images/delete_addl_sidebar.png" alt="Delete Additional Image" /></div>
+
+When you choose to delete an additional image, that image's base and large images are both deleted from the server.
+
+<div style="clear: both;"></div>
 
 ## An Example
 

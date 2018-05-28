@@ -61,9 +61,15 @@ class ih_image
         
         $this->orig = $src;
         $this->src = $src;
-        $this->width = $width;
-        $this->height = $height;
+        $this->width = (int)$width;
+        $this->height = (int)$height;
         $this->zoom = array();
+        
+        // -----
+        // Initially, **assume** that the requested file exists.  If not, this flag will be set to
+        // false by call to the calculate_size method.
+        //
+        $this->file_exists = true;
         
         $this->first_access = false;
         if (!isset($GLOBALS['ih_logfile_suffix'])) {
@@ -75,10 +81,10 @@ class ih_image
 
         if (IS_ADMIN_FLAG === true) {
             $this->debug = (IH_DEBUG_ADMIN == 'true');
-            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug_admin$logfile_suffix.log";
+            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug_admin-$logfile_suffix.log";
         } else {
             $this->debug = (IH_DEBUG_STOREFRONT == 'true');
-            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug$logfile_suffix.log";
+            $this->debugLogFile = DIR_FS_LOGS . "/ih_debug-$logfile_suffix.log";
         }
         
         $this->determine_image_sizetype();
@@ -91,8 +97,11 @@ class ih_image
 
         $this->filename = $ihConf['dir']['docroot'] . $this->src;
         $this->extension = '.' . pathinfo($this->src, PATHINFO_EXTENSION);
-        
-        $this->ihLog("__constructor for {$this->filename}.", true);
+
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+        $caller = str_replace(DIR_FS_CATALOG, '', $backtrace[0]['file']);
+        $line_num = $backtrace[0]['line'];
+        $this->ihLog("__constructor for {$this->filename}, called by $caller at line number $line_num", true);
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
@@ -312,7 +321,7 @@ class ih_image
         $file_extension = ($filetype == '') ? $file_extension : $filetype;
         
         // Do we need to resize, watermark, zoom or convert to another filetype?
-        if ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension) {
+        if ($this->file_exists && ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension)) {
             if (IH_CACHE_NAMING == 'Hashed') {
                 $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
             } else {
@@ -337,7 +346,7 @@ class ih_image
             }
             
             //echo $local . '<br />';    
-            $local_mtime = $this->fileModifiedTime($local); // 0 if not exists
+            $local_mtime = $this->fileModifiedTime($local); // (bool)false if not exists
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
             $zoom_mtime = $this->fileModifiedTime($this->zoom['file']);
@@ -356,7 +365,7 @@ class ih_image
     
     protected function fileModifiedTime($filename)
     {
-        return (is_file($filename)) ? filemtime($filename) : 0;
+        return (is_file($filename)) ? filemtime($filename) : false;
     }
   
     protected function sanitizeImageNames($name)
@@ -396,6 +405,7 @@ class ih_image
         if (!file_exists($this->filename)) {
             $this->ihLog("calculate_size, file does not exist.");
             $width = $height = 0;
+            $this->file_exists = false;
         } else {
             list($width, $height) = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
