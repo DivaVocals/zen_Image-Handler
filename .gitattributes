@@ -2,3 +2,4 @@
 .gitattributes    export-ignore
 *.yml             export-ignore
 README.md         export-ignore
+/readme           export-ignore
