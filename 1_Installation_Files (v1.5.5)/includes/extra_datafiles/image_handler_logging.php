@@ -1,6 +1,6 @@
 <?php
 // -----
-// Part of the Image Handler-5 plugin, v5.0.1 and later.  Provided by Cindy Merkin (lat9)
+// Part of the Image Handler-5 plugin, v5.1.0 and later.  Provided by Cindy Merkin (lat9)
 // Copyright (C) 2018, Vinos de Frutas Tropicales.
 //
 if (!defined('IH_DEBUG_ADMIN')) {
