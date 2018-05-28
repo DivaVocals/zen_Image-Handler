@@ -33,6 +33,7 @@ class ColorBoxObserver extends base
             //                     the default module's processing is bypassed.
             //
             case 'NOTIFY_MODULES_ADDITIONAL_IMAGES_SCRIPT_LINK':
+                global $template_dir;
                 $flag_display_large = $p1['flag_display_large'];
                 $products_name = $p1['products_name'];
                 $products_image_large = $p1['products_image_large'];
