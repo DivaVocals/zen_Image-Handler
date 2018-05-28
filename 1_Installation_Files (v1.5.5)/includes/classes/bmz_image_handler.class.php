@@ -61,8 +61,8 @@ class ih_image
         
         $this->orig = $src;
         $this->src = $src;
-        $this->width = $width;
-        $this->height = $height;
+        $this->width = (int)$width;
+        $this->height = (int)$height;
         $this->zoom = array();
         
         // -----

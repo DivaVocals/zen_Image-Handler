@@ -66,7 +66,7 @@ class ImageHandlerObserver extends base
                 $products_name = $p1;
                 $products_image_large = $p2;
             	if (function_exists('handle_image')) {
-                    $newimg = handle_image($products_image_large, addslashes($products_name), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT, '');
+                    $newimg = handle_image($products_image_large, addslashes($products_name), LARGE_IMAGE_MAX_WIDTH, LARGE_IMAGE_MAX_HEIGHT, '');
                     list($src, $alt, $width, $height, $parameters) = $newimg;
                     $p2 = zen_output_string($src);
                 } 
