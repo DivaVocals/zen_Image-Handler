@@ -19,12 +19,12 @@ If IH<sup>5</sup> does not work or gives you errors:
 
 ## Activate the IH<sup>5</sup> Logging
 
-Starting with IH<sup>5</sup> v5.0.1, a "trace" capability is available. To enable that feature, you will edit `/includes/extra_datafiles/image_handler_logging.php`:
+Starting with IH<sup>5</sup> v5.1.0, a "trace" capability is available. To enable that feature, you will edit `/includes/extra_datafiles/image_handler_logging.php`:
 
 ```php
 <?php
 // -----
-// Part of the Image Handler-5 plugin, v5.0.1 and later.  Provided by Cindy Merkin (lat9)
+// Part of the Image Handler-5 plugin, v5.1.0 and later.  Provided by Cindy Merkin (lat9)
 // Copyright (C) 2018, Vinos de Frutas Tropicales.
 //
 if (!defined('IH_DEBUG_ADMIN')) {
