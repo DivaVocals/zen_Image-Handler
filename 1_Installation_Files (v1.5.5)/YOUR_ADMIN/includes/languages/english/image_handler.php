@@ -9,9 +9,8 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by webchills and cjones 2012-03-10 17:46:50 
- * Last modified by lat9 2018-05-20
+ * Last modified by lat9 2018-05-29
  */
-define('ICON_IMAGE_HANDLER', 'Image Handler ' . IH_VERSION);
 define('IH_VERSION_VERSION', 'Version');
 define('IH_VERSION_NOT_FOUND', 'No Image Handler information found.');
 define('IH_REMOVE', 'Uninstall Image Handler.  (Please backup your site and database first)');
