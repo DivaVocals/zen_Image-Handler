@@ -124,6 +124,7 @@ if ($action == 'save') {
     $keep_name = false;
     $editing = false;
     $is_main = false;
+    $new_main_image = false;
     $uploaded_default_extension = false;
     $uploaded_medium_extension = false;
     $uploaded_large_extension = false;
@@ -213,6 +214,7 @@ if ($action == 'save') {
         //
         case 'new_main':
             $is_main = true;
+            $new_main_image = true;
             if (!empty($_POST['imgBase'])) {
                 $data['imgBase'] = $_POST['imgBase'];
             } else {
@@ -258,7 +260,14 @@ if ($action == 'save') {
                     // Get additional images' list; the class function takes care of sorting the files
                     //
                     $matching_files = array();
-                    $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgExtension'], $data['imgBase']);
+                    $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgBase']);
+                    
+                    // -----
+                    // Log the input values on entry, if debug is enabled.
+                    //
+                    $ih_admin->debugLog(
+                        'ih_manager/save, additional images' . PHP_EOL . var_export($matching_files, true) . PHP_EOL . var_export($data, true)
+                    );
                     
                     // -----
                     // If no additional images exist, use the _01 suffix.
@@ -334,7 +343,7 @@ if ($action == 'save') {
     // If no previous errors and we're either (a) creating a new main-image or (b) editing the main-image and a new name
     // is requested ...
     //
-    if ($data_ok && ($new_image || ($editing && $is_main && !$keep_name))) {
+    if ($data_ok && ($new_main_image || ($editing && $is_main && !$keep_name))) {
         // -----
         // ... first, check to see that the image's name is going to fit into the database field.
         //
@@ -357,6 +366,8 @@ if ($action == 'save') {
     // uploaded file to that destination.
     //
     if ($data_ok) {
+        $ih_admin->debugLog("images_directory: $images_directory, data: " . PHP_EOL . var_export($data, true));
+        
         // -----
         // The "base" image ...
         //
