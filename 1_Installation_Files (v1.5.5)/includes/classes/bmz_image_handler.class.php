@@ -12,6 +12,7 @@
  * Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  * Modified by lat9: 2018-05-19, various refinements (see GitHub #106).
  * Modified by lat9: 2018-05-20, Remove handling for mixed-case file extensions from file_not_found method (see GitHub #89)
+ * Modified by lat9: 2018-06-04, Correction for DIR_FS_CATALOG set to '/'.
  */
  
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -353,7 +354,11 @@ class ih_image
             if (($local_mtime > $file_mtime || $local_mtime > $watermark_mtime || $local_mtime > $zoom_mtime) ||
                 $this->resize_imageIM($file_extension, $local, $background, $quality) ||
                 $this->resize_imageGD($file_extension, $local, $background, $quality) ) {
-                $return_file = str_replace($ihConf['dir']['docroot'], '', $local);
+                if (strpos($local, $ihConf['dir']['docroot']) !== 0) {
+                    $return_file = $local;
+                } else {
+                    $return_file = substr($local, strlen($ihConf['dir']['docroot']));
+                }
                 $this->ihLog("... returning $return_file");
                 return $return_file;
             }
