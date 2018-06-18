@@ -49,7 +49,7 @@ if ($products_filter == '' && $current_category_id != '') {
                 LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd 
                     ON ptc.products_id = pd.products_id 
                    AND pd.language_id = " . (int)$_SESSION['languages_id'] . " 
-              WHERE ptc.categories_id = " . $current_category_id . " 
+              WHERE ptc.categories_id = " . (int)$current_category_id . " 
            ORDER BY pd.products_name"
         );
         $products_filter = ($new_product_query->EOF) ? null : $new_product_query->fields['products_id'];
