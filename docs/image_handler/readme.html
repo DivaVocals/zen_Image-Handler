@@ -62,7 +62,7 @@ th { background-color: #eee; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
-  <h3>Version 5.1.1 by lat9</h3>
+  <h3>Version 5.1.2 by lat9</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href=="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -411,8 +411,17 @@ th { background-color: #eee; }
             
             <div id="changes">
                 <ul>
+                    <li>v5.1.2, 2018-09-25:<ul>
+                        <li>BUGFIX: Correct <code>ih_log*.log</code> contents when DIR_FS_CATALOG is set to '/'.</li>
+                        <li>BUGFIX: Suppress image-conversion errors, recording only when the IH debug is active.</li>
+                        <li>BUGFIX: Correct invalid numeric issues for later versions of PHP.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                        </ol></li>
+                    </ul></li>
                     <li>v5.1.1, 2018-06-20:<ul>
-                        <li>BUGFIX: Correct 'bmz_cache' file location when DIR_FS_LOGS is set to '/'.</li>
+                        <li>BUGFIX: Correct 'bmz_cache' file location when DIR_FS_CATALOG is set to '/'.</li>
                         <li>BUGFIX: Image-add corrections.</li>
                         <li>BUGFIX: Correct debug-log generated on initial entry.</li>
                         <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
