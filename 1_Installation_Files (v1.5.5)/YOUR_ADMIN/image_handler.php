@@ -137,6 +137,8 @@ input[type="text"], input[type="submit"], input[type="file"], select {border: 1p
 #ih-p-info td { padding: 5px; border: 1px solid #444; }
 #ih-p-info td:first-child { font-weight: bold; }
 
+#ih-new-button { margin: 0.5em; }
+
 .ih-center { text-align: center; }
 .ih-right { text-align: right; }
 .ih-vtop { vertical-align: top; }
@@ -548,7 +550,13 @@ if ($ih_page == 'manager') {
                 </tr>
 <?php
         } // for each photo loop
+        
+        $new_link = $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new');
+        $new_button = zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE, 'id="ih-new-button"');
 ?>
+                <tr class="dataTableRow">
+                    <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>"><?php echo $new_button; ?></a></td>
+                </tr>
             </table></td>
 <!-- END Photo list table -->
 
@@ -594,7 +602,7 @@ if ($ih_page == 'manager') {
                 // -----
                 // Different buttons shown for different conditions:
                 //
-                // 1) Current image is the main-product image, show Edit/Delete/New.
+                // 1) Current image is the main-product image, show Edit/Delete.
                 // 2) Current image is an additional image with the same extension as the main, show Edit/Delete.
                 // 3) Current image is an image with a **different** extension as the main, show Delete only
                 //
@@ -606,15 +614,10 @@ if ($ih_page == 'manager') {
                 if ($products_image_extension == $selected_image_extension) {
                     $edit_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_edit', $selected_parms);
                     $edit_button = '<a href="' . $edit_link . '">' . zen_image_button('button_edit.gif', IH_IMAGE_EDIT) . '</a> &nbsp; ';
-                    
-                    if ($selected_image_suffix == '') {
-                        $new_link = $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new');
-                        $new_button = ' <a href="' . $new_link . '">' . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>';
-                    }
                 }
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => "<br />$edit_button$delete_button$new_button"
+                    'text' => "<br />$edit_button$delete_button"
                 );
                 break;
                 
@@ -794,15 +797,8 @@ if ($ih_page == 'manager') {
                 $heading[] = array(
                     'text' => '<strong>' . TEXT_INFO_SELECT_ACTION . '</strong>'
                 );
-                $contents = array(
-                    'form' => zen_draw_form('image_define', FILENAME_PRODUCT_TYPES, "ih_page=manager&amp;action=new", 'post', 'enctype="multipart/form-data"')
-                );
                 $contents[] = array(
                     'text' => '<br />' . (($no_images) ? TEXT_INFO_CLICK_TO_ADD_MAIN : TEXT_INFO_CLICK_TO_ADD_ADDL)
-                );
-                $contents[] = array(
-                    'align' => 'center', 
-                    'text' => '<br /><a href="' . $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new') . '">' . zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE) . '</a>'
                 );
                 break;
         }
