@@ -411,13 +411,16 @@ th { background-color: #eee; }
             
             <div id="changes">
                 <ul>
-                    <li>v5.1.2, 2018-09-25:<ul>
+                    <li>v5.1.2, 2018-09-30:<ul>
                         <li>BUGFIX: Correct <code>ih_log*.log</code> contents when DIR_FS_CATALOG is set to '/'.</li>
                         <li>BUGFIX: Suppress image-conversion errors, recording only when the IH debug is active.</li>
                         <li>BUGFIX: Correct invalid numeric issues for later versions of PHP.</li>
+                        <li>BUGFIX: Move &quot;new file&quot; button in <em>Tools-&gt;Image Handler<sup>5</sup></em> to improve workflow.</li>
                         <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/YOUR_ADMIN/image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/languages/english/image_handler.php</li>
                         </ol></li>
                     </ul></li>
                     <li>v5.1.1, 2018-06-20:<ul>
