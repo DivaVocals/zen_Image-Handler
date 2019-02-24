@@ -3,7 +3,7 @@
 // An observer-class to enable the "Fual Slimbox" plugin to operate with the notification updates in the
 // main_product_image and additional_images processing, provided by "Image Handler" v5.0.0 and later.
 //
-// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2019 Vinos de Frutas Tropicales
 //
 class FualSlimboxObserver extends base 
 {
