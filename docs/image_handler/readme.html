@@ -48,6 +48,8 @@ th { background-color: #eee; }
 .tab a.active { font-weight: bold; }
 .tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; border-radius: 0 4px 4px 4px; }
 .panel-container { margin-bottom: 10px; }
+
+a[target=_blank] { text-decoration: underline; }
 -->
 </style>
 <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
@@ -63,7 +65,7 @@ th { background-color: #eee; }
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
   <h3>Version 5.1.2 by lat9</h3>
-  <p>Current Support Thread at Zen Cart Forums: <a href=="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
+  <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
   <ol>
@@ -411,13 +413,16 @@ th { background-color: #eee; }
             
             <div id="changes">
                 <ul>
-                    <li>v5.1.2, 2018-09-30:<ul>
+                    <li>v5.1.2, 2019-02-24:<ul>
+                        <li>BUGFIX: Correct undefined <code>LARGE_IMAGE_WIDTH</code> and <code>_HEIGHT</code> constants.</li>
+                        <li>BUGFIX: Correct <code>configuration_description</code> for small/medium/large image backgrounds.</li>
                         <li>BUGFIX: Correct <code>ih_log*.log</code> contents when DIR_FS_CATALOG is set to '/'.</li>
                         <li>BUGFIX: Suppress image-conversion errors, recording only when the IH debug is active.</li>
                         <li>BUGFIX: Correct invalid numeric issues for later versions of PHP.</li>
                         <li>BUGFIX: Move &quot;new file&quot; button in <em>Tools-&gt;Image Handler<sup>5</sup></em> to improve workflow.</li>
                         <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/includes/classes/observers/FualSlimboxObserver.php</li>
                             <li>/YOUR_ADMIN/image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/languages/english/image_handler.php</li>
@@ -503,7 +508,7 @@ th { background-color: #eee; }
                 </ul>
                 <p>and <em>Image Handler<sup>5</sup></em> modifications by:</p>
                 <ul>
-                    <li>lat9 (https://vinosdefrutastropicales.com</li>
+                    <li>lat9 (https://vinosdefrutastropicales.com)</li>
                     <li>jazzman346 (https://github.com/jazzman346)</li>
                     <li>jeking (https://www.zen-cart.com/member.php?16702-jeking)</li>
                     <li>Zen4All (https://github.com/Zen4All)</li>
