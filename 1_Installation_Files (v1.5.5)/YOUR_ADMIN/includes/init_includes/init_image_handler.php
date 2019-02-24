@@ -1,13 +1,13 @@
 <?php 
 // -----
-// Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
+// Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (https://vinosdefrutastropicales.com)
+// Copyright (c) 2017-2019 Vinos de Frutas Tropicales
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.1.2-beta2');
+define('IH_CURRENT_VERSION', '5.1.2-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -277,6 +277,18 @@ if (isset($_SESSION['admin_id'])) {
             if (!zen_page_key_exists('toolsImageHandlerViewConfig')) {
                 zen_register_admin_page('toolsImageHandlerViewConfig', 'BOX_TOOLS_IMAGE_HANDLER_VIEW_CONFIG', 'FILENAME_IMAGE_HANDLER_VIEW_CONFIG', '', 'tools', 'N', 99);
             }
+        }
+        
+        // -----
+        // v5.1.2:
+        // - GitHub#147: Correct configuration description for the three background settings, changing -transparent- to <b>transparent</b>.
+        //
+        if (version_compare(IH_VERSION, '5.1.2', '<')) {
+            $db->Execute(
+                "UPDATE " . TABLE_CONFIGURATION . "
+                    SET configuration_description = 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to <b>transparent</b> to keep transparency.'
+                  WHERE configuration_key IN ('SMALL_IMAGE_BACKGROUND', 'MEDIUM_IMAGE_BACKGROUND', 'LARGE_IMAGE_BACKGROUND')"
+            );
         }
         
         $db->Execute(
