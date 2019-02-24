@@ -41,6 +41,18 @@ class FualSlimboxObserver extends base
                     $products_name = addslashes($p1['products_name']);
                     $products_image_large = $p1['products_image_large'];
                     
+                    // -----
+                    // The constants LARGE_IMAGE_WIDTH/HEIGHT are supplied by neither Zen Cart nor Image Handler -- they're a
+                    // LightBox 'legacy', I believe.  In any case, need to deal with the condition where those constants
+                    // haven't been defined previously, using the IH defaults as fall-back values.
+                    //
+                    if (!defined('LARGE_IMAGE_WIDTH')) {
+                        define('LARGE_IMAGE_WIDTH', (defined('LARGE_IMAGE_MAX_WIDTH')) ? LARGE_IMAGE_MAX_WIDTH : 750);
+                    }
+                    if (!defined('LARGE_IMAGE_HEIGHT')) {
+                        define('LARGE_IMAGE_HEIGHT', (defined('LARGE_IMAGE_MAX_HEIGHT')) ? LARGE_IMAGE_MAX_HEIGHT : 550);
+                    }
+                    
                     $image_link = zen_lightbox($products_image_large, $products_name, LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT);
                     $large_image_link = '<a href="' . $image_link . '" rel="' . $rel . '" title="' . $products_name . '">' . $thumb_slashes . '<br />' . TEXT_CLICK_TO_ENLARGE . '</a>';
                 }
