@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.1.2');
+define('IH_CURRENT_VERSION', '5.1.3-beta1');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -211,18 +211,6 @@ if (isset($_SESSION['admin_id'])) {
         }
         
         // -----
-        // Create a configuration item that will display the plugin's current version.  Using 'INSERT IGNORE'
-        // here, just in case this configuration value already exists.
-        //
-        $db->Execute(
-            "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
-                (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
-             VALUES
-                ('IH version', 'IH_VERSION', '" . IH_CURRENT_VERSION . "', 'Displays the currently-installed version of <em>Image Handler</em>.', $cgi, 1000, now(), NULL, 'trim(')"
-        );
-        define('IH_VERSION', '0.0.0');
-        
-        // -----
         // Remove "legacy" Image Handler configuration items.
         //
         $db->Execute(
@@ -244,6 +232,21 @@ if (isset($_SESSION['admin_id'])) {
         if (!zen_page_key_exists('configImageHandler4')) {
             zen_register_admin_page('configImageHandler4', 'BOX_TOOLS_IMAGE_HANDLER', 'FILENAME_IMAGE_HANDLER', '', 'tools', 'Y', 14);
         }
+    }
+    
+    // -----
+    // On an initial install or an upgrade from an IH-version that (er) didn't record an 'IH_VERSION',
+    // create a configuration element that displays the plugin's current version and set that definition
+    // for follow-on upgrade processing.
+    //
+    if (!defined('IH_VERSION')) {
+        $db->Execute(
+            "INSERT INTO " . TABLE_CONFIGURATION . "
+                (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
+             VALUES
+                ('IH version', 'IH_VERSION', '" . IH_CURRENT_VERSION . "', 'Displays the currently-installed version of <em>Image Handler</em>.', $cgi, 1000, now(), NULL, 'trim(')"
+        );
+        define('IH_VERSION', (defined('IH_RESIZE')) ? '?.?.?' : '0.0.0');
     }
 
     // -----
