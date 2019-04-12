@@ -285,7 +285,7 @@ if ($ih_page == 'manager') {
     //
     $curr_page = FILENAME_IMAGE_HANDLER;
 ?>
-    <table summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
+    <table class="table" summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
 <?php
     echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
     echo zen_draw_hidden_field('products_filter', $products_filter); 
