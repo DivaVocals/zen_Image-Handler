@@ -84,7 +84,7 @@ if ($products_image != '' && $flag_show_product_info_additional_images != 0) {
     }
 }
 
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_LIST', NULL, $images_array);
+$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_LIST', null, $images_array);
 
 
 // Build output based on images found
