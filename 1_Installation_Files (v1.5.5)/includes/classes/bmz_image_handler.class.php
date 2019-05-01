@@ -362,7 +362,7 @@ class ih_image
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
             $zoom_mtime = $this->fileModifiedTime($this->zoom['file']);
-            if (($local_mtime > $file_mtime || $local_mtime > $watermark_mtime || $local_mtime > $zoom_mtime) ||
+            if (($local_mtime > $file_mtime && $local_mtime > $watermark_mtime && $local_mtime > $zoom_mtime) ||
                 $this->resize_imageIM($file_extension, $local, $background, $quality) ||
                 $this->resize_imageGD($file_extension, $local, $background, $quality) ) {
                 if (strpos($local, $ihConf['dir']['docroot']) !== 0) {
@@ -381,6 +381,7 @@ class ih_image
     
     protected function fileModifiedTime($filename)
     {
+        clearstatcache();
         return (is_file($filename)) ? filemtime($filename) : 0;
     }
   
