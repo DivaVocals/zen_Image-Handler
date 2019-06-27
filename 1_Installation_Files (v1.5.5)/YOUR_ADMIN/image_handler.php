@@ -328,7 +328,7 @@ if ($ih_page == 'manager') {
 <?php 
         echo zen_image_submit('button_display.gif', IMAGE_DISPLAY) . '<br />';
         
-        $edit_product_link = zen_href_link(FILENAME_CATEGORIES, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
+        $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
         echo '<a href="' . $edit_product_link . '">' . zen_image_button('button_edit_product.gif', IMAGE_EDIT_PRODUCT) . '</a><br />';
         
         $attribute_controller_link = zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id");
