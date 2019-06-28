@@ -27,7 +27,7 @@ A huge source for confusion is the many image size options in the admin's **Conf
 | Image - Product New Listing | Product images that appear on the new-products' listing page (`products_new`). |
 | Image - Featured Products | Product images that appear on the featured-products' listing page (`featured_products`). |
 | Image - Product All Listing | Product images that appear on the all-products' listing page (`products_all`). |
-| Product Info | The main product-image that appears on a product-details page &mdash. a.k.a. the `medium` image. |
+| Product Info | The main product-image that appears on a product-details page &mdash; a.k.a. the `medium` image. |
 | IH small image | Product images that appear in the sideboxes and all the product-listing images. |
 | IH medium image | Product image that appears in a product's details page and the rollover image displayed when hovering your mouse over the the small images. |
 | IH large image | The large product image, the one that displays when you click on the "larger image" link on a product's details page. |
