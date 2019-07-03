@@ -217,6 +217,12 @@ if ($action == 'save') {
             $new_main_image = true;
             if (!empty($_POST['imgBase'])) {
                 $data['imgBase'] = $_POST['imgBase'];
+                if (!empty($uploaded_default_extension)) {
+                    $data['imgExtension'] = $uploaded_default_extension;
+                } else {
+                    $messageStack->add(TEXT_MSG_NO_FILE_UPLOADED, 'error');
+                    $data_ok = false;
+                }
             } else {
                 if (empty($_FILES['default_image']['name'])) {
                     $messageStack->add(TEXT_MSG_AUTO_BASE_ERROR, 'error');

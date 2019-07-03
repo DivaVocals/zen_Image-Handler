@@ -98,6 +98,7 @@ define('TEXT_MSG_NOPERMS_MEDIUM_IMAGE_DIR', "Unable to set the permissions of th
 define('TEXT_MSG_NOPERMS_LARGE_IMAGE_DIR', "Unable to set the permissions of the large image directory.");
 define('TEXT_MSG_NAME_TOO_LONG_ERROR', 'The image file "%1$s" is too long to be saved in the database.  Choose a name that is %2$u characters or fewer.');
 define('TEXT_MSG_NO_SUFFIXES_FOUND', 'Could not find an unused additional-image suffix in the range _01 to _99.');
+define('TEXT_MSG_NO_FILE_UPLOADED', 'No <b>Base image file</b> was selected; please try again.');
 
 define('TEXT_MSG_NOUPLOAD_DEFAULT', "Unable to upload default image file.");
 define('TEXT_MSG_NORESIZE', "Unable to resize image");
