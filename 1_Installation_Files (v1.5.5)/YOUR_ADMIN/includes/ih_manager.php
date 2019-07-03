@@ -454,7 +454,7 @@ if ($action == 'quick_delete') {
 // Delete a specified product image.
 //
 if ($action == 'delete') {
-    if (!empty($_POST['imgSuffix']) || $_POST['delete_from_db_only'] != 'Y') {
+    if (!empty($_POST['imgSuffix']) || empty($_POST['delete_from_db_only'])) {
         $base_name = $products_image_directory . $_POST['imgName'];
         $image_ext = $_POST['imgExtension'];
 
