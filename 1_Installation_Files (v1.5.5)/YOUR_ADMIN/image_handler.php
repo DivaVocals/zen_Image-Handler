@@ -417,6 +417,8 @@ if ($ih_page == 'manager') {
             $action = 'layout_info';
         }
 
+        $selected_image_name = '';
+        $selected_image_extension = '';
         $selected_image_file = '';
         $selected_image_suffix = '';
         for ($i = 0, $main_image = true; $i < $count; $i++, $main_image = false) {
@@ -668,8 +670,8 @@ if ($ih_page == 'manager') {
                             $dir_info[] = array('id' => $file . '/', 'text' => $file);
                         }
                     }
-                    $contents[] = array('
-                        text' => '<br /><strong>' . TEXT_INFO_BASE_DIR . '</strong><br />' . TEXT_INFO_NEW_DIR
+                    $contents[] = array(
+                        'text' => '<br /><strong>' . TEXT_INFO_BASE_DIR . '</strong><br />' . TEXT_INFO_NEW_DIR
                     );
                     $contents[] = array(
                         'text' => '<strong>' . TEXT_INFO_IMAGE_DIR . '</strong>' . zen_draw_pull_down_menu('imgBaseDir', $dir_info, "")
@@ -802,7 +804,7 @@ if ($ih_page == 'manager') {
                 );
                 break;
         }
-      
+
         if (zen_not_null($heading) && zen_not_null($contents)) {
             $box = new box;
 ?>
