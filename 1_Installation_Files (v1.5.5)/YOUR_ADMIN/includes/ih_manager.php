@@ -301,19 +301,19 @@ if ($action == 'save') {
             $data_ok = false;
             break;
     }
-
-    // -----
-    // Correct some "nasty" characters in the image's name.
-    //
-    if (strpos($data['imgBase'], '+') !== false) {
-        $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
-        $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
-    }
     
     // -----
     // If the data supplied appears OK, perform a couple of pre-processing checks.
     //
     if ($data_ok) {
+        // -----
+        // Correct some "nasty" characters in the image's name.
+        //
+        if (strpos($data['imgBase'], '+') !== false) {
+            $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
+            $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
+        }
+        
         // -----
         // If the image's base-directory doesn't currently end in either a / or \, append a / to that value.
         //

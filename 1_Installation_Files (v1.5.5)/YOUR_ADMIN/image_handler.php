@@ -635,14 +635,14 @@ if ($ih_page == 'manager') {
                 );
 
             case 'layout_new':
-                if (!isset($editing)) {
+                if (empty($editing)) {
                     $editing = false;
                     $hidden_vars = zen_draw_hidden_field('saveType', ($no_images) ? 'new_main' : 'new_addl');
                     $heading[] = array(
                         'text' => '<strong>' . (($no_images) ? TEXT_INFO_NEW_PHOTO : TEXT_INFO_NEW_ADDL_PHOTO) . '</strong>'
                     );
                 }
-          
+
                 $contents = array(
                     'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, "$form_parameters&amp;action=save", 'post', 'enctype="multipart/form-data"')
                 );
