@@ -348,7 +348,7 @@ if ($ih_page == 'manager') {
     <div class="managerbox">
 <!-- Start Photo Display -->
 <?php
-    if (empty($products_filter)) {
+    if (empty($products_filter) || !isset($product)) {
 ?>
         <h2><?php echo IH_HEADING_TITLE_PRODUCT_SELECT; ?></h2>
 <?php 
