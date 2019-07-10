@@ -310,20 +310,13 @@ if ($ih_page == 'manager') {
         echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br />' : '');
         echo zen_get_products_display_price($products_filter) . '<br /><br />';
         echo zen_get_products_quantity_min_units_display($products_filter, $include_break = true);
-        $not_for_cart = $db->Execute(
-            "SELECT p.products_id 
-               FROM " . TABLE_PRODUCTS . " p 
-                    LEFT JOIN " . TABLE_PRODUCT_TYPES . " pt 
-                        ON p.products_type= pt.type_id 
-              WHERE pt.allow_add_to_cart = 'N'"
-        );
     }
 ?>
             </td>
 <?php
     if ($products_filter != '') { //prevent creation of empty Select 
 ?>
-            <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', $not_for_cart->fields, true, $products_filter, true, true); ?></td>
+            <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true); ?></td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php 
         echo zen_image_submit('button_display.gif', IMAGE_DISPLAY) . '<br />';
