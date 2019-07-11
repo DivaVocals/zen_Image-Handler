@@ -906,13 +906,50 @@ class ih_image
         
     public function get_additional_parameters($alt, $width, $height, $parameters) 
     {
+        // -----
+        // If the "Small images: Zoom on hover" setting has been enabled, add the magic
+        // that causes the imagehover.js to show those images on hover.
+        //
+        // Note: This functionality will be removed in the next primary release (i.e. 5.2.0)
+        // of Image Handler, replaced with simply an 'ih-zoom' class definition!
+        //
         global $ihConf;
-        if ($this->sizetype == 'small' && $ihConf['small']['zoom']) {
-            if (strpos($parameters, 'class="') !== false) {
-                $parameters = str_replace('class="', 'class="ih-zoom ', $parameters);
-            } else {
+        if ($this->sizetype == 'small') {
+            if ($ihConf['small']['zoom']) {
+                if ($this->zoom['file'] == '') {
+                    // if no zoom image, the whole image triggers the popup
+                    $this->zoom['startx'] = 0;
+                    $this->zoom['starty'] = 0;
+                    $this->zoom['width'] = $width;
+                    $this->zoom['height'] = $height;
+                }
+                //escape possible quotes if they're not already escaped
+                $alt = addslashes(htmlentities($alt, ENT_COMPAT, CHARSET));  
+                // strip potential suffixes just to be sure
+                $src = $this->strip_sizetype_suffix($this->src);
+                // define zoom sizetype
+                if (ZOOM_IMAGE_SIZE == 'Medium') {
+                    $zoom_sizetype = 'medium';    
+                } else {
+                    $zoom_sizetype = 'large';
+                }
+                // additional zoom functionality
+                $pathinfo = pathinfo($src);
+                $base_image_directory = $ihConf['dir']['images'];
+                $base_imagedir_len = strlen($base_image_directory);
+                $products_image_directory = (strpos($pathinfo['dirname'], $base_image_directory) === 0) ? substr($pathinfo['dirname'], $base_imagedir_len) : $pathinfo['dirname'];
+                $products_image_directory .= DIRECTORY_SEPARATOR;
+                $products_image_filename = $pathinfo['filename'];
+                
+                $this->ihLog("get_additional_parameters($alt, $width, $height, $parameters), base_dir = '$base_image_directory', zoom_sizetype = '$zoom_sizetype', product_dir = '$products_image_directory'" . var_export($pathinfo, true));
+                $products_image_zoom = $base_image_directory . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
+                
+                $ih_zoom_image = new ih_image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
+                $products_image_zoom = $ih_zoom_image->get_local();
+                list($zoomwidth, $zoomheight) = @getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
+                // we should parse old parameters here and possibly merge some inc case they're duplicate
                 $parameters .= ($parameters != '') ? ' ' : '';
-                $parameters .= 'class="ih-zoom"';
+                return $parameters . 'style="position:relative;" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
             }
         }
         return $parameters;
