@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.1.4');
+define('IH_CURRENT_VERSION', '5.1.5');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -83,7 +83,8 @@ if (isset($_SESSION['admin_id'])) {
                 'yes', 
                 1051, 
                 array('no', 'yes'),
-                'IH small images zoom on hover'
+                'IH small images zoom on hover',
+                'Should the small images zoom when hovered?'
             ),
             array(
                 'ZOOM_IMAGE_SIZE', 
