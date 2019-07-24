@@ -64,7 +64,7 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
-  <h3>Version 5.1.4 by lat9</h3>
+  <h3>Version 5.1.5 by lat9</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -413,6 +413,14 @@ a[target=_blank] { text-decoration: underline; }
             
             <div id="changes">
                 <ul>
+                   <li>v5.1.5, 2019-07-24:<ul>
+                        <li>BUGFIX: Correct undefined &quot;IH_VERSION&quot; PHP Notice on initial installation.</li>
+                        <li>BUGFIX: Correct undefined index on initial installation; missing a configuration setting's description.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/languages/english/extra_definitions/image_handler_extra_definitions.php</li>
+                        </ol></li>
+                    </ul></li>
                    <li>v5.1.4, 2019-07-11:<ul>
                         <li>BUGFIX: Correct &quot;missing constant&quot; PHP warning on initial installation.</li>
                         <li>BUGFIX: Correct <code>edit product</code> link; broken by zc156 <em>Categories / Products</em> restructuring.</li>
