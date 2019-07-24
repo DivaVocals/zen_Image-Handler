@@ -22,4 +22,4 @@ define('IH_TEXT_MESSAGE_UPDATED', 'Image Handler<sup>5</sup> was successfully up
 // -----
 // The image-title text for the button in the Categories->Products listing.  Also used by /admin/image_handler.php
 //
-define('ICON_IMAGE_HANDLER', 'Image Handler ' . IH_VERSION);
+define('ICON_IMAGE_HANDLER', 'Image Handler ' . (defined('IH_VERSION') ? IH_VERSION : ''));
