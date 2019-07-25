@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,6 @@ textarea { width: 100%; }
 .corefile { color: red; }
 .template { color: green; }
 .forward { float: right; }
-.back { float: back; }
 .clearBoth { clear: both; }
 #buttons, #fa-buttons { margin-left: 20px; width: 300px; }
 #fa-buttons { margin-top: 5px; }
@@ -111,19 +110,20 @@ a[target=_blank] { text-decoration: underline; }
                 
                 <fieldset>
                     <legend>Before You Install</legend>
-                    <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites, but there are two (2) template-override files required:</p>
+                    <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites.</p>
+                    <p>For Zen Cart versions prior to 1.5.6 there are two (2) template-override files required:</p>
                     <ol>
-                        <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+                      <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
                         <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
                     </ol>
-                    <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart distribution, starting with Zen Cart v1.5.6!</p>
+                    <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart 1.5.6 distribution.</p>
                     <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
 
-                    <p>The <em>IH<sup>5</sup></em> installation provides updates (see below for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
+                    <p>The <em>IH<sup>5</sup></em> installation provides updates (see below for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&amp;id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&amp;id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
 
                     <p>What all that techno-babble means for your <em>IH<sup>5</sup></em> installation (or upgrade!) is that there are two installation routes, dependent on whether you use a large-image viewer and, if so, which one &hellip;</p>
 
-                    <p>Regardless the route you choose, I <strong>highly</strong> recommend an initial installation on a development version of your site. If you are serious about running your store it is always worth having a second version of the store so that you can experiment on that first. I know that this seems like a lot of work but it really is worth it and does not actually take that much time.</p>
+                    <p>Regardless the route you choose, I <strong>highly</strong> recommend an initial installation on a development version of your site. If you are serious about running your online business in a business-like fashion, it is essential to test ALL changes on a development copy of your site <strong>first</strong>. I know that this seems like a lot of work but it really is worth it and does not actually take that much time.</p>
 
                     <h2>Route 1</h2>
                     <p class="boldemphasis">This route works for <em>IH<sup>5</sup></em> installation/upgrade into stores that have either no modifications or only <em>Fual Slimbox</em> or <em>ColorBox</em> changes to those two template-override files.</p>
@@ -136,7 +136,7 @@ a[target=_blank] { text-decoration: underline; }
                     <p>Review the installation instructions below.  Once you have unzipped the <em>IH<sup>5</sup></em> package, use a file-comparison program (like WinMerge or Beyond Compare) to merge the template-override changes required by <em>IH<sup>5</sup></em> with your template's pre-existing changes.</p>
                 </fieldset>
                 <fieldset>
-                    <legend><a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> or <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a> with Image Handler<sup>5</sup></legend>
+                    <legend><a href="https://www.zen-cart.com/downloads.php?do=file&amp;id=584" target="_blank">Fual Slimbox</a> or <a href="https://www.zen-cart.com/downloads.php?do=file&amp;id=1322" target="_blank">ColorBox for Zen Cart</a> with Image Handler<sup>5</sup></legend>
                     <p>Both of these plugins provide a large-image popup using jQuery methods and are pre-integrated with <em>IH<sup>5</sup></em>.  <em>IH<sup>5</sup></em> was validated using <em>Fual Slimbox</em> v2.0.1a and <em>ColorBox for Zen Cart</em> v2.1.1 on Zen Cart 1.5.5e.</p>
       
                     <p>When your store is using <em>IH<sup>5</sup></em> along with one of these plugins, the order in which the plugin and <em>IH<sup>5</sup></em> are installed is important:</p>
@@ -290,7 +290,6 @@ a[target=_blank] { text-decoration: underline; }
                     <tr>
                         <td>/includes/classes/observers/ImageHandlerObserver.php</td>
                         <td>Added in v5.0.0.</td>
-                    </tr>
                     </tr>
                     <tr>
                         <td>/includes/extra_configures/bmz_image_handler_conf.php</td>
@@ -530,7 +529,7 @@ a[target=_blank] { text-decoration: underline; }
             </div>
             
             <div id="credits">
-                <p>Based on Image Handler<sup>2</sup> <strong>Ver 2.0 Rev 7</strong> for Zen Cart 1.3.8a updated by ckosloff.</span></p>
+                <p>Based on Image Handler<sup>2</sup> <strong>Ver 2.0 Rev 7</strong> for Zen Cart 1.3.8a updated by ckosloff.</p>
                 <p>Image Handler<sup>4</sup> v4.0 modifications by:</p>
                 <ul>
                     <li>nagelkruid (nagelkruid@gmail.com)</li>
