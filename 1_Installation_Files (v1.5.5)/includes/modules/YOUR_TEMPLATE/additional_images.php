@@ -137,7 +137,7 @@ if ($num_images > 0) {
         // the $p2 value to boolean true if it has provided an alternate form of that link; otherwise, the base code will
         // create that value.
         //
-        // $p1 ... (r/o) ... An associative array, containing the 'flag_display_large', 'products_name', 'products_image_large', 'thumb_slashes' and current 'index' values.
+        // $p1 ... (r/o) ... An associative array, containing the 'flag_display_large', 'products_name', 'products_image_large', 'thumb_slashes', 'large_link' and current 'index' values.
         // $p2 ... (r/w) ... A reference to the $script_link value, set here to boolean false; if an observer modifies that value, the
         //                     this module's processing is bypassed.
         // $p3 ... (r/w) ... A reference to the $link_parameters value, which defines the parameters associated with the above
@@ -152,6 +152,7 @@ if ($num_images > 0) {
                 'products_name' => $products_name,
                 'products_image_large' => $products_image_large,
                 'thumb_slashes' => $thumb_slashes,
+                'large_link' => $large_link,
                 'index' => $i
             ),
             $script_link,
