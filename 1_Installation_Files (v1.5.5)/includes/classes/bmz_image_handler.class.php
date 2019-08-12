@@ -936,13 +936,16 @@ class ih_image
                 // additional zoom functionality
                 $pathinfo = pathinfo($src);
                 $base_image_directory = $ihConf['dir']['images'];
+                if (in_array(substr($base_image_directory, -1), array('/', '\\'))) {
+                    $base_image_directory = substr($base_image_directory, 0, -1);
+                }
                 $base_imagedir_len = strlen($base_image_directory);
                 $products_image_directory = (strpos($pathinfo['dirname'], $base_image_directory) === 0) ? substr($pathinfo['dirname'], $base_imagedir_len) : $pathinfo['dirname'];
                 $products_image_directory .= DIRECTORY_SEPARATOR;
                 $products_image_filename = $pathinfo['filename'];
                 
                 $this->ihLog("get_additional_parameters($alt, $width, $height, $parameters), base_dir = '$base_image_directory', zoom_sizetype = '$zoom_sizetype', product_dir = '$products_image_directory'" . var_export($pathinfo, true));
-                $products_image_zoom = $base_image_directory . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
+                $products_image_zoom = $ihConf['dir']['images'] . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
                 
                 $ih_zoom_image = new ih_image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
                 $products_image_zoom = $ih_zoom_image->get_local();
