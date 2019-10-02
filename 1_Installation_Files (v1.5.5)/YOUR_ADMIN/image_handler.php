@@ -137,8 +137,6 @@ input[type="text"], input[type="submit"], input[type="file"], select {border: 1p
 #ih-p-info td { padding: 5px; border: 1px solid #444; }
 #ih-p-info td:first-child { font-weight: bold; }
 
-#ih-new-button { margin: 0.5em; }
-
 .ih-center { text-align: center; }
 .ih-right { text-align: right; }
 .ih-vtop { vertical-align: top; }
@@ -548,7 +546,6 @@ if ($ih_page == 'manager') {
         } // for each photo loop
         
         $new_link = $ih_admin->imageHandlerHrefLink('', $products_filter, 'layout_new');
-        $new_button = zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE, 'id="ih-new-button"');
 ?>
                 <tr class="dataTableRow">
                     <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>" class="btn btn-info"><?php echo IH_IMAGE_NEW_FILE; ?></a></td>
@@ -603,7 +600,6 @@ if ($ih_page == 'manager') {
                 // 3) Current image is an image with a **different** extension as the main, show Delete only
                 //
                 $edit_button = '';
-                $new_button = '';
                 $delete_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_delete', $selected_parms);
                 $delete_button = '<a href="' . $delete_link . '" class="btn btn-danger">' . IMAGE_DELETE . '</a> &nbsp;';
                 
