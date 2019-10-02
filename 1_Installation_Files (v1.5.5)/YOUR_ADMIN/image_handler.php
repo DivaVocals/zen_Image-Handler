@@ -122,7 +122,7 @@ h4 {font-size: 120%}
 h5 {font-size: 100%}
 h1 a, h2 a, h3 a, h4 a, h5 a { font-weight: bold;  letter-spacing: 0.1em;  word-spacing: 0.2em;}
 
-input[type="text"], input[type="submit"], input[type="file"], select {border: 1px solid #CCCCCC; background-color: #FFFFFF;}
+input[type="text"], input[type="submit"], input[type="file"], select {border: 1px solid #CCCCCC;}
 
 .managerbox .dataTableRow:hover { background-color: #dcdcdc; }
 
@@ -319,13 +319,14 @@ if ($ih_page == 'manager') {
             <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true); ?></td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php 
-        echo zen_image_submit('button_display.gif', IMAGE_DISPLAY) . '<br />';
-        
+        //echo zen_image_submit('button_display.gif', IMAGE_DISPLAY) . '<br />';
+    echo '<input  type="submit" class="btn btn-light" name="display" value="display" ><br />';
+	
         $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
-        echo '<a href="' . $edit_product_link . '">' . zen_image_button('button_edit_product.gif', IMAGE_EDIT_PRODUCT) . '</a><br />';
+        echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a><br />';
         
         $attribute_controller_link = zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id");
-        echo '<a href="' . $attribute_controller_link . '">' . zen_image_button('button_edit_attribs.gif', IMAGE_EDIT_ATTRIBUTES) . '</a>'
+        echo '<a href="' . $attribute_controller_link . '"class="btn btn-warning">' . IMAGE_EDIT_ATTRIBUTES . '</a>'
 ?>
             </td>
 <?php
@@ -511,7 +512,7 @@ if ($ih_page == 'manager') {
                 $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
                 $delete_link = '';
                 if (is_file($image_file_medium_full)) {
-                    $delete_link = '<br /><a href="' . $ih_admin->imageHandlerHrefLink($image_file_medium, $products_filter, 'quick_delete') . '">' . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a>';
+                    $delete_link = '<br /><a href="' . $ih_admin->imageHandlerHrefLink($image_file_medium, $products_filter, 'quick_delete') . '" class="btn btn-danger">' .  IMAGE_DELETE . '</a>';
                 }
 ?>
                     <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br />' . $text_medium_size . $delete_link; ?></td>
@@ -528,7 +529,7 @@ if ($ih_page == 'manager') {
                 $delete_link = '<br />';
                 $delete_link .= zen_draw_form("quick_del_$i", FILENAME_IMAGE_HANDLER, zen_get_all_get_params(array('action')) . '&amp;action=quick_delete');
                 $delete_link .= zen_draw_hidden_field('qdFile', $image_file_large);
-                $delete_link .= zen_image_submit('button_delete.gif', IMAGE_DELETE);
+                $delete_link .= '<input type = "submit" class="btn btn-danger" value = "' . IMAGE_DELETE . '" >';
                 $delete_link .= '</form>';
             }
 ?>
@@ -550,7 +551,8 @@ if ($ih_page == 'manager') {
         $new_button = zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE, 'id="ih-new-button"');
 ?>
                 <tr class="dataTableRow">
-                    <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>"><?php echo $new_button; ?></a></td>
+                    <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>" class="btn btn-info"
+                                                        id="ih-new-button"><?= IH_IMAGE_NEW_FILE; ?></a></td>
                 </tr>
             </table></td>
 <!-- END Photo list table -->
@@ -604,11 +606,11 @@ if ($ih_page == 'manager') {
                 $edit_button = '';
                 $new_button = '';
                 $delete_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_delete', $selected_parms);
-                $delete_button = '<a href="' . $delete_link . '">' . zen_image_button('button_delete.gif', IMAGE_DELETE) . '</a> &nbsp;';
+                $delete_button = '<a href="' . $delete_link . '" class="btn btn-danger">' . IMAGE_DELETE . '</a> &nbsp;';
                 
                 if ($products_image_extension == $selected_image_extension) {
                     $edit_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_edit', $selected_parms);
-                    $edit_button = '<a href="' . $edit_link . '">' . zen_image_button('button_edit.gif', IH_IMAGE_EDIT) . '</a> &nbsp; ';
+                    $edit_button = '<a href="' . $edit_link . '" class="btn btn-warning">' . IH_IMAGE_EDIT . '</a> &nbsp; ';
                 }
                 $contents[] = array(
                     'align' => 'center', 
@@ -739,10 +741,10 @@ if ($ih_page == 'manager') {
                 } else {
                     $cancel_button_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_info');
                 }
-                $cancel_button = '<a href="' . $cancel_button_link . '">' . zen_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>';
+                $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . zen_image_submit('button_save.gif', IMAGE_SAVE) . $hidden_vars
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type = "button" class="btn btn-primary" value = "' . IMAGE_SAVE . '" >' . $hidden_vars
                 );
                 break;
                 
@@ -777,10 +779,10 @@ if ($ih_page == 'manager') {
                 }
 
                 $cancel_button_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_info');
-                $cancel_button = '<a href="' . $cancel_button_link . '">' . zen_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>';
+                $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . zen_image_submit('button_delete.gif', IMAGE_DELETE)
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type = "button" class="btn btn-danger" value = "' . IMAGE_DELETE . '" >'
                 );
                 break;
             
