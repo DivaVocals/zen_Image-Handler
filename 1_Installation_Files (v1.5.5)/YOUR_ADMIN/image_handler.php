@@ -529,7 +529,7 @@ if ($ih_page == 'manager') {
                 $delete_link = '<br />';
                 $delete_link .= zen_draw_form("quick_del_$i", FILENAME_IMAGE_HANDLER, zen_get_all_get_params(array('action')) . '&amp;action=quick_delete');
                 $delete_link .= zen_draw_hidden_field('qdFile', $image_file_large);
-                $delete_link .= '<input type = "submit" class="btn btn-danger" value = "' . IMAGE_DELETE . '" >';
+                $delete_link .= '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />';
                 $delete_link .= '</form>';
             }
 ?>
@@ -551,8 +551,7 @@ if ($ih_page == 'manager') {
         $new_button = zen_image_button('button_new_file.gif', IH_IMAGE_NEW_FILE, 'id="ih-new-button"');
 ?>
                 <tr class="dataTableRow">
-                    <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>" class="btn btn-info"
-                                                        id="ih-new-button"><?= IH_IMAGE_NEW_FILE; ?></a></td>
+                    <td colspan="7" class="ih-right"><a href="<?php echo $new_link; ?>" class="btn btn-info"><?php echo IH_IMAGE_NEW_FILE; ?></a></td>
                 </tr>
             </table></td>
 <!-- END Photo list table -->
@@ -744,7 +743,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type = "button" class="btn btn-primary" value = "' . IMAGE_SAVE . '" >' . $hidden_vars
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="button" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
                 );
                 break;
                 
@@ -782,7 +781,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type = "button" class="btn btn-danger" value = "' . IMAGE_DELETE . '" >'
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="button" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
                 );
                 break;
             
