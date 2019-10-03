@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2019 Vinos de Frutas Tropicales
 //
 require 'includes/application_top.php';
 
@@ -143,16 +143,16 @@ if (!isset($_POST['action']) || $_POST['action'] != 'confirm') {
     $current_message = TEXT_CONFIRMATION;
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+<meta charset="<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<script type="text/javascript" src="includes/menu.js"></script>
-<script type="text/javascript" src="includes/general.js"></script>
-<script type="text/javascript">
+<script src="includes/menu.js"></script>
+<script src="includes/general.js"></script>
+<script>
   <!--
   function init()
   {
