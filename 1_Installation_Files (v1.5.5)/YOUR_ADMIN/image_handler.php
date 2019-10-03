@@ -204,17 +204,14 @@ if (defined('IH_VERSION')) {
 <?php
 if ($ih_page == 'manager') {
     // SEARCH DIALOG BOX
-
-    echo '<div id="ih-search">' . zen_draw_form('search', FILENAME_CATEGORIES, '', 'get');
-    // show reset search
-    if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
-        echo '<a href="' . zen_href_link(FILENAME_CATEGORIES) . '" class="btn btn-primary">' . IMAGE_RESET . '</a>&nbsp;&nbsp;';
-    }
+    //-----
+    // The category/product listing page changed in zc156, detect the current Zen Cart
+    // version to determine the page to which the search results are destined.
+    //
+    $zen_cart_version = PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR;
+    $search_target_page = ($zen_cart_version > '1.5.6') ? FILENAME_CATEGORY_PRODUCT_LISTING : FILENAME_CATEGORIES;
+    echo '<div id="ih-search">' . zen_draw_form('search', $search_target_page, '', 'get');
     echo HEADING_TITLE_SEARCH_DETAIL . ' ' . zen_draw_input_field('search');
-    if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
-        $keywords = zen_db_input(zen_db_prepare_input($_GET['search']));
-        echo '<br/ >' . TEXT_INFO_SEARCH_DETAIL_FILTER . $keywords;
-    }
     echo '</form></div>';
 }
 ?>
