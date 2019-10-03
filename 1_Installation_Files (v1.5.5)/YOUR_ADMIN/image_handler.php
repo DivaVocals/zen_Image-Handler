@@ -316,13 +316,13 @@ if ($ih_page == 'manager') {
             <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true); ?></td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php 
-        echo '<input  type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'" ><br />';
+        echo '<input type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'" />&nbsp;';
 	
         $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
-        echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a><br />';
+        echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a>&nbsp;';
         
         $attribute_controller_link = zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id");
-        echo '<a href="' . $attribute_controller_link . '"class="btn btn-warning">' . IMAGE_EDIT_ATTRIBUTES . '</a>'
+        echo '<a href="' . $attribute_controller_link . '" class="btn btn-warning">' . IMAGE_EDIT_ATTRIBUTES . '</a>'
 ?>
             </td>
 <?php
