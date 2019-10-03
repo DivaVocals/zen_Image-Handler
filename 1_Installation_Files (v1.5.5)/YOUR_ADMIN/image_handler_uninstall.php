@@ -180,7 +180,7 @@ if (!isset($_POST['action']) || $_POST['action'] != 'confirm') {
         <tr>
             <td><?php echo zen_draw_form('remove', FILENAME_IMAGE_HANDLER_UNINSTALL) . zen_draw_hidden_field('action', $next_action);?>
                 <p><?php echo $current_message; ?></p>
-                <p><a href="<?php echo zen_href_link(FILENAME_DEFAULT); ?>"><?php echo zen_image_button('button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;&nbsp;<?php echo zen_image_submit('button_go.gif', IMAGE_GO); ?></p>
+                <p><a href="<?php echo zen_href_link(FILENAME_DEFAULT); ?>" class="btn btn-warning"><?php echo IMAGE_CANCEL; ?></a>&nbsp;&nbsp;<input type="submit" class="btn btn-danger" value="<?php echo IMAGE_GO; ?>" /></p>
             </form></td>
         </tr>
     </table></td>
