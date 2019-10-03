@@ -209,7 +209,7 @@ if ($ih_page == 'manager') {
     echo '<div id="ih-search">' . zen_draw_form('search', FILENAME_CATEGORIES, '', 'get');
     // show reset search
     if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
-        echo '<a href="' . zen_href_link(FILENAME_CATEGORIES) . '">' . zen_image_button('button_reset.gif', IMAGE_RESET) . '</a>&nbsp;&nbsp;';
+        echo '<a href="' . zen_href_link(FILENAME_CATEGORIES) . '" class="btn btn-primary">' . IMAGE_RESET . '</a>&nbsp;&nbsp;';
     }
     echo HEADING_TITLE_SEARCH_DETAIL . ' ' . zen_draw_input_field('search');
     if (isset($_GET['search']) && zen_not_null($_GET['search'])) {
@@ -317,8 +317,7 @@ if ($ih_page == 'manager') {
             <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true); ?></td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php 
-        //echo zen_image_submit('button_display.gif', IMAGE_DISPLAY) . '<br />';
-    echo '<input  type="submit" class="btn btn-light" name="display" value="display" ><br />';
+        echo '<input  type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'" ><br />';
 	
         $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
         echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a><br />';
