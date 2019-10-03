@@ -94,11 +94,10 @@ if ($action == 'ih_clear_cache') {
     }
 }
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--doctype changed to stop quirks mode -->
+<!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+<meta charset="<?php echo CHARSET; ?>">
 <title><?php echo TITLE . ' - '. ICON_IMAGE_HANDLER; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
@@ -159,12 +158,12 @@ div.managerbox {clear: both;}
 .preview-check {border: 1px solid #000000; background:url(images/checkpattern.gif);}
 -->
 </style>
-<script type="text/javascript" src="includes/menu.js"></script>
-<script type="text/javascript" src="includes/general.js"></script>
+<script src="includes/menu.js"></script>
+<script src="includes/general.js"></script>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
-<script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
+<script src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 
-<script type="text/javascript">
+<script>
   <!--
   function init()
   {

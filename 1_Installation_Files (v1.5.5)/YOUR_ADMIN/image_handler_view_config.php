@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2018 Vinos de Frutas Tropicales
+// Copyright (c) 2018-2019 Vinos de Frutas Tropicales
 //
 require 'includes/application_top.php';
 
@@ -33,9 +33,9 @@ tr.ih-error td:last-child { color: red; font-weight: bold; }
 tr span { font-size: smaller; }
 -->
 </style>
-<script type="text/javascript" src="includes/menu.js"></script>
-<script type="text/javascript" src="includes/general.js"></script>
-<script type="text/javascript">
+<script src="includes/menu.js"></script>
+<script src="includes/general.js"></script>
+<script>
 <!--
 function init()
 {
