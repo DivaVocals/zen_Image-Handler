@@ -734,7 +734,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="button" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
                 );
                 break;
                 
@@ -772,7 +772,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = array(
                     'align' => 'center', 
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="button" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
+                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
                 );
                 break;
             
