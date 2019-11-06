@@ -178,9 +178,9 @@ class ih_image
     {
         global $ihConf;
         
-        if (strpos($this->src, $ihConf['large']['suffix']) !== false) {
+        if (!empty($ihConf['large']['suffix']) && strpos($this->src, $ihConf['large']['suffix']) !== false) {
             $this->sizetype = 'large';
-        } elseif (strpos($this->src, $ihConf['medium']['suffix']) !== false) {
+        } elseif (!empty($ihConf['medium']['suffix']) && strpos($this->src, $ihConf['medium']['suffix']) !== false) {
             $this->sizetype = 'medium';
         } elseif (((int)$this->width) == ((int)$ihConf['small']['width']) && (((int)$this->height) == ((int)$ihConf['small']['height']))) {
             $this->sizetype = 'small';
@@ -277,7 +277,8 @@ class ih_image
         // $ihConf['dir']['docroot']!
         //
         $allowed = false;
-        if ($ihConf['resize'] && strpos($this->src, $ihConf['noresize_key']) === false && (strpos($this->src, $ihConf['dir']['images']) === 0 || strpos(DIR_FS_CATALOG . $this->src, $bmzConf['cachedir']) === 0)) {
+        if ($ihConf['resize'] && !empty($ihConf['noresize_key']) && strpos($this->src, $ihConf['noresize_key']) === false && 
+             (strpos($this->src, $ihConf['dir']['images']) === 0 || strpos(DIR_FS_CATALOG . $this->src, $bmzConf['cachedir']) === 0)) {
             $allowed = true;
             foreach ($ihConf['noresize_dirs'] as $noresize_dir) {
                 if (strpos($this->src, $ihConf['dir']['images'] . $noresize_dir . '/') === 0) {
