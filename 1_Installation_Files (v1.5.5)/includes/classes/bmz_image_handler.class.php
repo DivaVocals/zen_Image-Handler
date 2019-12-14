@@ -411,7 +411,7 @@ class ih_image
     protected function getCacheName($data, $ext='') 
     {
         $md5  = (IH_CACHE_NAMING == 'Hashed') ? md5($data) : $data;
-        $file = $GLOBALS['bmzConf']['cachedir'] . '/' . $md5{0} . '/' . $md5 . $ext;
+        $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
         io_makeFileDir($file);
         $this->ihLog("getCacheName($data, $ext), returning $file.");
         return $file;
