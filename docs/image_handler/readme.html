@@ -28,7 +28,7 @@ ol li, ul li, ul li ul li { margin: 5px 0; padding: 0; }
 img { margin: 0 20px; float: left; border: 1px solid #666; }
 img.wide { width: 95%; float: none; margin: 0 2.5%; }
 textarea { width: 100%; }
-.corefile { color: red; }
+.corefile, .red { color: red; }
 .template { color: green; }
 .forward { float: right; }
 .back { float: back; }
@@ -39,6 +39,7 @@ table, td, th { border: 1px solid black; border-collapse: collapse; }
 td, th { padding: 5px; }
 th { background-color: #eee; }
 .smaller { font-size: smaller; }
+.code-samp { border: 1px solid #666; padding: 5px 5px 0; }
 
 .etabs { margin: 0; padding: 0; }
 .tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; border-radius: 4px 4px 0 0; margin: 0; }
@@ -52,10 +53,10 @@ th { background-color: #eee; }
 a[target=_blank] { text-decoration: underline; }
 -->
 </style>
-<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
-<script src="../jquery-1.7.1.min.js" type="text/javascript"></script> 
-<script src="../jquery.easytabs.min.js" type="text/javascript"></script>
-<script type="text/javascript">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<script src="../jquery-1.7.1.min.js"></script> 
+<script src="../jquery.easytabs.min.js"></script>
+<script>
   $(document).ready( function() {
       $('#tab-container').easytabs();
   });
@@ -64,7 +65,7 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
-  <h3>Version 5.1.7 by lat9</h3>
+  <h3>Version 5.1.8 by lat9</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -72,6 +73,22 @@ a[target=_blank] { text-decoration: underline; }
     <li>The majority of this readme, other than installation instructions and change history, has been migrated online to the plugin's GitHub <a href="https://github.com/DivaVocals/zen_Image-Handler" target="_blank">repository</a>.  That enables the readme to be updated as-required without the need to provide a plugin update for documentation corrections.</li>
     <li>Change history prior to v5.0.0 of <em>IH<sup>5</sup></em> has been archived on the plugin's GitHub repository.</li>
   </ol>
+  
+  <hr>
+  
+  <p><i class="fas fa-exclamation-circle fa-5x red"></i> If you are using IH<sup>5</sup> on a site that also uses <a href="https://www.zen-cart.com/downloads.php?do=file&id=367" target="_blank">SitemapXML</a> and have configured <em>SitemapXML</em> to <b>Add Products Images</b>, you'll need to edit one of the <em>SitemapXML</em>'s files to allow those images to be properly reported.  Editing <code>/includes/modules/pages/sitemapxml/sitemapxml_products.php</code>, you'll see this code-block towards the top of the file:</p>
+  <pre class="code-samp">
+define('SITEMAPXML_PRODUCTS_IMAGES_SIZE', 'large');
+define('SITEMAPXML_PRODUCTS_IMAGES_ADDITIONAL', 'false'); // true false
+define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', 'false'); // true false
+  </pre>
+  <p>&hellip; and you'll make the highlighted change to instruct <em>SitemapXML</em> to use the built-in Zen Cart function to create the images' links:</p>
+  <pre class="code-samp">
+define('SITEMAPXML_PRODUCTS_IMAGES_SIZE', 'large');
+define('SITEMAPXML_PRODUCTS_IMAGES_ADDITIONAL', 'false'); // true false
+define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // true false
+  </pre>
+  <hr>
 
   <div class="tab-container" id="outer-container">
     <ul class="etabs">
@@ -413,6 +430,14 @@ a[target=_blank] { text-decoration: underline; }
             
             <div id="changes">
                 <ul>
+                    <li>v5.1.8, 2020-01-04:<ul>
+                        <li>BUGFIX: Future-proofing; correct curly-brace usage for PHP 7.4.</li>
+                        <li>BUGFIX: Document configuration required for SiteMapXml images' creation.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/includes/classes/bmz_image_handler_class.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                        </ol></li>
+                    </ul></li>
                     <li>v5.1.7, 2019-11-06:<ul>
                         <li>BUGFIX: 'Submit' buttons inoperative on admin tool.</li>
                         <li>BUGFIX: Check for empty values prior to using <code>strpos</code>.</li>
