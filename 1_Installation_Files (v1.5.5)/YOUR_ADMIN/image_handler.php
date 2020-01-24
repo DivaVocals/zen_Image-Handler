@@ -160,9 +160,6 @@ div.managerbox {clear: both;}
 </style>
 <script src="includes/menu.js"></script>
 <script src="includes/general.js"></script>
-<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
-<script src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
-
 <script>
   <!--
   function init()
@@ -183,7 +180,6 @@ div.managerbox {clear: both;}
 </script>
 </head>
 <body onload="init();">
-<div id="spiffycalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
