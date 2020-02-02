@@ -9,7 +9,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by webchills and cjones 2012-03-10 17:46:50 
- * Last modified by lat9 2018-05-29
+ * Last modified by lat9 2020-02-02
  */
 define('IH_VERSION_VERSION', 'Version');
 define('IH_VERSION_NOT_FOUND', 'No Image Handler information found.');
@@ -73,6 +73,8 @@ define('TEXT_INFO_CONFIRM_DELETE', 'Confirm <em>%s</em> image delete');
 define('TEXT_INFO_CONFIRM_DELETE_SURE', 'Are you sure you want to delete all sizes of this image?');
 define('TEXT_INFO_SELECT_ACTION', 'Select action');
 
+define('TEXT_NOT_NEEDED', 'Not needed');    //-Displayed for the 'Medium'-sized additional images
+define('TEXT_TABLE_CAPTION_INSTRUCTIONS', "<b>Note:</b> A product's additional images are <em>automatically</em> created in their 'small' and 'large' sizes <em>only</em> and show '" . TEXT_NOT_NEEDED . "' for their <b>Medium image</b>.  If your storefront uses other image-sizes for these (or the product's main) images, those images are created (and cached) 'on-demand'.");
 
 define('TEXT_MSG_FILE_NOT_FOUND', 'This file does not exist.');
 define('TEXT_MSG_ERROR_RETRIEVING_IMAGESIZE', 'Could not determine the image size');
