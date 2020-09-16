@@ -12,8 +12,7 @@ You can configure the background color for every image size by specifying the co
 
 Here are a few sources for obtaining RGB values. Color Schemer even provides a really nice HEX/RGB conversion calculator.
 
-1. http://rgbchart.com/
-1. http://cloford.com/resources/colours/500col.htm
+1. https://cloford.com/resources/colours/500col.htm
 1. https://www.computerhope.com/htmcolor.htm
 
 If you want to keep the transparency of an uploaded image, you need to set the background color value to transparent.
