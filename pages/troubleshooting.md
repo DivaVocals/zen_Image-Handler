@@ -94,13 +94,12 @@ Using Image Handler<sup>5</sup>, you can easily sort and manage thousands of ima
 
 Image Handler<sup>5</sup> reduces the effort required to setup images for your store. It works **with** default Zen Cart functionality, it does not *replace* it. Here are some additional FAQs which discuss how product images work in Zen Cart.
 
-1. [Image Preparation - How-to](https://www.zen-cart.com/content.php?223-image-preparation-how-to)
-1. [My images are distorted/fuzzy/squished, help?](https://www.zen-cart.com/content.php?72-my-images-are-distorted-fuzzy-squished)
+1. [Image Preparation - How-to](https://docs.zen-cart.com/user/images/images_howto/)
+1. [My images are distorted/fuzzy/squished, help?](https://docs.zen-cart.com/user/troubleshooting/images_distorted/)
 
 Information on how Zen Cart identifies/manages additional product images can be found on these Zen Cart FAQs:
 
-1. [Why am I seeing images for other products on my product pages?](https://www.zen-cart.com/content.php?273-why-am-i-seeing-images-for-other-products-on-my-product-pages)
-1. [How do I add multiple images to a product?](https://www.zen-cart.com/content.php?100-how-do-i-add-multiple-images-to-a-product)
-1. [How do I add more than one image of a product?](https://www.zen-cart.com/content.php?211-how-do-i-add-more-than-one-image-of-a-product) I want to have a main image and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page? Thanks!
+1. [Why am I seeing images for other products on my product pages?](https://docs.zen-cart.com/user/images/additional_images/#why-do-i-see-images-for-other-products-on-my-product-pages)
+1. [How do I add multiple images to a product?](https://docs.zen-cart.com/user/images/adding_multiple_images_to_a_product/)
 
 Check out these FAQs and see if they help clarify how Zen Cart works with product images.
