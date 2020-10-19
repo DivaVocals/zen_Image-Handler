@@ -272,7 +272,7 @@ if (isset($_SESSION['admin_id'])) {
                     "INSERT INTO " . TABLE_CONFIGURATION . " 
                         ( configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function ) 
                      VALUES 
-                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Readable\'),')"
+                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br /><br />Image Handler v5.1.9 introduced <em>Mirrored</em> which is the same as readable but it creates a directory structure under bmz_cache that mirrors the directory structure where the original images are saved.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),')"
                 );
             }
         }
@@ -282,7 +282,7 @@ if (isset($_SESSION['admin_id'])) {
                 zen_register_admin_page('toolsImageHandlerViewConfig', 'BOX_TOOLS_IMAGE_HANDLER_VIEW_CONFIG', 'FILENAME_IMAGE_HANDLER_VIEW_CONFIG', '', 'tools', 'N', 99);
             }
         }
-        
+               
         // -----
         // v5.1.2:
         // - GitHub#147: Correct configuration description for the three background settings, changing -transparent- to <b>transparent</b>.
@@ -293,6 +293,20 @@ if (isset($_SESSION['admin_id'])) {
                     SET configuration_description = 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to <b>transparent</b> to keep transparency.'
                   WHERE configuration_key IN ('SMALL_IMAGE_BACKGROUND', 'MEDIUM_IMAGE_BACKGROUND', 'LARGE_IMAGE_BACKGROUND')"
             );
+        }
+       
+        // -----
+        // v5.1.9
+        // - GitHub#72: Add mirrored to IH_CACHE_NAMING to mirror the base directory structure
+        //
+         if (version_compare(IH_VERSION, '5.1.9', '<')) {
+            $db->Execute(
+                "UPDATE " . TABLE_CONFIGURATION . "
+                     SET configuration_description = 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br /><br />Image Handler v5.1.9 introduced <em>Mirrored</em> which is the same as readable but it creates a directory structure under bmz_cache that mirrors the directory structure where the original images are saved.',
+                         set_function = 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),'
+                     WHERE configuration_key = 'IH_CACHE_NAMING'"
+                );
+            
         }
         
         $db->Execute(

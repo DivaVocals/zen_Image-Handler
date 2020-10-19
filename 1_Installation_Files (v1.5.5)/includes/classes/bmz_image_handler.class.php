@@ -13,6 +13,7 @@
  * Modified by lat9: 2018-05-19, various refinements (see GitHub #106).
  * Modified by lat9: 2018-05-20, Remove handling for mixed-case file extensions from file_not_found method (see GitHub #89)
  * Modified by lat9: 2018-06-04, Correction for DIR_FS_CATALOG set to '/'.
+ * Modified by brittainmark: 2020-10-18, Add Mirrored to mirror original directory structure (see GitHub #72)
  */
  
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -335,27 +336,46 @@ class ih_image
         
         // Do we need to resize, watermark, zoom or convert to another filetype?
         if ($this->file_exists && ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension)) {
-            if (IH_CACHE_NAMING == 'Hashed') {
-                $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
-            } else {
-                // use pathinfo to get full path of an image
-                $image_path = pathinfo($this->src);
+            switch (IH_CACHE_NAMING) {
+                case 'Hashed':
+                    $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                    break;
+                case 'Mirrored':
+                    // use pathinfo to get full path of an image
+                    $image_path = pathinfo($this->src);
+                    // get image name from path and clean it up for those who don't know how image files SHOULD be named
+                    $image_basename = $this->sanitizeImageNames($image_path['basename']);
+                    $image_dirname = ($image_path['dirname']);
+                    // Remove Images default directory from path
+                    if ($image_dirname == rtrim(DIR_WS_IMAGES, '/')) {
+                        $image_dir = '';
+                    } else {
+                        $image_dir = substr($image_path['dirname'],strlen(DIR_WS_IMAGES)) . '/';
+                    }
+                    // and now do the magic and create cached image name with the above parameters
+                    $local = $this->getCacheName(strtolower($image_dir . $image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                    break;
+                case 'Readable':
+                default:
+                    // use pathinfo to get full path of an image
+                    $image_path = pathinfo($this->src);
                 
-                // get image name from path and clean it up for those who don't know how image files SHOULD be named
-                $image_basename = $this->sanitizeImageNames($image_path['basename']);
-                
-                // get last directory from path and clean that up just like the image's base name
-                $image_dirname = $this->sanitizeImageNames(basename($image_path['dirname']));
-                
-                // if last directory is images (meaning image is stored in main images folder), do nothing, else append directory name
-                if ($image_dirname == rtrim(DIR_WS_IMAGES, '/')) {
-                    $image_dir = '';
-                } else {
-                    $image_dir = $image_dirname . '-';
-                }
-                
-                // and now do the magic and create cached image name with the above parameters
-                $local = $this->getCacheName(strtolower($image_dir . $image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                    // get image name from path and clean it up for those who don't know how image files SHOULD be named
+                    $image_basename = $this->sanitizeImageNames($image_path['basename']);
+              
+                    // get last directory from path and clean that up just like the image's base name
+                    $image_dirname = $this->sanitizeImageNames(basename($image_path['dirname']));
+        
+                    // if last directory is images (meaning image is stored in main images folder), do nothing, else append directory name
+                    if ($image_dirname == rtrim(DIR_WS_IMAGES, '/')) {
+                       $image_dir = '';
+                    } else {
+                        $image_dir = $image_dirname . '-';
+                    }
+                                   
+                    // and now do the magic and create cached image name with the above parameters
+                    $local = $this->getCacheName(strtolower($image_dir . $image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                    break;
             }
             
             //echo $local . '<br />';    
@@ -410,8 +430,22 @@ class ih_image
     //-NOTE: This function was (for versions prior to 5.0.1) present in /includes/functions/extra_functions/functions_bmz_io.php
     protected function getCacheName($data, $ext='') 
     {
-        $md5  = (IH_CACHE_NAMING == 'Hashed') ? md5($data) : $data;
-        $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
+        switch (IH_CACHE_NAMING) {
+            case 'Hashed':
+            // Hash the name and place in directory using first character of hashed string
+                $md5 = md5($data);
+                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
+                break;
+            case 'Mirrored':
+            // Use readable file name and place in mirror of original directory
+                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . $data . $ext;
+                break;
+            case 'Readable':
+            default:
+            // Use readable file name and place directory using first character of $data
+                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($data, 0, 1) . '/' . $data . $ext;
+                break;
+            }
         io_makeFileDir($file);
         $this->ihLog("getCacheName($data, $ext), returning $file.");
         return $file;
