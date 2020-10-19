@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.1.9-beta2');
+define('IH_CURRENT_VERSION', '5.1.9-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -272,7 +272,7 @@ if (isset($_SESSION['admin_id'])) {
                     "INSERT INTO " . TABLE_CONFIGURATION . " 
                         ( configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function ) 
                      VALUES 
-                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br /><br />Image Handler v5.1.9 introduced <em>Mirrored</em> which is the same as readable but it creates a directory structure under bmz_cache that mirrors the directory structure where the original images are saved.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),')"
+                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),')"
                 );
             }
         }
@@ -302,11 +302,10 @@ if (isset($_SESSION['admin_id'])) {
          if (version_compare(IH_VERSION, '5.1.9', '<')) {
             $db->Execute(
                 "UPDATE " . TABLE_CONFIGURATION . "
-                     SET configuration_description = 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br /><br />Image Handler v5.1.9 introduced <em>Mirrored</em> which is the same as readable but it creates a directory structure under bmz_cache that mirrors the directory structure where the original images are saved.',
+                     SET configuration_description = '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.',
                          set_function = 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),'
-                     WHERE configuration_key = 'IH_CACHE_NAMING'"
-                );
-            
+                     WHERE configuration_key = 'IH_CACHE_NAMING' LIMIT 1"
+            );
         }
         
         $db->Execute(
