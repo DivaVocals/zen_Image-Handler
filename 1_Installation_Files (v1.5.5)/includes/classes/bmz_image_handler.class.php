@@ -340,7 +340,7 @@ class ih_image
                 case 'Hashed':
                     $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
                     break;
-                case'Mirrored':
+                case 'Mirrored':
                     // use pathinfo to get full path of an image
                     $image_path = pathinfo($this->src);
                     // get image name from path and clean it up for those who don't know how image files SHOULD be named
@@ -355,6 +355,7 @@ class ih_image
                     // and now do the magic and create cached image name with the above parameters
                     $local = $this->getCacheName(strtolower($image_dir . $image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
                     break;
+                case 'Readable':
                 default:
                     // use pathinfo to get full path of an image
                     $image_path = pathinfo($this->src);
@@ -439,6 +440,7 @@ class ih_image
             // Use readable file name and place in mirror of original directory
                 $file = $GLOBALS['bmzConf']['cachedir'] . '/' . $data . $ext;
                 break;
+            case 'Readable':
             default:
             // Use readable file name and place directory using first character of $data
                 $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($data, 0, 1) . '/' . $data . $ext;
