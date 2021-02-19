@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.1.4
+ * mod Image Handler 5.1.10
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -10,6 +10,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: functions_bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50 
+ * Last modified by lat9, 2021-02-19, see GitHub#213.
  */
 require_once DIR_FS_CATALOG . DIR_WS_CLASSES . 'bmz_image_handler.class.php';
 
@@ -110,6 +111,8 @@ function handle_image($src, $alt, $width, $height, $parameters)
             $parameters = $ih_image->get_additional_parameters($alt, $ih_image->canvas['width'], $ih_image->canvas['height'], $parameters);
         }
     } else {
+//-bof-20210219-lat9-GitHub#212: Don't modify input variables if IH isn't enabled.  Uncomment if needed.
+/*
         // default to standard Zen-Cart fallback behavior for large -> medium -> small images
         $image_ext = '.' . pathinfo($src, PATHINFO_EXTENSION);
         $image_base = substr($src, strlen(DIR_WS_IMAGES), -strlen($image_ext));
@@ -123,8 +126,10 @@ function handle_image($src, $alt, $width, $height, $parameters)
             $image_base = substr($image_base, strlen($ihConf['medium']['prefix']), -strlen($ihConf['medium']['suffix'])); 
             $src = DIR_WS_IMAGES . $image_base . $image_ext;
         }
+*/
+//-eof-20210219-lat9
     }
-    return array($src, $alt, intval($width), intval($height), $parameters);
+    return array($src, $alt, $width, $height, $parameters);
 }
 
 
