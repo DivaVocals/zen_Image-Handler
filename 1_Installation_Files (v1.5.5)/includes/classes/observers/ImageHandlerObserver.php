@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin for Zen Cart 1.5.5b and later.
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2021 Vinos de Frutas Tropicales
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
@@ -65,7 +65,7 @@ class ImageHandlerObserver extends base
             case 'NOTIFY_MODULES_ADDITIONAL_IMAGES_GET_LARGE':
                 $products_name = $p1;
                 $products_image_large = $p2;
-            	if (function_exists('handle_image')) {
+                if (function_exists('handle_image')) {
                     $newimg = handle_image($products_image_large, addslashes($products_name), LARGE_IMAGE_MAX_WIDTH, LARGE_IMAGE_MAX_HEIGHT, '');
                     list($src, $alt, $width, $height, $parameters) = $newimg;
                     $p2 = zen_output_string($src);
@@ -89,13 +89,16 @@ class ImageHandlerObserver extends base
             // Update the (globally-available) image names for any rendering of the popup_image page.
             //
             case 'NOTIFY_HEADER_END_POPUP_IMAGES':
-                $products_image_extension = $GLOBALS['products_image_extension'];
+                global $products_image,
+                       $products_image_extension, 
+                       $products_image_base,
+                       $products_image_medium,
+                       $products_image_large;
                 
-                $products_image_base = preg_replace('/' . $products_image_extension . '$/', '', $GLOBALS['products_image']);
-                $GLOBALS['products_image_base'] = $products_image_base;
+                $products_image_base = preg_replace('/' . $products_image_extension . '$/', '', $products_image);
                 
-                $GLOBALS['products_image_medium'] = DIR_WS_IMAGES . 'medium/' . $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
-                $GLOBALS['products_image_large'] = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
+                $products_image_medium = DIR_WS_IMAGES . 'medium/' . $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
+                $products_image_large = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
                 break;
                 
             default:

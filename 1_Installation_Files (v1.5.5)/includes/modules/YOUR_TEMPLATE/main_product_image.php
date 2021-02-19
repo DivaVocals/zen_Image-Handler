@@ -7,6 +7,7 @@
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: main_product_image.php 4663 2006-10-02 04:08:32Z drbyte $
+ * Last modified 2021-02-19-lat9 for IH5 GitHub#215.
  */
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
@@ -15,7 +16,8 @@ if (!defined('IS_ADMIN_FLAG')) {
 // -----
 // This notifier lets an observer know that the module has begun its processing.
 //
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_START');
+global $zco_notifier;
+$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_START');
 
 $products_image_extension = substr($products_image, strrpos($products_image, '.'));
 $products_image_base = str_replace($products_image_extension, '', $products_image);
@@ -37,7 +39,7 @@ $products_image_large = $products_image_base . IMAGE_SUFFIX_LARGE . $products_im
 // other values have been updated for separate handling.
 //
 $main_image_handled = false;
-$GLOBALS['zco_notifier']->notify(
+$zco_notifier->notify(
     'NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_FILENAME',
     $products_image,
     $main_image_handled,
@@ -74,4 +76,4 @@ if ($main_image_handled !== true) {
     // to be built into a single variable string
 }
 
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_END');
+$zco_notifier->notify('NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_END');
