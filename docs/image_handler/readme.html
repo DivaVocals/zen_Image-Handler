@@ -65,7 +65,7 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
-  <h3>Version 5.1.9 by lat9, Zen4All and brittainmark</h3>
+  <h3>Version 5.1.10 by lat9, Zen4All and brittainmark</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -430,6 +430,13 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
+                    <li>v5.1.10, 2021-01-19:<ul>
+                        <li>BUGFIX: Correct PHP 8.0.0+ fatal error.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                        </ol></li>
+                    </ul></li>
                     <li>v5.1.9, 2020-10-21:<ul>
                         <li>BUGFIX: Remove unneeded <code>spiffyCal</code> elements.  Thanks, @Zen4All!</li>
                         <li>BUGFIX: Include on-screen instructions, identifying why additional images' <em>medium</em> image isn't automatically created.</li>

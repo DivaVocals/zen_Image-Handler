@@ -14,6 +14,7 @@
  * Modified by lat9: 2018-05-20, Remove handling for mixed-case file extensions from file_not_found method (see GitHub #89)
  * Modified by lat9: 2018-06-04, Correction for DIR_FS_CATALOG set to '/'.
  * Modified by brittainmark: 2020-10-18, Add Mirrored to mirror original directory structure (see GitHub #72)
+ * Modified by lat9/proseLA: 2021-01-19, Correcting PHP 8.0 fatal error (see GitHub#212)
  */
  
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -882,7 +883,7 @@ class ih_image
         if ($quality < 0 || $quality > 100) {
             $quality = 75;
         }
-        $this->ihLog("save_imageGD($file_ext, $image, $dest_name, $quality)");
+        $this->ihLog("save_imageGD($file_ext, '', $dest_name, $quality)");
         switch (strtolower($file_ext)) {
             case '.gif':
                 if (!function_exists('imagegif')) {
