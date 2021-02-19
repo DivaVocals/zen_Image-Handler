@@ -14,7 +14,9 @@
  * Modified by lat9: 2018-05-20, Remove handling for mixed-case file extensions from file_not_found method (see GitHub #89)
  * Modified by lat9: 2018-06-04, Correction for DIR_FS_CATALOG set to '/'.
  * Modified by brittainmark: 2020-10-18, Add Mirrored to mirror original directory structure (see GitHub #72)
- * Modified by lat9/proseLA: 2021-01-19, Correcting PHP 8.0 fatal error (see GitHub#212)
+ * Modified by lat9/proseLA: 2021-01-19, 
+ *    - Correcting PHP 8.0 fatal error (see GitHub#212)
+ *    - PHP 8.1+ interoperation (changing use of $GLOBALS to simply global), see GitHub#215.
  */
  
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -60,7 +62,8 @@ class ih_image
 
     public function __construct($src, $width, $height)
     {
-        global $ihConf;
+        global $ihConf,
+               $ih_logfile_suffix;
         
         $this->orig = $src;
         $this->src = $src;
@@ -76,12 +79,12 @@ class ih_image
         $this->file_exists = true;
         
         $this->first_access = false;
-        if (!isset($GLOBALS['ih_logfile_suffix'])) {
+        if (!isset($ih_logfile_suffix)) {
             $d = new DateTime();
-            $GLOBALS['ih_logfile_suffix'] = $d->format('Ymd-His.u');
+            $ih_logfile_suffix = $d->format('Ymd-His.u');
             $this->first_access = true;
         }
-        $logfile_suffix = $GLOBALS['ih_logfile_suffix'];
+        $logfile_suffix = $ih_logfile_suffix;
 
         if (IS_ADMIN_FLAG === true) {
             $this->debug = (IH_DEBUG_ADMIN == 'true');
@@ -431,20 +434,21 @@ class ih_image
     //-NOTE: This function was (for versions prior to 5.0.1) present in /includes/functions/extra_functions/functions_bmz_io.php
     protected function getCacheName($data, $ext='') 
     {
+        global $bmzConf;
         switch (IH_CACHE_NAMING) {
             case 'Hashed':
             // Hash the name and place in directory using first character of hashed string
                 $md5 = md5($data);
-                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
+                $file = $bmzConf['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
                 break;
             case 'Mirrored':
             // Use readable file name and place in mirror of original directory
-                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . $data . $ext;
+                $file = $bmzConf['cachedir'] . '/' . $data . $ext;
                 break;
             case 'Readable':
             default:
             // Use readable file name and place directory using first character of $data
-                $file = $GLOBALS['bmzConf']['cachedir'] . '/' . substr($data, 0, 1) . '/' . $data . $ext;
+                $file = $bmzConf['cachedir'] . '/' . substr($data, 0, 1) . '/' . $data . $ext;
                 break;
             }
         io_makeFileDir($file);

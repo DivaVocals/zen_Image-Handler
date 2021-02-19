@@ -9,11 +9,13 @@
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: Author: DrByte  Wed Jan 6 12:47:43 2016 -0500 Modified in v1.5.5 $
+ * Last modified 2021-02-19-lat9 for IH5 GitHub#215.
  */
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_START');
+global $zco_notifier;
+$zco_notifier->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_START');
 
 if (!defined('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE')) define('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE','Yes');
 $images_array = array();
@@ -53,7 +55,7 @@ if ($products_image != '' && $flag_show_product_info_additional_images != 0) {
                 // $p2 ... (r/w) ... A boolean indicator, set to true by any observer to note that the image is "acceptable".
                 //
                 $current_image_match = false;
-                $GLOBALS['zco_notifier']->notify(
+                $zco_notifier->notify(
                     'NOTIFY_MODULES_ADDITIONAL_IMAGES_FILE_MATCH',
                     array(
                         'file' => $file,
@@ -84,7 +86,7 @@ if ($products_image != '' && $flag_show_product_info_additional_images != 0) {
     }
 }
 
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_LIST', null, $images_array);
+$zco_notifier->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_LIST', null, $images_array);
 
 
 // Build output based on images found
@@ -111,7 +113,7 @@ if ($num_images > 0) {
         // $p1 ... (r/o) ... The current product's name
         // $p2 ... (r/w) ... The (possibly updated) filename (including path) of the current additional image.
         //
-        $GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_IMAGES_GET_LARGE', $products_name, $products_image_large);
+        $zco_notifier->notify('NOTIFY_MODULES_ADDITIONAL_IMAGES_GET_LARGE', $products_name, $products_image_large);
 
         $flag_has_large = file_exists($products_image_large);
         $products_image_large = ($flag_has_large ? $products_image_large : $products_image_directory . $file);
@@ -126,7 +128,7 @@ if ($num_images > 0) {
         // $p1 ... (n/a) ... An empty array, not applicable.
         // $p2 ... (r/w) ... A reference to the "slashed" thumbnail image name.
         //
-        $GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_IMAGES_THUMB_SLASHES', array(), $thumb_slashes);
+        $zco_notifier->notify('NOTIFY_MODULES_ADDITIONAL_IMAGES_THUMB_SLASHES', array(), $thumb_slashes);
 
         $thumb_regular = zen_image($base_image, $products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);
         $large_link = zen_href_link(FILENAME_POPUP_IMAGE_ADDITIONAL, 'pID=' . $_GET['products_id'] . '&pic=' . $i . '&products_image_large_additional=' . $products_image_large);
@@ -145,7 +147,7 @@ if ($num_images > 0) {
         //
         $script_link = false;
         $link_parameters = 'class="additionalImages centeredContent back"' . ' ' . 'style="width:' . $col_width . '%;"';
-        $GLOBALS['zco_notifier']->notify(
+        $zco_notifier->notify(
             'NOTIFY_MODULES_ADDITIONAL_IMAGES_SCRIPT_LINK',
             array(
                 'flag_display_large' => $flag_display_large,
@@ -182,4 +184,4 @@ if ($num_images > 0) {
     } // end for loop
 } // endif
 
-$GLOBALS['zco_notifier']->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_END');
+$zco_notifier->notify('NOTIFY_MODULES_ADDITIONAL_PRODUCT_IMAGES_END');
