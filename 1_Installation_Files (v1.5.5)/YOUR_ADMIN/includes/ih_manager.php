@@ -27,7 +27,7 @@ if ($action == 'new_cat') {
 }
 
 // set categories and products if not set
-if ($products_filter == '' && $current_category_id != '') {
+if ($products_filter == '' && $current_category_id > 0) {
     $new_product_query = $db->Execute(
         "SELECT ptc.* FROM " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
             LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd 
