@@ -102,7 +102,6 @@ if ($action === 'ih_clear_cache') {
 <link rel="stylesheet" href="includes/stylesheet.css">
 <link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
 <style>
-<!--
 h1, h2, h3, h4, h5 {
  color: #000000;
  font-weight: bold;
@@ -156,7 +155,6 @@ div.managerbox {clear: both;}
 .preview-bb {border-bottom: 1px solid #CCCCCC;}
 .preview-br {border-right: 1px solid #CCCCCC;}
 .preview-check {border: 1px solid #000000; background:url(images/checkpattern.gif);}
--->
 </style>
 <script src="includes/menu.js"></script>
 <script src="includes/general.js"></script>
@@ -312,7 +310,7 @@ if ($ih_page === 'manager') {
 			</td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php
-        echo '<input type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'" />&nbsp;';
+        echo '<input type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'">&nbsp;';
 
         $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
         echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a>&nbsp;';
@@ -523,7 +521,7 @@ if ($ih_page === 'manager') {
                 $delete_link = '<br>';
                 $delete_link .= zen_draw_form("quick_del_$i", FILENAME_IMAGE_HANDLER, zen_get_all_get_params(['action']) . '&amp;action=quick_delete');
                 $delete_link .= zen_draw_hidden_field('qdFile', $image_file_large);
-                $delete_link .= '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />';
+                $delete_link .= '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '">';
                 $delete_link .= '</form>';
             }
 ?>
@@ -735,7 +733,7 @@ if ($ih_page === 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = [
                     'align' => 'center',
-                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
+                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-primary" value="' . IMAGE_SAVE . '">' . $hidden_vars
                 ];
                 break;
 
@@ -773,7 +771,7 @@ if ($ih_page === 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = [
                     'align' => 'center',
-                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
+                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '">'
                 ];
                 break;
 
