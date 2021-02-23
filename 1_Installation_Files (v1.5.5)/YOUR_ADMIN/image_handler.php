@@ -127,7 +127,7 @@ input[type="text"], input[type="submit"], input[type="file"], select {border: 1p
 
 #ih-head { float:left; padding: 8px 5px; }
 #ih-search { float: right; padding: 5px; }
-#ih-admin { background-color: #F5F5F5; border: solid #CCCCCC; border-width: 1px 0px; }
+#ih-admin { background-color: #F5F5F5; border: solid #CCCCCC; border-width: 1px 0; }
 
 #ih-p-buttons { padding-left: 5px; }
 #ih-p-buttons a img { margin-top: 5px; }
@@ -485,8 +485,8 @@ if ($ih_page === 'manager') {
 <?php
             $preview_image = $tmp_image_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
             list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
-            $width = min($width, intval(IMAGE_SHOPPING_CART_WIDTH));
-            $height = min($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
+            $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
+            $height = min($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
 ?>
                     <td class="dataTableContent ih-center ih-vtop"><?php echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br>' . $text_default_size; ?></td>
 <?php
@@ -497,8 +497,8 @@ if ($ih_page === 'manager') {
             } else {
                 $preview_image = $tmp_image_medium_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
                 list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
-                $width = min($width, intval(IMAGE_SHOPPING_CART_WIDTH));
-                $height = min($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
+                $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
+                $height = min($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
                 $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
                 $delete_link = '';
                 if (is_file($image_file_medium_full)) {
@@ -511,8 +511,8 @@ if ($ih_page === 'manager') {
 
             $preview_image = $tmp_image_large_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
             list($width, $height) = @getimagesize(DIR_FS_CATALOG . $preview_image);
-            $width = min($width, intval(IMAGE_SHOPPING_CART_WIDTH));
-            $height = min ($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
+            $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
+            $height = min ($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
             $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
             $delete_link = '';
             if (is_file($image_file_large_full)) {
@@ -807,20 +807,20 @@ if ($ih_page === 'manager') {
  */
 if ($ih_page === 'preview') {
       $images = [];
-      $pngimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.png', intval($ihConf['small']['width']), intval($ihConf['small']['height']));
-      $images['pngsource'] = $pngimage->get_resized_image(intval($ihConf['small']['width']), intval($ihConf['small']['height']), 'orig');
+      $pngimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.png', (int)$ihConf['small']['width'], (int)$ihConf['small']['height']);
+      $images['pngsource'] = $pngimage->get_resized_image((int)$ihConf['small']['width'], (int)$ihConf['small']['height'], 'orig');
       $images['pngsmall'] = $pngimage->get_resized_image($ihConf['small']['width'], $ihConf['small']['height'], 'small');
       $images['pngmedium'] = $pngimage->get_resized_image($ihConf['medium']['width'], $ihConf['medium']['height'], 'medium');
       $images['pnglarge'] = $pngimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
 
-      $jpgimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.jpg', intval($ihConf['small']['width']), intval($ihConf['small']['height']));
-      $images['jpgsource'] = $jpgimage->get_resized_image(intval($ihConf['small']['width']), intval($ihConf['small']['height']), 'orig');
+      $jpgimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.jpg', (int)$ihConf['small']['width'], (int)$ihConf['small']['height']);
+      $images['jpgsource'] = $jpgimage->get_resized_image((int)$ihConf['small']['width'], (int)$ihConf['small']['height'], 'orig');
       $images['jpgsmall'] = $jpgimage->get_resized_image($ihConf['small']['width'], $ihConf['small']['height'], 'small');
       $images['jpgmedium'] = $jpgimage->get_resized_image($ihConf['medium']['width'], $ihConf['medium']['height'], 'medium');
       $images['jpglarge'] = $jpgimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
 
-      $gifimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.gif', intval($ihConf['small']['width']), intval($ihConf['small']['height']));
-      $images['gifsource'] = $gifimage->get_resized_image(intval($ihConf['small']['width']), intval($ihConf['small']['height']), 'orig');
+      $gifimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.gif', (int)$ihConf['small']['width'], (int)$ihConf['small']['height']);
+      $images['gifsource'] = $gifimage->get_resized_image((int)$ihConf['small']['width'], (int)$ihConf['small']['height'], 'orig');
       $images['gifsmall'] = $gifimage->get_resized_image($ihConf['small']['width'], $ihConf['small']['height'], 'small');
       $images['gifmedium'] = $gifimage->get_resized_image($ihConf['medium']['width'], $ihConf['medium']['height'], 'medium');
       $images['giflarge'] = $gifimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
