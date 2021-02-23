@@ -16,10 +16,10 @@ if ($action == 'new_cat') {
     $current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
     $new_product_query = $db->Execute(
         "SELECT ptc.* FROM " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
-            LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd 
-                ON ptc.products_id = pd.products_id 
-               AND pd.language_id = " . (int)$_SESSION['languages_id'] . " 
-          WHERE ptc.categories_id = " . (int)$current_category_id . " 
+            LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                ON ptc.products_id = pd.products_id
+               AND pd.language_id = " . (int)$_SESSION['languages_id'] . "
+          WHERE ptc.categories_id = " . (int)$current_category_id . "
        ORDER BY pd.products_name"
     );
     $products_filter = ($new_product_query->EOF) ? null : $new_product_query->fields['products_id'];
@@ -30,10 +30,10 @@ if ($action == 'new_cat') {
 if ($products_filter == '' && $current_category_id > 0) {
     $new_product_query = $db->Execute(
         "SELECT ptc.* FROM " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
-            LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd 
-                ON ptc.products_id = pd.products_id 
-               AND pd.language_id = " . (int)$_SESSION['languages_id'] . " 
-          WHERE ptc.categories_id = " . (int)$current_category_id . " 
+            LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                ON ptc.products_id = pd.products_id
+               AND pd.language_id = " . (int)$_SESSION['languages_id'] . "
+          WHERE ptc.categories_id = " . (int)$current_category_id . "
        ORDER BY pd.products_name"
     );
     $products_filter = $new_product_query->fields['products_id'];
@@ -45,11 +45,11 @@ if ($products_filter == '' && $current_category_id > 0) {
         $reset_categories_id = zen_get_category_tree('', '', '0', '', '', true);
         $current_category_id = $reset_categories_id[0]['id'];
         $new_product_query = $db->Execute(
-            "SELECT ptc.* from " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc 
-                LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd 
-                    ON ptc.products_id = pd.products_id 
-                   AND pd.language_id = " . (int)$_SESSION['languages_id'] . " 
-              WHERE ptc.categories_id = " . (int)$current_category_id . " 
+            "SELECT ptc.* from " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
+                LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                    ON ptc.products_id = pd.products_id
+                   AND pd.language_id = " . (int)$_SESSION['languages_id'] . "
+              WHERE ptc.categories_id = " . (int)$current_category_id . "
            ORDER BY pd.products_name"
         );
         $products_filter = ($new_product_query->EOF) ? null : $new_product_query->fields['products_id'];
@@ -61,7 +61,7 @@ require DIR_WS_MODULES . FILENAME_PREV_NEXT;
 
 // -----
 // Note:  On entry, if a product has been selected, the main image_handler module has created the $products
-// variable, containing the database information associated with the selected product's image.  The 
+// variable, containing the database information associated with the selected product's image.  The
 // information in that array will be used to determine the product's base-name as well as its base
 // image directory.
 //
@@ -102,12 +102,12 @@ if ($action == 'save') {
     // Log the input values on entry, if debug is enabled.
     //
     $ih_admin->debugLog(
-        'ih_manager/save, on entry.' . PHP_EOL . 
-        '$_GET:' . PHP_EOL . var_export($_GET, true) . PHP_EOL . 
-        '$_POST:' . PHP_EOL . var_export($_POST, true) . PHP_EOL . 
+        'ih_manager/save, on entry.' . PHP_EOL .
+        '$_GET:' . PHP_EOL . var_export($_GET, true) . PHP_EOL .
+        '$_POST:' . PHP_EOL . var_export($_POST, true) . PHP_EOL .
         '$_FILES:' . PHP_EOL . var_export($_FILES, true)
     );
-    
+
     // -----
     // If the "saveType" wasn't supplied with the form, redirect back to the main IH
     // manager page without message (since it "shouldn't" happen).
@@ -115,7 +115,7 @@ if ($action == 'save') {
     if (empty($_POST['saveType'])) {
         zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER));
     }
-    
+
     // -----
     // Initialize some internal "handling" variables.
     //
@@ -128,12 +128,12 @@ if ($action == 'save') {
     $uploaded_default_extension = false;
     $uploaded_medium_extension = false;
     $uploaded_large_extension = false;
-        
+
     // -----
     // Verify that any uploaded images' file-extension is one of those 'allowed'.
     //
     $supported_extensions = $ih_admin->getSupportedFileExtensions();
-    
+
     // -----
     // If a default/base image was uploaded, make sure that its file-extension is 'allowed'.
     //
@@ -144,7 +144,7 @@ if ($action == 'save') {
             $data_ok = false;
         }
     }
-    
+
     // -----
     // If a medium or large image was uploaded, make sure that its file-extension is also 'allowed'.
     //
@@ -155,7 +155,7 @@ if ($action == 'save') {
             $data_ok = false;
         }
     }
-    
+
     if (!empty($_FILES['large_image']['name'])) {
         $uploaded_large_extension = '.' . pathinfo($_FILES['large_image']['name'], PATHINFO_EXTENSION);
         if (!$ih_admin->validateFileExtension($uploaded_large_extension)) {
@@ -163,7 +163,7 @@ if ($action == 'save') {
             $data_ok = false;
         }
     }
-    
+
     // -----
     // If any of the uploaded files' extensions were found to be 'invalid', simply return to the main
     // image_handler processing for display.
@@ -171,7 +171,7 @@ if ($action == 'save') {
     if (!$data_ok) {
         return;
     }
-    
+
     // -----
     // Otherwise, set some processing flags and gather information, based on the type of image being saved.
     //
@@ -187,7 +187,7 @@ if ($action == 'save') {
                 $data['imgSuffix'] = $_POST['imgSuffix'];
                 $data['imgBaseDir'] = $products_image_directory;
                 $is_main = ($_POST['imgSuffix'] == '');
-                
+
                 $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] == 'keep_name');
                 if ($is_main && !$keep_name) {
                     if (empty($_FILES['default_image']['name'])) {
@@ -203,7 +203,7 @@ if ($action == 'save') {
                 }
             }
             break;
-            
+
         // -----
         // Creating a new, main image.  There are additional variables passed in that version of the
         // data-gathering form.
@@ -241,7 +241,7 @@ if ($action == 'save') {
             }
             $data['imgSuffix'] = '';
             break;
-            
+
         // -----
         // Creating a new additional image for a product.  The image is created in the same directory
         // with the same name as the default/main image.
@@ -258,7 +258,7 @@ if ($action == 'save') {
                 $data['imgBaseDir'] = $products_image_directory;
                 $data['imgBase'] = $products_image_base;
                 $data['imgExtension'] = $uploaded_default_extension;
-                
+
                 if ($_POST['imgSuffix'] != '') {
                     $data['imgSuffix'] = '_' . $_POST['imgSuffix'];
                 } else {
@@ -267,14 +267,14 @@ if ($action == 'save') {
                     //
                     $matching_files = array();
                     $ih_admin->findAdditionalImages($matching_files, $data['imgBaseDir'], $data['imgBase']);
-                    
+
                     // -----
                     // Log the input values on entry, if debug is enabled.
                     //
                     $ih_admin->debugLog(
                         'ih_manager/save, additional images' . PHP_EOL . var_export($matching_files, true) . PHP_EOL . var_export($data, true)
                     );
-                    
+
                     // -----
                     // If no additional images exist, use the _01 suffix.
                     //
@@ -302,12 +302,12 @@ if ($action == 'save') {
                 }
             }
             break;
-            
+
         default:
             $data_ok = false;
             break;
     }
-    
+
     // -----
     // If the data supplied appears OK, perform a couple of pre-processing checks.
     //
@@ -319,7 +319,7 @@ if ($action == 'save') {
             $data['imgBase'] = str_replace('+', '-', $data['imgBase']);
             $messageStack->add(TEXT_MSG_AUTO_REPLACE . $data['imgBase'], 'warning');
         }
-        
+
         // -----
         // If the image's base-directory doesn't currently end in either a / or \, append a / to that value.
         //
@@ -358,8 +358,8 @@ if ($action == 'save') {
             $data_ok = false;
         } else {
             $db->Execute(
-                "UPDATE " . TABLE_PRODUCTS . " 
-                    SET products_image = '" . $db->prepare_input($data['defaultFileName']) . "' 
+                "UPDATE " . TABLE_PRODUCTS . "
+                    SET products_image = '" . $db->prepare_input($data['defaultFileName']) . "'
                   WHERE products_id = " . (int)$products_filter . "
                   LIMIT 1"
             );
@@ -373,7 +373,7 @@ if ($action == 'save') {
     //
     if ($data_ok) {
         $ih_admin->debugLog("images_directory: $images_directory, data: " . PHP_EOL . var_export($data, true));
-        
+
         // -----
         // The "base" image ...
         //
@@ -386,7 +386,7 @@ if ($action == 'save') {
                 $data_ok = false;
             }
         }
-        
+
         // -----
         // The "medium" image ...
         //
@@ -400,7 +400,7 @@ if ($action == 'save') {
                 $data_ok = false;
             }
         }
-        
+
         // -----
         // The "large" image ...
         //
@@ -413,7 +413,7 @@ if ($action == 'save') {
                 $messageStack->add(TEXT_MSG_NOUPLOAD_LARGE, 'error');
                 $data_ok = false;
             }
-        }  
+        }
     }
 
     if (!$data_ok) {
@@ -428,7 +428,7 @@ if ($action == 'save') {
         $redirect_parms .= '&amp;imgName=' . $data['imgBase'] . $data['imgSuffix'];
         $redirect_parms .= '&amp;imgSuffix=' . $data['imgSuffix'];
         $redirect_parms .= '&amp;imgExtension=' . $data['imgExtension'];
-        
+
         zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, $redirect_parms . '&amp;action=layout_info'));
     }
 }
@@ -472,7 +472,7 @@ if ($action == 'delete') {
                 $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_LARGE, $large_file), 'error');
             }
         }
-        
+
         $medium_file = $images_directory . 'medium/' . $base_name . IMAGE_SUFFIX_MEDIUM . $image_ext;
         if (is_file($medium_file)) {
             if (unlink($medium_file)) {
@@ -481,7 +481,7 @@ if ($action == 'delete') {
                 $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_MEDIUM, $medium), 'error');
             }
         }
-        
+
         $base_file = $images_directory . $base_name . $image_ext;
         if (!is_file($base_file)) {
             $messageStack->add_session(sprintf(TEXT_MSG_NO_DEFAULT_FILE_FOUND, $base_file), 'error');
@@ -497,8 +497,8 @@ if ($action == 'delete') {
     // update the database
     if (empty($_POST['imgSuffix'])) {
         $db->Execute(
-            "UPDATE " . TABLE_PRODUCTS . " 
-                SET products_image = '' 
+            "UPDATE " . TABLE_PRODUCTS . "
+                SET products_image = ''
               WHERE products_id = " . (int)$products_filter . "
               LIMIT 1"
         );
