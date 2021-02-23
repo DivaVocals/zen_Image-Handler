@@ -27,12 +27,12 @@ $ih_admin = new ImageHandlerAdmin();
 define('HEADING_TITLE', IH_HEADING_TITLE);
 define('HEADING_TITLE_PRODUCT_SELECT', IH_HEADING_TITLE_PRODUCT_SELECT);
 
-$ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : 'manager';
+$ih_page = $_GET['ih_page'] ?? 'manager';
 
-$action = (isset($_POST['action'])) ? $_POST['action'] : ((isset($_GET['action'])) ? $_GET['action'] : '');
+$action = $_POST['action'] ?? ($_GET['action'] ?? '');
 
-$products_filter = (isset($_GET['products_filter']) ? ((int)$_GET['products_filter']) : '');
-$current_category_id = (isset($_GET['current_category_id'])) ? ((int)$_GET['current_category_id']) : (isset($current_category_id) ? $current_category_id : '');
+$products_filter = isset($_GET['products_filter']) ? ((int)$_GET['products_filter']) : '';
+$current_category_id = isset($_GET['current_category_id']) ? (int)$_GET['current_category_id'] : $current_category_id ?? '';
 $currencies = new currencies();
 $import_info = null;
 
