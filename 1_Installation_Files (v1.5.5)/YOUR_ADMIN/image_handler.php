@@ -305,7 +305,11 @@ if ($ih_page === 'manager') {
 <?php
     if ($products_filter != '') { //prevent creation of empty Select
 ?>
-            <td class="ih-center"><?php echo zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true); ?></td>
+           <td class="ih-center"><?php
+            echo (function_exists('zen_draw_pulldown_products') //ZC158 changes function name
+                ? zen_draw_pulldown_products('products_filter', 'size="5"', '', true, $products_filter, true, true)
+                : zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true)); ?>
+			</td>
             <td id="ih-p-buttons" class="ih-center ih-vtop">
 <?php
         echo '<input type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'" />&nbsp;';
