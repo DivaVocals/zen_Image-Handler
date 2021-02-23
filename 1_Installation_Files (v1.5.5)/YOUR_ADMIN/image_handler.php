@@ -41,7 +41,7 @@ $import_info = null;
 // products_previous_next_display module, redirect back to identify that product
 // for follow-on processing.
 //
-if ($action == 'set_products_filter') {
+if ($action === 'set_products_filter') {
     zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . (int)$_POST['products_filter']));
 }
 
@@ -69,7 +69,7 @@ if ($products_filter != '') {
     if ($product->fields['products_image'] != '') {
         $image_info = pathinfo($product->fields['products_image']);
         $products_image_directory = $image_info['dirname'];
-        if ($products_image_directory != '.') {
+        if ($products_image_directory !== '.') {
             $products_image_directory .= '/';
         } else {
             $products_image_directory = '';
@@ -82,11 +82,11 @@ if ($products_filter != '') {
 // -----
 // For the 'manager' sub-page, all action-processing is handled by a separate module.
 //
-if ($ih_page == 'manager') {
+if ($ih_page === 'manager') {
     require DIR_WS_INCLUDES . 'ih_manager.php';
 }
 
-if ($action == 'ih_clear_cache') {
+if ($action === 'ih_clear_cache') {
     $error = bmz_clear_cache();
     if (!$error) {
         zen_record_admin_activity(IH_CACHE_CLEARED, 'info');
@@ -195,7 +195,7 @@ if (defined('IH_VERSION')) {
 ?>
     </div>
 <?php
-if ($ih_page == 'manager') {
+if ($ih_page === 'manager') {
     // SEARCH DIALOG BOX
     //-----
     // The category/product listing page changed in zc156, detect the current Zen Cart
@@ -213,16 +213,16 @@ if ($ih_page == 'manager') {
 <div class="clearBoth"></div>
 
 <ul id="ih-admin">
-    <li class="page-links <?php echo ($ih_page == 'manager') ? 'page-current' : ''; ?>">
+    <li class="page-links <?php echo ($ih_page === 'manager') ? 'page-current' : ''; ?>">
         <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager') ?>"><?php echo IH_MENU_MANAGER; ?></a>
     </li>
-    <li class="page-links <?php echo ($ih_page == 'admin') ? 'page-current' : ''; ?>">
+    <li class="page-links <?php echo ($ih_page === 'admin') ? 'page-current' : ''; ?>">
         <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=admin') ?>"><?php echo IH_MENU_ADMIN; ?></a>
     </li>
-    <li class="page-links <?php echo ($ih_page == 'preview') ? 'page-current' : ''; ?>">
+    <li class="page-links <?php echo ($ih_page === 'preview') ? 'page-current' : ''; ?>">
         <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=preview') ?>"><?php echo IH_MENU_PREVIEW; ?></a>
     </li>
-    <li class="page-links <?php echo ($ih_page == 'about') ? 'page-current' : ''; ?>">
+    <li class="page-links <?php echo ($ih_page === 'about') ? 'page-current' : ''; ?>">
         <a href="<?php echo zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=about') ?>"><?php echo IH_MENU_ABOUT; ?></a>
     </li>
 </ul>
@@ -233,7 +233,7 @@ if ($ih_page == 'manager') {
  * ADMIN TABPAGE INITIALIZATION
  */
 $ih_admin_actions = [];
-if ($ih_page == 'admin') {
+if ($ih_page === 'admin') {
     $ih_admin_actions['ih_uninstall'] = IH_REMOVE;
     $ih_admin_actions['ih_view_config'] = IH_VIEW_CONFIGURATION;
     $ih_admin_actions['ih_clear_cache'] = IH_CLEAR_CACHE;
@@ -242,14 +242,14 @@ if ($ih_page == 'admin') {
 if (count($ih_admin_actions) > 0) {
     echo '<ul>';
     foreach ($ih_admin_actions as $action_name => $link_name) {
-        if ($action_name == 'ih_uninstall') {
+        if ($action_name === 'ih_uninstall') {
             // -----
             // Include the "uninstall" page in the menu only if the admin is currently authorized.
             //
             if (zen_is_superuser() || check_page(FILENAME_IMAGE_HANDLER_UNINSTALL, '')) {
                 echo '<li><a href="' . zen_href_link(FILENAME_IMAGE_HANDLER_UNINSTALL) . '">' . $link_name . '</a></li>';
             }
-        } elseif ($action_name == 'ih_view_config') {
+        } elseif ($action_name === 'ih_view_config') {
             // -----
             // Include the "View Configuration" page in the menu only if the admin is currently authorized.
             //
@@ -266,7 +266,7 @@ if (count($ih_admin_actions) > 0) {
 /** -----------------------------------------------------
  * MANAGER TABPAGE
  */
-if ($ih_page == 'manager') {
+if ($ih_page === 'manager') {
     // -----
     // Set the current page, used by the previous/next display module.
     //
@@ -365,7 +365,7 @@ if ($ih_page == 'manager') {
         }
         if ($pInfo->products_image != '') {
             $image_info = pathinfo($pInfo->products_image);
-            $dirname = ($image_info['dirname'] == '.') ? '' : $image_info['dirname'];
+            $dirname = ($image_info['dirname'] === '.') ? '' : $image_info['dirname'];
 ?>
         <tr>
             <td><?php echo TEXT_IMAGE_BASE_DIR; ?></td>
@@ -390,7 +390,7 @@ if ($ih_page == 'manager') {
                 </tr>
 <?php
         $count = count($products_image_match_array);
-        $no_images = ($count == 0);
+        $no_images = ($count === 0);
         if ($no_images) {
 ?>
                 <tr>
@@ -648,7 +648,7 @@ if ($ih_page == 'manager') {
                     $dir = @dir(DIR_FS_CATALOG_IMAGES);
                     $dir_info[] = ['id' => '', 'text' => TEXT_INFO_MAIN_DIR];
                     while ($file = $dir->read()) {
-                        if (is_dir(DIR_FS_CATALOG_IMAGES . $file) && strtoupper($file) != 'CVS' && !in_array($file, $no_show_dirs)) {
+                        if (is_dir(DIR_FS_CATALOG_IMAGES . $file) && strtoupper($file) !== 'CVS' && !in_array($file, $no_show_dirs)) {
                             $dir_info[] = ['id' => $file . '/', 'text' => $file];
                         }
                     }
@@ -696,7 +696,7 @@ if ($ih_page == 'manager') {
                 $file_parms = 'accept="' . $accept . '"';
 
                 // Image fields
-                $base_image_note = ($action == 'layout_new') ? '&nbsp;&nbsp;<strong class="errorText">(required)</strong>' : '';
+                $base_image_note = ($action === 'layout_new') ? '&nbsp;&nbsp;<strong class="errorText">(required)</strong>' : '';
                 $contents[] = [
                     'text' => '<br><strong>' . TEXT_INFO_DEFAULT_IMAGE . '</strong>' . $base_image_note . '<br>'
                         . TEXT_INFO_DEFAULT_IMAGE_HELP . '<br>'
@@ -788,7 +788,7 @@ if ($ih_page == 'manager') {
         }
 
         if (zen_not_null($heading) && zen_not_null($contents)) {
-            $box = new box;
+            $box = new box();
 ?>
             <td style="width:25%" class="ih-vtop"><?php echo $box->infoBox($heading, $contents); ?></td>
 <?php
@@ -805,7 +805,7 @@ if ($ih_page == 'manager') {
 /** ------------------------------------
  * PREVIEW TABPAGE
  */
-if ($ih_page == 'preview') {
+if ($ih_page === 'preview') {
       $images = [];
       $pngimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.png', intval($ihConf['small']['width']), intval($ihConf['small']['height']));
       $images['pngsource'] = $pngimage->get_resized_image(intval($ihConf['small']['width']), intval($ihConf['small']['height']), 'orig');
@@ -862,7 +862,7 @@ if ($ih_page == 'preview') {
  * ABOUT TABPAGE
  */
 
-if ($ih_page == 'about') {
+if ($ih_page === 'about') {
     if (file_exists(DIR_WS_LANGUAGES . $_SESSION['language'] . '/image_handler_about.php')) {
         include DIR_WS_LANGUAGES . $_SESSION['language'] . '/image_handler_about.php';
     } elseif (file_exists(DIR_WS_LANGUAGES . 'english/image_handler_about.php')) {
