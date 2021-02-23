@@ -49,7 +49,7 @@ if ($action === 'set_products_filter') {
 // Make sure that the 'products_filter', if set, is associated with a defined product; if not
 // redirect back to the main entry page without message.
 //
-if ($products_filter != '') {
+if ($products_filter !== '') {
     $product = $db->Execute(
         "SELECT p.products_id, p.products_model, p.products_image,
                 p.product_is_free, p.product_is_call, p.products_quantity_mixed, p.products_priced_by_attribute, p.products_status,
@@ -66,7 +66,7 @@ if ($products_filter != '') {
         zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER));
     }
 
-    if ($product->fields['products_image'] != '') {
+    if ($product->fields['products_image'] !== '') {
         $image_info = pathinfo($product->fields['products_image']);
         $products_image_directory = $image_info['dirname'];
         if ($products_image_directory !== '.') {
@@ -294,7 +294,7 @@ if ($ih_page === 'manager') {
     }
     //------  Nigel --End ugly hack
 // FIX HERE
-    if ($products_filter != '') {
+    if ($products_filter !== '') {
         $display_priced_by_attributes = zen_get_products_price_is_priced_by_attributes($products_filter);
         echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br>' : '');
         echo zen_get_products_display_price($products_filter) . '<br><br>';
@@ -303,7 +303,7 @@ if ($ih_page === 'manager') {
 ?>
             </td>
 <?php
-    if ($products_filter != '') { //prevent creation of empty Select
+    if ($products_filter !== '') { //prevent creation of empty Select
 ?>
            <td class="ih-center"><?php
             echo (function_exists('zen_draw_pulldown_products') //ZC158 changes function name
@@ -348,7 +348,7 @@ if ($ih_page === 'manager') {
         //
         $no_images = true;
         $products_image_match_array = [];
-        if ($pInfo->products_image != '') {
+        if ($pInfo->products_image !== '') {
             $ih_admin->findAdditionalImages($products_image_match_array, $products_image_directory, $products_image_base);
         }
 ?>
@@ -359,7 +359,7 @@ if ($ih_page === 'manager') {
 
         </tr>
 <?php
-        if ($pInfo->products_model != '') {
+        if ($pInfo->products_model !== '') {
 ?>
         <tr>
             <td><?php echo TEXT_PRODUCTS_MODEL; ?></td>
@@ -367,7 +367,7 @@ if ($ih_page === 'manager') {
         </tr>
 <?php
         }
-        if ($pInfo->products_image != '') {
+        if ($pInfo->products_image !== '') {
             $image_info = pathinfo($pInfo->products_image);
             $dirname = ($image_info['dirname'] === '.') ? '' : $image_info['dirname'];
 ?>
@@ -401,7 +401,7 @@ if ($ih_page === 'manager') {
                      <td colspan="6" class="dataTableContent ih-center"><?php echo TEXT_NO_PRODUCT_IMAGES; ?></td>
                 </tr>
 <?php
-        } elseif ($action == '') {
+        } elseif ($action === '') {
             $action = 'layout_info';
         }
 
@@ -464,7 +464,7 @@ if ($ih_page === 'manager') {
             // -----
             // If this is the selected image, highlight it and save its name for use in the sidebar form handling.
             //
-            if ((isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name) || (!isset($_GET['imgName']) && $main_image)) {
+            if ((isset($_GET['imgName']) && $_GET['imgName'] === $tmp_image_name) || (!isset($_GET['imgName']) && $main_image)) {
 ?>
                 <tr id="defaultSelected" class="dataTableRowSelected" onclick="document.location.href='<?php echo $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_edit', $parms); ?>'">
 <?php
@@ -484,7 +484,7 @@ if ($ih_page === 'manager') {
             }
 ?>
                     <td class="dataTableContent"><?php echo $tmp_image_name; ?></td>
-                    <td class="dataTableContent"<?php echo ($products_image_extension != $tmp_image_extension) ? ' style="color:red;"' : ''; ?>><?php echo $tmp_image_extension; ?></td>
+                    <td class="dataTableContent"<?php echo ($products_image_extension !== $tmp_image_extension ? ' style="color:red;"' : ''); ?>><?php echo $tmp_image_extension; ?></td>
                     <td class="dataTableContent ih-center"><?php echo $text_base_size; ?></td>
 <?php
             $preview_image = $tmp_image_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
@@ -530,7 +530,7 @@ if ($ih_page === 'manager') {
                     <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br>' . $text_large_size . $delete_link; ?></td>
                     <td class="dataTableContent ih-right">
 <?php
-            if ((isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name) || (!isset($_GET['imgName']) && $main_image)) {
+            if ((isset($_GET['imgName']) && $_GET['imgName'] === $tmp_image_name) || (!isset($_GET['imgName']) && $main_image)) {
                 echo zen_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', '');
             } else {
                 echo ' <a href="' . $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_info', $parms) . '">' . zen_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>';
@@ -599,7 +599,7 @@ if ($ih_page === 'manager') {
                 $delete_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_delete', $selected_parms);
                 $delete_button = '<a href="' . $delete_link . '" class="btn btn-danger">' . IMAGE_DELETE . '</a> &nbsp;';
 
-                if ($products_image_extension == $selected_image_extension) {
+                if ($products_image_extension === $selected_image_extension) {
                     $edit_link = $ih_admin->imageHandlerHrefLink($selected_image_name, $products_filter, 'layout_edit', $selected_parms);
                     $edit_button = '<a href="' . $edit_link . '" class="btn btn-warning">' . IH_IMAGE_EDIT . '</a> &nbsp; ';
                 }
@@ -716,7 +716,7 @@ if ($ih_page === 'manager') {
                     }
                 }
 
-                if (($editing && $selected_image_suffix == '') || (!$editing && $no_images)) {
+                if (($editing && $selected_image_suffix === '') || (!$editing && $no_images)) {
                     $contents[] = [
                         'text' => '<br><strong>' . TEXT_MEDIUM_FILE_IMAGE . '</strong><br>' . zen_draw_input_field('medium_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br>'
                     ];
@@ -763,7 +763,7 @@ if ($ih_page === 'manager') {
                 $contents[] = [
                     'text' => '<br>' . TEXT_INFO_CONFIRM_DELETE_SURE
                 ];
-                if ($selected_image_suffix == '') {
+                if ($selected_image_suffix === '') {
                     $contents[] = [
                         'text' => zen_draw_checkbox_field('delete_from_db_only', 'Y', false) . IH_DELETE_FROM_DB_ONLY
                     ];
