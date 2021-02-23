@@ -171,6 +171,7 @@ $config_values = [
 <?php
 foreach ($config_values['configuration'] as $config_name => $config_options) {
     $entry_error = false;
+    $config_link = $entry_title = $entry_message = '';
     if (!defined($config_name)) {
         $entry_value = 'not defined';
         $entry_error = true;
@@ -298,7 +299,7 @@ foreach ($config_values['ihConf'] as $key => $values) {
     }
 
     $entry_value = ($entry_value === true) ? 'true' : (($entry_value === false) ? 'false' : $entry_value);
-    if ($entry_message != '&nbsp;') {
+    if ($entry_message !== '&nbsp;') {
         $entry_message = "($entry_message)";
     }
 ?>
@@ -348,7 +349,7 @@ foreach ($config_values['ihConf'] as $key => $values) {
                 default:
                     break;
             }
-            if ($entry_message != '&nbsp;') {
+            if ($entry_message !== '&nbsp;') {
                 $entry_message = "($entry_message)";
             }
 ?>
