@@ -188,9 +188,9 @@ div.managerbox {clear: both;}
         <h1><?php echo HEADING_TITLE; ?></h1>
 <?php
 if (defined('IH_VERSION')) {
-    echo IH_VERSION_VERSION . ':&nbsp;' . IH_VERSION . '<br />';
+    echo IH_VERSION_VERSION . ':&nbsp;' . IH_VERSION . '<br>';
 } else {
-    echo IH_VERSION_NOT_FOUND . '<br />';
+    echo IH_VERSION_NOT_FOUND . '<br>';
 }
 ?>
     </div>
@@ -296,8 +296,8 @@ if ($ih_page == 'manager') {
 // FIX HERE
     if ($products_filter != '') {
         $display_priced_by_attributes = zen_get_products_price_is_priced_by_attributes($products_filter);
-        echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br />' : '');
-        echo zen_get_products_display_price($products_filter) . '<br /><br />';
+        echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br>' : '');
+        echo zen_get_products_display_price($products_filter) . '<br><br>';
         echo zen_get_products_quantity_min_units_display($products_filter, $include_break = true);
     }
 ?>
@@ -488,7 +488,7 @@ if ($ih_page == 'manager') {
             $width = min($width, intval(IMAGE_SHOPPING_CART_WIDTH));
             $height = min($height, intval(IMAGE_SHOPPING_CART_HEIGHT));
 ?>
-                    <td class="dataTableContent ih-center ih-vtop"><?php echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br />' . $text_default_size; ?></td>
+                    <td class="dataTableContent ih-center ih-vtop"><?php echo zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height) . '<br>' . $text_default_size; ?></td>
 <?php
             if (!$main_image) {
 ?>
@@ -502,10 +502,10 @@ if ($ih_page == 'manager') {
                 $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
                 $delete_link = '';
                 if (is_file($image_file_medium_full)) {
-                    $delete_link = '<br /><a href="' . $ih_admin->imageHandlerHrefLink($image_file_medium, $products_filter, 'quick_delete') . '" class="btn btn-danger">' .  IMAGE_DELETE . '</a>';
+                    $delete_link = '<br><a href="' . $ih_admin->imageHandlerHrefLink($image_file_medium, $products_filter, 'quick_delete') . '" class="btn btn-danger">' .  IMAGE_DELETE . '</a>';
                 }
 ?>
-                    <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br />' . $text_medium_size . $delete_link; ?></td>
+                    <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br>' . $text_medium_size . $delete_link; ?></td>
 <?php
             }
 
@@ -516,14 +516,14 @@ if ($ih_page == 'manager') {
             $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
             $delete_link = '';
             if (is_file($image_file_large_full)) {
-                $delete_link = '<br />';
+                $delete_link = '<br>';
                 $delete_link .= zen_draw_form("quick_del_$i", FILENAME_IMAGE_HANDLER, zen_get_all_get_params(['action']) . '&amp;action=quick_delete');
                 $delete_link .= zen_draw_hidden_field('qdFile', $image_file_large);
                 $delete_link .= '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />';
                 $delete_link .= '</form>';
             }
 ?>
-                    <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br />' . $text_large_size . $delete_link; ?></td>
+                    <td class="dataTableContent ih-center ih-vtop"><?php echo $the_image . '<br>' . $text_large_size . $delete_link; ?></td>
                     <td class="dataTableContent ih-right">
 <?php
             if ((isset($_GET['imgName']) && $_GET['imgName'] == $tmp_image_name) || (!isset($_GET['imgName']) && $main_image)) {
@@ -564,17 +564,17 @@ if ($ih_page == 'manager') {
                     'form' => zen_draw_form('image_define', FILENAME_IMAGE_HANDLER, "$form_parameters&amp;action=save", 'post', 'enctype="multipart/form-data"')
                 ];
                 $contents[] = [
-                    'text' => '<strong>' . TEXT_INFO_NAME. ': </strong>' . $selected_image_name . '<br />'
+                    'text' => '<strong>' . TEXT_INFO_NAME. ': </strong>' . $selected_image_name . '<br>'
                 ];
                 $contents[] = [
-                    'text' => '<strong>' . TEXT_INFO_FILE_TYPE . ': </strong>' . $selected_image_extension . '<br />'
+                    'text' => '<strong>' . TEXT_INFO_FILE_TYPE . ': </strong>' . $selected_image_extension . '<br>'
                 ];
                 $contents[] = [
                     'text' =>
                         '<script><!--
                             document.write(\'<a href="javascript:popupWindow(\\\'' . $selected_image_link . '\\\')">'
                             . zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height)
-                            . '<br />' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
+                            . '<br>' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
                             . '//-->'
                         . '</script>
                         <noscript>'
@@ -601,7 +601,7 @@ if ($ih_page == 'manager') {
                 }
                 $contents[] = [
                     'align' => 'center',
-                    'text' => "<br />$edit_button$delete_button"
+                    'text' => "<br>$edit_button$delete_button"
                 ];
                 break;
 
@@ -632,7 +632,7 @@ if ($ih_page == 'manager') {
                 // check if this is a master image or if no images exist
                 if ($no_images) {
                     $contents[] = [
-                        'text' => '<strong>' . TEXT_INFO_IMAGE_BASE_NAME . '</strong><br />'
+                        'text' => '<strong>' . TEXT_INFO_IMAGE_BASE_NAME . '</strong><br>'
                     ];
                     $contents[] = [
                         'text' => zen_draw_input_field('imgBase', '', 'size="30"')
@@ -653,7 +653,7 @@ if ($ih_page == 'manager') {
                         }
                     }
                     $contents[] = [
-                        'text' => '<br /><strong>' . TEXT_INFO_BASE_DIR . '</strong><br />' . TEXT_INFO_NEW_DIR
+                        'text' => '<br><strong>' . TEXT_INFO_BASE_DIR . '</strong><br>' . TEXT_INFO_NEW_DIR
                     ];
                     $contents[] = [
                         'text' => '<strong>' . TEXT_INFO_IMAGE_DIR . '</strong>' . zen_draw_pull_down_menu('imgBaseDir', $dir_info, "")
@@ -663,7 +663,7 @@ if ($ih_page == 'manager') {
                     ];
                 } elseif (!$editing) {
                     $contents[] = [
-                        'text' => '<strong>' . TEXT_INFO_IMAGE_SUFFIX . '</strong><br />' . TEXT_INFO_USE_AUTO_SUFFIX . '<br />'
+                        'text' => '<strong>' . TEXT_INFO_IMAGE_SUFFIX . '</strong><br>' . TEXT_INFO_USE_AUTO_SUFFIX . '<br>'
                     ];
                     $contents[] = [
                         'text' => zen_draw_input_field('imgSuffix', $selected_image_suffix, 'size="10"')
@@ -698,15 +698,15 @@ if ($ih_page == 'manager') {
                 // Image fields
                 $base_image_note = ($action == 'layout_new') ? '&nbsp;&nbsp;<strong class="errorText">(required)</strong>' : '';
                 $contents[] = [
-                    'text' => '<br /><strong>' . TEXT_INFO_DEFAULT_IMAGE . '</strong>' . $base_image_note . '<br />'
-                        . TEXT_INFO_DEFAULT_IMAGE_HELP . '<br />'
-                        . zen_draw_input_field('default_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />' . $selected_image_name . $selected_image_extension
+                    'text' => '<br><strong>' . TEXT_INFO_DEFAULT_IMAGE . '</strong>' . $base_image_note . '<br>'
+                        . TEXT_INFO_DEFAULT_IMAGE_HELP . '<br>'
+                        . zen_draw_input_field('default_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br>' . $selected_image_name . $selected_image_extension
                 ];
 
                 if ($editing) {
                     if ($selected_is_main) {
                         $contents[] = [
-                            'text' => zen_draw_radio_field('imgNaming', 'new_discard', false) . IH_NEW_NAME_DISCARD_IMAGES . '<br />'
+                            'text' => zen_draw_radio_field('imgNaming', 'new_discard', false) . IH_NEW_NAME_DISCARD_IMAGES . '<br>'
                                 . zen_draw_radio_field('imgNaming', 'keep_name', true) . IH_KEEP_NAME
                         ];
                     }
@@ -714,12 +714,12 @@ if ($ih_page == 'manager') {
 
                 if (($editing && $selected_image_suffix == '') || (!$editing && $no_images)) {
                     $contents[] = [
-                        'text' => '<br /><strong>' . TEXT_MEDIUM_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('medium_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />'
+                        'text' => '<br><strong>' . TEXT_MEDIUM_FILE_IMAGE . '</strong><br>' . zen_draw_input_field('medium_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br>'
                     ];
                 }
 
                 $contents[] = [
-                    'text' => '<br /><strong>' . TEXT_LARGE_FILE_IMAGE . '</strong><br />' . zen_draw_input_field('large_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br />'
+                    'text' => '<br><strong>' . TEXT_LARGE_FILE_IMAGE . '</strong><br>' . zen_draw_input_field('large_image', '', 'size="20" ' . $file_parms, false, 'file') . '<br>'
                 ];
 
 
@@ -731,7 +731,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = [
                     'align' => 'center',
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
+                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-primary" value="' . IMAGE_SAVE . '" />' . $hidden_vars
                 ];
                 break;
 
@@ -754,10 +754,10 @@ if ($ih_page == 'manager') {
                     'form' => zen_draw_form('image_delete', FILENAME_IMAGE_HANDLER, $page_parameters) . $hidden_vars
                 ];
                 $contents[] = [
-                    'text' => '<br />' . $products_image_directory . $products_image_base . $selected_image_suffix . $selected_image_extension
+                    'text' => '<br>' . $products_image_directory . $products_image_base . $selected_image_suffix . $selected_image_extension
                 ];
                 $contents[] = [
-                    'text' => '<br />' . TEXT_INFO_CONFIRM_DELETE_SURE
+                    'text' => '<br>' . TEXT_INFO_CONFIRM_DELETE_SURE
                 ];
                 if ($selected_image_suffix == '') {
                     $contents[] = [
@@ -769,7 +769,7 @@ if ($ih_page == 'manager') {
                 $cancel_button = '<a href="' . $cancel_button_link . '" class="btn btn-warning">' . IMAGE_CANCEL . '</a>';
                 $contents[] = [
                     'align' => 'center',
-                    'text' => '<br />' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
+                    'text' => '<br>' . $cancel_button . '&nbsp;' . '<input type="submit" class="btn btn-danger" value ="' . IMAGE_DELETE . '" />'
                 ];
                 break;
 
@@ -782,7 +782,7 @@ if ($ih_page == 'manager') {
                     'text' => '<strong>' . TEXT_INFO_SELECT_ACTION . '</strong>'
                 ];
                 $contents[] = [
-                    'text' => '<br />' . (($no_images) ? TEXT_INFO_CLICK_TO_ADD_MAIN : TEXT_INFO_CLICK_TO_ADD_ADDL)
+                    'text' => '<br>' . (($no_images) ? TEXT_INFO_CLICK_TO_ADD_MAIN : TEXT_INFO_CLICK_TO_ADD_ADDL)
                 ];
                 break;
         }
