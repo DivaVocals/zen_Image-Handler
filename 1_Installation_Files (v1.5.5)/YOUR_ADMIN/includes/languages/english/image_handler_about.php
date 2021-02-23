@@ -15,7 +15,7 @@
         <p>Image Handler<sup>5</sup>, at the heart of its code, is really meant to ease the management of product images (particularly the management of additional product images), and to help improve page performance by optimizing the product images.</p>
         <p>IH<sup>5</sup> generates product images (based on your image settings) in your store's <code>/bmz_cache</code> folder. It <strong>does not</strong> replace or modify the original images, so it's <em>perfectly</em> safe to use on an existing store.</p>
         <p>The plugin enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on-the-fly/on page request. You can simply upload just one large image (that gets resized as required) or you can have different sources for medium and large images. You can also watermark your images on-the-fly (overlay a second specific translucent image onto the original) and have medium or large images pop up when you move your mouse over a small image (fancy hover).</p>
-        <p>This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via <acronym title="File Transfer Protocol">FTP</acronym>. IH<sup>5</sup> works fine with mass update utilities like EZ-Populate and the Database I/O Manager.</p>
+        <p>This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via <span title="File Transfer Protocol">FTP</span>. IH<sup>5</sup> works fine with mass update utilities like EZ-Populate and the Database I/O Manager.</p>
     </fieldset>
     <hr />
     <fieldset>
@@ -50,7 +50,7 @@
           <li>Make sure your file merge edits are correct</li>
           <li>MAKE SURE YOU RE-READ THE CONFIGURATION AND USAGE SECTIONS!!!</li>
           <li>Make sure that there are no javascript conflicts (this last point has been largely addressed since Rev 7)</li>
-          <li>Make sure that your main product image files names DO NOT contain any special characters (<font>non-alphanumeric characters such as / \ : ! @ # $ % ^ &lt; &gt; , [ ] { } &amp; * ( ) + = </font>). Always use proper filenaming practices when naming your images.</li>
+          <li>Make sure that your main product image files names DO NOT contain any special characters (non-alphanumeric characters such as <b>/ \ : ! @ # $ % ^ &lt; &gt; , [ ] { } &amp; * ( ) + = </b>). Always use proper filenaming practices when naming your images.</li>
         </ul>
     </fieldset>
 
