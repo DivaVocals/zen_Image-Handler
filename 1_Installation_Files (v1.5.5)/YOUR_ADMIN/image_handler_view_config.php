@@ -17,12 +17,11 @@ $ih_admin = new ImageHandlerAdmin();
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta charset=<?php echo CHARSET; ?>">
+<meta charset="<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<style type="text/css">
-<!--
+<link rel="stylesheet" href="includes/stylesheet.css">
+<link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
+<style>
 th, td { padding: 0.5em; }
 #ih-main { float: left; }
 #ih-conf::after { clear: both; }
@@ -31,12 +30,10 @@ th, td { padding: 0.5em; }
 .ih-sub { text-align: right; }
 tr.ih-error td:last-child { color: red; font-weight: bold; }
 tr span { font-size: smaller; }
--->
 </style>
 <script src="includes/menu.js"></script>
 <script src="includes/general.js"></script>
 <script>
-<!--
 function init()
 {
     cssjsmenu('navbar');
@@ -45,12 +42,11 @@ function init()
         kill.disabled = true;
     }
 }
-// -->
 </script>
 </head>
 <body onload="init();">
 <!-- header //-->
-<?php 
+<?php
 require DIR_WS_INCLUDES . 'header.php';
 
 // -----
@@ -161,7 +157,7 @@ $config_values = array(
                 'gravity' => array('check' => CHECK_NONE),
             ),
         ),
-    )   
+    )
 );
 ?>
 <!-- header_eof //-->
@@ -300,7 +296,7 @@ foreach ($config_values['ihConf'] as $key => $values) {
                 break;
         }
     }
-    
+
     $entry_value = ($entry_value === true) ? 'true' : (($entry_value === false) ? 'false' : $entry_value);
     if ($entry_message != '&nbsp;') {
         $entry_message = "($entry_message)";
@@ -368,11 +364,11 @@ foreach ($config_values['ihConf'] as $key => $values) {
 </table>
 <!-- body_eof //-->
 <!-- footer //-->
-<?php 
-require DIR_WS_INCLUDES . 'footer.php'; 
+<?php
+require DIR_WS_INCLUDES . 'footer.php';
 ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<?php 
+<?php
 require DIR_WS_INCLUDES . 'application_bottom.php';

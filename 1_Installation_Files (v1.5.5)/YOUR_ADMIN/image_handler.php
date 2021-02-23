@@ -99,9 +99,9 @@ if ($action == 'ih_clear_cache') {
 <head>
 <meta charset="<?php echo CHARSET; ?>">
 <title><?php echo TITLE . ' - '. ICON_IMAGE_HANDLER; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<style type="text/css">
+<link rel="stylesheet" href="includes/stylesheet.css">
+<link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
+<style>
 <!--
 h1, h2, h3, h4, h5 {
  color: #000000;
@@ -161,7 +161,6 @@ div.managerbox {clear: both;}
 <script src="includes/menu.js"></script>
 <script src="includes/general.js"></script>
 <script>
-  <!--
   function init()
   {
     cssjsmenu('navbar');
@@ -171,12 +170,10 @@ div.managerbox {clear: both;}
       kill.disabled = true;
     }
   }
-
    function popupWindow(url) {
        window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=600,height=460,screenX=150,screenY=150,top=150,left=150')
    }
 
-  // -->
 </script>
 </head>
 <body onload="init();">
@@ -275,19 +272,21 @@ if ($ih_page == 'manager') {
     //
     $curr_page = FILENAME_IMAGE_HANDLER;
 ?>
-    <table class="table" summary="Products Previous Next Display"><?php require DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY; ?></table>
+    <div class="row">
+            <?php require(DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY); ?>
+    </div>
 <?php
     echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
     echo zen_draw_hidden_field('products_filter', $products_filter);
 ?>
-    <table summary="Manager Table" border="0" cellspacing="0" cellpadding="2">
+    <table>
         <tr>
-            <td class="main ih-vtop" width="200" align="left">&nbsp;</td>
+            <td class="main ih-vtop">&nbsp;</td>
             <td colspan="2" class="main"><?php if (isset($_POST['products_filter'])) echo TEXT_PRODUCT_TO_VIEW; ?></td>
         </tr>
 
         <tr>
-            <td class="main ih-center ih-vtop" width="200">
+            <td class="main ih-center ih-vtop">
 <?php
     //----- Nigel - Another ugly hack - probably need to clean up the attributes section - not really sure why the attributes section matters to IH - ask Diva
     if (isset($_POST['products_filter'])) {
@@ -326,7 +325,7 @@ if ($ih_page == 'manager') {
     }
 ?>
         </tr>
-    </table></form>
+    </table><?php echo '</form>'; ?>
 
     <div class="managerbox">
 <!-- Start Photo Display -->
@@ -376,10 +375,10 @@ if ($ih_page == 'manager') {
         }
 ?>
     </table>
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table style="width:100%">
         <caption class="ih-center"><?php echo TEXT_TABLE_CAPTION_INSTRUCTIONS; ?></caption>
         <tr>
-            <td class="ih-vtop"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td class="ih-vtop"><table style="width:100%">
                 <tr class="dataTableHeadingRow">
                     <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_PHOTO_NAME; ?></th>
                     <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_FILETYPE; ?></th><?php //added nigel ?>
@@ -572,7 +571,7 @@ if ($ih_page == 'manager') {
                 );
                 $contents[] = array(
                     'text' =>
-                        '<script type="text/javascript"><!--
+                        '<script><!--
                             document.write(\'<a href="javascript:popupWindow(\\\'' . $selected_image_link . '\\\')">'
                             . zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height)
                             . '<br />' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
@@ -791,7 +790,7 @@ if ($ih_page == 'manager') {
         if (zen_not_null($heading) && zen_not_null($contents)) {
             $box = new box;
 ?>
-            <td width="25%" class="ih-vtop"><?php echo $box->infoBox($heading, $contents); ?></td>
+            <td style="width:25%" class="ih-vtop"><?php echo $box->infoBox($heading, $contents); ?></td>
 <?php
         }
 ?>
@@ -827,7 +826,7 @@ if ($ih_page == 'preview') {
       $images['giflarge'] = $gifimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
 
 ?>
-    <table summary="Preview Images" style="background-color:#F5F5F5" cellspacing="0" cellpadding="5" border="0">
+    <table style="background-color:#F5F5F5">
         <tr>
             <th class="preview-bb preview-br"><?php echo IH_SOURCE_TYPE; ?></th>
             <th class="preview-bb"><?php echo IH_SOURCE_IMAGE; ?></th>
