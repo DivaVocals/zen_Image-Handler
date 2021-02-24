@@ -381,7 +381,7 @@ if ($ih_page === 'manager') {
         if ($no_images) {
 ?>
                 <tr>
-                     <td colspan="6" class="dataTableContent ih-center"><?php echo TEXT_NO_PRODUCT_IMAGES; ?></td>
+                     <td colspan="7" class="dataTableContent ih-center"><?php echo TEXT_NO_PRODUCT_IMAGES; ?></td>
                 </tr>
 <?php
         } elseif ($action === '') {
