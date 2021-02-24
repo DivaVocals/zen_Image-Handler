@@ -274,68 +274,42 @@ if ($ih_page === 'manager') {
     <div class="row">
             <?php require(DIR_WS_MODULES . FILENAME_PREV_NEXT_DISPLAY); ?>
     </div>
-<?php
-    echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
-    echo zen_draw_hidden_field('products_filter', $products_filter);
-?>
-    <table>
-        <tr>
-            <td class="main ih-vtop">&nbsp;</td>
-            <td colspan="2" class="main"><?php if (isset($_POST['products_filter'])) echo TEXT_PRODUCT_TO_VIEW; ?></td>
-        </tr>
-
-        <tr>
-            <td class="main ih-center ih-vtop">
-<?php
-    //----- Nigel - Another ugly hack - probably need to clean up the attributes section - not really sure why the attributes section matters to IH - ask Diva
-    if (isset($_POST['products_filter'])) {
-        $products_filter = $_GET['products_filter'] = (int)$_POST['products_filter'];
+    <?php
+    if ($products_filter != '') {//may be null from ih_manager
+        echo zen_draw_form('set_products_filter_id', FILENAME_IMAGE_HANDLER, 'action=set_products_filter', 'post');
+        echo zen_draw_hidden_field('products_filter', $products_filter);
+        echo zen_draw_hidden_field('current_category_id', $current_category_id);
+        ?>
+        <div class="row"><?php echo TEXT_PRODUCT_TO_VIEW; ?></div>
+        <table>
+            <tr>
+                <td><?php
+                    echo(function_exists('zen_draw_pulldown_products') //ZC158 changes function name
+                        ? zen_draw_pulldown_products('products_filter', 'size="5"', '', true, $products_filter, true, true)
+                        : zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true)); ?>
+                </td>
+                <td>
+                    <?php
+                    echo '<input type="submit" class="btn btn-primary" value="' . IMAGE_DISPLAY . '">&nbsp;';
+                    $edit_product_link = zen_href_link(FILENAME_PRODUCT,
+                        "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
+                    echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a>&nbsp;';
+                    $attribute_controller_link = zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id");
+                    echo '<a href="' . $attribute_controller_link . '" class="btn btn-warning">' . IMAGE_EDIT_ATTRIBUTES . '</a>'
+                    ?>
+                </td>
+            </tr>
+        </table>
+        <?php echo '</form>';
     }
-    //------  Nigel --End ugly hack
-// FIX HERE
-    if ($products_filter !== '') {
-        $display_priced_by_attributes = zen_get_products_price_is_priced_by_attributes($products_filter);
-        echo ($display_priced_by_attributes ? '<span class="alert">' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' . '<br>' : '');
-        echo zen_get_products_display_price($products_filter) . '<br><br>';
-        echo zen_get_products_quantity_min_units_display($products_filter, $include_break = true);
-    }
-?>
-            </td>
-<?php
-    if ($products_filter !== '') { //prevent creation of empty Select
-?>
-           <td class="ih-center"><?php
-            echo (function_exists('zen_draw_pulldown_products') //ZC158 changes function name
-                ? zen_draw_pulldown_products('products_filter', 'size="5"', '', true, $products_filter, true, true)
-                : zen_draw_products_pull_down('products_filter', 'size="5"', '', true, $products_filter, true, true)); ?>
-			</td>
-            <td id="ih-p-buttons" class="ih-center ih-vtop">
-<?php
-        echo '<input type="submit" class="btn btn-primary" value="'. IMAGE_DISPLAY .'">&nbsp;';
-
-        $edit_product_link = zen_href_link(FILENAME_PRODUCT, "action=new_product&amp;cPath=$current_category_id&amp;pID=$products_filter&amp;product_type=" . zen_get_products_type($products_filter));
-        echo '<a href="' . $edit_product_link . '" class="btn btn-info">' . IMAGE_EDIT_PRODUCT . '</a>&nbsp;';
-
-        $attribute_controller_link = zen_href_link(FILENAME_ATTRIBUTES_CONTROLLER, "products_filter=$products_filter&amp;current_category_id=$current_category_id");
-        echo '<a href="' . $attribute_controller_link . '" class="btn btn-warning">' . IMAGE_EDIT_ATTRIBUTES . '</a>'
-?>
-            </td>
-<?php
-    } else {
-?>
-            <td colspan="2">&nbsp;</td>
-<?php
-    }
-?>
-        </tr>
-    </table><?php echo '</form>'; ?>
+    ?>
 
     <div class="managerbox">
 <!-- Start Photo Display -->
 <?php
     if (empty($products_filter) || !isset($product)) {
 ?>
-        <h2><?php echo IH_HEADING_TITLE_PRODUCT_SELECT; ?></h2>
+        <br><h2><?php echo IH_HEADING_TITLE_PRODUCT_SELECT; ?></h2>
 <?php
     } else {
         $pInfo = new objectInfo($product->fields);
@@ -366,6 +340,16 @@ if ($ih_page === 'manager') {
         </tr>
 <?php
         }
+?>
+        <tr>
+            <td class="ih-vtop"><?php echo TEXT_PRICE; ?></td>
+            <td><?php
+                echo zen_get_products_display_price($products_filter);
+                echo zen_get_products_price_is_priced_by_attributes($products_filter) ? '<br><span>' . TEXT_PRICED_BY_ATTRIBUTES . '</span>' : '';
+                echo zen_get_products_quantity_min_units_display($products_filter);
+            ?></td>
+        </tr>
+<?php
         if ($pInfo->products_image !== '') {
             $image_info = pathinfo($pInfo->products_image);
             $dirname = ($image_info['dirname'] === '.') ? '' : $image_info['dirname'];
