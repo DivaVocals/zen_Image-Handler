@@ -12,7 +12,7 @@
  * Re-factored for IH-5 by lat9 2017-12-02
  * Restructuring for IH-5.1.0 and later by lat9, 2018-05-22.
  */
-if ($action == 'new_cat') {
+if ($action === 'new_cat') {
     $current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
     $new_product_query = $db->Execute(
         "SELECT ptc.* FROM " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc
@@ -97,7 +97,7 @@ $images_directory = $ihConf['dir']['docroot'] . $ihConf['dir']['images'];
 //    configuration settings.  Those values are one of 'png', 'jpg', 'gif', or 'no_change'.  If the value is
 //    set to 'no_change', the medium/large image is the same file-extension as the main-product image.
 //
-if ($action == 'save') {
+if ($action === 'save') {
     // -----
     // Log the input values on entry, if debug is enabled.
     //
@@ -188,7 +188,7 @@ if ($action == 'save') {
                 $data['imgBaseDir'] = $products_image_directory;
                 $is_main = ($_POST['imgSuffix'] == '');
 
-                $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] == 'keep_name');
+                $keep_name = (isset($_POST['imgNaming']) && $_POST['imgNaming'] === 'keep_name');
                 if ($is_main && !$keep_name) {
                     if (empty($_FILES['default_image']['name'])) {
                         $messageStack->add(TEXT_MSG_NO_DEFAULT_ON_NAME_CHANGE, 'error');
@@ -437,7 +437,7 @@ if ($action == 'save') {
 // A 'quick_delete' action enables the removal of a medium/large image file that is different from
 // the product's base image.
 //
-if ($action == 'quick_delete') {
+if ($action === 'quick_delete') {
     if (!empty($_POST['qdFile'])) {
         $img_name = DIR_FS_CATALOG . $_POST['qdFile'];
         if (is_file($img_name)) {
@@ -459,7 +459,7 @@ if ($action == 'quick_delete') {
 // -----
 // Delete a specified product image.
 //
-if ($action == 'delete') {
+if ($action === 'delete') {
     if (!empty($_POST['imgSuffix']) || empty($_POST['delete_from_db_only'])) {
         $base_name = $products_image_directory . $_POST['imgName'];
         $image_ext = $_POST['imgExtension'];
