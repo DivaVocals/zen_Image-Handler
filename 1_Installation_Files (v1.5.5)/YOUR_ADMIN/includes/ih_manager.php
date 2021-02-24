@@ -478,7 +478,7 @@ if ($action == 'delete') {
             if (unlink($medium_file)) {
                 $messageStack->add_session(sprintf(TEXT_MSG_MEDIUM_DELETED, $medium_file), 'success');
             } else {
-                $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_MEDIUM, $medium), 'error');
+                $messageStack->add_session(sprintf(TEXT_MSG_NO_DELETE_MEDIUM, $medium_file), 'error');
             }
         }
 
