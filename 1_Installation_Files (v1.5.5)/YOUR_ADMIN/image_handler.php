@@ -31,8 +31,9 @@ $ih_page = $_GET['ih_page'] ?? 'manager';
 
 $action = $_POST['action'] ?? ($_GET['action'] ?? '');
 
-$products_filter = isset($_GET['products_filter']) ? ((int)$_GET['products_filter']) : '';
-$current_category_id = isset($_GET['current_category_id']) ? (int)$_GET['current_category_id'] : $current_category_id ?? '';
+$products_filter = isset($_GET['products_filter']) ? (int)$_GET['products_filter'] : '';
+
+$current_category_id = (isset($_GET['current_category_id'])) ? ((int)$_GET['current_category_id']) : (isset($_POST['current_category_id']) ? $_POST['current_category_id'] : '');
 $currencies = new currencies();
 $import_info = null;
 
@@ -42,7 +43,7 @@ $import_info = null;
 // for follow-on processing.
 //
 if ($action === 'set_products_filter') {
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . (int)$_POST['products_filter']));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager' . '&amp;current_category_id=' . $current_category_id . '&amp;products_filter=' . (int)$_POST['products_filter']));
 }
 
 // -----
