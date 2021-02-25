@@ -55,7 +55,7 @@ if ($products_filter !== '') {
         "SELECT p.products_id, p.products_model, p.products_image,
                 p.product_is_free, p.product_is_call, p.products_quantity_mixed, p.products_priced_by_attribute, p.products_status,
                 p.products_discount_type, p.products_discount_type_from, p.products_price_sorter,
-                pd.products_name, p.master_categories_id
+                pd.products_name, p.master_categories_id, p.products_status
            FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
           WHERE p.products_id = $products_filter
             AND p.products_id = pd.products_id
@@ -557,20 +557,27 @@ if ($ih_page === 'manager') {
                 $contents[] = [
                     'text' => '<strong>' . TEXT_INFO_FILE_TYPE . ': </strong>' . $selected_image_extension . '<br>'
                 ];
-                $contents[] = [
-                    'text' =>
-                        '<script><!--
-                            document.write(\'<a href="javascript:popupWindow(\\\'' . $selected_image_link . '\\\')">'
-                            . zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height)
-                            . '<br>' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
-                            . '//-->'
-                        . '</script>
-                        <noscript>'
-                        . '<a href="' . zen_href_link($selected_image_file_large) . '" target="_blank">'
-                            . zen_image($selected_image_file, $pInfo->products_name, $width, $height)
-                            . TEXT_CLICK_TO_ENLARGE . '</a>'
-                        . '</noscript>'
-                ];
+
+                if ($pInfo->products_status === '0') {
+                    $contents[] = [
+                        'text' => zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height)
+                    ];
+                } else {
+                    $contents[] = [
+                        'text' =>
+                            '<script><!--
+                                document.write(\'<a href="javascript:popupWindow(\\\'' . $selected_image_link . '\\\')">'
+                                . zen_image($selected_image_file, addslashes($pInfo->products_name), $width, $height)
+                                . '<br>' . TEXT_CLICK_TO_ENLARGE . '<\/a>\');'
+                                . '//-->'
+                            . '</script>
+                            <noscript>'
+                            . '<a href="' . zen_href_link($selected_image_file_large) . '" target="_blank">'
+                                . zen_image($selected_image_file, $pInfo->products_name, $width, $height)
+                                . TEXT_CLICK_TO_ENLARGE . '</a>'
+                            . '</noscript>'
+                    ];
+                }
 
                 // -----
                 // Different buttons shown for different conditions:
