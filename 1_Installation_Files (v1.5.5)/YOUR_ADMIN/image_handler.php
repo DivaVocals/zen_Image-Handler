@@ -471,7 +471,7 @@ if ($ih_page === 'manager') {
                     <td class="dataTableContent ih-center"><?php echo $text_base_size; ?></td>
 <?php
             $preview_image = $tmp_image_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
-            [$width, $height] = getimagesize(DIR_FS_CATALOG . $preview_image);
+            list($width, $height) = getimagesize(DIR_FS_CATALOG . $preview_image);
             $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
             $height = min($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
 ?>
@@ -497,7 +497,7 @@ if ($ih_page === 'manager') {
             }
 
             $preview_image = $tmp_image_large_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
-            [$width, $height] = getimagesize(DIR_FS_CATALOG . $preview_image);
+            list($width, $height) = getimagesize(DIR_FS_CATALOG . $preview_image);
             $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
             $height = min ($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
             $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
@@ -543,7 +543,7 @@ if ($ih_page === 'manager') {
             // Sidebar contents when viewing an image's defined layout.
             //
             case 'layout_info':
-                [$width, $height] = getimagesize(DIR_FS_CATALOG . $selected_image_file);
+                list($width, $height) = getimagesize(DIR_FS_CATALOG . $selected_image_file);
                 $heading[] = [
                     'text' => '<strong>' . TEXT_INFO_IMAGE_INFO . '</strong>'
                 ];
