@@ -27,9 +27,9 @@ $ih_admin = new ImageHandlerAdmin();
 define('HEADING_TITLE', IH_HEADING_TITLE);
 define('HEADING_TITLE_PRODUCT_SELECT', IH_HEADING_TITLE_PRODUCT_SELECT);
 
-$ih_page = $_GET['ih_page'] ?? 'manager';
+$ih_page = isset($_GET['ih_page']) ? $_GET['ih_page'] : 'manager';
 
-$action = $_POST['action'] ?? ($_GET['action'] ?? '');
+$action = (isset($_POST['action'])) ? $_POST['action'] : ((isset($_GET['action'])) ? $_GET['action'] : '');
 
 $products_filter = isset($_GET['products_filter']) ? (int)$_GET['products_filter'] : '';
 
@@ -483,7 +483,7 @@ if ($ih_page === 'manager') {
 <?php
             } else {
                 $preview_image = $tmp_image_medium_preview->get_resized_image(IMAGE_SHOPPING_CART_WIDTH, IMAGE_SHOPPING_CART_HEIGHT, 'generic');
-                [$width, $height] = getimagesize(DIR_FS_CATALOG . $preview_image);
+                list($width, $height) = getimagesize(DIR_FS_CATALOG . $preview_image);
                 $width = min($width, (int)IMAGE_SHOPPING_CART_WIDTH);
                 $height = min($height, (int)IMAGE_SHOPPING_CART_HEIGHT);
                 $the_image = zen_image(DIR_WS_CATALOG . $preview_image, addslashes($pInfo->products_name), $width, $height);
