@@ -1,6 +1,6 @@
 <?php
 /**
- * image_handler.php
+ * image_handler.php, v5.1.10
  * Image Handler Admin interface
  *
  * @author  Tim Kroeger (original author)
@@ -452,7 +452,7 @@ if ($ih_page === 'manager') {
                 <tr id="defaultSelected" class="dataTableRowSelected" onclick="document.location.href='<?php echo $ih_admin->imageHandlerHrefLink($tmp_image_name, $products_filter, 'layout_edit', $parms); ?>'">
 <?php
                 // set some details for later usage
-                $selected_image_file = DIR_WS_CATALOG . $tmp_image_file;
+                $selected_image_file = $tmp_image_file;
                 $selected_image_file_large = DIR_WS_CATALOG . $tmp_image_file_large;
                 $selected_image_link = $tmp_image_link;
                 $selected_image_name = $tmp_image_name;
@@ -544,6 +544,7 @@ if ($ih_page === 'manager') {
             //
             case 'layout_info':
                 list($width, $height) = getimagesize(DIR_FS_CATALOG . $selected_image_file);
+                $selected_image_file = DIR_WS_CATALOG . $selected_image_file;
                 $heading[] = [
                     'text' => '<strong>' . TEXT_INFO_IMAGE_INFO . '</strong>'
                 ];
