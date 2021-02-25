@@ -8,7 +8,7 @@
  * @copyright Copyright 2005-2006
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
- * Last modified by webchills and cjones 2012-03-10 17:46:50 
+ * Last modified by webchills and cjones 2012-03-10 17:46:50
  * Last modified by lat9 2020-02-02
  */
 define('IH_VERSION_VERSION', 'Version');
@@ -42,10 +42,11 @@ define('TABLE_HEADING_FILETYPE', 'File Type');
 
 define('TEXT_PRODUCT_INFO', 'Product');
 define('TEXT_PRODUCTS_MODEL', 'Model');
+define('TEXT_PRICE', 'Price');
 define('TEXT_IMAGE_BASE_DIR', 'Image Directory');
 define('TEXT_NO_PRODUCT_IMAGES', 'There are no images for this product');
 define('TEXT_CLICK_TO_ENLARGE', 'Click to enlarge');
- 
+
 define('TEXT_INFO_IMAGE_INFO', 'Image information');
 define('TEXT_INFO_NAME', 'Name');
 define('TEXT_INFO_FILE_TYPE', 'File type');
@@ -137,4 +138,3 @@ define('IH_MENU_MANAGER', 'Image Manager');
 define('IH_MENU_ADMIN', 'Admin Tools');
 define('IH_MENU_ABOUT', 'About/Help');
 define('IH_MENU_PREVIEW', 'Preview');
-

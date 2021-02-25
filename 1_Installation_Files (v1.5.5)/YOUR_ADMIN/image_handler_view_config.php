@@ -17,12 +17,11 @@ $ih_admin = new ImageHandlerAdmin();
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta charset=<?php echo CHARSET; ?>">
+<meta charset="<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<style type="text/css">
-<!--
+<link rel="stylesheet" href="includes/stylesheet.css">
+<link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
+<style>
 th, td { padding: 0.5em; }
 #ih-main { float: left; }
 #ih-conf::after { clear: both; }
@@ -31,12 +30,10 @@ th, td { padding: 0.5em; }
 .ih-sub { text-align: right; }
 tr.ih-error td:last-child { color: red; font-weight: bold; }
 tr span { font-size: smaller; }
--->
 </style>
 <script src="includes/menu.js"></script>
 <script src="includes/general.js"></script>
 <script>
-<!--
 function init()
 {
     cssjsmenu('navbar');
@@ -45,12 +42,11 @@ function init()
         kill.disabled = true;
     }
 }
-// -->
 </script>
 </head>
 <body onload="init();">
 <!-- header //-->
-<?php 
+<?php
 require DIR_WS_INCLUDES . 'header.php';
 
 // -----
@@ -65,104 +61,104 @@ define('CHECK_ARRAY', 5);
 define('CHECK_FILETYPE', 6);
 define('CHECK_DIR', 7);
 define('CHECK_SIZE', 8);
-$config_values = array(
-    'configuration' => array(
-        'IH_VERSION' => array('check' => CHECK_NONE),
-        'IH_RESIZE' => array('check' => CHECK_NONE),
-        'WATERMARK_GRAVITY' => array('check' => CHECK_NONE),
-        'IH_CACHE_NAMING' => array('check' => CHECK_NONE),
-        'SMALL_IMAGE_WIDTH' => array('check' => CHECK_INTEGER),
-        'SMALL_IMAGE_HEIGHT' => array('check' => CHECK_INTEGER),
-        'SMALL_IMAGE_FILETYPE' => array('check' => CHECK_FILETYPE),
-        'SMALL_IMAGE_BACKGROUND' => array('check' => CHECK_BACKGROUND),
-        'SMALL_IMAGE_QUALITY' => array('check' => CHECK_QUALITY),
-        'WATERMARK_SMALL_IMAGES' => array('check' => CHECK_NONE),
-        'ZOOM_SMALL_IMAGES' => array('check' => CHECK_NONE),
-        'ZOOM_IMAGE_SIZE' => array('check' => CHECK_NONE),
-        'MEDIUM_IMAGE_WIDTH' => array('check' => CHECK_INTEGER),
-        'MEDIUM_IMAGE_HEIGHT' => array('check' => CHECK_INTEGER),
-        'IMAGE_SUFFIX_MEDIUM' => array('check' => CHECK_NONE),
-        'MEDIUM_IMAGE_FILETYPE' => array('check' => CHECK_FILETYPE),
-        'MEDIUM_IMAGE_BACKGROUND' => array('check' => CHECK_BACKGROUND),
-        'MEDIUM_IMAGE_QUALITY' => array('check' => CHECK_QUALITY),
-        'WATERMARK_MEDIUM_IMAGES' => array('check' => CHECK_NONE),
-        'LARGE_IMAGE_MAX_WIDTH' => array('check' => CHECK_INTEGER),
-        'LARGE_IMAGE_MAX_HEIGHT' => array('check' => CHECK_INTEGER),
-        'IMAGE_SUFFIX_LARGE' => array('check' => CHECK_NONE),
-        'LARGE_IMAGE_FILETYPE' => array('check' => CHECK_FILETYPE),
-        'LARGE_IMAGE_BACKGROUND' => array('check' => CHECK_BACKGROUND),
-        'LARGE_IMAGE_QUALITY' => array('check' => CHECK_QUALITY),
-        'WATERMARK_LARGE_IMAGES' => array('check' => CHECK_NONE),
-    ),
-    'ihConf' => array(
-        'noresize_key' => array('check' => CHECK_NONE),
-        'noresize_dirs' => array('check' => CHECK_ARRAY),
-        'trans_threshold' => array('check' => CHECK_NONE),
-        'im_convert' => array('check' => CHECK_NONE),
-        'gdlib' => array('check' => CHECK_INTEGER),
-        'default' => array(
+$config_values = [
+    'configuration' => [
+        'IH_VERSION' => ['check' => CHECK_NONE],
+        'IH_RESIZE' => ['check' => CHECK_NONE],
+        'WATERMARK_GRAVITY' => ['check' => CHECK_NONE],
+        'IH_CACHE_NAMING' => ['check' => CHECK_NONE],
+        'SMALL_IMAGE_WIDTH' => ['check' => CHECK_INTEGER],
+        'SMALL_IMAGE_HEIGHT' => ['check' => CHECK_INTEGER],
+        'SMALL_IMAGE_FILETYPE' => ['check' => CHECK_FILETYPE],
+        'SMALL_IMAGE_BACKGROUND' => ['check' => CHECK_BACKGROUND],
+        'SMALL_IMAGE_QUALITY' => ['check' => CHECK_QUALITY],
+        'WATERMARK_SMALL_IMAGES' => ['check' => CHECK_NONE],
+        'ZOOM_SMALL_IMAGES' => ['check' => CHECK_NONE],
+        'ZOOM_IMAGE_SIZE' => ['check' => CHECK_NONE],
+        'MEDIUM_IMAGE_WIDTH' => ['check' => CHECK_INTEGER],
+        'MEDIUM_IMAGE_HEIGHT' => ['check' => CHECK_INTEGER],
+        'IMAGE_SUFFIX_MEDIUM' => ['check' => CHECK_NONE],
+        'MEDIUM_IMAGE_FILETYPE' => ['check' => CHECK_FILETYPE],
+        'MEDIUM_IMAGE_BACKGROUND' => ['check' => CHECK_BACKGROUND],
+        'MEDIUM_IMAGE_QUALITY' => ['check' => CHECK_QUALITY],
+        'WATERMARK_MEDIUM_IMAGES' => ['check' => CHECK_NONE],
+        'LARGE_IMAGE_MAX_WIDTH' => ['check' => CHECK_INTEGER],
+        'LARGE_IMAGE_MAX_HEIGHT' => ['check' => CHECK_INTEGER],
+        'IMAGE_SUFFIX_LARGE' => ['check' => CHECK_NONE],
+        'LARGE_IMAGE_FILETYPE' => ['check' => CHECK_FILETYPE],
+        'LARGE_IMAGE_BACKGROUND' => ['check' => CHECK_BACKGROUND],
+        'LARGE_IMAGE_QUALITY' => ['check' => CHECK_QUALITY],
+        'WATERMARK_LARGE_IMAGES' => ['check' => CHECK_NONE],
+    ],
+    'ihConf' => [
+        'noresize_key' => ['check' => CHECK_NONE],
+        'noresize_dirs' => ['check' => CHECK_ARRAY],
+        'trans_threshold' => ['check' => CHECK_NONE],
+        'im_convert' => ['check' => CHECK_NONE],
+        'gdlib' => ['check' => CHECK_INTEGER],
+        'default' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'bg' => array('check' => CHECK_BACKGROUND),
-                'quality' => array('check' => CHECK_QUALITY),
-            ),
-        ),
-        'resize' => array('check' => CHECK_BOOLEAN),
-        'dir' => array(
+            'fields' => [
+                'bg' => ['check' => CHECK_BACKGROUND],
+                'quality' => ['check' => CHECK_QUALITY],
+            ],
+        ],
+        'resize' => ['check' => CHECK_BOOLEAN],
+        'dir' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'docroot' => array('check' => CHECK_DIR),
-                'images' => array('check' => CHECK_DIR),
-                'admin' => array('check' => CHECK_DIR),
-            ),
-        ),
-        'small' => array(
+            'fields' => [
+                'docroot' => ['check' => CHECK_DIR],
+                'images' => ['check' => CHECK_DIR],
+                'admin' => ['check' => CHECK_DIR],
+            ],
+        ],
+        'small' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'width' => array('check' => CHECK_INTEGER),
-                'height' => array('check' => CHECK_INTEGER),
-                'filetype' => array('check' => CHECK_FILETYPE),
-                'bg' => array('check' => CHECK_BACKGROUND),
-                'quality' => array('check' => CHECK_QUALITY),
-                'watermark' => array('check' => CHECK_BOOLEAN),
-                'zoom' => array('check' => CHECK_BOOLEAN),
-                'size' => array('check' => CHECK_SIZE),
-            ),
-        ),
-        'medium' => array(
+            'fields' => [
+                'width' => ['check' => CHECK_INTEGER],
+                'height' => ['check' => CHECK_INTEGER],
+                'filetype' => ['check' => CHECK_FILETYPE],
+                'bg' => ['check' => CHECK_BACKGROUND],
+                'quality' => ['check' => CHECK_QUALITY],
+                'watermark' => ['check' => CHECK_BOOLEAN],
+                'zoom' => ['check' => CHECK_BOOLEAN],
+                'size' => ['check' => CHECK_SIZE],
+            ],
+        ],
+        'medium' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'prefix' => array('check' => CHECK_NONE),
-                'suffix' => array('check' => CHECK_NONE),
-                'width' => array('check' => CHECK_INTEGER),
-                'height' => array('check' => CHECK_INTEGER),
-                'filetype' => array('check' => CHECK_FILETYPE),
-                'bg' => array('check' => CHECK_BACKGROUND),
-                'quality' => array('check' => CHECK_QUALITY),
-                'watermark' => array('check' => CHECK_BOOLEAN),
-            ),
-        ),
-        'large' => array(
+            'fields' => [
+                'prefix' => ['check' => CHECK_NONE],
+                'suffix' => ['check' => CHECK_NONE],
+                'width' => ['check' => CHECK_INTEGER],
+                'height' => ['check' => CHECK_INTEGER],
+                'filetype' => ['check' => CHECK_FILETYPE],
+                'bg' => ['check' => CHECK_BACKGROUND],
+                'quality' => ['check' => CHECK_QUALITY],
+                'watermark' => ['check' => CHECK_BOOLEAN],
+            ],
+        ],
+        'large' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'prefix' => array('check' => CHECK_NONE),
-                'suffix' => array('check' => CHECK_NONE),
-                'width' => array('check' => CHECK_INTEGER),
-                'height' => array('check' => CHECK_INTEGER),
-                'filetype' => array('check' => CHECK_FILETYPE),
-                'bg' => array('check' => CHECK_BACKGROUND),
-                'quality' => array('check' => CHECK_QUALITY),
-                'watermark' => array('check' => CHECK_BOOLEAN),
-            ),
-        ),
-        'watermark' => array(
+            'fields' => [
+                'prefix' => ['check' => CHECK_NONE],
+                'suffix' => ['check' => CHECK_NONE],
+                'width' => ['check' => CHECK_INTEGER],
+                'height' => ['check' => CHECK_INTEGER],
+                'filetype' => ['check' => CHECK_FILETYPE],
+                'bg' => ['check' => CHECK_BACKGROUND],
+                'quality' => ['check' => CHECK_QUALITY],
+                'watermark' => ['check' => CHECK_BOOLEAN],
+            ],
+        ],
+        'watermark' => [
             'check' => CHECK_ARRAY,
-            'fields' => array(
-                'gravity' => array('check' => CHECK_NONE),
-            ),
-        ),
-    )   
-);
+            'fields' => [
+                'gravity' => ['check' => CHECK_NONE],
+            ],
+        ],
+    ]
+];
 ?>
 <!-- header_eof //-->
 <!-- body //-->
@@ -175,6 +171,7 @@ $config_values = array(
 <?php
 foreach ($config_values['configuration'] as $config_name => $config_options) {
     $entry_error = false;
+    $config_link = $entry_title = $entry_message = '';
     if (!defined($config_name)) {
         $entry_value = 'not defined';
         $entry_error = true;
@@ -300,9 +297,9 @@ foreach ($config_values['ihConf'] as $key => $values) {
                 break;
         }
     }
-    
+
     $entry_value = ($entry_value === true) ? 'true' : (($entry_value === false) ? 'false' : $entry_value);
-    if ($entry_message != '&nbsp;') {
+    if ($entry_message !== '&nbsp;') {
         $entry_message = "($entry_message)";
     }
 ?>
@@ -352,7 +349,7 @@ foreach ($config_values['ihConf'] as $key => $values) {
                 default:
                     break;
             }
-            if ($entry_message != '&nbsp;') {
+            if ($entry_message !== '&nbsp;') {
                 $entry_message = "($entry_message)";
             }
 ?>
@@ -368,11 +365,11 @@ foreach ($config_values['ihConf'] as $key => $values) {
 </table>
 <!-- body_eof //-->
 <!-- footer //-->
-<?php 
-require DIR_WS_INCLUDES . 'footer.php'; 
+<?php
+require DIR_WS_INCLUDES . 'footer.php';
 ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<?php 
+<?php
 require DIR_WS_INCLUDES . 'application_bottom.php';
