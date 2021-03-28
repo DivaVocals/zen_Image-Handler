@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.1.10');
+define('IH_CURRENT_VERSION', '5.1.11');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.

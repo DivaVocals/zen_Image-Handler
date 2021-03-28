@@ -65,14 +65,14 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
-  <h3>Version 5.1.10 by lat9, Zen4All, brittainmark and torvista</h3>
+  <h3>Version 5.1.11 by lat9, Zen4All, brittainmark and torvista</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
   <ol>
     <li>The majority of this readme, other than installation instructions and change history, has been migrated online to the plugin's GitHub <a href="https://github.com/DivaVocals/zen_Image-Handler" target="_blank">repository</a>.  That enables the readme to be updated as-required without the need to provide a plugin update for documentation corrections.</li>
     <li>Change history prior to v5.0.0 of <em>IH<sup>5</sup></em> has been archived on the plugin's GitHub repository.</li>
-    <li>As of <em>IH</em><sup>5</sup> v5.1.10, the minimum PHP version supported is PHP 5.6.</li>
+    <li>As of <em>IH</em><sup>5</sup> v5.1.11, the minimum PHP version supported is PHP 5.6.</li>
   </ol>
   
   <hr>
@@ -432,19 +432,11 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
-                    <li>v5.1.10, 2021-02-25:<ul>
-                        <li>BUGFIX: Correct PHP 8.0.0+ fatal error.</li>
-                        <li>BUGFIX: Unwanted modifications made to input variables when IH is disabled.</li>
-                        <li>INTROP: Changing use of $GLOBALS to global in preparation for PHP 8.1+.</li>
+                    <li>v5.1.11, 2021-03-28:<ul>
                         <li>INTROP: PHP 8.1 and zc158 interoperation.</li>
                         <li>BUGFIX: Correct 'file not found' on admin sidebox display.</li>
                         <li>BUGFIX: No image preview for disabled products; the storefront <code>popup_image</code> doesn't display when a product is disabled.</li>
                         <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
-                            <li>/includes/classes/bmz_image_handler.class.php</li>
-                            <li>/includes/classes/observers/ImageHandlerObserver.php</li>
-                            <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
-                            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
-                            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
                             <li>/YOUR_ADMIN/image_handler.php</li>
                             <li>/YOUR_ADMIN/image_handler_view_config.php</li>
                             <li>/YOUR_ADMIN/includes/ih_manager.php</li>
@@ -452,6 +444,18 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/languages/english/image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/languages/english/image_handler_about.php</li>
+                        </ol></li>
+                    </ul></li>
+                    <li>v5.1.10, 2021-02-19:<ul>
+                        <li>BUGFIX: Correct PHP 8.0.0+ fatal error.</li>
+                        <li>BUGFIX: Unwanted modifications made to input variables when IH is disabled.</li>
+                        <li>INTROP: Changing use of $GLOBALS to global in preparation for PHP 8.1+.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
+                            <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
+                            <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                         </ol></li>
                     </ul></li>
                     <li>v5.1.9, 2020-10-21:<ul>
