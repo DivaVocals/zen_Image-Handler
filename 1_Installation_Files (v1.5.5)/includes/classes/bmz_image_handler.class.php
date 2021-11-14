@@ -87,16 +87,16 @@ class ih_image
         $logfile_suffix = $ih_logfile_suffix;
 
         if (IS_ADMIN_FLAG === true) {
-            $this->debug = (IH_DEBUG_ADMIN == 'true');
+            $this->debug = (IH_DEBUG_ADMIN === 'true');
             $this->debugLogFile = DIR_FS_LOGS . "/ih_debug_admin-$logfile_suffix.log";
         } else {
-            $this->debug = (IH_DEBUG_STOREFRONT == 'true');
+            $this->debug = (IH_DEBUG_STOREFRONT === 'true');
             $this->debugLogFile = DIR_FS_LOGS . "/ih_debug-$logfile_suffix.log";
         }
 
         $this->determine_image_sizetype();
 
-        if ((($this->sizetype == 'large') || ($this->sizetype == 'medium')) && $this->file_not_found()) {
+        if ((($this->sizetype === 'large') || ($this->sizetype === 'medium')) && $this->file_not_found()) {
             // large or medium image specified but not found. strip superfluous suffix.
             // now we can actually access the default image referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
@@ -303,19 +303,19 @@ class ih_image
         $sizetype = ($override_sizetype == '') ? $this->sizetype : $override_sizetype;
         switch ($sizetype) {
             case 'large':
-                $file_extension = (($ihConf['large']['filetype'] == 'no_change') ? $this->extension : '.' . $ihConf['large']['filetype']);
+                $file_extension = (($ihConf['large']['filetype'] === 'no_change') ? $this->extension : '.' . $ihConf['large']['filetype']);
                 $background = $ihConf['large']['bg'];
                 $quality = $ihConf['large']['quality'];
                 $width = $ihConf['large']['width'];
                 $height = $ihConf['large']['height'];
                 break;
             case 'medium':
-                $file_extension = (($ihConf['medium']['filetype'] == 'no_change') ? $this->extension : '.' . $ihConf['medium']['filetype']);
+                $file_extension = (($ihConf['medium']['filetype'] === 'no_change') ? $this->extension : '.' . $ihConf['medium']['filetype']);
                 $background = $ihConf['medium']['bg'];
                 $quality = $ihConf['medium']['quality'];
                 break;
             case 'small':
-                $file_extension = (($ihConf['small']['filetype'] == 'no_change') ? $this->extension : '.' . $ihConf['small']['filetype']);
+                $file_extension = (($ihConf['small']['filetype'] === 'no_change') ? $this->extension : '.' . $ihConf['small']['filetype']);
                 $background = $ihConf['small']['bg'];
                 $quality = $ihConf['small']['quality'];
                 break;
@@ -540,7 +540,7 @@ class ih_image
         $bg = trim($bg);
         $bg = ($bg == '') ? $ihConf['default']['bg'] : $bg;
 
-        $transparent = (strpos($bg, 'transparent') !== false && ($file_ext == '.gif' || $file_ext == '.png'));
+        $transparent = (strpos($bg, 'transparent') !== false && ($file_ext === '.gif' || $file_ext === '.png'));
 
         $color = $this->get_background_rgb($bg);
         if ($color) {
@@ -549,7 +549,7 @@ class ih_image
         }
         $gif_treatment = false;
         $temp_name = '';
-        if ($transparent && $file_ext == '.gif') {
+        if ($transparent && $file_ext === '.gif') {
             // Special treatment for gif files
             $bg = trim(str_replace('transparent', '', $bg));
             $bg = ($bg != '') ? $bg : 'rgb(255,255,255)';
@@ -784,7 +784,7 @@ class ih_image
         } else {
             $transparent = (strpos($bg, 'transparent') !== false);
         }
-        $transparent &= ($file_ext == '.gif' || $file_ext == '.png');
+        $transparent &= ($file_ext === '.gif' || $file_ext === '.png');
 
         $alpha = $transparent ? 127 : 0;
         if ($color) {
@@ -798,7 +798,7 @@ class ih_image
             imagealphablending($newimg, true);
         }
 
-        if ($file_ext == '.gif') {
+        if ($file_ext === '.gif') {
             if ($transparent) {
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $ihConf['trans_threshold'], $background_color);
                 imagecolortransparent($newimg, $background_color);
@@ -818,7 +818,7 @@ class ih_image
             imagesavealpha($newimg, true);
         }
 
-        if ($file_ext == '.gif') {
+        if ($file_ext === '.gif') {
             if ($ihConf['gdlib']>1 && function_exists('imagetruecolortopalette')) {
                 imagetruecolortopalette($newimg, true, 256);
             }
@@ -954,7 +954,7 @@ class ih_image
         // of Image Handler, replaced with simply an 'ih-zoom' class definition!
         //
         global $ihConf;
-        if ($this->sizetype == 'small') {
+        if ($this->sizetype === 'small') {
             if ($ihConf['small']['zoom']) {
                 if ($this->zoom['file'] == '') {
                     // if no zoom image, the whole image triggers the popup
@@ -968,7 +968,7 @@ class ih_image
                 // strip potential suffixes just to be sure
                 $src = $this->strip_sizetype_suffix($this->src);
                 // define zoom sizetype
-                if (ZOOM_IMAGE_SIZE == 'Medium') {
+                if (ZOOM_IMAGE_SIZE === 'Medium') {
                     $zoom_sizetype = 'medium';
                 } else {
                     $zoom_sizetype = 'large';
