@@ -461,13 +461,13 @@ class ih_image
      */
     public function calculate_size($pref_width, $pref_height = '')
     {
-        if (!file_exists($this->filename)) {
+        if (file_exists($this->filename)) {
+            list($width, $height) = getimagesize($this->filename);
+            $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
+        } else {
             $this->ihLog("calculate_size, file does not exist.");
             $width = $height = 0;
             $this->file_exists = false;
-        } else {
-            list($width, $height) = getimagesize($this->filename);
-            $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         }
         // default: nothing happens (preferred dimension = actual dimension)
         $newwidth = $width;
@@ -773,11 +773,11 @@ class ih_image
         // default to white as "background" -> better rendering on bright pages
         // when downsampling to gif with just boolean transparency
         $color = $this->get_background_rgb($bg);
-        if (!$color) {
+        if ($color) {
+            $transparent = (strpos($bg, 'transparent') !== false);
+        } else {
             $color = $this->get_background_rgb($ihConf['default']['bg']);
             $transparent = (strpos($ihConf['default']['bg'], 'transparent') !== false);
-        } else {
-            $transparent = (strpos($bg, 'transparent') !== false);
         }
         $transparent &= ($file_ext === '.gif' || $file_ext === '.png');
 
@@ -996,9 +996,7 @@ class ih_image
     protected function ihLog($message, $first_record = false)
     {
         if ($this->debug) {
-            if ($first_record === false) {
-                $record_prefix = "\t\t";
-            } else {
+            if ($first_record !== false) {
                 $record_prefix = PHP_EOL . date('Y-m-d H:i:s: ');
                 if ($this->first_access) {
                     if (IS_ADMIN_FLAG) {
@@ -1006,6 +1004,8 @@ class ih_image
                         $record_prefix .= ('(' . $_SERVER['REQUEST_URI'] . ') ');
                     }
                 }
+            } else {
+                $record_prefix = "\t\t";
             }
             error_log($record_prefix . $message . PHP_EOL, 3, $this->debugLogFile);
         }
