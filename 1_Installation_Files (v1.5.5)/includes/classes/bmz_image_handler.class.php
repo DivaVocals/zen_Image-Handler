@@ -707,7 +707,7 @@ class ih_image
         }
         //try resampling first
         if (function_exists("imagecopyresampled")) {
-            if (!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
+            if (!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, (int)$srcwidth, (int)$srcheight)) {
                 imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newheight, (int)$newwidth, (int)$srcwidth, (int)$srcheight);
             }
         } else {
