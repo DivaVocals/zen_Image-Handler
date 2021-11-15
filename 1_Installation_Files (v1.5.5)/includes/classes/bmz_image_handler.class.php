@@ -864,6 +864,8 @@ class ih_image
                 }
                 $image = @imagecreatefromjpeg($src_name);
                 break;
+            default:
+                $image = false;
         }
         if ($image === false) {
             $php_error_msg = error_get_last();
