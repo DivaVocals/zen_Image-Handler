@@ -155,9 +155,9 @@ class ih_image
                     break;
             }
 
-            for ($i = 0, $n = count($extensions); $i < $n; $i++) {
-                if (is_file($ihConf['dir']['docroot'] . $base . $extensions[$i])) {
-                    $this->src = $base . $extensions[$i];
+            foreach ($extensions as $extension) {
+                if (is_file($ihConf['dir']['docroot'] . $base . $extension)) {
+                    $this->src = $base . $extension;
                     return false;
                 }
             }
