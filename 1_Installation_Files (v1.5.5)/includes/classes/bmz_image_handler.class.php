@@ -111,7 +111,7 @@ class ih_image
             $caller = str_replace(DIR_FS_CATALOG, '', $backtrace[0]['file']);
         }
         $line_num = $backtrace[0]['line'];
-        $this->ihLog("__constructor for {$this->filename}, called by $caller at line number $line_num" . var_export($backtrace, true), true);
+        $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num" . var_export($backtrace, true), true);
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
@@ -387,7 +387,7 @@ class ih_image
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
             $zoom_mtime = $this->fileModifiedTime($this->zoom['file']);
-            $this->ihLog("get_resized_image: $local, $local_mtime, {$this->filename}, $file_mtime, $watermark_mtime, $zoom_mtime");
+            $this->ihLog("get_resized_image: $local, $local_mtime, $this->filename, $file_mtime, $watermark_mtime, $zoom_mtime");
             $this->ihLog(date("F d Y H:i:s.", $local_mtime) . ', ' . date("F d Y H:i:s.", $file_mtime));
             if (($local_mtime > $file_mtime && $local_mtime > $watermark_mtime && $local_mtime > $zoom_mtime) ||
                 $this->resize_imageIM($file_extension, $local, $background, $quality) ||
@@ -402,7 +402,7 @@ class ih_image
             }
             //still here? resizing failed
         }
-        $this->ihLog("... returning {$this->src}");
+        $this->ihLog("... returning $this->src");
         return $this->src;
     }
 
