@@ -112,7 +112,7 @@ class ih_image
         $line_num = $backtrace[0]['line'];
         $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num" . var_export($backtrace, true), true);
 
-        list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
+        [$newwidth, $newheight, $resize] = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
         if ($newwidth > 0 && $newheight > 0) {
             $this->canvas['width'] = $newwidth;
@@ -236,16 +236,18 @@ class ih_image
 
         if ($this->watermark['file'] != '' && is_file($this->watermark['file'])) {
             // set watermark parameters
-            list($this->watermark['width'], $this->watermark['height']) = getimagesize($this->watermark['file']);
-            list($this->watermark['startx'], $this->watermark['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'], $ihConf['watermark']['gravity']);
+            [$this->watermark['width'], $this->watermark['height']] = getimagesize($this->watermark['file']);
+            [$this->watermark['startx'], $this->watermark['starty']] = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'],
+                $ihConf['watermark']['gravity']);
         } else {
             $this->watermark['file'] = '';
         }
 
         if ($this->zoom['file'] != '' && is_file($this->zoom['file'])) {
             // set zoom parameters
-            list($this->zoom['width'], $this->zoom['height']) = getimagesize($this->zoom['file']);
-            list($this->zoom['startx'], $this->zoom['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'], $ihConf['zoom']['gravity']);
+            [$this->zoom['width'], $this->zoom['height']] = getimagesize($this->zoom['file']);
+            [$this->zoom['startx'], $this->zoom['starty']] = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'],
+                $ihConf['zoom']['gravity']);
         } else {
             $this->zoom['file'] = '';
         }
@@ -324,7 +326,7 @@ class ih_image
                 $quality = $ihConf['default']['quality'];
                 break;
         }
-        list($newwidth, $newheight, $resize) = $this->calculate_size($width, $height);
+        [$newwidth, $newheight, $resize] = $this->calculate_size($width, $height);
 
         // set canvas dimensions
         if ($newwidth > 0 && $newheight > 0) {
@@ -461,7 +463,7 @@ class ih_image
     public function calculate_size($pref_width, $pref_height = ''): array
     {
         if (file_exists($this->filename)) {
-            list($width, $height) = getimagesize($this->filename);
+            [$width, $height] = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
             $this->ihLog("calculate_size, file does not exist.");
@@ -934,7 +936,7 @@ class ih_image
         $color = false;
 
         $bg = trim(str_replace('transparent', '', $bg));
-        list($red, $green, $blue)= preg_split('/[, :]/', $bg);
+        [$red, $green, $blue] = preg_split('/[, :]/', $bg);
         if (preg_match('/[0-9]+/', $red.$green.$blue)) {
             $red = min((int)$red, 255);
             $green = min((int)$green, 255);
@@ -989,7 +991,7 @@ class ih_image
 
                 $ih_zoom_image = new ih_image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
                 $products_image_zoom = $ih_zoom_image->get_local();
-                list($zoomwidth, $zoomheight) = @getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
+                [$zoomwidth, $zoomheight] = @getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
                 // we should parse old parameters here and possibly merge some inc case they're duplicate
                 $parameters .= ($parameters != '') ? ' ' : '';
                 return $parameters . 'style="position:relative;" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
