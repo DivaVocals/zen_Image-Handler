@@ -59,7 +59,7 @@ class ih_image
      * @param string $height The image's height
      */
 
-    public function __construct($src, $width, $height)
+    public function __construct(string $src, $width, $height)
     {
         global $ihConf,
                $ih_logfile_suffix;
@@ -297,7 +297,7 @@ class ih_image
         return $allowed;
     }
 
-    public function get_resized_image($width, $height, $override_sizetype = '', $filetype = '')
+    public function get_resized_image($width, $height, string $override_sizetype = '', string $filetype = '')
     {
         global $ihConf;
         $this->ihLog("get_resized_image($width, $height, $override_sizetype, $filetype)");
@@ -407,7 +407,7 @@ class ih_image
         return $this->src;
     }
 
-    protected function fileModifiedTime($filename)
+    protected function fileModifiedTime($filename): int
     {
         clearstatcache();
         return (is_file($filename)) ? filemtime($filename) : 0;
@@ -433,7 +433,7 @@ class ih_image
      * @return string       The filename of the cachefile
      */
     //-NOTE: This function was (for versions prior to 5.0.1) present in /includes/functions/extra_functions/functions_bmz_io.php
-    protected function getCacheName($data, $ext=''): string
+    protected function getCacheName(string $data, string $ext=''): string
     {
         global $bmzConf;
         switch (IH_CACHE_NAMING) {
@@ -583,7 +583,7 @@ class ih_image
         return ($retval == 0);
     }
 
-    protected function alphablend($background, $overlay, $threshold = -1)
+    protected function alphablend($background, $overlay, int $threshold = -1)
     {
         /* -------------------------------------------------------------------- */
         /*      Simple cases we want to handle fast.                            */
@@ -620,7 +620,7 @@ class ih_image
         return compact('alpha', 'red', 'green', 'blue');
     }
 
-    protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, $threshold = '', $background_override = '')
+    protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, string $threshold = '', $background_override = '')
     {
         global $ihConf;
 
@@ -654,7 +654,7 @@ class ih_image
     }
 
 
-    protected function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85)
+    protected function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85): bool
     {
         global $ihConf;
 
@@ -1000,7 +1000,7 @@ class ih_image
         return $parameters;
     }
 
-    protected function ihLog($message, $first_record = false): void
+    protected function ihLog($message, bool $first_record = false): void
     {
         if ($this->debug) {
             if ($first_record !== false) {
