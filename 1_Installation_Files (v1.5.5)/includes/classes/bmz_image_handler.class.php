@@ -32,27 +32,22 @@ if (!defined('IS_ADMIN_FLAG')) {
 
 class ih_image
 {
-    /**
-    * $orig is the original image source passed to the constructor
-    * $src = is the reference to an actual physical image
-    * $local is the cached image reference
-    */
-    public $orig = null;
-    public $src = null;
-    public $local = null;
-    public $filename;
-    public $extension;
-    public $width;
-    public $height;
-    public $sizetype;
     public $canvas;
-    public $zoom;
-    public $watermark;
-    public $force_canvas;
-    public $file_exists;
-    public $first_access;
     public $debug;
     public $debugLogFile;
+    public $extension;
+    public $file_exists;
+    public $filename;
+    public $first_access;
+    public $force_canvas;
+    public $height;
+    public $local = null;   // cached image reference
+    public $orig = null;    // original image source passed to the constructor
+    public $sizetype;
+    public $src = null;     // reference to an actual physical image
+    public $watermark;
+    public $width;
+    public $zoom;
 
     /**
      * ih_image class constructor
