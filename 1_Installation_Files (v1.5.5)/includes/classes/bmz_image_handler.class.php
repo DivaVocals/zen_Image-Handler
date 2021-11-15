@@ -691,7 +691,7 @@ class ih_image
         $startheight = ($this->canvas['height'] - $newheight) / 2;
 
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $tmpimg = @imagecreatetruecolor($newwidth, $newheight);
+            $tmpimg = @imagecreatetruecolor((int)$newwidth, (int)$newheight);
         }
         if (!$tmpimg) {
             $tmpimg = @imagecreate($newwidth, $newheight);
@@ -718,7 +718,7 @@ class ih_image
 
         // initialize FIRST background image (transparent canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+            $newimg = @imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
             $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
@@ -760,7 +760,7 @@ class ih_image
 
         // initialize REAL background image (filled canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")){
-            $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+            $newimg = @imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
             $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
