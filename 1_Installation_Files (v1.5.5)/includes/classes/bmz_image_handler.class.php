@@ -937,7 +937,7 @@ class ih_image
 
         $bg = trim(str_replace('transparent', '', $bg));
         [$red, $green, $blue] = preg_split('/[, :]/', $bg);
-        if (preg_match('/[0-9]+/', $red.$green.$blue)) {
+        if (preg_match('/\d+/', $red.$green.$blue)) {
             $red = min((int)$red, 255);
             $green = min((int)$green, 255);
             $blue = min((int)$blue, 255);
