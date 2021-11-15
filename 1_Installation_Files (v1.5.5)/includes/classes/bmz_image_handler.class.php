@@ -123,7 +123,7 @@ class ih_image
         $this->initialize_overlays($this->sizetype);
     } // end class constructor
 
-    public function file_not_found()
+    public function file_not_found(): bool
     {
         global $ihConf;
 
@@ -166,7 +166,7 @@ class ih_image
         return true;
     }
 
-    public function is_real()
+    public function is_real(): bool
     {
         // return true if the source images are really present and medium
         // or large are not just a descendant from the default image.
@@ -178,7 +178,7 @@ class ih_image
         return ($orig == $src);
     }
 
-    public function determine_image_sizetype()
+    public function determine_image_sizetype(): void
     {
         global $ihConf;
 
@@ -203,7 +203,7 @@ class ih_image
         return $src;
     }
 
-    public function initialize_overlays($sizetype)
+    public function initialize_overlays($sizetype): void
     {
         global $ihConf;
 
@@ -265,7 +265,7 @@ class ih_image
         return $this->local;
     }
 
-    public function resizing_allowed()
+    public function resizing_allowed(): bool
     {
         global $bmzConf, $ihConf;
 
@@ -431,7 +431,7 @@ class ih_image
      * @return string       The filename of the cachefile
      */
     //-NOTE: This function was (for versions prior to 5.0.1) present in /includes/functions/extra_functions/functions_bmz_io.php
-    protected function getCacheName($data, $ext='')
+    protected function getCacheName($data, $ext=''): string
     {
         global $bmzConf;
         switch (IH_CACHE_NAMING) {
@@ -458,7 +458,7 @@ class ih_image
     /**
      * Calculate desired image size as set in admin->configuration->images.
      */
-    public function calculate_size($pref_width, $pref_height = '')
+    public function calculate_size($pref_width, $pref_height = ''): array
     {
         if (file_exists($this->filename)) {
             list($width, $height) = getimagesize($this->filename);
@@ -524,7 +524,7 @@ class ih_image
         return [$newwidth, $newheight, $resize];
     }
 
-    protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85)
+    protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85): bool
     {
         global $ihConf;
 
@@ -825,7 +825,7 @@ class ih_image
         return $this->save_imageGD($file_ext, $newimg, $dest_name, $quality);
     }
 
-    protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity)
+    protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity): array
     {
         // Calculate overlay position from gravity setting. Center as default.
         $startheight = ($canvasheight - $overlayheight) / 2;
@@ -877,7 +877,7 @@ class ih_image
         return $image;
     }
 
-    protected function save_imageGD($file_ext, $image, $dest_name, $quality = 75)
+    protected function save_imageGD($file_ext, $image, $dest_name, $quality = 75): bool
     {
         // -----
         // Initially, santitize the quality input for use by imagejpeg; values should
@@ -998,7 +998,7 @@ class ih_image
         return $parameters;
     }
 
-    protected function ihLog($message, $first_record = false)
+    protected function ihLog($message, $first_record = false): void
     {
         if ($this->debug) {
             if ($first_record !== false) {
