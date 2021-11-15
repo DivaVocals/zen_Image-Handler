@@ -49,6 +49,10 @@ class ih_image
     public $zoom;
     public $watermark;
     public $force_canvas;
+    public $file_exists;
+    public $first_access;
+    public $debug;
+    public $debugLogFile;
 
     /**
      * ih_image class constructor
