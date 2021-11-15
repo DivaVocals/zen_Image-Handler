@@ -735,7 +735,7 @@ class ih_image
         imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
 
         //$newimg = $this->imagemergealpha($newimg, $tmpimg, $startwidth, $startheight, $newwidth, $newheight);
-        imagecopy($newimg, $tmpimg, $startwidth, $startheight, 0, 0, $newwidth, $newheight);
+        imagecopy($newimg, $tmpimg, (int)$startwidth, (int)$startheight, 0, 0, (int)$newwidth, (int)$newheight);
         imagedestroy($tmpimg);
         $tmpimg = $newimg;
 
@@ -803,13 +803,13 @@ class ih_image
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $ihConf['trans_threshold'], $background_color);
                 imagecolortransparent($newimg, $background_color);
             } else {
-                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
+                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, (int)$this->canvas['width'], (int)$this->canvas['height']);
             }
         } else {
             if ($transparent) {
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height']);
             } else {
-                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
+                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, (int)$this->canvas['width'], (int)$this->canvas['height']);
             }
         }
         imagedestroy($tmpimg);
