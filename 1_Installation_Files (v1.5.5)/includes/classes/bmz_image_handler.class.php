@@ -687,6 +687,8 @@ class ih_image
 
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
             $tmpimg = @imagecreatetruecolor((int)$newwidth, (int)$newheight);
+        } else {
+            $tmpimg = false;
         }
         if (!$tmpimg) {
             $tmpimg = @imagecreate((int)$newwidth, (int)$newheight);
