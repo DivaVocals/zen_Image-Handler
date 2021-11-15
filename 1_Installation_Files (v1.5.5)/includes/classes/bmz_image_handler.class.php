@@ -37,18 +37,18 @@ class ih_image
     * $src = is the reference to an actual physical image
     * $local is the cached image reference
     */
-    var $orig = null;
-    var $src = null;
-    var $local = null;
-    var $filename;
-    var $extension;
-    var $width;
-    var $height;
-    var $sizetype;
-    var $canvas;
-    var $zoom;
-    var $watermark;
-    var $force_canvas;
+    public $orig = null;
+    public $src = null;
+    public $local = null;
+    public $filename;
+    public $extension;
+    public $width;
+    public $height;
+    public $sizetype;
+    public $canvas;
+    public $zoom;
+    public $watermark;
+    public $force_canvas;
 
     /**
      * ih_image class constructor
