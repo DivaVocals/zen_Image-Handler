@@ -193,6 +193,11 @@ class ih_image
         }
     }
 
+    /**
+     * @param $src
+     *
+     * @return array|string|string[]
+     */
     public function strip_sizetype_suffix($src)
     {
         global $ihConf;
@@ -203,6 +208,9 @@ class ih_image
         return $src;
     }
 
+    /**
+     * @param $sizetype
+     */
     public function initialize_overlays($sizetype): void
     {
         global $ihConf;
@@ -253,6 +261,9 @@ class ih_image
         }
     }
 
+    /**
+     * @return string
+     */
     public function get_local()
     {
         if ($this->local) {
@@ -297,6 +308,14 @@ class ih_image
         return $allowed;
     }
 
+    /**
+     * @param        $width
+     * @param        $height
+     * @param string $override_sizetype
+     * @param string $filetype
+     *
+     * @return string
+     */
     public function get_resized_image($width, $height, string $override_sizetype = '', string $filetype = '')
     {
         global $ihConf;
@@ -383,7 +402,7 @@ class ih_image
                     break;
             }
 
-            //echo $local . '<br />';
+            //echo $local . '<br>';
             $local_mtime = $this->fileModifiedTime($local); // 0 if not exists
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
@@ -407,12 +426,22 @@ class ih_image
         return $this->src;
     }
 
+    /**
+     * @param $filename
+     *
+     * @return int
+     */
     protected function fileModifiedTime($filename): int
     {
         clearstatcache();
         return (is_file($filename)) ? filemtime($filename) : 0;
     }
 
+    /**
+     * @param $name
+     *
+     * @return string
+     */
     protected function sanitizeImageNames($name)
     {
         $name = str_replace(' ', '-', $name); // Replaces all spaces with hyphens
@@ -526,6 +555,14 @@ class ih_image
         return [$newwidth, $newheight, $resize];
     }
 
+    /**
+     * @param     $file_ext
+     * @param     $dest_name
+     * @param     $bg
+     * @param int $quality
+     *
+     * @return bool
+     */
     protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85): bool
     {
         global $ihConf;
@@ -583,6 +620,13 @@ class ih_image
         return ($retval == 0);
     }
 
+    /**
+     * @param     $background
+     * @param     $overlay
+     * @param int $threshold
+     *
+     * @return array|mixed
+     */
     protected function alphablend($background, $overlay, int $threshold = -1)
     {
         /* -------------------------------------------------------------------- */
@@ -620,6 +664,18 @@ class ih_image
         return compact('alpha', 'red', 'green', 'blue');
     }
 
+    /**
+     * @param        $background
+     * @param        $overlay
+     * @param        $startwidth
+     * @param        $startheight
+     * @param        $newwidth
+     * @param        $newheight
+     * @param string $threshold
+     * @param string $background_override
+     *
+     * @return mixed
+     */
     protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, string $threshold = '', $background_override = '')
     {
         global $ihConf;
@@ -654,6 +710,14 @@ class ih_image
     }
 
 
+    /**
+     * @param     $file_ext
+     * @param     $dest_name
+     * @param     $bg
+     * @param int $quality
+     *
+     * @return bool
+     */
     protected function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85): bool
     {
         global $ihConf;
@@ -668,7 +732,7 @@ class ih_image
         if (!$srcimage) {
             return false; // couldn't load image
         }
-        $src_ext = substr($this->filename, strrpos($this->filename, '.'));
+        $src_ext = substr($this->filename, strrpos($this->filename, '.')); //todo unused variable
         $srcwidth = imagesx($srcimage);
         $srcheight = imagesy($srcimage);
         if ($this->force_canvas) {
@@ -827,6 +891,15 @@ class ih_image
         return $this->save_imageGD($file_ext, $newimg, $dest_name, $quality);
     }
 
+    /**
+     * @param $canvaswidth
+     * @param $canvasheight
+     * @param $overlaywidth
+     * @param $overlayheight
+     * @param $gravity
+     *
+     * @return array
+     */
     protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity): array
     {
         // Calculate overlay position from gravity setting. Center as default.
@@ -845,6 +918,11 @@ class ih_image
         return [$startwidth, $startheight];
     }
 
+    /**
+     * @param $src_name
+     *
+     * @return false|GdImage|mixed|resource
+     */
     protected function load_imageGD($src_name)
     {
         // create an image of the given filetype
@@ -873,12 +951,20 @@ class ih_image
                 $image = false;
         }
         if ($image === false) {
-            $php_error_msg = error_get_last();
+            $php_error_msg = error_get_last(); //todo unused variable
             $this->ihLog("load_imageGD($src_name), failure loading the image; check image validity");
         }
         return $image;
     }
 
+    /**
+     * @param     $file_ext
+     * @param     $image
+     * @param     $dest_name
+     * @param int $quality
+     *
+     * @return bool
+     */
     protected function save_imageGD($file_ext, $image, $dest_name, $quality = 75): bool
     {
         // -----
@@ -931,6 +1017,11 @@ class ih_image
         return $ok;
     }
 
+    /**
+     * @param $bg
+     *
+     * @return array|false
+     */
     protected function get_background_rgb($bg)
     {
         $color = false;
@@ -946,6 +1037,14 @@ class ih_image
         return $color;
     }
 
+    /**
+     * @param $alt
+     * @param $width
+     * @param $height
+     * @param $parameters
+     *
+     * @return mixed|string
+     */
     public function get_additional_parameters($alt, $width, $height, $parameters)
     {
         // -----
@@ -998,6 +1097,10 @@ class ih_image
         return $parameters;
     }
 
+    /**
+     * @param       $message
+     * @param false $first_record
+     */
     protected function ihLog($message, bool $first_record = false): void
     {
         if ($this->debug) {
