@@ -616,12 +616,7 @@ class ih_image
         $green = (($overlay['green'] * $overlay_weight) + ($background['green'] * $background_weight)) / $total_weight;
         $blue = (($overlay['blue'] * $overlay_weight) + ($background['blue'] * $background_weight)) / $total_weight;
 
-        return array(
-            'alpha' => $alpha,
-            'red' => $red,
-            'green' => $green,
-            'blue' => $blue
-        );
+        return compact('alpha', 'red', 'green', 'blue');
     }
 
     protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, $threshold = '', $background_override = '')
