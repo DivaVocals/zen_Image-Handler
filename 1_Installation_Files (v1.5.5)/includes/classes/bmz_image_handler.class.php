@@ -732,7 +732,7 @@ class ih_image
             imagealphablending($newimg, false);
         }
         $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, 127);
-        imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
+        imagefilledrectangle($newimg, 0, 0, (int)$this->canvas['width'] - 1, (int)$this->canvas['height'] - 1, (int)$background_color);
 
         //$newimg = $this->imagemergealpha($newimg, $tmpimg, $startwidth, $startheight, $newwidth, $newheight);
         imagecopy($newimg, $tmpimg, (int)$startwidth, (int)$startheight, 0, 0, (int)$newwidth, (int)$newheight);
@@ -792,7 +792,7 @@ class ih_image
         } else {
             $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, $alpha);
         }
-        imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
+        imagefilledrectangle($newimg, 0, 0, (int)$this->canvas['width'] - 1, (int)$this->canvas['height'] - 1, (int)$background_color);
 
         if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
             imagealphablending($newimg, true);
