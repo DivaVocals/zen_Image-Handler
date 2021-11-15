@@ -716,6 +716,8 @@ class ih_image
         // initialize FIRST background image (transparent canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
             $newimg = @imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
+        } else {
+            $newimg = false;
         }
         if (!$newimg) {
             $newimg = @imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
