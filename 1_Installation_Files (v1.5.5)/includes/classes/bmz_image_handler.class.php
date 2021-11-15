@@ -136,30 +136,30 @@ class ih_image
         // -----
         // Otherwise, see if the file exists with a capitalized version of the file-extension.
         //
-        } else {
-            $pathinfo = pathinfo($this->src);
-            $base = $pathinfo['filename'];
-            $baseext = strtolower($pathinfo['extension']);
-            switch ($baseext) {
-                case 'jpg':
-                    $extensions = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
-                    break;
-                case 'gif':
-                    $extensions = ['.gif', '.GIF'];
-                    break;
-                case 'png':
-                    $extensions = ['.png', '.PNG'];
-                    break;
-                default:
-                    $extensions = [];
-                    break;
-            }
+        }
 
-            foreach ($extensions as $extension) {
-                if (is_file($ihConf['dir']['docroot'] . $base . $extension)) {
-                    $this->src = $base . $extension;
-                    return false;
-                }
+        $pathinfo = pathinfo($this->src);
+        $base = $pathinfo['filename'];
+        $baseext = strtolower($pathinfo['extension']);
+        switch ($baseext) {
+            case 'jpg':
+                $extensions = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
+                break;
+            case 'gif':
+                $extensions = ['.gif', '.GIF'];
+                break;
+            case 'png':
+                $extensions = ['.png', '.PNG'];
+                break;
+            default:
+                $extensions = [];
+                break;
+        }
+
+        foreach ($extensions as $extension) {
+            if (is_file($ihConf['dir']['docroot'] . $base . $extension)) {
+                $this->src = $base . $extension;
+                return false;
             }
         }
         // still here? no file found...
