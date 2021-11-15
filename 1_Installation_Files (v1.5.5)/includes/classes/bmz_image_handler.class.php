@@ -801,7 +801,7 @@ class ih_image
         if ($file_ext === '.gif') {
             if ($transparent) {
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $ihConf['trans_threshold'], $background_color);
-                imagecolortransparent($newimg, $background_color);
+                imagecolortransparent($newimg, (int)$background_color);
             } else {
                 imagecopy($newimg, $tmpimg, 0, 0, 0, 0, (int)$this->canvas['width'], (int)$this->canvas['height']);
             }
