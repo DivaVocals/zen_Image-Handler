@@ -69,8 +69,8 @@ class ih_image
         $this->src = $src;
         $this->width = $width;
         $this->height = $height;
-        $this->zoom = array();
-        $this->watermark = array();
+        $this->zoom = [];
+        $this->watermark = [];
 
         // -----
         // Initially, **assume** that the requested file exists.  If not, this flag will be set to
@@ -143,16 +143,16 @@ class ih_image
             $baseext = strtolower($pathinfo['extension']);
             switch ($baseext) {
                 case 'jpg':
-                    $extensions = array('.jpg', '.JPG', '.jpeg', '.JPEG');
+                    $extensions = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
                     break;
                 case 'gif':
-                    $extensions = array('.gif', '.GIF');
+                    $extensions = ['.gif', '.GIF'];
                     break;
                 case 'png':
-                    $extensions = array('.png', '.PNG');
+                    $extensions = ['.png', '.PNG'];
                     break;
                 default:
-                    $extensions = array();
+                    $extensions = [];
                     break;
             }
 
@@ -522,7 +522,7 @@ class ih_image
         }
         $resize = ($newwidth != $width || $newheight != $height);
         $this->ihLog("calculate_size ($width, $height), ($pref_width, $pref_height), returning ($newwidth, $newheight, $resize)");
-        return array($newwidth, $newheight, $resize);
+        return [$newwidth, $newheight, $resize];
     }
 
     protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85)
@@ -842,7 +842,7 @@ class ih_image
         } elseif (strpos($gravity, 'East') !== false) {
             $startwidth = $canvaswidth - $overlaywidth;
         }
-        return array($startwidth, $startheight);
+        return [$startwidth, $startheight];
     }
 
     protected function load_imageGD($src_name)
@@ -939,7 +939,7 @@ class ih_image
             $red = min((int)$red, 255);
             $green = min((int)$green, 255);
             $blue = min((int)$blue, 255);
-            $color = array('r' => $red, 'g' => $green, 'b' => $blue);
+            $color = ['r' => $red, 'g' => $green, 'b' => $blue];
         }
         return $color;
     }
@@ -976,7 +976,7 @@ class ih_image
                 // additional zoom functionality
                 $pathinfo = pathinfo($src);
                 $base_image_directory = $ihConf['dir']['images'];
-                if (in_array(substr($base_image_directory, -1), array('/', '\\'))) {
+                if (in_array(substr($base_image_directory, -1), ['/', '\\'])) {
                     $base_image_directory = substr($base_image_directory, 0, -1);
                 }
                 $base_imagedir_len = strlen($base_image_directory);
