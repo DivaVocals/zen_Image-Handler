@@ -439,7 +439,7 @@ class ih_image
             case 'Hashed':
             // Hash the name and place in directory using first character of hashed string
                 $md5 = md5($data);
-                $file = $bmzConf['cachedir'] . '/' . substr($md5, 0, 1) . '/' . $md5 . $ext;
+                $file = $bmzConf['cachedir'] . '/' . $md5[0] . '/' . $md5 . $ext;
                 break;
             case 'Mirrored':
             // Use readable file name and place in mirror of original directory
@@ -448,7 +448,7 @@ class ih_image
             case 'Readable':
             default:
             // Use readable file name and place directory using first character of $data
-                $file = $bmzConf['cachedir'] . '/' . substr($data, 0, 1) . '/' . $data . $ext;
+                $file = $bmzConf['cachedir'] . '/' . $data[0] . '/' . $data . $ext;
                 break;
             }
         io_makeFileDir($file);
