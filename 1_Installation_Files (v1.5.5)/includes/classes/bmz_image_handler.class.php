@@ -751,12 +751,12 @@ class ih_image
         $startheight = ($this->canvas['height'] - $newheight) / 2;
 
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $tmpimg = @imagecreatetruecolor((int)$newwidth, (int)$newheight);
+            $tmpimg = imagecreatetruecolor((int)$newwidth, (int)$newheight);
         } else {
             $tmpimg = false;
         }
         if (!$tmpimg) {
-            $tmpimg = @imagecreate((int)$newwidth, (int)$newheight);
+            $tmpimg = imagecreate((int)$newwidth, (int)$newheight);
         }
         if (!$tmpimg) {
             $this->ihLog("resize_imageGD: failed to create temporary image file: $newwidth x $newheight");
@@ -769,7 +769,7 @@ class ih_image
         }
         //try resampling first
         if (function_exists("imagecopyresampled")) {
-            if (!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, (int)$srcwidth, (int)$srcheight)) {
+            if (!imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, (int)$srcwidth, (int)$srcheight)) {
                 imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newheight, (int)$newwidth, (int)$srcwidth, (int)$srcheight);
             }
         } else {
@@ -780,12 +780,12 @@ class ih_image
 
         // initialize FIRST background image (transparent canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $newimg = @imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
         } else {
             $newimg = false;
         }
         if (!$newimg) {
-            $newimg = @imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
             $this->ihLog("resize_imageGD: failed to create new image file: {$this->canvas['width']} x {$this->canvas['height']}");
@@ -824,10 +824,10 @@ class ih_image
 
         // initialize REAL background image (filled canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")){
-            $newimg = @imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
-            $newimg = @imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
             $this->ihLog('resize_imageGD: failed to create new image with background.');
@@ -932,20 +932,20 @@ class ih_image
                 if (!function_exists("imagecreatefromgif")) {
                     return false;
                 }
-                $image = @imagecreatefromgif($src_name);
+                $image = imagecreatefromgif($src_name);
                 break;
             case '.png':
                 if (!function_exists("imagecreatefrompng")) {
                     return false;
                 }
-                $image = @imagecreatefrompng($src_name);
+                $image = imagecreatefrompng($src_name);
                 break;
             case '.jpg':
             case '.jpeg':
                 if (!function_exists("imagecreatefromjpeg")) {
                     return false;
                 }
-                $image = @imagecreatefromjpeg($src_name);
+                $image = imagecreatefromjpeg($src_name);
                 break;
             default:
                 $image = false;
