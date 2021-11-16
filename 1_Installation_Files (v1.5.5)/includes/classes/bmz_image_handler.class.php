@@ -108,7 +108,7 @@ class ih_image
             $caller = str_replace(DIR_FS_CATALOG, '', $backtrace[0]['file']);
         }
         $line_num = $backtrace[0]['line'];
-        $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num" . var_export($backtrace, true), true);
+        $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num\n" . var_export($backtrace, true), true);
 
         [$newwidth, $newheight, $resize] = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
@@ -493,7 +493,7 @@ class ih_image
             [$width, $height] = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
-            $this->ihLog("calculate_size, file does not exist.");
+            $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
             $height = 0;
             $width = 0;
             $this->file_exists = false;
