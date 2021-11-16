@@ -815,7 +815,7 @@ class ih_image
         // we need to watermark our images
         if ($this->watermark['file'] !== '') {
             $this->watermark['image'] = $this->load_imageGD($this->watermark['file']);
-            imagecopy($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], 0, 0, $this->watermark['width'], $this->watermark['height']);
+            imagecopy($tmpimg, $this->watermark['image'], (int)$this->watermark['startx'], (int)$this->watermark['starty'], 0, 0, (int)$this->watermark['width'], (int)$this->watermark['height']);
             //$tmpimg = $this->imagemergealpha($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], $this->watermark['width'], $this->watermark['height']);
             imagedestroy($this->watermark['image']);
         }
