@@ -113,7 +113,7 @@ function ihValidateBackground($which_background)
  *
  * @return array
  */
-function handle_image($src, $alt, $width, $height, $parameters): array
+function handle_image($src, $alt, $width, $height, $parameters)
 {
     global $ihConf;
 
@@ -162,7 +162,7 @@ function zen_get_small_image($image)
  *
  * @return string
  */
-function zen_get_medium_image($image_base, $image_extension): string
+function zen_get_medium_image($image_base, $image_extension)
 {
     global $ihConf;
     return $ihConf['medium']['prefix'] . $image_base . $ihConf['medium']['suffix'] . $image_extension;
@@ -174,7 +174,7 @@ function zen_get_medium_image($image_base, $image_extension): string
  *
  * @return string
  */
-function zen_get_large_image($image_base, $image_extension): string
+function zen_get_large_image($image_base, $image_extension)
 {
     global $ihConf;
     return $ihConf['large']['prefix'] . $image_base . $ihConf['large']['suffix'] . $image_extension;
