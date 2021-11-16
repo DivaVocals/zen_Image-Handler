@@ -143,7 +143,7 @@ function handle_image($src, $alt, $width, $height, $parameters)
 */
 //-eof-20210219-lat9
     }
-    return array($src, $alt, $width, $height, $parameters);
+    return [$src, $alt, $width, $height, $parameters];
 }
 
 
