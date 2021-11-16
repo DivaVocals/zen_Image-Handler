@@ -59,7 +59,7 @@ class ih_image
      * @param string $height The image's height
      */
 
-    public function __construct(string $src, $width, $height)
+    public function __construct($src, $width, $height)
     {
         global $ihConf, $ih_logfile_suffix;
 
@@ -110,7 +110,7 @@ class ih_image
         $line_num = $backtrace[0]['line'];
         $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num\n" . var_export($backtrace, true), true);
 
-        [$newwidth, $newheight, $resize] = $this->calculate_size($this->width, $this->height);
+        list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
         if ($newwidth > 0 && $newheight > 0) {
             $this->canvas['width'] = $newwidth;
@@ -121,7 +121,10 @@ class ih_image
         $this->initialize_overlays($this->sizetype);
     } // end class constructor
 
-    public function file_not_found(): bool
+    /**
+     * @return bool
+     */
+    public function file_not_found()
     {
         global $ihConf;
 
@@ -164,7 +167,10 @@ class ih_image
         return true;
     }
 
-    public function is_real(): bool
+    /**
+     * @return bool
+     */
+    public function is_real()
     {
         // return true if the source images are really present and medium
         // or large are not just a descendant from the default image.
@@ -176,7 +182,7 @@ class ih_image
         return ($orig === $src);
     }
 
-    public function determine_image_sizetype(): void
+    public function determine_image_sizetype()
     {
         global $ihConf;
 
@@ -196,7 +202,7 @@ class ih_image
      *
      * @return string
      */
-    public function strip_sizetype_suffix($src): string
+    public function strip_sizetype_suffix($src)
     {
         global $ihConf;
         $src = preg_replace('/' . $ihConf['large']['suffix'] . '\./', '.', $src);
@@ -209,7 +215,7 @@ class ih_image
     /**
      * @param $sizetype
      */
-    public function initialize_overlays($sizetype): void
+    public function initialize_overlays($sizetype)
     {
         global $ihConf;
 
@@ -242,18 +248,16 @@ class ih_image
 
         if ($this->watermark['file'] !== '' && is_file($this->watermark['file'])) {
             // set watermark parameters
-            [$this->watermark['width'], $this->watermark['height']] = getimagesize($this->watermark['file']);
-            [$this->watermark['startx'], $this->watermark['starty']] = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'],
-                $ihConf['watermark']['gravity']);
+            list($this->watermark['width'], $this->watermark['height']) = getimagesize($this->watermark['file']);
+            list($this->watermark['startx'], $this->watermark['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'], $ihConf['watermark']['gravity']);
         } else {
             $this->watermark['file'] = '';
         }
 
         if ($this->zoom['file'] !== '' && is_file($this->zoom['file'])) {
             // set zoom parameters
-            [$this->zoom['width'], $this->zoom['height']] = getimagesize($this->zoom['file']);
-            [$this->zoom['startx'], $this->zoom['starty']] = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'],
-                $ihConf['zoom']['gravity']);
+            list($this->zoom['width'], $this->zoom['height']) = getimagesize($this->zoom['file']);
+            list($this->zoom['startx'], $this->zoom['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'], $ihConf['zoom']['gravity']);
         } else {
             $this->zoom['file'] = '';
         }
@@ -262,7 +266,7 @@ class ih_image
     /**
      * @return string|null
      */
-    public function get_local(): ?string
+    public function get_local()
     {
         if ($this->local) {
             return $this->local;
@@ -276,7 +280,10 @@ class ih_image
         return $this->local;
     }
 
-    public function resizing_allowed(): bool
+    /**
+     * @return bool
+     */
+    public function resizing_allowed()
     {
         global $bmzConf, $ihConf;
 
@@ -314,7 +321,7 @@ class ih_image
      *
      * @return string
      */
-    public function get_resized_image($width, $height, string $override_sizetype = '', string $filetype = '')
+    public function get_resized_image($width, $height, $override_sizetype = '', $filetype = '')
     {
         global $ihConf;
         $this->ihLog("get_resized_image($width, $height, $override_sizetype, $filetype)");
@@ -343,7 +350,7 @@ class ih_image
                 $quality = $ihConf['default']['quality'];
                 break;
         }
-        [$newwidth, $newheight, $resize] = $this->calculate_size($width, $height);
+        list($newwidth, $newheight, $resize) = $this->calculate_size($width, $height);
 
         // set canvas dimensions
         if ($newwidth > 0 && $newheight > 0) {
@@ -429,7 +436,7 @@ class ih_image
      *
      * @return int
      */
-    protected function fileModifiedTime($filename): int
+    protected function fileModifiedTime($filename)
     {
         clearstatcache();
         return (is_file($filename)) ? filemtime($filename) : 0;
@@ -460,7 +467,7 @@ class ih_image
      * @return string       The filename of the cachefile
      */
     //-NOTE: This function was (for versions prior to 5.0.1) present in /includes/functions/extra_functions/functions_bmz_io.php
-    protected function getCacheName(string $data, string $ext=''): string
+    protected function getCacheName($data, $ext='')
     {
         global $bmzConf;
         switch (IH_CACHE_NAMING) {
@@ -487,10 +494,10 @@ class ih_image
     /**
      * Calculate desired image size as set in admin->configuration->images.
      */
-    public function calculate_size($pref_width, $pref_height = ''): array
+    public function calculate_size($pref_width, $pref_height = '')
     {
         if (file_exists($this->filename)) {
-            [$width, $height] = getimagesize($this->filename);
+            list($width, $height) = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
             $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
@@ -562,7 +569,7 @@ class ih_image
      *
      * @return bool
      */
-    protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85): bool
+    protected function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85)
     {
         global $ihConf;
 
@@ -626,7 +633,7 @@ class ih_image
      *
      * @return array|mixed
      */
-    protected function alphablend($background, $overlay, int $threshold = -1)
+    protected function alphablend($background, $overlay, $threshold = -1)
     {
         /* -------------------------------------------------------------------- */
         /*      Simple cases we want to handle fast.                            */
@@ -675,7 +682,7 @@ class ih_image
      *
      * @return mixed
      */
-    protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, string $threshold = '', $background_override = '')
+    protected function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, $threshold = '', $background_override = '')
     {
         global $ihConf;
 
@@ -717,7 +724,7 @@ class ih_image
      *
      * @return bool
      */
-    protected function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85): bool
+    protected function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85)
     {
         global $ihConf;
 
@@ -899,7 +906,7 @@ class ih_image
      *
      * @return array
      */
-    protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity): array
+    protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity)
     {
         // Calculate overlay position from gravity setting. Center as default.
         $startheight = ($canvasheight - $overlayheight) / 2;
@@ -964,7 +971,7 @@ class ih_image
      *
      * @return bool
      */
-    protected function save_imageGD($file_ext, $image, $dest_name, $quality = 75): bool
+    protected function save_imageGD($file_ext, $image, $dest_name, $quality = 75)
     {
         // -----
         // Initially, santitize the quality input for use by imagejpeg; values should
@@ -1026,7 +1033,7 @@ class ih_image
         $color = false;
 
         $bg = trim(str_replace('transparent', '', $bg));
-        [$red, $green, $blue] = preg_split('/[, :]/', $bg);
+        list($red, $green, $blue)= preg_split('/[, :]/', $bg);
         if (preg_match('/\d+/', $red.$green.$blue)) {
             $red = min((int)$red, 255);
             $green = min((int)$green, 255);
@@ -1088,7 +1095,7 @@ class ih_image
 
             $ih_zoom_image = new ih_image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
             $products_image_zoom = $ih_zoom_image->get_local();
-            [$zoomwidth, $zoomheight] = getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
+            list($zoomwidth, $zoomheight) = getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
             // we should parse old parameters here and possibly merge some inc case they're duplicate
             $parameters .= ($parameters !== '') ? ' ' : '';
             return $parameters . 'style="position:relative;" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
@@ -1100,7 +1107,7 @@ class ih_image
      * @param       $message
      * @param false $first_record
      */
-    public function ihLog($message, bool $first_record = false): void
+    public function ihLog($message, $first_record = false)
     {
         if ($this->debug) {
             if ($first_record !== false) {
