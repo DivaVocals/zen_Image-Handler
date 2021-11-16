@@ -1100,7 +1100,7 @@ class ih_image
      * @param       $message
      * @param false $first_record
      */
-    protected function ihLog($message, bool $first_record = false): void
+    public function ihLog($message, bool $first_record = false): void
     {
         if ($this->debug) {
             if ($first_record !== false) {
