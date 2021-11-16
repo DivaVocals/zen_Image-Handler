@@ -196,9 +196,9 @@ class ih_image
     /**
      * @param $src
      *
-     * @return array|string|string[]
+     * @return string
      */
-    public function strip_sizetype_suffix($src)
+    public function strip_sizetype_suffix($src): string
     {
         global $ihConf;
         $src = preg_replace('/' . $ihConf['large']['suffix'] . '\./', '.', $src);
@@ -262,9 +262,9 @@ class ih_image
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function get_local()
+    public function get_local(): ?string
     {
         if ($this->local) {
             return $this->local;
