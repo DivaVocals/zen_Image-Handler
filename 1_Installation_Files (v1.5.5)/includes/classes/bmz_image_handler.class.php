@@ -94,7 +94,7 @@ class ih_image
 
         $this->determine_image_sizetype();
 
-        if ((($this->sizetype === 'large') || ($this->sizetype === 'medium')) && $this->file_not_found()) {
+        if (($this->sizetype === 'large' || $this->sizetype === 'medium') && $this->file_not_found()) {
             // large or medium image specified but not found: strip superfluous suffix to get base image name referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
