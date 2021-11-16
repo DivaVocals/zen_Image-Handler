@@ -84,7 +84,7 @@ function ihValidateBackground($which_background)
         $background_error = ($background !== '');
     } else {
         foreach ($rgb_values as $rgb_value) {
-            if (preg_match('/^[0-9]{1,3}$/', $rgb_value) == 0 || $rgb_value > 255) {
+            if ($rgb_value > 255 || preg_match('/^\d{1,3}$/', $rgb_value) === 0) {
                 $background_error = true;
             }
         }
