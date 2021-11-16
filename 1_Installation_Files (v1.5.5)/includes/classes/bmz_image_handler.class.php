@@ -22,10 +22,10 @@
 if (!defined('IH_DEBUG_ADMIN')) {
     define('IH_DEBUG_ADMIN', 'false');
 }
+//note these logging constants are set/defined in includes\extra_datafiles\image_handler_logging.php
 if (!defined('IH_DEBUG_STOREFRONT')) {
     define('IH_DEBUG_STOREFRONT', 'false');
 }
-
 if (!defined('IS_ADMIN_FLAG')) {
     exit('Illegal access');
 }
@@ -61,8 +61,7 @@ class ih_image
 
     public function __construct(string $src, $width, $height)
     {
-        global $ihConf,
-               $ih_logfile_suffix;
+        global $ihConf, $ih_logfile_suffix;
 
         $this->orig = $src;
         $this->src = $src;
@@ -96,8 +95,7 @@ class ih_image
         $this->determine_image_sizetype();
 
         if ((($this->sizetype === 'large') || ($this->sizetype === 'medium')) && $this->file_not_found()) {
-            // large or medium image specified but not found. strip superfluous suffix.
-            // now we can actually access the default image referenced in the database.
+            // large or medium image specified but not found: strip superfluous suffix to get base image name referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
 
