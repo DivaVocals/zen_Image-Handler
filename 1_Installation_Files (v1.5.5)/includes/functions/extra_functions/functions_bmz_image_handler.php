@@ -71,11 +71,16 @@ $ihConf['large']['bg'] = ihValidateBackground('large');
 //
 // If an invalid specification is found, log an error and reset to 'transparent 255:255:255'.
 //
+/**
+ * @param $which_background
+ *
+ * @return mixed|string
+ */
 function ihValidateBackground($which_background)
 {
     $background_value = $GLOBALS['ihConf'][$which_background]['bg'];
 
-    $transparent = (strpos($background_value, 'transparent') !== false);
+    $transparent = (strpos($background_value, 'transparent') !== false); //todo unused variable
     $background = trim(str_replace('transparent', '', $background_value));
     $rgb_values = preg_split('/[, :]/', $background);
 
@@ -99,11 +104,20 @@ function ihValidateBackground($which_background)
 // -----
 // Main Image Handler function ...
 //
+/**
+ * @param $src
+ * @param $alt
+ * @param $width
+ * @param $height
+ * @param $parameters
+ *
+ * @return array
+ */
 function handle_image($src, $alt, $width, $height, $parameters)
 {
     global $ihConf;
 
-    if ($ihConf['resize']) {
+    if ($ihConf['resize']) { //Image Handler processing is enabled
         $ih_image = new ih_image($src, $width, $height);
         // override image path, get local image from cache
         if ($ih_image) { 
@@ -142,12 +156,24 @@ function zen_get_small_image($image)
     return $image;
 }
 
+/**
+ * @param $image_base
+ * @param $image_extension
+ *
+ * @return string
+ */
 function zen_get_medium_image($image_base, $image_extension)
 {
     global $ihConf;
     return $ihConf['medium']['prefix'] . $image_base . $ihConf['medium']['suffix'] . $image_extension;
 }
 
+/**
+ * @param $image_base
+ * @param $image_extension
+ *
+ * @return string
+ */
 function zen_get_large_image($image_base, $image_extension)
 {
     global $ihConf;
