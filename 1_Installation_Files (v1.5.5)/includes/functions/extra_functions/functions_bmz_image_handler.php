@@ -19,15 +19,15 @@ $ihConf['version']              = 'v' . (defined('IH_VERSION') ? IH_VERSION : '?
 $ihConf['dir']['docroot']       = DIR_FS_CATALOG;
 $ihConf['dir']['images']        = DIR_WS_IMAGES;
 
-$ihConf['resize']               = (defined('IH_RESIZE') && IH_RESIZE == 'yes');
+$ihConf['resize']               = defined('IH_RESIZE') && IH_RESIZE === 'yes';
 
 $ihConf['small']['width']       = SMALL_IMAGE_WIDTH;
 $ihConf['small']['height']      = SMALL_IMAGE_HEIGHT;
 $ihConf['small']['filetype']    = defined('SMALL_IMAGE_FILETYPE') ? SMALL_IMAGE_FILETYPE : 'no_change';
 $ihConf['small']['bg']          = defined('SMALL_IMAGE_BACKGROUND') ? SMALL_IMAGE_BACKGROUND : $ihConf['default']['bg'];
-$ihConf['small']['quality']     = defined('SMALL_IMAGE_QUALITY') ? ((int)SMALL_IMAGE_QUALITY) : $ihConf['default']['quality'];
-$ihConf['small']['watermark']   = (defined('WATERMARK_SMALL_IMAGES') && WATERMARK_SMALL_IMAGES == 'yes');
-$ihConf['small']['zoom']        = (defined('ZOOM_SMALL_IMAGES') && ZOOM_SMALL_IMAGES == 'yes');
+$ihConf['small']['quality']     = defined('SMALL_IMAGE_QUALITY') ? (int)SMALL_IMAGE_QUALITY : $ihConf['default']['quality'];
+$ihConf['small']['watermark']   = defined('WATERMARK_SMALL_IMAGES') && WATERMARK_SMALL_IMAGES === 'yes';
+$ihConf['small']['zoom']        = defined('ZOOM_SMALL_IMAGES') && ZOOM_SMALL_IMAGES === 'yes';
 $ihConf['small']['size']        = defined('ZOOM_IMAGE_SIZE') ? ZOOM_IMAGE_SIZE : 'Medium';
 
 $ihConf['medium']['prefix']     = '/medium';
@@ -36,8 +36,8 @@ $ihConf['medium']['width']      = MEDIUM_IMAGE_WIDTH;
 $ihConf['medium']['height']     = MEDIUM_IMAGE_HEIGHT;
 $ihConf['medium']['filetype']   = defined('MEDIUM_IMAGE_FILETYPE') ? MEDIUM_IMAGE_FILETYPE : 'no_change';
 $ihConf['medium']['bg']         = defined('MEDIUM_IMAGE_BACKGROUND') ? MEDIUM_IMAGE_BACKGROUND : $ihConf['default']['bg'];
-$ihConf['medium']['quality']    = defined('MEDIUM_IMAGE_QUALITY') ? ((int)MEDIUM_IMAGE_QUALITY) : $ihConf['default']['quality'];
-$ihConf['medium']['watermark']  = (defined('WATERMARK_MEDIUM_IMAGES') && WATERMARK_MEDIUM_IMAGES == 'yes');
+$ihConf['medium']['quality']    = defined('MEDIUM_IMAGE_QUALITY') ? (int)MEDIUM_IMAGE_QUALITY : $ihConf['default']['quality'];
+$ihConf['medium']['watermark']  = defined('WATERMARK_MEDIUM_IMAGES') && WATERMARK_MEDIUM_IMAGES === 'yes';
 
 $ihConf['large']['prefix']      = '/large';
 $ihConf['large']['suffix']      = IMAGE_SUFFIX_LARGE;
@@ -45,8 +45,8 @@ $ihConf['large']['width']       = defined('LARGE_IMAGE_MAX_WIDTH') ? LARGE_IMAGE
 $ihConf['large']['height']      = defined('LARGE_IMAGE_MAX_HEIGHT') ? LARGE_IMAGE_MAX_HEIGHT : '550';
 $ihConf['large']['filetype']    = defined('LARGE_IMAGE_FILETYPE') ? LARGE_IMAGE_FILETYPE : 'no_change';
 $ihConf['large']['bg']          = defined('LARGE_IMAGE_BACKGROUND') ? LARGE_IMAGE_BACKGROUND : $ihConf['default']['bg'];
-$ihConf['large']['quality']     = defined('LARGE_IMAGE_QUALITY') ? ((int)LARGE_IMAGE_QUALITY) : $ihConf['default']['quality'];
-$ihConf['large']['watermark']   = (defined('WATERMARK_LARGE_IMAGES') && WATERMARK_LARGE_IMAGES == 'yes');
+$ihConf['large']['quality']     = defined('LARGE_IMAGE_QUALITY') ? (int)LARGE_IMAGE_QUALITY : $ihConf['default']['quality'];
+$ihConf['large']['watermark']   = defined('WATERMARK_LARGE_IMAGES') && WATERMARK_LARGE_IMAGES === 'yes';
 
 $ihConf['watermark']['gravity'] = defined('WATERMARK_GRAVITY') ? WATERMARK_GRAVITY : 'Center';
 
@@ -80,8 +80,8 @@ function ihValidateBackground($which_background)
     $rgb_values = preg_split('/[, :]/', $background);
 
     $background_error = false;
-    if (!is_array($rgb_values) || count($rgb_values) != 3) {
-        $background_error = ($background != '');
+    if (!is_array($rgb_values) || count($rgb_values) !== 3) {
+        $background_error = ($background !== '');
     } else {
         foreach ($rgb_values as $rgb_value) {
             if (preg_match('/^[0-9]{1,3}$/', $rgb_value) == 0 || $rgb_value > 255) {
