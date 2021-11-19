@@ -1,5 +1,6 @@
 <?php
 /**
+ * mod Image Handler 5.2.0
  * bmz_image_handler.class.php
  * IH5 class for image manipulation
  *
@@ -757,7 +758,7 @@ class ih_image
         $startheight = ($this->canvas['height'] - $newheight) / 2;
 
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $tmpimg = imagecreatetruecolor((int)$newwidth, (int)$newheight);
+            $tmpimg = imagecreatetruecolor($newwidth, $newheight);
         } else {
             $tmpimg = false;
         }
@@ -786,7 +787,7 @@ class ih_image
 
         // initialize FIRST background image (transparent canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+            $newimg = imagecreatetruecolor($this->canvas['width'], $this->canvas['height']);
         } else {
             $newimg = false;
         }
@@ -830,7 +831,7 @@ class ih_image
 
         // initialize REAL background image (filled canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")){
-            $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
+            $newimg = imagecreatetruecolor($this->canvas['width'], $this->canvas['height']);
         }
         if (!$newimg) {
             $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
@@ -955,6 +956,7 @@ class ih_image
                 break;
             default:
                 $image = false;
+                break;
         }
         if ($image === false) {
             $php_error_msg = error_get_last(); //todo unused variable
