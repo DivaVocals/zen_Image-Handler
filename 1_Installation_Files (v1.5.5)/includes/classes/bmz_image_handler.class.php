@@ -805,7 +805,7 @@ class ih_image
         imagefilledrectangle($newimg, 0, 0, (int)$this->canvas['width'] - 1, (int)$this->canvas['height'] - 1, (int)$background_color);
 
         //$newimg = $this->imagemergealpha($newimg, $tmpimg, $startwidth, $startheight, $newwidth, $newheight);
-        imagecopy($newimg, $tmpimg, (int)$startwidth, (int)$startheight, 0, 0, (int)$newwidth, (int)$newheight);
+        imagecopy($newimg, $tmpimg, $startwidth, $startheight, 0, 0, $newwidth, $newheight);
         imagedestroy($tmpimg);
         $tmpimg = $newimg;
 
@@ -815,7 +815,7 @@ class ih_image
         // we need to watermark our images
         if ($this->watermark['file'] !== '') {
             $this->watermark['image'] = $this->load_imageGD($this->watermark['file']);
-            imagecopy($tmpimg, $this->watermark['image'], (int)$this->watermark['startx'], (int)$this->watermark['starty'], 0, 0, (int)$this->watermark['width'], (int)$this->watermark['height']);
+            imagecopy($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], 0, 0, $this->watermark['width'], $this->watermark['height']);
             //$tmpimg = $this->imagemergealpha($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], $this->watermark['width'], $this->watermark['height']);
             imagedestroy($this->watermark['image']);
         }
@@ -873,13 +873,13 @@ class ih_image
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $ihConf['trans_threshold'], $background_color);
                 imagecolortransparent($newimg, (int)$background_color);
             } else {
-                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, (int)$this->canvas['width'], (int)$this->canvas['height']);
+                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
             }
         } else {
             if ($transparent) {
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height']);
             } else {
-                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, (int)$this->canvas['width'], (int)$this->canvas['height']);
+                imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
             }
         }
         imagedestroy($tmpimg);
