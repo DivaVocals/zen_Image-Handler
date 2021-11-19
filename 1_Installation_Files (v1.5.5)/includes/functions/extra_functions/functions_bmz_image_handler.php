@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.1.10
+ * mod Image Handler 5.2.0
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
