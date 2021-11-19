@@ -202,7 +202,7 @@ class ih_image
      *
      * @return string
      */
-    public function strip_sizetype_suffix($src): string
+    public function strip_sizetype_suffix($src)
     {
         global $ihConf;
         $src = preg_replace('/' . $ihConf['large']['suffix'] . '\./', '.', $src);
