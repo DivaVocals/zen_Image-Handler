@@ -762,7 +762,7 @@ class ih_image
             $tmpimg = false;
         }
         if (!$tmpimg) {
-            $tmpimg = imagecreate((int)$newwidth, (int)$newheight);
+            $tmpimg = imagecreate($newwidth, $newheight);
         }
         if (!$tmpimg) {
             $this->ihLog("resize_imageGD: failed to create temporary image file: $newwidth x $newheight");
@@ -791,7 +791,7 @@ class ih_image
             $newimg = false;
         }
         if (!$newimg) {
-            $newimg = imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
         }
         if (!$newimg) {
             $this->ihLog("resize_imageGD: failed to create new image file: {$this->canvas['width']} x {$this->canvas['height']}");
@@ -833,7 +833,7 @@ class ih_image
             $newimg = imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
         }
         if (!$newimg) {
-            $newimg = imagecreate((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
         }
         if (!$newimg) {
             $this->ihLog('resize_imageGD: failed to create new image with background.');
