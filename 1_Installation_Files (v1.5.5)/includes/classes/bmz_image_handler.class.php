@@ -775,18 +775,18 @@ class ih_image
         }
         //try resampling first
         if (function_exists("imagecopyresampled")) {
-            if (!imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, (int)$srcwidth, (int)$srcheight)) {
-                imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newheight, (int)$newwidth, (int)$srcwidth, (int)$srcheight);
+            if (!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
+                imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newheight, $newwidth, $srcwidth, $srcheight);
             }
         } else {
-            imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, (int)$srcwidth, (int)$srcheight);
+            imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight);
         }
 
         imagedestroy($srcimage);
 
         // initialize FIRST background image (transparent canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
-            $newimg = imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
         } else {
             $newimg = false;
         }
@@ -802,7 +802,7 @@ class ih_image
             imagealphablending($newimg, false);
         }
         $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, 127);
-        imagefilledrectangle($newimg, 0, 0, (int)$this->canvas['width'] - 1, (int)$this->canvas['height'] - 1, (int)$background_color);
+        imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
 
         //$newimg = $this->imagemergealpha($newimg, $tmpimg, $startwidth, $startheight, $newwidth, $newheight);
         imagecopy($newimg, $tmpimg, $startwidth, $startheight, 0, 0, $newwidth, $newheight);
@@ -830,7 +830,7 @@ class ih_image
 
         // initialize REAL background image (filled canvas)
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")){
-            $newimg = imagecreatetruecolor ((int)$this->canvas['width'], (int)$this->canvas['height']);
+            $newimg = imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
         }
         if (!$newimg) {
             $newimg = imagecreate($this->canvas['width'], $this->canvas['height']);
@@ -862,7 +862,7 @@ class ih_image
         } else {
             $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, $alpha);
         }
-        imagefilledrectangle($newimg, 0, 0, (int)$this->canvas['width'] - 1, (int)$this->canvas['height'] - 1, (int)$background_color);
+        imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
 
         if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
             imagealphablending($newimg, true);
@@ -871,7 +871,7 @@ class ih_image
         if ($file_ext === '.gif') {
             if ($transparent) {
                 $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $ihConf['trans_threshold'], $background_color);
-                imagecolortransparent($newimg, (int)$background_color);
+                imagecolortransparent($newimg, $background_color);
             } else {
                 imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
             }
