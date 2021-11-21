@@ -32,7 +32,7 @@ function io_lock($file)
     //if ($bmzConf['safemodehack']) return;
 
     $lockDir = $bmzConf['lockdir'] . '/' . md5($file);
-    @ignore_user_abort(1);
+    @ignore_user_abort(true);
 
     $timeStart = time();
     do {
@@ -57,7 +57,7 @@ function io_unlock($file)
 
     $lockDir = $bmzConf['lockdir'] . '/' . md5($file);
     @rmdir($lockDir);
-    @ignore_user_abort(0);
+    @ignore_user_abort(false);
 }
 
 //-bof-IH5.0.1-lat9-getCacheName function moved to bmz_image_handler_class.php
