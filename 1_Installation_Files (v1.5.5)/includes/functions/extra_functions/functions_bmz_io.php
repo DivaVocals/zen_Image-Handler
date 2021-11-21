@@ -32,13 +32,13 @@ function io_lock($file)
     //if ($bmzConf['safemodehack']) return;
 
     $lockDir = $bmzConf['lockdir'] . '/' . md5($file);
-    @ignore_user_abort(true);
+    ignore_user_abort(true);
 
     $timeStart = time();
     do {
         //waited longer than 3 seconds? -> stale lock
         if ((time() - $timeStart) > 3) break;
-        $locked = @mkdir($lockDir);
+        $locked = mkdir($lockDir);
     } while ($locked === false);
 }
 
@@ -56,12 +56,11 @@ function io_unlock($file)
     //if($bmzConf['safemodehack']) return;
 
     $lockDir = $bmzConf['lockdir'] . '/' . md5($file);
-    @rmdir($lockDir);
-    @ignore_user_abort(false);
+    rmdir($lockDir);
+    ignore_user_abort(false);
 }
 
 //-bof-IH5.0.1-lat9-getCacheName function moved to bmz_image_handler_class.php
-
 
 /**
  * Create the directory needed for the given file
@@ -95,10 +94,10 @@ function io_mkdir_p($target)
     global $bmzConf;
 
     if (empty($target) || is_dir($target)) return 1; // best case check first
-    if (@file_exists($target) && !is_dir($target)) return 0;
+    if (file_exists($target) && !is_dir($target)) return 0;
     //recursion
     if (io_mkdir_p(substr($target, 0, strrpos($target, '/')))) {
-        return @mkdir($target, 0755); // crawl back up & create dir tree
+        return mkdir($target, 0755); // crawl back up & create dir tree
     }
     return 0;
 }
