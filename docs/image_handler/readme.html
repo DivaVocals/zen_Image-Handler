@@ -65,7 +65,7 @@ a[target=_blank] { text-decoration: underline; }
 </head>
 
 <body>
-  <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.5 (and later)</h1>
+  <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.6b (and later)</h1>
   <h3>Version 5.2.0 by lat9, Zen4All, brittainmark and torvista</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
@@ -131,14 +131,6 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                 
                 <fieldset>
                     <legend>Before You Install</legend>
-                    <p>Starting with v5.0.0, Image Handler<sup>5</sup> no longer requires <em>core-file</em> overwrites, but there are two (2) template-override files required:</p>
-                    <ol>
-                        <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
-                        <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
-                    </ol>
-                    <p><strong>Note:</strong> Those template-file changes are included in the &quot;base&quot; Zen Cart distribution, starting with Zen Cart v1.5.6!</p>
-                    <p>In all cases, the changes that <em>IH<sup>5</sup></em> requires are additions of Zen Cart &quot;notifiers&quot; to allow <em>IH<sup>5</sup></em> to do its job in a seamless manner.  The changes required <b>do not affect the functionality</b> of the modules and can be left safely in place if you decide to uninstall <em>Image Handler</em>.</p>
-
                     <p>The <em>IH<sup>5</sup></em> installation provides updates (see below for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
 
                     <p>What all that techno-babble means for your <em>IH<sup>5</sup></em> installation (or upgrade!) is that there are two installation routes, dependent on whether you use a large-image viewer and, if so, which one &hellip;</p>
@@ -171,7 +163,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         </tr>
                         <tr>
                             <td>&hellip; has an <em>existing</em> installation of <em>IH<sup>5</sup></em> and you are now going to install one of the large-image popup plugins &hellip;</td>
-                            <td>Install the large-image popup as instructed <b>but do not overwrite the two template-override files required by <em>IH<sup>5</sup></em></b>.  The <em>IH<sup>5</sup></em> installation already included modules that enable that large-image popup to do its thing.</td>
+                            <td>Install the large-image popup as instructed <b>but do not overwrite the two template-override files in the /includes/modules sub-directory</b>.  The base zc156b+ installation already includes modules that enable that large-image popup to do its thing.</td>
                         </tr>
                         <tr>
                             <td>&hellip; has neither <em>IH<sup>5</sup></em> nor an <em>existing</em> large-image popup plugin &hellip;</td>
@@ -208,9 +200,6 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <li>Unzip the Image Handler<sup>5</sup> package to your local hard drive, retaining the directory structure.</li>
                         <li>Within the <code>1_Installation_Files (v1.5.5)</code> directory:<ol>
                             <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
-                            <li><em>For Zen Cart versions prior to v1.5.6</em>, rename the two (2) <code>YOUR_TEMPLATE</code> directories to match the name of your currently-active Zen Cart template:<ol>
-                                <li><code>/includes/modules/YOUR_TEMPLATE</code></li>
-                            </ol></li>
                         </ol></li>
                         <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
                         <li>Next, using an FTP program, upload the files from the <code>1_Installation_Files (v1.5.5)</code> directory to your store's web-hosted <em>root</em> directory. <b>Do not</b> upload the <code>1_Installation_Files (v1.5.5)</code> directory, just the <em>contents</em> of this directory.</li>
@@ -236,8 +225,6 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <li>/includes/auto_loaders/config.fual_slimbox.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
                         <li>/includes/classes/observers/ColorBoxObserver.php <span class="smaller">(remains <em>only if</em> ColorBox is installed)</span></li>
                         <li>/includes/classes/observers/FualSlimboxObserver.php <span class="smaller">(remains <em>only if</em> Fual Slimbox is installed)</span></li>
-                        <li>/includes/modules/YOUR_TEMPLATE/additional_images.php</li>
-                        <li>/includes/modules/YOUR_TEMPLATE/main_product_image.php</li>
                     </ol></li>
                 </ol>
             </div>
@@ -332,12 +319,12 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><span class="template">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></td>
-                        <td>This is the Zen Cart 1.5.6 version of the module.</td>
+                        <td><span class="template removed">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></td>
+                        <td>No longer distributed, as of v5.2.0.</td>
                     </tr>
                     <tr>
-                        <td><span class="template">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></td>
-                        <td>This is the Zen Cart 1.5.6 version of the module.</td>
+                        <td><span class="template removed">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></td>
+                        <td>No longer distributed, as of v5.2.0.</td>
                     </tr>
                     <tr>
                         <td><span class="removed">/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</span></td>
@@ -437,9 +424,12 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <li>BUGFIX: Correct PHP errors when supplied image is missing.</li>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
                         <li>CHANGE: Small-image 'zoom' feature removed.</li>
+                        <li>CHANGE: No longer distributing image-handling modules' template-overrides; changes are present in the zc156b+ core.</li>
                         <li>The following files were changed or <span class="removed">removed</span> (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
                             <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
+                            <li><span class="removed">/includes/modules/YOUR_TEMPLATE/additional_images.php</span></li>
+                            <li><span class="removed">/includes/modules/YOUR_TEMPLATE/main_product_image.php</span></li>
                             <li><span class="removed">/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</span></li>
                             <li><span class="removed">/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</span></li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
