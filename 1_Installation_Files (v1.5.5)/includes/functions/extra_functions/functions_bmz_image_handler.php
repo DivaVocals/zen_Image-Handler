@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.1.10
+ * mod Image Handler 5.2.0
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -119,10 +119,14 @@ function handle_image($src, $alt, $width, $height, $parameters)
 
     if ($ihConf['resize']) { //Image Handler processing is enabled
         $ih_image = new ih_image($src, $width, $height);
+        $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ': $src=' . $src . ', $alt=' . $alt . ', $width=' . $width . ', $height=' . $height . ', $parameters=' . $parameters);
         // override image path, get local image from cache
-        if ($ih_image) { 
+        if ($ih_image->file_exists) { // check is for existence of source/base file
             $src = $ih_image->get_local();
+            $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ':  local/handled $src=' . $src . ', $ih_image->canvas[width]=' .  $ih_image->canvas['width'] . ',  $ih_image->canvas[height]=' . $ih_image->canvas['height'] . ', $parameters=' . $parameters);
             $parameters = $ih_image->get_additional_parameters($alt, $ih_image->canvas['width'], $ih_image->canvas['height'], $parameters);
+        } else {
+            $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ': source/base file $src=' . $src . ' MISSING');
         }
     } else {
 //-bof-20210219-lat9-GitHub#212: Don't modify input variables if IH isn't enabled.  Uncomment if needed.
