@@ -517,15 +517,15 @@ class ih_image
                 // calculate new dimension in pixels
                 if ($pref_width !== '' && $pref_height !== '') {
                     // different factors for width and height
-                    $hscale = (int)($pref_width) / 100;
-                    $vscale = (int)($pref_height) / 100;
+                    $hscale = (int)$pref_width / 100;
+                    $vscale = (int)$pref_height / 100;
                 } else {
                     // one of the the preferred values has the scaling factor
                     $hscale = (int)($pref_width . $pref_height) / 100;
                     $vscale = $hscale;
                 }
-                $newwidth = floor($width * $hscale);
-                $newheight = floor($height * $vscale);
+                $newwidth = (int)floor($width * $hscale);
+                $newheight = (int)floor($height * $vscale);
             } else {
                 $this->force_canvas = (strpos($pref_width . $pref_height, '!') !== false);
                 // failsafe for old zen-cart configuration one image dimension set to 0
@@ -547,10 +547,10 @@ class ih_image
                 // now deal with the calculated preferred sizes
                 if ($pref_width == 0 && $pref_height > 0) {
                     // image dimensions are calculated to fit the preferred height
-                    $pref_width = floor($width * ($pref_height / $height));
+                    $pref_width = (int)floor($width * ($pref_height / $height));
                 } elseif ($pref_width > 0 && $pref_height == 0) {
                     // image dimensions are calculated to fit the preferred width
-                    $pref_height = floor($height * ($pref_width / $width));
+                    $pref_height = (int)floor($height * ($pref_width / $width));
                 }
                 if ($pref_width > 0 && $pref_height > 0 && ($this->force_canvas || $pref_width < $width || $pref_height < $height)) {
                     // only calculate new dimensions if we have sane values
@@ -741,23 +741,23 @@ class ih_image
         if (!$srcimage) {
             return false; // couldn't load image
         }
-        $src_ext = substr($this->filename, strrpos($this->filename, '.')); //todo unused variable
+
         $srcwidth = imagesx($srcimage);
         $srcheight = imagesy($srcimage);
         if ($this->force_canvas) {
             if (($srcwidth / $this->canvas['width']) > ($srcheight / $this->canvas['height'])) {
                 $newwidth = $this->canvas['width'];
-                $newheight = floor(($newwidth / $srcwidth) * $srcheight);
+                $newheight = (int)floor(($newwidth / $srcwidth) * $srcheight);
             } else {
                 $newheight = $this->canvas['height'];
-                $newwidth = floor(($newheight / $srcheight) * $srcwidth);
+                $newwidth = (int)floor(($newheight / $srcheight) * $srcwidth);
             }
         } else {
             $newwidth = $this->canvas['width'];
             $newheight = $this->canvas['height'];
         }
-        $startwidth = ($this->canvas['width'] - $newwidth) / 2;
-        $startheight = ($this->canvas['height'] - $newheight) / 2;
+        $startwidth = (int)($this->canvas['width'] - $newwidth) / 2;
+        $startheight = (int)($this->canvas['height'] - $newheight) / 2;
 
         if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
             $tmpimg = imagecreatetruecolor($newwidth, $newheight);
@@ -778,7 +778,7 @@ class ih_image
         }
         //try resampling first
         if (function_exists("imagecopyresampled")) {
-            if (!@imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
+            if (!imagecopyresampled($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight)) {
                 imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newheight, $newwidth, $srcwidth, $srcheight);
             }
         } else {
@@ -912,8 +912,8 @@ class ih_image
     protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity)
     {
         // Calculate overlay position from gravity setting. Center as default.
-        $startheight = ($canvasheight - $overlayheight) / 2;
-        $startwidth = ($canvaswidth - $overlaywidth) / 2;
+        $startheight = (int)($canvasheight - $overlayheight) / 2;
+        $startwidth = (int)($canvaswidth - $overlaywidth) / 2;
         if (strpos($gravity, 'North') !== false) {
             $startheight = 0;
         } elseif (strpos($gravity, 'South') !== false) {
@@ -938,20 +938,20 @@ class ih_image
         $file_ext = '.' . pathinfo($src_name, PATHINFO_EXTENSION);
         switch (strtolower($file_ext)) {
             case '.gif':
-                if (!function_exists("imagecreatefromgif")) {
+                if (!function_exists('imagecreatefromgif')) {
                     return false;
                 }
                 $image = imagecreatefromgif($src_name);
                 break;
             case '.png':
-                if (!function_exists("imagecreatefrompng")) {
+                if (!function_exists('imagecreatefrompng')) {
                     return false;
                 }
                 $image = imagecreatefrompng($src_name);
                 break;
             case '.jpg':
             case '.jpeg':
-                if (!function_exists("imagecreatefromjpeg")) {
+                if (!function_exists('imagecreatefromjpeg')) {
                     return false;
                 }
                 $image = imagecreatefromjpeg($src_name);
@@ -961,8 +961,8 @@ class ih_image
                 break;
         }
         if ($image === false) {
-            $php_error_msg = error_get_last(); //todo unused variable
-            $this->ihLog("load_imageGD($src_name), failure loading the image; check image validity");
+            $php_error_msg = error_get_last();
+            $this->ihLog("load_imageGD($src_name), failure loading the image ($php_error_msg); check image validity");
         }
         return $image;
     }
@@ -995,7 +995,7 @@ class ih_image
                 $ok = imagegif($image, $dest_name);
                 break;
             case '.png':
-                if (!function_exists("imagepng")) {
+                if (!function_exists('imagepng')) {
                     $this->ihLog("save_imageGD, imagepng function does not exist");
                     return false;
                 }
@@ -1012,7 +1012,7 @@ class ih_image
                 break;
             case '.jpg':
             case '.jpeg':
-                if (!function_exists("imagejpeg")) {
+                if (!function_exists('imagejpeg')) {
                     $this->ihLog("save_imageGD, imagejpeg function does not exist");
                     return false;
                 }
