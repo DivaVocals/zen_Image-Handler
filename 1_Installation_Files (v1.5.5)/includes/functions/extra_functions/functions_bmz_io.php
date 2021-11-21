@@ -94,7 +94,7 @@ function io_mkdir_p($target)
 {
     global $bmzConf;
 
-    if (is_dir($target) || empty($target)) return 1; // best case check first
+    if (empty($target) || is_dir($target)) return 1; // best case check first
     if (@file_exists($target) && !is_dir($target)) return 0;
     //recursion
     if (io_mkdir_p(substr($target, 0, strrpos($target, '/')))) {
