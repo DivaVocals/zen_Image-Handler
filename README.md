@@ -6,7 +6,7 @@ The latest released version is available for download from the Zen Cart site, vi
 
 Image Handler 5 simplifies the management of product images (particularly the management of additional product images), and to help improve page performance by optimizing those images. Product images (based on your image settings) are created in the Image Handler<sup>5</sup> `bmz_cache` directory. The original images are **not** modified, so it's _perfectly_ safe to use on an existing store.
 
-Image Handler 5 enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on the fly  as they're required. You can simply upload just one image or you can have different sources for medium and large images. Image Handler 5 further enables you to watermark your images (overlay a second specific translucent image) and have medium or large images pop up when you move your mouse over a small image (fancy hover).
+Image Handler 5 enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on the fly  as they're required. You can simply upload just one image or you can have different sources for medium and large images. Image Handler 5 further enables you to watermark your images (overlay a second specific translucent image) .
 
 This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via FTP. IH<sup>5</sup> works fine with mass update utilities like EZ-Populate and Database I/O Manager.
 
@@ -19,7 +19,6 @@ This contribution includes a powerful admin interface to browse your products ju
 * Easy install. Built in auto-installer creates the database elements required.
 * Works with mass-update/-upload tools like EZ-Populate or Database I/O Manager.
 * Watermark images to prevent competitors from stealing them.
-* Fancy image hover functionality lets a larger image pop up whenever you move your mouse above a small image (switchable).
 * Choose an image background color matching to match you site's color or select a transparent background for your images.
 * Manage your multiple images for products easily from one page just like you do with attributes in the Products Attribute Manager.
 
