@@ -17,7 +17,6 @@ You can tweak everything to your liking. The parameters are self explanatory and
 - compression quality
 - background color
 - watermarking
-- zooming (fancy hover effect)
 - gravity for watermarking
 
 The parameters to configure image dimensions have been enhanced to not only accept numerical values, but to accept parameters with an appended `!` which results in a force-canvas-size mode. Images are re-sized to fit and placed centered inside the fixed canvas instead of resizing the image to just one of the dimensions if it doesn't feature the same aspect ratio as the settings. 
