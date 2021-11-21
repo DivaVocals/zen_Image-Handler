@@ -1,20 +1,20 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2021 Vinos de Frutas Tropicales
 //
 // This is not a "traditional" Zen Cart language file.  Its purpose is to provide the information associated with
 // the admin's Tools->Image Handler's "About/Help" link and is included by that module when/if that link is active.
 //
 ?>
 <div class="aboutbox">
-    <h2>Image Handler<sup>5</sup> for Zen Cart 1.5.5 and later</h2>
+    <h2>Image Handler<sup>5</sup> for Zen Cart 1.5.6b and later</h2>
     <p>Image Handler<sup>5</sup> is based on an original contribution by Tim Kr&#246;ger.</p>
     <fieldset>
         <legend>Purpose &amp; Aim</legend>
         <p>Image Handler<sup>5</sup>, at the heart of its code, is really meant to ease the management of product images (particularly the management of additional product images), and to help improve page performance by optimizing the product images.</p>
         <p>IH<sup>5</sup> generates product images (based on your image settings) in your store's <code>/bmz_cache</code> folder. It <strong>does not</strong> replace or modify the original images, so it's <em>perfectly</em> safe to use on an existing store.</p>
-        <p>The plugin enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on-the-fly/on page request. You can simply upload just one large image (that gets resized as required) or you can have different sources for medium and large images. You can also watermark your images on-the-fly (overlay a second specific translucent image onto the original) and have medium or large images pop up when you move your mouse over a small image (fancy hover).</p>
+        <p>The plugin enables you to use GD libraries or ImageMagick (if installed on your server) to generate and resize small, medium and large images on-the-fly/on page request. You can simply upload just one large image (that gets resized as required) or you can have different sources for medium and large images. You can also watermark your images on-the-fly (overlay a second specific translucent image onto the original).</p>
         <p>This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via <span title="File Transfer Protocol">FTP</span>. IH<sup>5</sup> works fine with mass update utilities like EZ-Populate and the Database I/O Manager.</p>
     </fieldset>
     <hr />
@@ -29,12 +29,11 @@
           <li>Easy install. One-click-database-upgrade.</li>
           <li>Works with mass-update/-upload tools like EZ-Populate and the Database I/O Manager.</li>
           <li>Watermark images to prevent competitors from stealing them. (prove ownership)</li>
-          <li>Fancy image hover functionality lets a larger image pop up whenever you move your mouse above a small image (optional).</li>
           <li>Choose an image background color to match your site or select a transparent background for your images.</li>
           <li>Manage multiple images for products easily from one page just like you do with attributes in the Products Attribute Manager.</li>
         </ul>
         <p>IH<sup>5</sup> is meant to ease the work required to setup images for your store. It works <em>with</em> the default Zen Cart functionality, it does not replace it.</p>
-        <p>It is very strongly recommend you read through the ENTIRE "<strong>Configuration</strong>" &amp; "<strong>Usage</strong>" sections of the Image Handler<sup>4</sup> readme file. There you will find out exactly what <strong>Image Handler<sup>5</sup></strong> can do.</p>
+        <p>It is very strongly recommend you read through the ENTIRE "<strong>Configuration</strong>" &amp; "<strong>Usage</strong>" sections of the Image Handler<sup>5</sup> readme file. There you will find out exactly what <strong>Image Handler<sup>5</sup></strong> can do.</p>
     </fieldset>
 
     <hr />
@@ -59,14 +58,14 @@
         <legend>Zen Cart and Image Management</legend>
         <p>Image Handler<sup>5</sup> is meant to ease the work required to setup images for your store. It works <em>with</em> the default Zen Cart functionality, it does not replace it. Here are some additional FAQs which discuss how product images work in Zen Cart.</p>
         <ul>
-          <li><a href="https://www.zen-cart.com/content.php?223" target="_blank">Image Preparation - How-to</a></li>
-          <li><a href="https://www.zen-cart.com/content.php?72" target="_blank">My images are distorted/fuzzy/squished, help?</a></li>
+          <li><a href="https://docs.zen-cart.com/user/images/images_howto/" target="_blank" rel="noreferrer noopener">Image Preparation - How-to</a></li>
+          <li><a href="https://docs.zen-cart.com/user/troubleshooting/images_distorted/" target="_blank" rel="noreferrer noopener">My images are distorted/fuzzy/squished, help?</a></li>
         </ul>
         <p>Information on how Zen Cart identifies/manages additional product images can be found on these Zen Cart FAQs:</p>
         <ul>
-          <li><a href="https://www.zen-cart.com/content.php?273" target="_blank">Why am I seeing images for other products on my product pages?</a></li>
-          <li><a href="hhttps://www.zen-cart.com/content.php?100" target="_blank">How do I add multiple images to a product?</a></li>
-          <li><a href="https://www.zen-cart.com/content.php?100" target="_blank">How do I add more than one image of a product?  I want to have a main image and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page?</a></li>
+          <li><a href="https://docs.zen-cart.com/user/images/additional_images/#why-do-i-see-images-for-other-products-on-my-product-pages" target="_blank" rel="noreferrer noopener">Why am I seeing images for other products on my product pages?</a></li>
+          <li><a href="https://docs.zen-cart.com/user/images/additional_images/" target="_blank" rel="noreferrer noopener">How do I add multiple images to a product?</a></li>
+          <li><a href="https://docs.zen-cart.com/user/images/additional_images/" target="_blank" rel="noreferrer noopener">How do I add more than one image of a product?  I want to have a main image and also one or two other images that show more parts of a particular product. How/where do I add additional images to a product page?</a></li>
         </ul>
         <p>Check out these FAQs and see if they help clarify how Zen Cart works with product images.</p>
     </fieldset>
