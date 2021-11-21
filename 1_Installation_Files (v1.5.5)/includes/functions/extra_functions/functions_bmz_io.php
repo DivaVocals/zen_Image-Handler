@@ -9,7 +9,7 @@
  * @copyright Copyright 2005-2006
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: functions_bmz_io.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
- * Modified by DerManoMann 2010-05-31 23:46:50 
+ * Modified by DerManoMann 2010-05-31 23:46:50
  * Modified by lat9: 2017-07-17, applying PSR-2 formatting.
  * Modified by lat9: 2018-05-19, moving getCacheName to the ih_image class
  */
@@ -20,7 +20,7 @@
  * Locking uses directories inside $bmzConf['lockdir']
  *
  * It waits maximal 3 seconds for the lock, after this time
- * the lock is assumed to be stale and the function goes on 
+ * the lock is assumed to be stale and the function goes on
  *
  * @author Andreas Gohr <andi@splitbrain.org>
  * @author Tim Kroeger <tim@breakmyzencart.com>
@@ -33,7 +33,7 @@ function io_lock($file)
 
     $lockDir = $bmzConf['lockdir'] . '/' . md5($file);
     @ignore_user_abort(1);
-    
+
     $timeStart = time();
     do {
         //waited longer than 3 seconds? -> stale lock
@@ -79,7 +79,7 @@ function io_makeFileDir($file)
     if (!is_dir($dir)){
         io_mkdir_p($dir) || $messageStack->add("Creating directory $dir failed", "error");
     }
-    umask($bmzConf['umask']); 
+    umask($bmzConf['umask']);
 }
 
 /**
@@ -102,4 +102,4 @@ function io_mkdir_p($target)
     }
     return 0;
 }
- 
+
