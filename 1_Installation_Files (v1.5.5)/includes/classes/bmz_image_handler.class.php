@@ -112,14 +112,16 @@ class ih_image
         $this->ihLog("__constructor for $this->filename, called by $caller at line number $line_num\n" . var_export($backtrace, true), true);
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
-        // set canvas dimensions
-        if ($newwidth > 0 && $newheight > 0) {
-            $this->canvas['width'] = $newwidth;
-            $this->canvas['height'] = $newheight;
-        }
+        if ($this->file_exists) {
+            // set canvas dimensions
+            if ($newwidth > 0 && $newheight > 0) {
+                $this->canvas['width'] = $newwidth;
+                $this->canvas['height'] = $newheight;
+            }
 
-        // initialize overlays (watermark, zoom overlay)
-        $this->initialize_overlays($this->sizetype);
+            // initialize overlays (watermark, zoom overlay)
+            $this->initialize_overlays($this->sizetype);
+        }
     } // end class constructor
 
     /**
