@@ -1,7 +1,7 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2018-2019 Vinos de Frutas Tropicales
+// Copyright (c) 2018-2021 Vinos de Frutas Tropicales
 //
 require 'includes/application_top.php';
 
@@ -73,8 +73,6 @@ $config_values = [
         'SMALL_IMAGE_BACKGROUND' => ['check' => CHECK_BACKGROUND],
         'SMALL_IMAGE_QUALITY' => ['check' => CHECK_QUALITY],
         'WATERMARK_SMALL_IMAGES' => ['check' => CHECK_NONE],
-        'ZOOM_SMALL_IMAGES' => ['check' => CHECK_NONE],
-        'ZOOM_IMAGE_SIZE' => ['check' => CHECK_NONE],
         'MEDIUM_IMAGE_WIDTH' => ['check' => CHECK_INTEGER],
         'MEDIUM_IMAGE_HEIGHT' => ['check' => CHECK_INTEGER],
         'IMAGE_SUFFIX_MEDIUM' => ['check' => CHECK_NONE],
@@ -121,8 +119,6 @@ $config_values = [
                 'bg' => ['check' => CHECK_BACKGROUND],
                 'quality' => ['check' => CHECK_QUALITY],
                 'watermark' => ['check' => CHECK_BOOLEAN],
-                'zoom' => ['check' => CHECK_BOOLEAN],
-                'size' => ['check' => CHECK_SIZE],
             ],
         ],
         'medium' => [

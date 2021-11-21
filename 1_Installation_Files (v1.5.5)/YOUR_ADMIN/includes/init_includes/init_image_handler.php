@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.2.0-beta2');
+define('IH_CURRENT_VERSION', '5.2.0-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -77,22 +77,6 @@ if (isset($_SESSION['admin_id'])) {
                 ['no', 'yes'],
                 'IH small images watermark',
                 'Set to -yes-, if you want to show watermarked small images instead of unmarked small images.'
-            ],
-            [
-                'ZOOM_SMALL_IMAGES', 
-                'yes', 
-                1051, 
-                ['no', 'yes'],
-                'IH small images zoom on hover',
-                'Should the small images zoom when hovered?'
-            ],
-            [
-                'ZOOM_IMAGE_SIZE', 
-                'Medium', 
-                1061, 
-                ['Medium', 'Large'],
-                'IH small images zoom on hover size',
-                'Set to -Medium-, if you want to the zoom on hover display to use the medium sized image. Otherwise, to use the large sized image on hover, set to -Large-'
             ],
             [
                 'MEDIUM_IMAGE_FILETYPE', 
@@ -305,6 +289,17 @@ if (isset($_SESSION['admin_id'])) {
                      SET configuration_description = '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.',
                          set_function = 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),'
                      WHERE configuration_key = 'IH_CACHE_NAMING' LIMIT 1"
+            );
+        }
+
+        // -----
+        // v5.2.0
+        // - GitHub#139: Removing small-image zoom feature
+        //
+         if (version_compare(IH_VERSION, '5.2.0', '<')) {
+            $db->Execute(
+                "DELETE FROM " . TABLE_CONFIGURATION . "
+                  WHERE configuration_key IN ('ZOOM_SMALL_IMAGES', 'ZOOM_IMAGE_SIZE')"
             );
         }
 
