@@ -42,13 +42,12 @@ class ih_image
     public $first_access;
     public $force_canvas;
     public $height;
-    public $local = null;   // cached image reference
-    public $orig = null;    // original image source passed to the constructor
+    public $local = null;  // cached image reference
+    public $orig;          // original image source passed to the constructor
     public $sizetype;
-    public $src = null;     // reference to an actual physical image
+    public $src;           // reference to an actual physical image
     public $watermark;
     public $width;
-    public $zoom;
 
     /**
      * ih_image class constructor
@@ -68,7 +67,6 @@ class ih_image
         $this->src = $src;
         $this->width = $width;
         $this->height = $height;
-        $this->zoom = [];
         $this->watermark = [];
 
         // -----
@@ -119,7 +117,7 @@ class ih_image
                 $this->canvas['height'] = $newheight;
             }
 
-            // initialize overlays (watermark, zoom overlay)
+            // initialize overlays (watermark overlay)
             $this->initialize_overlays($this->sizetype);
         }
     } // end class constructor
@@ -193,7 +191,7 @@ class ih_image
             $this->sizetype = 'large';
         } elseif (!empty($ihConf['medium']['suffix']) && strpos($this->src, $ihConf['medium']['suffix']) !== false) {
             $this->sizetype = 'medium';
-        } elseif (((int)$this->width) === ((int)$ihConf['small']['width']) && (((int)$this->height) === ((int)$ihConf['small']['height']))) {
+        } elseif (((int)$this->width) === ((int)$ihConf['small']['width']) && ((int)$this->height) === ((int)$ihConf['small']['height'])) {
             $this->sizetype = 'small';
         } else {
             $this->sizetype = 'generic';
@@ -222,30 +220,19 @@ class ih_image
     {
         global $ihConf;
 
-        // -----
-        // Adding here, since the variable appears to be "left-over" from the medium/large image-zoom
-        // feature provided by IH-2/3 versions.  Initializing it here to stop PHP Notices from being
-        // issued, but I'm not sure what the setting is supposed to do!
-        //
-        $ihConf['zoom']['gravity'] = 'Center';
-
         $image_base_path = $ihConf['dir']['docroot'] . $ihConf['dir']['images'];
         switch ($sizetype) {
             case 'large':
                 $this->watermark['file'] = (!empty($ihConf['large']['watermark'])) ? $image_base_path . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
-                $this->zoom['file'] = '';
                 break;
             case 'medium':
                 $this->watermark['file'] = (!empty($ihConf['medium']['watermark'])) ? $image_base_path . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
-                $this->zoom['file'] = '';
                 break;
             case 'small':
                 $this->watermark['file'] = ($ihConf['small']['watermark']) ? $image_base_path . 'watermark.png' : '';
-                $this->zoom['file'] = (!empty($ihConf['small']['zoom'])) ? $image_base_path . 'zoom.png' : '';
                 break;
             default:
                 $this->watermark['file'] = '';
-                $this->zoom['file'] = '';
                 break;
         }
 
@@ -255,14 +242,6 @@ class ih_image
             list($this->watermark['startx'], $this->watermark['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'], $ihConf['watermark']['gravity']);
         } else {
             $this->watermark['file'] = '';
-        }
-
-        if ($this->zoom['file'] !== '' && is_file($this->zoom['file'])) {
-            // set zoom parameters
-            list($this->zoom['width'], $this->zoom['height']) = getimagesize($this->zoom['file']);
-            list($this->zoom['startx'], $this->zoom['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'], $ihConf['zoom']['gravity']);
-        } else {
-            $this->zoom['file'] = '';
         }
     }
 
@@ -366,11 +345,11 @@ class ih_image
         // override filetype?
         $file_extension = ($filetype === '') ? $file_extension : $filetype;
 
-        // Do we need to resize, watermark, zoom or convert to another filetype?
-        if ($this->file_exists && ($resize || $this->watermark['file'] !== '' || $this->zoom['file'] !== '' || $file_extension !== $this->extension)) {
+        // Do we need to resize, watermark or convert to another filetype?
+        if ($this->file_exists && ($resize || $this->watermark['file'] !== '' || $file_extension !== $this->extension)) {
             switch (IH_CACHE_NAMING) {
                 case 'Hashed':
-                    $local = $this->getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                    $local = $this->getCacheName($this->src . $this->watermark['file'] . $quality . $background . $ihConf['watermark']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
                     break;
                 case 'Mirrored':
                     // use pathinfo to get full path of an image
@@ -414,10 +393,9 @@ class ih_image
             $local_mtime = $this->fileModifiedTime($local); // 0 if not exists
             $file_mtime = $this->fileModifiedTime($this->filename);
             $watermark_mtime = $this->fileModifiedTime($this->watermark['file']);
-            $zoom_mtime = $this->fileModifiedTime($this->zoom['file']);
-            $this->ihLog("get_resized_image: $local, $local_mtime, $this->filename, $file_mtime, $watermark_mtime, $zoom_mtime");
+            $this->ihLog("get_resized_image: $local, $local_mtime, $this->filename, $file_mtime, $watermark_mtime");
             $this->ihLog(date("F d Y H:i:s.", $local_mtime) . ', ' . date("F d Y H:i:s.", $file_mtime));
-            if (($local_mtime > $file_mtime && $local_mtime > $watermark_mtime && $local_mtime > $zoom_mtime) ||
+            if (($local_mtime > $file_mtime && $local_mtime > $watermark_mtime) ||
                 $this->resize_imageIM($file_extension, $local, $background, $quality) ||
                 $this->resize_imageGD($file_extension, $local, $background, $quality) ) {
                 if (strpos($local, $ihConf['dir']['docroot']) !== 0) {
@@ -615,7 +593,6 @@ class ih_image
         $size .= $this->force_canvas ? '' : '!';
         $command .= ' "' . $this->filename . '" -compose Over -gravity Center -geometry ' . $size . ' -composite';
         $command .= ($this->watermark['file'] !== '') ? ' "' . $this->watermark['file'] . '" -compose Over -gravity ' . $ihConf['watermark']['gravity'] . " -composite" : '';
-        $command .= ($this->zoom['file'] !== '') ? ' "' . $this->zoom['file'] . '" -compose Over -gravity ' . $ihConf['zoom']['gravity'] . " -composite " : ' ';
         $command .= $gif_treatment ? $temp_name : (preg_match("/\.jp(e)?g/i", $file_ext) ? "-quality $quality " : '') . "\"$dest_name\"";
         exec($command . ' 2>&1', $message, $retval);
         if ($gif_treatment && $retval === 0) {
@@ -821,14 +798,6 @@ class ih_image
             imagecopy($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], 0, 0, $this->watermark['width'], $this->watermark['height']);
             //$tmpimg = $this->imagemergealpha($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], $this->watermark['width'], $this->watermark['height']);
             imagedestroy($this->watermark['image']);
-        }
-
-        // we need to zoom our images
-        if ($this->zoom['file'] !== '') {
-            $this->zoom['image'] = $this->load_imageGD($this->zoom['file']);
-            //imagecopy($tmpimg, $this->zoom['image'], $this->zoom['startx'], $this->zoom['starty'], 0, 0, $this->zoom['width'], $this->zoom['height']);
-            $tmpimg = $this->imagemergealpha($tmpimg, $this->zoom['image'], $this->zoom['startx'], $this->zoom['starty'], $this->zoom['width'], $this->zoom['height']);
-            imagedestroy($this->zoom['image']);
         }
 
         // initialize REAL background image (filled canvas)
@@ -1045,66 +1014,6 @@ class ih_image
             $color = ['r' => $red, 'g' => $green, 'b' => $blue];
         }
         return $color;
-    }
-
-    /**
-     * @param $alt
-     * @param $width
-     * @param $height
-     * @param $parameters
-     *
-     * @return mixed|string
-     */
-    public function get_additional_parameters($alt, $width, $height, $parameters)
-    {
-        // -----
-        // If the "Small images: Zoom on hover" setting has been enabled, add the magic
-        // that causes the imagehover.js to show those images on hover.
-        //
-        // Note: This functionality will be removed in the next primary release (i.e. 5.2.0)
-        // of Image Handler, replaced with simply an 'ih-zoom' class definition!
-        //
-        global $ihConf;
-        if (($this->sizetype === 'small') && $ihConf['small']['zoom']) {
-            if ($this->zoom['file'] === '') {
-                // if no zoom image, the whole image triggers the popup
-                $this->zoom['startx'] = 0;
-                $this->zoom['starty'] = 0;
-                $this->zoom['width'] = $width;
-                $this->zoom['height'] = $height;
-            }
-            //escape possible quotes if they're not already escaped
-            $alt = addslashes(htmlentities($alt, ENT_COMPAT, CHARSET));
-            // strip potential suffixes just to be sure
-            $src = $this->strip_sizetype_suffix($this->src);
-            // define zoom sizetype
-            if (ZOOM_IMAGE_SIZE === 'Medium') {
-                $zoom_sizetype = 'medium';
-            } else {
-                $zoom_sizetype = 'large';
-            }
-            // additional zoom functionality
-            $pathinfo = pathinfo($src);
-            $base_image_directory = $ihConf['dir']['images'];
-            if (in_array(substr($base_image_directory, -1), ['/', '\\'])) {
-                $base_image_directory = substr($base_image_directory, 0, -1);
-            }
-            $base_imagedir_len = strlen($base_image_directory);
-            $products_image_directory = (strpos($pathinfo['dirname'], $base_image_directory) === 0) ? substr($pathinfo['dirname'], $base_imagedir_len) : $pathinfo['dirname'];
-            $products_image_directory .= DIRECTORY_SEPARATOR;
-            $products_image_filename = $pathinfo['filename'];
-
-            $this->ihLog("get_additional_parameters($alt, $width, $height, $parameters), base_dir = '$base_image_directory', zoom_sizetype = '$zoom_sizetype', product_dir = '$products_image_directory'" . var_export($pathinfo, true));
-            $products_image_zoom = $ihConf['dir']['images'] . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
-
-            $ih_zoom_image = new ih_image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
-            $products_image_zoom = $ih_zoom_image->get_local();
-            list($zoomwidth, $zoomheight) = getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
-            // we should parse old parameters here and possibly merge some inc case they're duplicate
-            $parameters .= ($parameters !== '') ? ' ' : '';
-            return $parameters . 'style="position:relative;" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
-        }
-        return $parameters;
     }
 
     /**

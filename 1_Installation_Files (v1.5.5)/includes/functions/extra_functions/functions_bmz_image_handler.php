@@ -27,8 +27,6 @@ $ihConf['small']['filetype']    = defined('SMALL_IMAGE_FILETYPE') ? SMALL_IMAGE_
 $ihConf['small']['bg']          = defined('SMALL_IMAGE_BACKGROUND') ? SMALL_IMAGE_BACKGROUND : $ihConf['default']['bg'];
 $ihConf['small']['quality']     = defined('SMALL_IMAGE_QUALITY') ? (int)SMALL_IMAGE_QUALITY : $ihConf['default']['quality'];
 $ihConf['small']['watermark']   = defined('WATERMARK_SMALL_IMAGES') && WATERMARK_SMALL_IMAGES === 'yes';
-$ihConf['small']['zoom']        = defined('ZOOM_SMALL_IMAGES') && ZOOM_SMALL_IMAGES === 'yes';
-$ihConf['small']['size']        = defined('ZOOM_IMAGE_SIZE') ? ZOOM_IMAGE_SIZE : 'Medium';
 
 $ihConf['medium']['prefix']     = '/medium';
 $ihConf['medium']['suffix']     = IMAGE_SUFFIX_MEDIUM;
@@ -124,7 +122,6 @@ function handle_image($src, $alt, $width, $height, $parameters)
         if ($ih_image->file_exists) { // check is for existence of source/base file
             $src = $ih_image->get_local();
             $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ':  local/handled $src=' . $src . ', $ih_image->canvas[width]=' .  $ih_image->canvas['width'] . ',  $ih_image->canvas[height]=' . $ih_image->canvas['height'] . ', $parameters=' . $parameters);
-            $parameters = $ih_image->get_additional_parameters($alt, $ih_image->canvas['width'], $ih_image->canvas['height'], $parameters);
         } else {
             $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ': source/base file $src=' . $src . ' MISSING');
         }

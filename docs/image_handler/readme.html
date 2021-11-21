@@ -39,6 +39,7 @@ table, td, th { border: 1px solid black; border-collapse: collapse; }
 td, th { padding: 5px; }
 th { background-color: #eee; }
 .smaller { font-size: smaller; }
+.removed { text-decoration: line-through; }
 .code-samp { border: 1px solid #666; padding: 5px 5px 0; }
 
 .etabs { margin: 0; padding: 0; }
@@ -119,7 +120,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                 <fieldset>
                     <legend>Requirements</legend>
                     <ul>
-                        <li>Zen Cart v1.5.5 or later (not backwards compatible with older versions of Zen Cart).</li>
+                        <li>Zen Cart v1.5.6b or later (not backwards compatible with older versions of Zen Cart).</li>
                         <li>PHP v5.6 or later (not backwards compatible with older versions of PHP).</li>
                         <li><strong>Either</strong> GD libraries version 2 or greater, <strong>or</strong> ImageMagick version 6 or greater.</li>
                         <li>If you are using Fual Slimbox or ColorBox for Zen Cart with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
@@ -209,7 +210,6 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                             <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
                             <li><em>For Zen Cart versions prior to v1.5.6</em>, rename the two (2) <code>YOUR_TEMPLATE</code> directories to match the name of your currently-active Zen Cart template:<ol>
                                 <li><code>/includes/modules/YOUR_TEMPLATE</code></li>
-                                <li><code>/includes/templates/YOUR_TEMPLATE</code></li>
                             </ol></li>
                         </ol></li>
                         <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
@@ -340,12 +340,12 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <td>This is the Zen Cart 1.5.6 version of the module.</td>
                     </tr>
                     <tr>
-                        <td>/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</td>
-                        <td>&nbsp;</td>
+                        <td><span class="removed">/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</span></td>
+                        <td>Removed in v5.2.0.</td>
                     </tr>
                     <tr>
-                        <td>/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</td>
-                        <td>&nbsp;</td>
+                        <td><span class="removed">/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</span></td>
+                        <td>Removed in v5.2.0.</td>
                     </tr>
                     <tr>
                         <td>/YOUR_ADMIN/image_handler.php</td>
@@ -436,9 +436,12 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <li>CHANGE: Various future-proofing refactors.</li>
                         <li>BUGFIX: Correct PHP errors when supplied image is missing.</li>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
-                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                        <li>CHANGE: Small-image 'zoom' feature removed.</li>
+                        <li>The following files were changed or <span class="removed">removed</span> (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
                             <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
+                            <li><span class="removed">/includes/templates/YOUR_TEMPLATE/css/style_imagehover.css</span></li>
+                            <li><span class="removed">/includes/templates/YOUR_TEMPLATE/jscript/jscript_imagehover.js</span></li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                         </ol></li>
                     </ul></li>
