@@ -66,7 +66,7 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.6b (and later)</h1>
-  <h3>Version 5.2.0 by lat9, Zen4All, brittainmark and torvista</h3>
+  <h3>Version 5.2.1 by lat9, Zen4All, brittainmark and torvista</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -419,6 +419,13 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
+                    <li>v5.2.1-beta1, 2021-11-29:<ul>
+                        <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
+                        <li>The following files were changed or <span class="removed">removed</span> (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                            <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                        </ol></li>
+                    </ul></li>
                     <li>v5.2.0, 2021-11-25:<ul>
                         <li>CHANGE: Various future-proofing refactors.</li>
                         <li>BUGFIX: Correct PHP errors when supplied image is missing.</li>
