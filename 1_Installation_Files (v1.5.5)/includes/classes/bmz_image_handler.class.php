@@ -880,9 +880,11 @@ class ih_image
      */
     protected function calculate_gravity($canvaswidth, $canvasheight, $overlaywidth, $overlayheight, $gravity)
     {
+        $canvaswidth = (int)$canvaswidth;
+        $canvasheight = (int)$canvasheight;
         // Calculate overlay position from gravity setting. Center as default.
-        $startheight = (int)($canvasheight - $overlayheight) / 2;
-        $startwidth = (int)($canvaswidth - $overlaywidth) / 2;
+        $startheight = (int)(($canvasheight - $overlayheight) / 2);
+        $startwidth = (int)(($canvaswidth - $overlaywidth) / 2);
         if (strpos($gravity, 'North') !== false) {
             $startheight = 0;
         } elseif (strpos($gravity, 'South') !== false) {
