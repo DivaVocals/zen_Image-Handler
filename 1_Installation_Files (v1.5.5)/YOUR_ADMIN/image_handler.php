@@ -15,6 +15,12 @@ require 'includes/application_top.php';
 
 require DIR_WS_CLASSES . 'currencies.php';
 
+// The category/product listing page changed in zc156, detect the current Zen Cart
+// version to determine the page to which the search results are destined.
+//
+$zen_cart_version = PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR;
+$search_target_page = FILENAME_CATEGORIES;
+
 // -----
 // Load, and create an instance of, the "helper" class for the Image Handler.  This class
 // consolidates the various functions previously present in this module.
@@ -95,92 +101,50 @@ if ($action === 'ih_clear_cache') {
     }
 }
 ?>
-<!doctype html>
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta charset="<?php echo CHARSET; ?>">
-<title><?php echo TITLE . ' - '. ICON_IMAGE_HANDLER; ?></title>
-<link rel="stylesheet" href="includes/stylesheet.css">
-<link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<style>
-h1, h2, h3, h4, h5 {
- color: #000000;
- font-weight: bold;
- letter-spacing: 0.1em;
- word-spacing: 0.2em;
- margin: 0 0 0 0;
- padding: 0 0 0 0;
- clear: left
-}
+    <!doctype html>
+    <html <?php echo HTML_PARAMS; ?>>
+    <head>
+        <?php
+            if ($zen_cart_version > '1.5.6') {
+            $search_target_page = FILENAME_CATEGORY_PRODUCT_LISTING;
+        ?>
+        <?php require DIR_WS_INCLUDES . 'admin_html_head.php'; ?>
+    </head>
+    <body>
+    <!-- header //-->
+    <?php require DIR_WS_INCLUDES . 'header.php'; ?>
+    <?php
+        } else {
+    ?>
+    <meta charset="<?php echo CHARSET; ?>">
+    <title><?php echo TITLE . ' - ' . ICON_IMAGE_HANDLER; ?></title>
+    <link rel="stylesheet" href="includes/stylesheet.css">
+    <link rel="stylesheet" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
+    <link rel="stylesheet" href="includes/css/image_handler.css">
+    <script src="includes/menu.js"></script>
+    <script src="includes/general.js"></script>
+    <script>
+        function init() {
+            cssjsmenu('navbar');
+            if (document.getElementById) {
+                var kill = document.getElementById('hoverJS');
+                kill.disabled = true;
+            }
+        }
 
-.logo h1 {margin: 0; padding: 11px 0 0 0; font-size: 30px; color:#CCCCCC}
-h1 {font-size: 180%}
-h2 {font-size: 160%}
-h3 {font-size: 140%}
-h4 {font-size: 120%}
-h5 {font-size: 100%}
-h1 a, h2 a, h3 a, h4 a, h5 a { font-weight: bold;  letter-spacing: 0.1em;  word-spacing: 0.2em;}
+        function popupWindow(url) {
+            window.open(url, 'popupWindow', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=600,height=460,screenX=150,screenY=150,top=150,left=150')
+        }
 
-input[type="text"], input[type="submit"], input[type="file"], select {border: 1px solid #CCCCCC;}
-
-.managerbox .dataTableRow:hover { background-color: #dcdcdc; }
-
-#ih-head { float:left; padding: 8px 5px; }
-#ih-search { float: right; padding: 5px; }
-#ih-admin { background-color: #F5F5F5; border: solid #CCCCCC; border-width: 1px 0; }
-
-#ih-p-buttons { padding-left: 5px; }
-#ih-p-buttons a img { margin-top: 5px; }
-
-#ih-p-info { border-collapse: collapse; margin: 5px; }
-#ih-p-info td { padding: 5px; border: 1px solid #444; }
-#ih-p-info td:first-child { font-weight: bold; }
-
-.ih-center { text-align: center; }
-.ih-right { text-align: right; }
-.ih-vtop { vertical-align: top; }
-.ih-vbot { vertical-align: bottom; }
-
-div.adminbox {padding: 10px;}
-div.aboutbox {width: 95%;}
-
-.page-links {display:inline; padding:2px 5px;}
-.page-current {background:#CCCCCC;}
-
-.aboutbox p {text-align: justify;}
-fieldset {background: #f6f6f8; padding: 0.5em 0.5em 0.5em 0.5em; margin: 0 0 1em 0; border: 1px solid #ccc;}
-legend {font-weight: bold; font-size: 1.4em; color: #1240b0;}
-
-div.managerbox {clear: both;}
-
-.preview-bb {border-bottom: 1px solid #CCCCCC;}
-.preview-br {border-right: 1px solid #CCCCCC;}
-.preview-check {border: 1px solid #000000; background:url(images/checkpattern.gif);}
-</style>
-<script src="includes/menu.js"></script>
-<script src="includes/general.js"></script>
-<script>
-  function init()
-  {
-    cssjsmenu('navbar');
-    if (document.getElementById)
-    {
-      var kill = document.getElementById('hoverJS');
-      kill.disabled = true;
-    }
-  }
-   function popupWindow(url) {
-       window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=600,height=460,screenX=150,screenY=150,top=150,left=150')
-   }
-
-</script>
-</head>
-<body onload="init();">
-<!-- header //-->
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
-
-<!-- body //-->
+    </script>
+    </head>
+    <body onload="init();">
+    <!-- header //-->
+    <?php require(DIR_WS_INCLUDES . 'header.php');
+        }
+    ?>
+    <!-- header_eof //-->
+    <!-- body //-->
 
 <div>
     <div id="ih-head">
@@ -197,11 +161,6 @@ if (defined('IH_VERSION')) {
 if ($ih_page === 'manager') {
     // SEARCH DIALOG BOX
     //-----
-    // The category/product listing page changed in zc156, detect the current Zen Cart
-    // version to determine the page to which the search results are destined.
-    //
-    $zen_cart_version = PROJECT_VERSION_MAJOR . '.' . PROJECT_VERSION_MINOR;
-    $search_target_page = ($zen_cart_version > '1.5.6') ? FILENAME_CATEGORY_PRODUCT_LISTING : FILENAME_CATEGORIES;
     echo '<div id="ih-search">' . zen_draw_form('search', $search_target_page, '', 'get');
     echo HEADING_TITLE_SEARCH_DETAIL . ' ' . zen_draw_input_field('search');
     echo '</form></div>';
