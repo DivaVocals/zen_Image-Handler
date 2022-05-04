@@ -477,7 +477,12 @@ class ih_image
      */
     public function calculate_size($pref_width, $pref_height = '')
     {
-        if (file_exists($this->filename)) {
+        if (is_file($this->filename)) {
+            $image_info = @getimagesize($this->filename);//silence multiple default error messages
+            if ($image_info === false){
+                trigger_error("Image Handler, calculate_size($this->filename) returned FALSE: image is corrupt");
+                $this->filename = DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE;
+            }
             list($width, $height) = getimagesize($this->filename);
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
