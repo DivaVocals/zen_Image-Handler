@@ -198,18 +198,21 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
                         <li><span class="boldemphasis">BACK UP your database &amp; store!!!!!</span></li>
                         <li>Unzip the Image Handler<sup>5</sup> package to your local hard drive, retaining the directory structure.</li>
-                        <li>Within the <code>1_Installation_Files (v1.5.5)</code> directory:<ol>
-                            <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
-                        </ol></li>
+                        <li>Rename the <code>YOUR_ADMIN</code> directory to match the name of your Zen Cart admin directory.<br /><br /><strong>IMPORTANT!!!:</strong> If your shop is using languages other than english, you <b>must</b> also copy the contents of the <code>YOUR_ADMIN/includes/languages/english</code> directory to <code>YOUR_ADMIN/includes/languages/YOUR_LANGUAGE</code> for each additional language.</li> 
                         <li>Once you've gotten any file-merge changes completed (i.e. you're using installation route 2), log in to your store's admin.</li>
-                        <li>Next, using an FTP program, upload the files from the <code>1_Installation_Files (v1.5.5)</code> directory to your store's web-hosted <em>root</em> directory. <b>Do not</b> upload the <code>1_Installation_Files (v1.5.5)</code> directory, just the <em>contents</em> of this directory.</li>
+                        <li>Next, using an FTP program, upload the files from the following distribution sub-directories:<ol type="a">
+                            <li>bmz_cache</li>
+                            <li>images</li>
+                            <li>includes</li>
+                            <li>YOUR_ADMIN <span class="smaller">(renamed)</span></li>
+                        </ol></li>
                         <li>Return to your store's admin and click on <em>any</em> link. If you followed the instructions above, you will see a message in the message stack at the top of your admin screen confirming a successful install or upgrade.</li>
                         <li>Navigate to <strong>Admin &gt; Configuration &gt; Images</strong>, set <b>IH resize images</b> to <em>yes</em>.</li>
                         <li>If you followed all instructions to the letter, you are ready to move on to the online <a href="https://github.com/DivaVocals/zen_Image-Handler" target="_blank">documentation</a> to learn how to modify the default configuration settings.</li>
                     </ol>
                 </fieldset>
             </div>
-            
+
             <div id="remove">
                 <h2>Un-Install Instructions</h2>
                 <p><strong>Note:</strong> <em>IH</em><sup>5</sup>'s uninstall processing is provided as a separate script, so you can use your admin's <b>Admin / Admin Profiles</b> tool to restrict its usage to authorized admin-users.</p>
@@ -231,7 +234,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
           </div>
         </div>
       </div>
-      
+
       <div id="version">
         <p>This section identifies the files added or modified for this plugin as well as the plugin's change history.</p>
 
@@ -371,7 +374,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td>/includes/extra_datafiles/image_handler_admin_logging.php</td>
+                        <td>/YOUR_ADMIN/includes/extra_datafiles/image_handler_admin_logging.php</td>
                         <td>Added in v5.1.0.</td>
                     </tr>
                     <tr>
@@ -419,9 +422,10 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
-                    <li>v5.2.1-beta1, 2021-11-29:<ul>
+                    <li>v5.2.1-beta2, 2022-07-28:<ul>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
-                        <li>The following files were changed or <span class="removed">removed</span> (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                        <li>CHANGE: Removing <em>1_Installation_Files (v1.5.5)</em> directory; all sub-directories moved to distribution 'root'.</li>
+                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                         </ol></li>
