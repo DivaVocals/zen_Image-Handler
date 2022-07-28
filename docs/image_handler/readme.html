@@ -65,8 +65,8 @@ a[target=_blank] { text-decoration: underline; }
 </head>
 
 <body>
-  <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.6b (and later)</h1>
-  <h3>Version 5.2.1 by lat9, Zen4All, brittainmark and torvista</h3>
+  <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.7 (and later)</h1>
+  <h3>Version 5.3.0 by lat9, Zen4All, brittainmark and torvista</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
   
   <p><strong>Notes:</strong></p>
@@ -74,6 +74,7 @@ a[target=_blank] { text-decoration: underline; }
     <li>The majority of this readme, other than installation instructions and change history, has been migrated online to the plugin's GitHub <a href="https://github.com/DivaVocals/zen_Image-Handler" target="_blank">repository</a>.  That enables the readme to be updated as-required without the need to provide a plugin update for documentation corrections.</li>
     <li>Change history prior to v5.0.0 of <em>IH<sup>5</sup></em> has been archived on the plugin's GitHub repository.</li>
     <li>As of <em>IH</em><sup>5</sup> v5.1.11, the minimum PHP version supported is PHP 5.6.</li>
+    <li>As of <em>IH</em><sup>5</sup> v5.3.0, the minimum Zen Cart version supported is 1.5.7.</li>
   </ol>
   
   <hr>
@@ -422,10 +423,11 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
-                    <li>v5.2.1-beta2, 2022-07-28:<ul>
+                    <li>v5.3.0-beta1, 2022-07-28:<ul>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
                         <li>CHANGE: Removing <em>1_Installation_Files (v1.5.5)</em> directory; all sub-directories moved to distribution 'root'.</li>
-                        <li>The following files were changed (all in the <em>1_Installation_Files (v1.5.5)</em> directory):<ol>
+                        <li>BUGFIX: 'imagecolorallocatealpha' expects ints, but 'alphablend' returns floats; fatal PHP 8.1 error.</li>
+                        <li>The following files were changed:<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                         </ol></li>

@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.2.1
+ * mod Image Handler 5.3.0
  * bmz_image_handler.class.php
  * IH5 class for image manipulation
  *
@@ -33,21 +33,22 @@ if (!defined('IS_ADMIN_FLAG')) {
 
 class ih_image
 {
-    public $canvas;
-    public $debug;
-    public $debugLogFile;
-    public $extension;
-    public $file_exists;
-    public $filename;
-    public $first_access;
-    public $force_canvas;
-    public $height;
-    public $local = null;  // cached image reference
-    public $orig;          // original image source passed to the constructor
-    public $sizetype;
-    public $src;           // reference to an actual physical image
-    public $watermark;
-    public $width;
+    public
+        $canvas,
+        $debug,
+        $debugLogFile,
+        $extension,
+        $file_exists,
+        $filename,
+        $first_access,
+        $force_canvas,
+        $height,
+        $local = null,  // cached image reference
+        $orig,          // original image source passed to the constructor
+        $sizetype,
+        $src,           // reference to an actual physical image
+        $watermark,
+        $width;
 
     /**
      * ih_image class constructor
@@ -673,21 +674,18 @@ class ih_image
 
         $threshold = ($threshold !== '') ? (int)(127 * ((int)$threshold) / 100) : -1;
 
-        for ($x=0; $x < $newwidth; $x++) {
-            for ($y=0; $y < $newheight; $y++) {
+        for ($x = 0; $x < $newwidth; $x++) {
+            for ($y = 0; $y < $newheight; $y++) {
                 $c = imagecolorat($background, $x + $startwidth, $y + $startheight);
                 $background_color = imagecolorsforindex($background, $c);
-                // echo "($x/$y): " . $background_color['alpha'] . ':' . $background_color['red'] . ':' . $background_color['green'] . ':' . $background_color['blue'] . ' ++ ';
                 $c = imagecolorat($overlay, $x, $y);
                 $overlay_color = imagecolorsforindex($overlay, $c);
-                //  echo $overlay_color['alpha'] . ':' . $overlay_color['red'] . ':' . $overlay_color['green'] . ':' . $overlay_color['blue'] . ' ==&gt; ';
                 $color = $this->alphablend($background_color, $overlay_color, $threshold);
-                // echo $color['alpha'] . ':' . $color['red'] . ':' . $color['green'] . ':' . $color['blue'] . '<br />';
 
-                if ($threshold > -1 && $color['alpha'] > $threshold) {
+                if ($threshold > -1 && (int)$color['alpha'] > $threshold) {
                     $color = $background_override;
                 } else {
-                    $color = imagecolorallocatealpha($background, $color['red'], $color['green'], $color['blue'], $color['alpha']);
+                    $color = imagecolorallocatealpha($background, (int)$color['red'], (int)$color['green'], (int)$color['blue'], (int)$color['alpha']);
                 }
                 imagesetpixel($background, $x + $startwidth, $y + $startheight, $color);
             }
