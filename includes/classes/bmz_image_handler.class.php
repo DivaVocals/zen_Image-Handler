@@ -478,8 +478,14 @@ class ih_image
      */
     public function calculate_size($pref_width, $pref_height = '')
     {
-        if (file_exists($this->filename)) {
-            list($width, $height) = getimagesize($this->filename);
+        if (is_file($this->filename)) {
+            $image_info = getimagesize($this->filename);
+            if ($image_info === false) {
+                trigger_error('Image Handler, calculate_size for ' . $this->filename . ' returned false; image is corrupt.', E_USER_NOTICE);
+                $this->filename = DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE;
+                $image_info = getimagesize($this->filename);
+            }
+            list($width, $height) = $image_info;
             $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
             $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
