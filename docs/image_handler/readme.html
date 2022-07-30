@@ -428,11 +428,12 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
-                    <li>v5.3.0-beta1, 2022-07-30:<ul>
+                    <li>v5.3.0-beta2, 2022-07-30:<ul>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
                         <li>CHANGE: Removing <em>1_Installation_Files (v1.5.5)</em> directory; all sub-directories moved to distribution 'root'.</li>
                         <li>BUGFIX: 'imagecolorallocatealpha' expects ints, but 'alphablend' returns floats; fatal PHP 8.1 error.</li>
                         <li>CHANGE: Updated to support zc157 and later as well as PHP 8.1.</li>
+                        <li>BUGFIX: Properly handle corrupt image file.</li>
                         <li>The following files were changed or <span class="added">added</span>:<ol>
                             <li>/includes/auto_loaders/config.image_handler.php</li>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
