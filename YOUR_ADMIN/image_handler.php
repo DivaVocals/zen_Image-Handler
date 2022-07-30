@@ -209,7 +209,7 @@ if ($ih_page === 'admin') {
         // zc158 changes this function's name ...
         //
         if (function_exists('zen_draw_pulldown_products')) {
-            echo zen_draw_pulldown_products('products_filter', 'class="form-control" size="5"', '', true, $products_filter, true, true);
+            echo zen_draw_pulldown_products('products_filter', 'class="form-control" size="5"', '', true, $products_filter, true, true, 'products_name');
         } else {
             echo zen_draw_products_pull_down('products_filter', 'class="form-control" size="5"', '', true, $products_filter, true, true);
         }
