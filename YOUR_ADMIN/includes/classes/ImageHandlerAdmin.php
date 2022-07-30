@@ -1,7 +1,9 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2022 Vinos de Frutas Tropicales
+//
+// Last updated: IH v5.3.0
 //
 if (!defined('IH_DEBUG_ADMIN')) {
     define('IH_DEBUG_ADMIN', 'true'); //-Either 'true' or 'false'
@@ -10,23 +12,23 @@ class ImageHandlerAdmin
 {
     public function __construct()
     {
-        $this->debug = (IH_DEBUG_ADMIN == 'true');
+        $this->debug = (IH_DEBUG_ADMIN === 'true');
         $this->debugLogfile = DIR_FS_LOGS . '/ih_debug_admin.log';
-        $this->validFiletypes = array('gif', 'jpg', 'png', 'no_change');
-        $this->validFileExtensions = array('.gif', '.jpg', '.jpeg', '.png');
+        $this->validFiletypes = ['gif', 'jpg', 'png', 'no_change'];
+        $this->validFileExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
     }
 
     public function getImageDetailsString($filename)
     {
         if (!file_exists($filename)) {
-            return "no info";
+            return 'no info';
         }
         // find out some details about the file
         $image_size = @getimagesize($filename);
         $image_fs_size = filesize($filename);
 
         $str = $image_size[0] . "x" . $image_size[1];
-        $str .= "<br /><strong>" . round($image_fs_size/1024, 2) . "Kb</strong>";
+        $str .= "<br><strong>" . round($image_fs_size/1024, 2) . "Kb</strong>";
 
         return $str;
     }
@@ -55,7 +57,7 @@ class ImageHandlerAdmin
         // main-image name; for a sub-directory, 0 (for the main-image) or 1 (for any additional)
         // matches on _{something}.
         //
-        $image_match = ($directory == '') ? '.*' : '(?:_.*)?';
+        $image_match = ($directory === '') ? '.*' : '(?:_.*)?';
 
         // -----
         // Determine whether the directory specified is, in fact, an images sub-directory.  If
@@ -72,7 +74,7 @@ class ImageHandlerAdmin
         // -----
         // If the requested directory was accessed without error, find those images!
         //
-        if (!$error) {
+        if ($error === false) {
             // -----
             // The quotemeta function properly escapes any "regex" special characters that
             // might be present in the image's base name, e.g. any intervening '.'s will be
@@ -96,7 +98,7 @@ class ImageHandlerAdmin
                 sort($array);
             }
         }
-        return ($error) ? 0 : 1;
+        return ($error === true) ? 0 : 1;
     }
 
     public function validatePositiveInteger($value)
@@ -149,8 +151,8 @@ class ImageHandlerAdmin
 
     public function imageHandlerHrefLink($image_name, $products_filter, $action = '', $more = '')
     {
-        $imgName = ($image_name == '') ? '' : "&amp;imgName=$image_name";
-        $action = ($action == '') ? '' : "&amp;action=$action";
+        $imgName = ($image_name === '') ? '' : "&amp;imgName=$image_name";
+        $action = ($action === '') ? '' : "&amp;action=$action";
 
         return zen_href_link(FILENAME_IMAGE_HANDLER, "products_filter=$products_filter$action$imgName$more");
     }

@@ -1,22 +1,24 @@
 <?php
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017-2019 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2022 Vinos de Frutas Tropicales
+//
+// Last updated: IH 5.3.0
 //
 require 'includes/application_top.php';
 
 // -----
 // If the admin has confirmed the removal of "Image Handler" ...
 //
-if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
+if (isset($_POST['action']) && $_POST['action'] === 'uninstall') {
     // -----
     // Build up a list of files to be unconditionally removed.
     //
     // Note: The two template-override files are **not** removed.  They do no harm and might
     // be used by the Fual Slimbox or ColorBox plugins!
     //
-    $files_to_remove = array(
-        'storefront' => array(
+    $files_to_remove = [
+        'storefront' => [
             'auto_loaders/config.image_handler.php',
             'classes/bmz_image_handler.class.php',
             'classes/bmz_gif_info.class.php',
@@ -25,15 +27,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
             'extra_configures/bmz_io_conf.php',
             'functions/extra_functions/functions_bmz_image_handler.php',
             'functions/extra_functions/functions_bmz_io.php',
-        ),
-        'template' => array(
+        ],
+        'template' => [
             'css/style_imagehover.css',
             'jscript/jscript_imagehover.js',
-        ),
-       'admin_includes' => array(
+        ],
+       'admin_includes' => [
             'ih_manager.php',
             'auto_loaders/config.image_handler.php',
             'classes/ImageHandlerAdmin.php',
+            'css/image_handler.css',
             'extra_configures/bmz_image_handler_conf.php',
             'extra_configures/bmz_io_conf.php',
             'extra_datafiles/image_handler.php',
@@ -47,14 +50,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
             'languages/english/extra_definitions/bmz_image_handler.php',
             'languages/english/extra_definitions/bmz_language_admin.php',
             'languages/english/extra_definitions/image_handler_extra_definitions.php'
-        ),
-        'admin_root' => array(
+        ],
+        'admin_root' => [
             'image_handler.php',
             'image_handler_uninstall.php',
             'image_handler_view_config.php'
-        ),
-    );
-    
+        ],
+    ];
+
     // -----
     // Now, see if either of the "large-image display" plugins are installed and, if not,
     // remove the storefront observers loaded on their behalf.
@@ -67,7 +70,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
         $files_to_remove['storefront'][] = 'auto_loaders/config.colorbox.php';
         $files_to_remove['storefront'][] = 'classes/observers/ColorBoxObserver.php';
     }
-    
+
     // -----
     // Remove those files ...
     //
@@ -119,7 +122,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
         "DELETE FROM " . TABLE_ADMIN_PAGES . "
           WHERE page_key IN ('configImageHandler4', 'toolsImageHandlerUninstall', 'toolsImageHandlerViewConfig' )"
     );
-    
+
     // -----
     // Set a message notifying the admin of the removal, note the change in the activity
     // log and redirect back to the admin dashboard.
@@ -135,7 +138,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'uninstall') {
 // first form-submittal, the admin is asked to confirm their removal request and on the next
 // form-submittal, the file/configuration removal is actually performed.
 //
-if (!isset($_POST['action']) || $_POST['action'] != 'confirm') {
+if (!isset($_POST['action']) || $_POST['action'] !== 'confirm') {
     $next_action = 'confirm';
     $current_message = TEXT_ARE_YOU_SURE;
 } else {
@@ -146,54 +149,25 @@ if (!isset($_POST['action']) || $_POST['action'] != 'confirm') {
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta charset="<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<script src="includes/menu.js"></script>
-<script src="includes/general.js"></script>
-<script>
-  <!--
-  function init()
-  {
-    cssjsmenu('navbar');
-    if (document.getElementById)
-    {
-      var kill = document.getElementById('hoverJS');
-      kill.disabled = true;
-    }
-  }
-  // -->
-</script>
+    <?php require DIR_WS_INCLUDES . 'admin_html_head.php'; ?>
 </head>
-<body onload="init()">
-<!-- header //-->
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-        <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-        <tr>
-            <td><?php echo zen_draw_form('remove', FILENAME_IMAGE_HANDLER_UNINSTALL) . zen_draw_hidden_field('action', $next_action);?>
-                <p><?php echo $current_message; ?></p>
-                <p><a href="<?php echo zen_href_link(FILENAME_DEFAULT); ?>" class="btn btn-warning"><?php echo IMAGE_CANCEL; ?></a>&nbsp;&nbsp;<input type="submit" class="btn btn-danger" value="<?php echo IMAGE_GO; ?>" /></p>
-            </form></td>
-        </tr>
-    </table></td>
-  </tr>
-</table>
-<!-- body_eof //-->
-<!-- footer //-->
-<?php 
-require DIR_WS_INCLUDES . 'footer.php'; 
-?>
-<!-- footer_eof //-->
-<br>
+
+<body>
+    <?php require DIR_WS_INCLUDES . 'header.php' ; ?>
+    <div class="container-fluid">
+        <h1><?php echo HEADING_TITLE; ?></h1>
+        <p><?php echo $current_message; ?></p>
+        <?php echo zen_draw_form('remove', FILENAME_IMAGE_HANDLER_UNINSTALL) . zen_draw_hidden_field('action', $next_action); ?>
+            <div class="row">
+                <a href="<?php echo zen_href_link(FILENAME_DEFAULT); ?>" class="btn btn-warning"><?php echo IMAGE_CANCEL; ?></a>
+                <input type="submit" class="btn btn-danger" value="<?php echo IMAGE_GO; ?>" />
+            </div>
+        <?php echo '</form>'; ?>
+
+        <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
+    </div>
 </body>
+
 </html>
 <?php 
 require DIR_WS_INCLUDES . 'application_bottom.php';
