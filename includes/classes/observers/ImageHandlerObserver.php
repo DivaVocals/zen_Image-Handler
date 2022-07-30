@@ -1,35 +1,37 @@
 <?php
 // -----
-// Part of the "Image Handler" plugin for Zen Cart 1.5.5b and later.
-// Copyright (c) 2017-2021 Vinos de Frutas Tropicales
+// Part of the "Image Handler" plugin for Zen Cart 1.5.7 and later.
+// Copyright (c) 2017-2022 Vinos de Frutas Tropicales
+//
+// Last updated: IH 5.3.0
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-class ImageHandlerObserver extends base 
+class ImageHandlerObserver extends base
 {
-    public function __construct() 
+    public function __construct()
     {
         if (defined('IH_RESIZE') && IH_RESIZE == 'yes') {
             $this->attach(
                 $this,
-                array(
+                [
                     //- From /includes/modules/main_product_image.php
                     'NOTIFY_MODULES_MAIN_PRODUCT_IMAGE_FILENAME',
-                    
+
                     //- From /includes/modules/additional_images.php
                     'NOTIFY_MODULES_ADDITIONAL_IMAGES_GET_LARGE',
                     'NOTIFY_MODULES_ADDITIONAL_IMAGES_THUMB_SLASHES',
-                    
+
                     //- From /includes/pages/popup_image/header_php.php
                     'NOTIFY_HEADER_END_POPUP_IMAGES',
-                )
+                ]
             );
         }
     }
-  
-    public function update(&$class, $eventID, $p1, &$p2, &$p3, &$p4, &$p5, &$p6) 
+
+    public function update(&$class, $eventID, $p1, &$p2, &$p3, &$p4, &$p5, &$p6)
     {
         switch ($eventID) {
             // -----
@@ -52,10 +54,10 @@ class ImageHandlerObserver extends base
                 $p4 = $products_image_base = preg_replace('/' . $products_image_extension . '$/', '', $products_image);
                 $p5 = DIR_WS_IMAGES . 'medium/' . $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
                 $p6  = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE_SUFFIX_LARGE .  $products_image_extension;
-                
+
                 $p2 = true;  //-Indicate that the image has been "handled".
                 break;
-                
+
             // -----
             // This notifier lets any image-handler know the current image being processed, providing the following parameters:
             //
@@ -71,7 +73,7 @@ class ImageHandlerObserver extends base
                     $p2 = zen_output_string($src);
                 } 
                 break;
-                
+
             // -----
             // This notifier lets any image-handler "massage" the name of the current thumbnail image name with appropriate
             // slashes for javascript/jQuery display:
@@ -84,7 +86,7 @@ class ImageHandlerObserver extends base
                 $thumb_slashes = $p2;
                 $p2 = preg_replace("/([^\\\\])'/", '$1\\\'', $thumb_slashes);
                 break;
-            
+
             // -----
             // Update the (globally-available) image names for any rendering of the popup_image page.
             //
@@ -94,13 +96,13 @@ class ImageHandlerObserver extends base
                        $products_image_base,
                        $products_image_medium,
                        $products_image_large;
-                
+
                 $products_image_base = preg_replace('/' . $products_image_extension . '$/', '', $products_image);
-                
+
                 $products_image_medium = DIR_WS_IMAGES . 'medium/' . $products_image_base . IMAGE_SUFFIX_MEDIUM . $products_image_extension;
                 $products_image_large = DIR_WS_IMAGES . 'large/' . $products_image_base . IMAGE_SUFFIX_LARGE . $products_image_extension;
                 break;
-                
+
             default:
                 break;
         }

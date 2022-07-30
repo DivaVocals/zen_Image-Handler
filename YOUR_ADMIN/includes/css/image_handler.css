@@ -1,0 +1,19 @@
+#ih-menu > li {
+    margin-right: 0.5rem;
+}
+#ih-prev-next {
+    margin-bottom: 0.5rem;
+}
+#ih-prev-next div.row:first-child {
+    font-size: larger;
+    padding-bottom: 0.75rem;
+}
+#ih-prod {
+    margin-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.5rem;
+}
+#imageModal .modal-dialog {
+    width: 95%;
+}

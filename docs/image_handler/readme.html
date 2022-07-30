@@ -40,6 +40,7 @@ td, th { padding: 5px; }
 th { background-color: #eee; }
 .smaller { font-size: smaller; }
 .removed { text-decoration: line-through; }
+.added { color: blue; }
 .code-samp { border: 1px solid #666; padding: 5px 5px 0; }
 
 .etabs { margin: 0; padding: 0; }
@@ -121,7 +122,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                 <fieldset>
                     <legend>Requirements</legend>
                     <ul>
-                        <li>Zen Cart v1.5.6b or later (not backwards compatible with older versions of Zen Cart).</li>
+                        <li>Zen Cart v1.5.7 or later (not backwards compatible with older versions of Zen Cart).</li>
                         <li>PHP v5.6 or later (not backwards compatible with older versions of PHP).</li>
                         <li><strong>Either</strong> GD libraries version 2 or greater, <strong>or</strong> ImageMagick version 6 or greater.</li>
                         <li>If you are using Fual Slimbox or ColorBox for Zen Cart with Image Handler<sup>5</sup> you <strong>must</strong> read the &quot;Misc&quot; tab.</li>
@@ -363,6 +364,10 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <td>Added in v5.0.0. Contains functions used by image_handler.php, moved from that module.</td>
                     </tr>
                     <tr>
+                        <td>/YOUR_ADMIN/includes/css/image_handler.css</td>
+                        <td>Added in v5.3.0.</td>
+                    </tr>
+                    <tr>
                         <td>/YOUR_ADMIN/includes/extra_configures/bmz_image_handler_conf.php</td>
                         <td>&nbsp;</td>
                     </tr>
@@ -423,13 +428,26 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
             
             <div id="changes">
                 <ul>
-                    <li>v5.3.0-beta1, 2022-07-28:<ul>
+                    <li>v5.3.0-beta1, 2022-07-30:<ul>
                         <li>BUGFIX: Ensure that images' width/height values are integer-type.</li>
                         <li>CHANGE: Removing <em>1_Installation_Files (v1.5.5)</em> directory; all sub-directories moved to distribution 'root'.</li>
                         <li>BUGFIX: 'imagecolorallocatealpha' expects ints, but 'alphablend' returns floats; fatal PHP 8.1 error.</li>
-                        <li>The following files were changed:<ol>
+                        <li>CHANGE: Updated to support zc157 and later as well as PHP 8.1.</li>
+                        <li>The following files were changed or <span class="added">added</span>:<ol>
+                            <li>/includes/auto_loaders/config.image_handler.php</li>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/includes/classes/observers/ImageHandlerObserver.php</li>
+                            <li>/YOUR_ADMIN/image_handler.php</li>
+                            <li>/YOUR_ADMIN/image_handler_uninstall.php</li>
+                            <li>/YOUR_ADMIN/image_handler_view_config.php</li>
+                            <li>/YOUR_ADMIN/includes/ih_manager.php</li>
+                            <li>/YOUR_ADMIN/includes/auto_loaders/config.image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</li>
+                            <li><span class="added">/YOUR_ADMIN/includes/css/image_handler.css</span></li>
+                            <li>/YOUR_ADMIN/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/languages/english/image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/languages/english/image_handler_about.php</li>
                         </ol></li>
                     </ul></li>
                     <li>v5.2.0, 2021-11-25:<ul>
