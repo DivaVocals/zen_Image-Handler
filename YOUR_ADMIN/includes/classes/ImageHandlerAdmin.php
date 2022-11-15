@@ -3,13 +3,19 @@
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
 // Copyright (c) 2017-2022 Vinos de Frutas Tropicales
 //
-// Last updated: IH v5.3.0
+// Last updated: IH v5.4.0
 //
 if (!defined('IH_DEBUG_ADMIN')) {
     define('IH_DEBUG_ADMIN', 'true'); //-Either 'true' or 'false'
 }
 class ImageHandlerAdmin
 {
+    public
+        debug,
+        debugLogfile,
+        validFiletypes,
+        validFileExtensions;
+
     public function __construct()
     {
         $this->debug = (IH_DEBUG_ADMIN === 'true');
