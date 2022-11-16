@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.3.0
+ * mod Image Handler 5.3.1
  * bmz_image_handler.class.php
  * IH5 class for image manipulation
  *
@@ -39,6 +39,7 @@ class ih_image
         $debugLogFile,
         $extension,
         $file_exists,
+        $file_is_supported, // Added IH 3.5.1 to quickly disclude unsupported file types, e.g. webp.
         $filename,
         $first_access,
         $force_canvas,
@@ -90,6 +91,20 @@ class ih_image
         } else {
             $this->debug = (IH_DEBUG_STOREFRONT === 'true');
             $this->debugLogFile = DIR_FS_LOGS . "/ih_debug-$logfile_suffix.log";
+        }
+
+        // -----
+        // PHP provides resizing support for .jpg/.jpeg, .gif and .png files.  If the submitted
+        // image's extension isn't one of those supported, there's no sense in checking any of the
+        // file-related attributes!
+        //
+        // If that case if found, set a processing flag (used by the 'handle_image' function) to indicate
+        // as such and perform a quick return.
+        //
+        $this->file_is_supported = true;
+        if (ih_image_supported($src) === false) {
+            $this->file_is_supported = false;
+            return;
         }
 
         $this->determine_image_sizetype();
@@ -251,11 +266,17 @@ class ih_image
      */
     public function get_local()
     {
-        if ($this->local) {
+        if ($this->local !== null) {
             return $this->local;
         }
-        // check if image handler is available and if we should resize at all
-        if ($this->resizing_allowed()) {
+
+        // -----
+        // Check to see if the current source file is supported and whether IH is
+        // currently enabled to perform image resizing.  If so, determine (and
+        // create if it's not already in the bmz_cache) the resized image to be
+        // used.  Otherwise, simply use the current source file.
+        //
+        if ($this->file_is_supported === true && $this->resizing_allowed()) {
             $this->local = $this->get_resized_image($this->width, $this->height);
         } else {
             $this->local = $this->src;
