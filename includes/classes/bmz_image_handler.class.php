@@ -101,9 +101,8 @@ class ih_image
         // If that case if found, set a processing flag (used by the 'handle_image' function) to indicate
         // as such and perform a quick return.
         //
-        $this->file_is_supported = true;
-        if (ih_image_supported($src) === false) {
-            $this->file_is_supported = false;
+        $this->file_is_supported = ih_image_supported($src);
+        if ($this->file_is_supported === false) {
             return;
         }
 
@@ -507,7 +506,7 @@ class ih_image
                 $image_info = getimagesize($this->filename);
             }
             list($width, $height) = $image_info;
-            $this->ihLog("calculate_size($pref_width, $pref_height), getimagesize returned $width x $height.");
+            $this->ihLog("calculate_size: file " . $this->filename . " ($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
             $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
             $height = 0;
