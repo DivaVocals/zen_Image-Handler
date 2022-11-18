@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.2.0
+ * mod Image Handler 5.3.1
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -99,6 +99,19 @@ function ihValidateBackground($which_background)
     return ($background_error) ? 'transparent 255:255:255' : $background_value;
 }
 
+/**
+ * Determine whether the submitted image's extension is supported by Image Handler, added
+ * in IH 5.3.1.  Used by ImageHandlerObserver.php as well as the bmz_image_handler.class.php.
+ *
+ * @param $src
+ *
+ * @return bool
+ */
+function ih_image_supported($src)
+{
+    return in_array(strtolower(pathinfo($src, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'gif', 'png']);
+}
+
 // -----
 // Main Image Handler function ...
 //
@@ -117,13 +130,28 @@ function handle_image($src, $alt, $width, $height, $parameters)
 
     if ($ihConf['resize']) { //Image Handler processing is enabled
         $ih_image = new ih_image($src, $width, $height);
-        $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ': $src=' . $src . ', $alt=' . $alt . ', $width=' . $width . ', $height=' . $height . ', $parameters=' . $parameters);
-        // override image path, get local image from cache
-        if ($ih_image->file_exists) { // check is for existence of source/base file
-            $src = $ih_image->get_local();
-            $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ':  local/handled $src=' . $src . ', $ih_image->canvas[width]=' .  $ih_image->canvas['width'] . ',  $ih_image->canvas[height]=' . $ih_image->canvas['height'] . ', $parameters=' . $parameters);
+        $ih_image->ihLog('functions_bmz_image_handler, handle_image starts: $src=' . $src . ', $alt=' . $alt . ', $width=' . $width . ', $height=' . $height . ', $parameters=' . $parameters);
+
+        // -----
+        // If the submitted image is not supported, conditionally create an IH processing log; the base file submitted
+        // will be used for the display.
+        //
+        if ($ih_image->file_is_supported === false) {
+            $ih_image->ihLog('functions_bmz_image_handler, handle_image: source/base file extension $src=' . $src . ' is not supported.');
+
+        // -----
+        // If the submitted image doesn't exist, conditionally create an IH processing log; the base file submitted
+        // will be used for the display.
+        //
+        } elseif ($ih_image->file_exists === false) {
+            $ih_image->ihLog('functions_bmz_image_handler, handle_image: source/base file $src=' . $src . ' is missing.');
+
+        // -----
+        // Otherwise, the submitted image is supported and exists, use the file from the bmz_cache sub-directory.
+        //
         } else {
-            $ih_image->ihLog('functions_bmz_image_handler ' . __LINE__ . ': source/base file $src=' . $src . ' MISSING');
+            $src = $ih_image->get_local();
+            $ih_image->ihLog('functions_bmz_image_handler, handle_image (image_exists):  local/handled $src=' . $src . ', $ih_image->canvas[width]=' .  $ih_image->canvas['width'] . ',  $ih_image->canvas[height]=' . $ih_image->canvas['height'] . ', $parameters=' . $parameters);
         }
     } else {
 //-bof-20210219-lat9-GitHub#212: Don't modify input variables if IH isn't enabled.  Uncomment if needed.
@@ -147,11 +175,9 @@ function handle_image($src, $alt, $width, $height, $parameters)
     return [$src, $alt, $width, $height, $parameters];
 }
 
-
 /**
  * get_image functions for backwards compatibility with prior image handler releases
  */
-
 function zen_get_small_image($image)
 {
     return $image;
