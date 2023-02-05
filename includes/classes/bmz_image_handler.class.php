@@ -49,7 +49,8 @@ class ih_image
         $sizetype,
         $src,           // reference to an actual physical image
         $watermark,
-        $width;
+        $width,
+        $image_type;    // the actual type of the image supplied
 
     /**
      * ih_image class constructor
@@ -505,7 +506,7 @@ class ih_image
                 $this->filename = DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE;
                 $image_info = getimagesize($this->filename);
             }
-            list($width, $height) = $image_info;
+            list($width, $height, $this->image_type) = $image_info;
             $this->ihLog("calculate_size: file " . $this->filename . " ($pref_width, $pref_height), getimagesize returned $width x $height.");
         } else {
             $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
@@ -927,25 +928,24 @@ class ih_image
      *
      * @return false|GdImage|mixed|resource
      */
-    protected function load_imageGD($src_name)
+    protected function load_imageGD($src_name,$retry = false)
     {
         // create an image of the given filetype
-        $file_ext = '.' . pathinfo($src_name, PATHINFO_EXTENSION);
-        switch (strtolower($file_ext)) {
-            case '.gif':
+        
+        switch ($this->image_type) {
+            case IMAGETYPE_GIF:
                 if (!function_exists('imagecreatefromgif')) {
                     return false;
                 }
                 $image = imagecreatefromgif($src_name);
                 break;
-            case '.png':
+            case IMAGETYPE_PNG:
                 if (!function_exists('imagecreatefrompng')) {
                     return false;
                 }
                 $image = imagecreatefrompng($src_name);
                 break;
-            case '.jpg':
-            case '.jpeg':
+            case IMAGETYPE_JPEG:
                 if (!function_exists('imagecreatefromjpeg')) {
                     return false;
                 }
