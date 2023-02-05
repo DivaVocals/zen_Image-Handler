@@ -67,9 +67,9 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.7 (and later)</h1>
-  <h3>Version 5.3.1 by lat9, Zen4All, brittainmark, torvista and proseLA</h3>
+  <h3>Version 5.3.2 by lat9, Zen4All, brittainmark, torvista, proseLA and brittainmark</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
-  
+
   <p><strong>Notes:</strong></p>
   <ol>
     <li>The majority of this readme, other than installation instructions and change history, has been migrated online to the plugin's GitHub <a href="https://github.com/DivaVocals/zen_Image-Handler" target="_blank">repository</a>.  That enables the readme to be updated as-required without the need to provide a plugin update for documentation corrections.</li>
@@ -77,9 +77,9 @@ a[target=_blank] { text-decoration: underline; }
     <li>As of <em>IH</em><sup>5</sup> v5.1.11, the minimum PHP version supported is PHP 5.6.</li>
     <li><b>As of <em>IH</em><sup>5</sup> v5.3.0, the minimum Zen Cart version supported is 1.5.7.</b></li>
   </ol>
-  
+
   <hr>
-  
+
   <p><i class="fas fa-exclamation-circle fa-5x red"></i> If you are using IH<sup>5</sup> on a site that also uses <a href="https://www.zen-cart.com/downloads.php?do=file&id=367" target="_blank">SitemapXML</a> and have configured <em>SitemapXML</em> to <b>Add Products Images</b>, you'll need to edit one of the <em>SitemapXML</em>'s files to allow those images to be properly reported.  Editing <code>/includes/modules/pages/sitemapxml/sitemapxml_products.php</code>, you'll see this code-block towards the top of the file:</p>
   <pre class="code-samp">
 define('SITEMAPXML_PRODUCTS_IMAGES_SIZE', 'large');
@@ -108,7 +108,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
         <p> This contribution includes a powerful admin interface to browse your products just like you would with the Attribute Manager and upload, delete or add additional images without having to do this manually via <acronym title="File Transfer Protocol">FTP</acronym>. IH<sup>5</sup> works fine with mass update utilities like <em>EZ-Populate</em> and the <em>Database I/O Manager (DbIo)</em>.</p>
         <p>For additional information, please refer to the documentation on the plugin's GitHub repository; see above for the link.</p>
       </div>
-      
+
       <div id="installation">
         <p>This section identifies the procedure you'll use to install, upgrade or remove the plugin for your Zen Cart.</p>
 
@@ -130,7 +130,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                     <p>In order to resize and modify images, Image Handler<sup>5</sup> needs either GD libraries or ImageMagick installed. You can check if your version of PHP includes the GD libraries by going to <em>Admin &gt; Tools &gt; Server Info</em> and searching for GD. You have to ask your host (or read your site's documentation) to learn about an ImageMagick installation.</p> 
                     <p><strong>If you want to render GIF images</strong>, you need to have GD libraries version 2.0.28 or newer installed.</p>
                 </fieldset>
-                
+
                 <fieldset>
                     <legend>Before You Install</legend>
                     <p>The <em>IH<sup>5</sup></em> installation provides updates (see below for additional information) for two of the more popular large-image viewers:  <a href="https://www.zen-cart.com/downloads.php?do=file&id=584" target="_blank">Fual Slimbox</a> and <a href="https://www.zen-cart.com/downloads.php?do=file&id=1322" target="_blank">ColorBox for Zen Cart</a>.  Those updates contain plugin-specific modules that work in conjunction with the newly-added <em>IH<sup>5</sup></em> &quot;notifiers&quot;.</p>
@@ -192,7 +192,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         </tr>
                     </table>
                 </fieldset>
-                
+
                 <fieldset>
                     <legend>Installation/Upgrade Instructions</legend>
                     <ol>    
@@ -425,9 +425,15 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                     </tr>
                 </table>
             </div>
-            
+
             <div id="changes">
                 <ul>
+                    <li>v5.3.2-beta1, 2023-02-05:<ul>
+                        <li>BUGFIX: Don't count on an image's extension identifying the image's type; check the image's type programmatically (brittainmark).</li>
+                        <li>The following files were changed or <span class="added">added</span>:<ol>
+                            <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
+                        </ol></li>
                     <li>v5.3.1, 2022-11-18:<ul>
                         <li>BUGFIX: Pre-declare all class-variables; PHP 8.2+ requirement.</li>
                         <li>BUGFIX: Don't process images, e.g. those with a .webp extension, that aren't resizeable via PHP built-in functions.</li>
@@ -671,7 +677,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                     </ul></li>
                 </ul>
             </div>
-            
+
             <div id="credits">
                 <p>Based on Image Handler<sup>2</sup> <strong>Ver 2.0 Rev 7</strong> for Zen Cart 1.3.8a updated by ckosloff.</span></p>
                 <p>Image Handler<sup>4</sup> v4.0 modifications by:</p>
@@ -702,7 +708,7 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
 
   <script type="text/javascript">
     $('#outer-container, #inner-container2, #inner-container3').easytabs();
-    
+
     $( '.side-link' ).click( function() {
         window.location.hash = $(this).attr( 'href' );
         location.reload();
