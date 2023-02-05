@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.3.1
+ * mod Image Handler 5.3.2
  * bmz_image_handler.class.php
  * IH5 class for image manipulation
  *
@@ -18,6 +18,7 @@
  * Modified by lat9/proseLA: 2021-01-19,
  *    - Correcting PHP 8.0 fatal error (see GitHub#212)
  *    - PHP 8.1+ interoperation (changing use of $GLOBALS to simply global), see GitHub#215.
+ * Modified by brittainmark: 2023-02-05 get image type from getimagesize not file name see GitHub#270
  */
 
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -49,7 +50,8 @@ class ih_image
         $sizetype,
         $src,           // reference to an actual physical image
         $watermark,
-        $width;
+        $width,
+        $image_type;    // the actual type of the image supplied
 
     /**
      * ih_image class constructor
@@ -505,8 +507,8 @@ class ih_image
                 $this->filename = DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE;
                 $image_info = getimagesize($this->filename);
             }
-            list($width, $height) = $image_info;
-            $this->ihLog("calculate_size: file " . $this->filename . " ($pref_width, $pref_height), getimagesize returned $width x $height.");
+            list($width, $height, $this->image_type) = $image_info;
+            $this->ihLog("calculate_size: file " . $this->filename . " ($pref_width, $pref_height), getimagesize returned $width x $height -type $this->image_type");
         } else {
             $this->ihLog('calculate_size: file "' . $this->filename . '" does NOT exist.');
             $height = 0;
@@ -930,22 +932,21 @@ class ih_image
     protected function load_imageGD($src_name)
     {
         // create an image of the given filetype
-        $file_ext = '.' . pathinfo($src_name, PATHINFO_EXTENSION);
-        switch (strtolower($file_ext)) {
-            case '.gif':
+        
+        switch ($this->image_type) {
+            case IMAGETYPE_GIF:
                 if (!function_exists('imagecreatefromgif')) {
                     return false;
                 }
                 $image = imagecreatefromgif($src_name);
                 break;
-            case '.png':
+            case IMAGETYPE_PNG:
                 if (!function_exists('imagecreatefrompng')) {
                     return false;
                 }
                 $image = imagecreatefrompng($src_name);
                 break;
-            case '.jpg':
-            case '.jpeg':
+            case IMAGETYPE_JPEG:
                 if (!function_exists('imagecreatefromjpeg')) {
                     return false;
                 }
