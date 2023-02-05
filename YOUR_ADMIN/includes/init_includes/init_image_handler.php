@@ -1,13 +1,13 @@
 <?php 
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (https://vinosdefrutastropicales.com)
-// Copyright (c) 2017-2022 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2023 Vinos de Frutas Tropicales
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.3.1');
+define('IH_CURRENT_VERSION', '5.3.2-beta1');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -39,33 +39,33 @@ if (isset($_SESSION['admin_id'])) {
         //
         $configuration_items = [
             [
-                'IH_RESIZE', 
-                'no', 
-                1001, 
+                'IH_RESIZE',
+                'no',
+                1001,
                 ['yes', 'no'],
                 'IH resize images',
                 'Select either -no- which is old Zen-Cart behaviour or -yes- to activate automatic resizing and caching of images. --Note: If you select -no-, all of the Image Handler specific image settings will be unavailable including: image filetype selection, background colors, compression, image hover, and watermarking-- If you want to use ImageMagick you have to specify the location of the <strong>convert</strong> binary in <em>includes/extra_configures/bmz_image_handler_conf.php</em>.'
             ],
             [
                 'SMALL_IMAGE_FILETYPE', 
-                'no_change', 
-                1011, 
+                'no_change',
+                1011,
                 ['gif', 'jpg', 'png', 'no_change'],
                 'IH small images filetype',
                 'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for small images as uploaded image'
             ],
             [
-                'SMALL_IMAGE_BACKGROUND', 
-                '255:255:255', 
-                1021, 
+                'SMALL_IMAGE_BACKGROUND',
+                '255:255:255',
+                1021,
                 false,
                 'IH small images background',
                 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to -transparent- to keep transparency.'
             ],
             [
-                'SMALL_IMAGE_QUALITY', 
-                85, 
-                1031, 
+                'SMALL_IMAGE_QUALITY',
+                85,
+                1031,
                 false,
                 'IH small images compression quality',
                 'Specify the desired image quality for small jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs.'
@@ -79,89 +79,89 @@ if (isset($_SESSION['admin_id'])) {
                 'Set to -yes-, if you want to show watermarked small images instead of unmarked small images.'
             ],
             [
-                'MEDIUM_IMAGE_FILETYPE', 
-                'no_change', 
-                1071, 
+                'MEDIUM_IMAGE_FILETYPE',
+                'no_change',
+                1071,
                 ['gif', 'jpg', 'png', 'no_change'],
                 'IH medium images filetype',
                 'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for medium images as uploaded image-s.'
             ],
             [
-                'MEDIUM_IMAGE_BACKGROUND', 
-                '255:255:255', 
-                1081, 
+                'MEDIUM_IMAGE_BACKGROUND',
+                '255:255:255',
+                1081,
                 false,
                 'IH medium images background',
                 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to -transparent- to keep transparency.'
             ],
             [
-                'MEDIUM_IMAGE_QUALITY', 
-                85, 
-                1091, 
+                'MEDIUM_IMAGE_QUALITY',
+                85,
+                1091,
                 false,
                 'IH medium images compression quality',
                 'Specify the desired image quality for medium jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs.'
             ],
             [
-                'WATERMARK_MEDIUM_IMAGES', 
-                'no', 
-                1101, 
+                'WATERMARK_MEDIUM_IMAGES',
+                'no',
+                1101,
                 ['no', 'yes'],
                 'IH medium images watermark',
                 'Set to -yes-, if you want to show watermarked medium images instead of unmarked medium images.'
             ],
             [
-                'LARGE_IMAGE_FILETYPE', 
-                'no_change', 
-                1111, 
+                'LARGE_IMAGE_FILETYPE',
+                'no_change',
+                1111,
                 ['gif', 'jpg', 'png', 'no_change'],
                 'IH large images filetype',
                 'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded image-s.'
             ],
             [
-                'LARGE_IMAGE_BACKGROUND', 
-                '255:255:255', 
-                1121, 
+                'LARGE_IMAGE_BACKGROUND',
+                '255:255:255',
+                1121,
                 false,
                 'IH large images background',
                 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to -transparent- to keep transparency.'
             ],
             [
-                'LARGE_IMAGE_QUALITY', 
-                85, 
-                1131, 
+                'LARGE_IMAGE_QUALITY',
+                85,
+                1131,
                 false,
                 'IH large images compression quality',
                 'Specify the desired image quality for large jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs.'
             ],
             [
-                'WATERMARK_LARGE_IMAGES', 
-                'no', 
-                1141, 
+                'WATERMARK_LARGE_IMAGES',
+                'no',
+                1141,
                 ['no', 'yes'],
                 'IH large images watermark',
                 'Set to -yes-, if you want to show watermarked large images instead of unmarked large images.'
             ],
             [
-                'LARGE_IMAGE_MAX_WIDTH', 
-                750, 
-                1151, 
+                'LARGE_IMAGE_MAX_WIDTH',
+                750,
+                1151,
                 false,
                 'IH large images maximum width',
                 'Specify a maximum width for your large images. If width and height are empty or set to 0, no resizing of large images is done.'
             ],
             [
-                'LARGE_IMAGE_MAX_HEIGHT', 
-                550, 
-                1161, 
+                'LARGE_IMAGE_MAX_HEIGHT',
+                550,
+                1161,
                 false,
                 'IH large images maximum height',
                 'Specify a maximum height for your large images. If width and height are empty or set to 0, no resizing of large images is done.'
             ],
             [
-                'WATERMARK_GRAVITY', 
-                'Center', 
-                1171, 
+                'WATERMARK_GRAVITY',
+                'Center',
+                1171,
                 ['Center', 'NorthWest', 'North', 'NorthEast', 'East', 'SouthEast', 'South', 'SouthWest', 'West'],
                 'IH watermark gravity',
                 'Select the position for the watermark relative to the image-s canvas. Default is <strong>Center</Strong>.'
@@ -181,7 +181,7 @@ if (isset($_SESSION['admin_id'])) {
                 foreach ($config_values as $value) {
                     $value_string .= "\'" . $value . "\',";
                 }
-                $set_function = "'zen_cfg_select_option(array(" . substr($value_string, 0, -1) . "),'";
+                $set_function = "'zen_cfg_select_option([" . substr($value_string, 0, -1) . "],'";
             }
             // -----
             // Using 'INSERT IGNORE' here, just in case some other configuration values were
@@ -256,7 +256,7 @@ if (isset($_SESSION['admin_id'])) {
                     "INSERT INTO " . TABLE_CONFIGURATION . " 
                         ( configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function ) 
                      VALUES 
-                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),')"
+                        ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option([\'Hashed\', \'Mirrored\', \'Readable\'],')"
                 );
             }
         }
@@ -287,7 +287,7 @@ if (isset($_SESSION['admin_id'])) {
             $db->Execute(
                 "UPDATE " . TABLE_CONFIGURATION . "
                      SET configuration_description = '<br>Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br><br><em>Hashed</em>: Uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.<br><br><em>Readable</em>: This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.<br><br><em>Mirrored</em>: Similar to <em>Readable</em>, but the directory structure under <code>bmz_cache</code> mirrors the original images\' sub-directory structure.',
-                         set_function = 'zen_cfg_select_option(array(\'Hashed\', \'Mirrored\', \'Readable\'),'
+                         set_function = 'zen_cfg_select_option([\'Hashed\', \'Mirrored\', \'Readable\'],'
                      WHERE configuration_key = 'IH_CACHE_NAMING' LIMIT 1"
             );
         }
