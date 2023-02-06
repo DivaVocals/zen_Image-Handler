@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.3.2-beta1');
+define('IH_CURRENT_VERSION', '5.3.2-beta2');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -50,9 +50,9 @@ if (isset($_SESSION['admin_id'])) {
                 'SMALL_IMAGE_FILETYPE', 
                 'no_change',
                 1011,
-                ['gif', 'jpg', 'png', 'no_change'],
+                ['gif', 'jpg', 'png', 'webp', 'no_change'],
                 'IH small images filetype',
-                'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for small images as uploaded image'
+                'Select one of -jpg-, -gif-, -png- or -webp-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for small images as uploaded image'
             ],
             [
                 'SMALL_IMAGE_BACKGROUND',
@@ -82,9 +82,9 @@ if (isset($_SESSION['admin_id'])) {
                 'MEDIUM_IMAGE_FILETYPE',
                 'no_change',
                 1071,
-                ['gif', 'jpg', 'png', 'no_change'],
+                ['gif', 'jpg', 'png', 'webp', 'no_change'],
                 'IH medium images filetype',
-                'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for medium images as uploaded image-s.'
+                'Select one of -jpg-, -gif-, -png- or -webp. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for medium images as uploaded image-s.'
             ],
             [
                 'MEDIUM_IMAGE_BACKGROUND',
@@ -114,9 +114,9 @@ if (isset($_SESSION['admin_id'])) {
                 'LARGE_IMAGE_FILETYPE',
                 'no_change',
                 1111,
-                ['gif', 'jpg', 'png', 'no_change'],
+                ['gif', 'jpg', 'png', 'webp', 'no_change'],
                 'IH large images filetype',
-                'Select one of -jpg-, -gif- or -png-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded image-s.'
+                'Select one of -jpg-, -gif-, -png- or -webp-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded image-s.'
             ],
             [
                 'LARGE_IMAGE_BACKGROUND',
@@ -303,6 +303,18 @@ if (isset($_SESSION['admin_id'])) {
             );
         }
 
+        // -----
+        // v5.3.2
+        // -GitHub#272: Add webp image processing
+        //
+         if (version_compare(IH_VERSION, '5.3.2', '<')) {
+              $db->Execute(
+                "UPDATE " . TABLE_CONFIGURATION . "
+                    SET configuration_description = 'Select one of -jpg-, -gif-, -png- or -webp-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded image-s.',
+                     set_function = 'zen_cfg_select_option(array(\'gif\',\'jpg\',\'png\',\'webp\',\'no_change\'),'
+                  WHERE configuration_key IN ('SMALL_IMAGE_FILETYPE','MEDIUM_IMAGE_FILETYPE','LARGE_IMAGE_FILETYPE')");
+         }
+         
         $db->Execute(
             "UPDATE " . TABLE_CONFIGURATION . " 
                 SET configuration_value = '" . IH_CURRENT_VERSION . "',

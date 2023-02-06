@@ -67,7 +67,7 @@ a[target=_blank] { text-decoration: underline; }
 
 <body>
   <h1>Image Handler<sup>5</sup> for Zen Cart v1.5.7 (and later)</h1>
-  <h3>Version 5.3.2 by lat9, Zen4All, brittainmark, torvista, proseLA and brittainmark</h3>
+  <h3>Version 5.3.2 by lat9, Zen4All, brittainmark, torvista, proseLA</h3>
   <p>Current Support Thread at Zen Cart Forums: <a href="https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread" target="_blank">https://www.zen-cart.com/showthread.php?222983-Image-Handler-5-(for-v1-5-5)-Support-Thread</a></p>
 
   <p><strong>Notes:</strong></p>
@@ -302,7 +302,6 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
                         <td>/includes/classes/observers/ImageHandlerObserver.php</td>
                         <td>Added in v5.0.0.</td>
                     </tr>
-                    </tr>
                     <tr>
                         <td>/includes/extra_configures/bmz_image_handler_conf.php</td>
                         <td>&nbsp;</td>
@@ -428,10 +427,14 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
 
             <div id="changes">
                 <ul>
-                    <li>v5.3.2-beta1, 2023-02-05:<ul>
+                    <li>v5.3.2-beta2, 2023-02-06:<ul>
+                        <li>Add support for webp images</li>
                         <li>BUGFIX: Don't count on an image's extension identifying the image's type; check the image's type programmatically (brittainmark).</li>
                         <li>The following files were changed or <span class="added">added</span>:<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
+                            <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
+                            <li>/YOUR_ADMIN/image_handler.php</li>
+                            <li>/YOUR_ADMIN/includes/classes/ImageHandlerAdmin.php</li>
                             <li>/YOUR_ADMIN/includes/init_includes/init_image_handler.php</li>
                         </ol></li>
                     <li>v5.3.1, 2022-11-18:<ul>

@@ -1,6 +1,6 @@
 <?php
 /**
- * mod Image Handler 5.3.1
+ * mod Image Handler 5.3.2
  * functions_bmz_image_handler.php
  * html_output hook function and additional image referencing functions for
  * backwards compatibility, parsing of configuration settings
@@ -11,6 +11,7 @@
  * @version $Id: functions_bmz_image_handler.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50
  * Last modified by lat9, 2021-02-19, see GitHub#213.
+ * Modified by brittainmark: 2023-02-06 add webp support.
  */
 require_once DIR_FS_CATALOG . DIR_WS_CLASSES . 'bmz_image_handler.class.php';
 
@@ -109,7 +110,7 @@ function ihValidateBackground($which_background)
  */
 function ih_image_supported($src)
 {
-    return in_array(strtolower(pathinfo($src, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'gif', 'png']);
+    return in_array(strtolower(pathinfo($src, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'gif', 'png', 'webp']);
 }
 
 // -----
