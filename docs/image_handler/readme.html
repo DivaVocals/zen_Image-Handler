@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <title>Image Handler 5</title>
 
-<style type="text/css">
-<!--
+<style>
 a, a:active, a:visited { color: #006666; text-decoration: none; }
 a:hover { color:#00CC99; text-decoration: underline; }
 BODY, P, H1, H2, H3, H4, H5, H6, LI, TD, DD, DT, pre, img, table, #outer-container {
@@ -53,7 +52,6 @@ th { background-color: #eee; }
 .panel-container { margin-bottom: 10px; }
 
 a[target=_blank] { text-decoration: underline; }
--->
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <script src="../jquery-1.7.1.min.js"></script> 
@@ -427,9 +425,10 @@ define('SITEMAPXML_PRODUCTS_IMAGES_FUNCTION', '<b class="red">true</b>'); // tru
 
             <div id="changes">
                 <ul>
-                    <li>v5.3.2-beta2, 2023-02-06:<ul>
-                        <li>Add support for webp images</li>
+                    <li>v5.3.2-beta3, 2023-02-24:<ul>
+                        <li>BUGFIX: Add support for webp images.</li>
                         <li>BUGFIX: Don't count on an image's extension identifying the image's type; check the image's type programmatically (brittainmark).</li>
+                        <li>BUGFIX: Restore watermarks for <em>all</em> &quot;Cache-file Naming Conventions&quot; (was only working for <code>Hashed</code>.</li>
                         <li>The following files were changed or <span class="added">added</span>:<ol>
                             <li>/includes/classes/bmz_image_handler.class.php</li>
                             <li>/includes/functions/extra_functions/functions_bmz_image_handler.php</li>
