@@ -1,6 +1,6 @@
 <?php
 /**
- * image_handler.php, v5.3.1
+ * image_handler.php, v5.3.2
  * Image Handler Admin interface
  *
  * @author  Tim Kroeger (original author)
@@ -10,6 +10,7 @@
  * DerManoMann 2010-05-31 23:46:50
  * Nigelt74 2012-02-18
  * torvista 2012-04-14
+ * brittainmark 2023-02-06 Added webp processing
  */
 require 'includes/application_top.php';
 
@@ -632,7 +633,7 @@ if ($ih_page === 'admin') {
                 // currently has an image defined.
                 //
                 if ($no_images === true) {
-                    $accept = 'image/jpeg,image/jpg,image/gif,image/png';
+                    $accept = 'image/jpeg,image/jpg,image/gif,image/png,image/webp';
                 } else {
                     switch (strtolower($products_image_extension)) {
                         case '.gif':
@@ -645,8 +646,11 @@ if ($ih_page === 'admin') {
                         case '.jpeg':       //- Fall through from above
                             $accept = 'image/jpeg,image/jpg';
                             break;
+                        case '.webp':
+                             $accept = 'image/webp';
+                            break;
                         default:
-                            $accept = 'image/jpeg,/image/jpg,image/gif,image/png';
+                            $accept = 'image/jpeg,/image/jpg,image/gif,image/png,image/webp';
                             break;
                     }
                 }
@@ -784,6 +788,12 @@ if ($ih_page === 'admin') {
       $images['gifsmall'] = $gifimage->get_resized_image($ihConf['small']['width'], $ihConf['small']['height'], 'small');
       $images['gifmedium'] = $gifimage->get_resized_image($ihConf['medium']['width'], $ihConf['medium']['height'], 'medium');
       $images['giflarge'] = $gifimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
+      
+      $webpimage = new ih_image(basename($ihConf['dir']['admin']) . "/" . 'images/ih-test.webp', (int)$ihConf['small']['width'], (int)$ihConf['small']['height']);
+      $images['webpsource'] = $webpimage->get_resized_image((int)$ihConf['small']['width'], (int)$ihConf['small']['height'], 'orig');
+      $images['webpsmall'] = $webpimage->get_resized_image($ihConf['small']['width'], $ihConf['small']['height'], 'small');
+      $images['webpmedium'] = $webpimage->get_resized_image($ihConf['medium']['width'], $ihConf['medium']['height'], 'medium');
+      $images['webplarge'] = $webpimage->get_resized_image($ihConf['large']['width'], $ihConf['large']['height'], 'large');
 ?>
         <table class="table">
             <tr>
@@ -812,6 +822,12 @@ if ($ih_page === 'admin') {
                 <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['gifsource']?>" alt="gif source" title="gif source" /></td>
                 <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['gifsmall']?>" alt="gif small" title="gif small" /></td>
                 <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['gifmedium']?>" alt="gif medium" title="gif medium" /></td>
+            </tr>
+            <tr>
+                <td><strong>webp</strong></td>
+                <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['webpsource']?>" alt="webp source" title="webp source" /></td>
+                <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['webpsmall']?>" alt="webp small" title="webp small" /></td>
+                <td><img src="<?php echo HTTP_SERVER . DIR_WS_CATALOG . $images['webpmedium']?>" alt="webp medium" title="webp medium" /></td>
             </tr>
         </table>
 <?php

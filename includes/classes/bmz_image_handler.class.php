@@ -19,6 +19,7 @@
  *    - Correcting PHP 8.0 fatal error (see GitHub#212)
  *    - PHP 8.1+ interoperation (changing use of $GLOBALS to simply global), see GitHub#215.
  * Modified by brittainmark: 2023-02-05 get image type from getimagesize not file name see GitHub#270
+ * Modified by brittainmark: 2023-02-06 add webp support.
  */
 
 if (!defined('IH_DEBUG_ADMIN')) {
@@ -45,13 +46,13 @@ class ih_image
         $first_access,
         $force_canvas,
         $height,
+        $image_type,    // the actual type of the image supplied
         $local = null,  // cached image reference
         $orig,          // original image source passed to the constructor
         $sizetype,
         $src,           // reference to an actual physical image
         $watermark,
-        $width,
-        $image_type;    // the actual type of the image supplied
+        $width;
 
     /**
      * ih_image class constructor
@@ -952,6 +953,12 @@ class ih_image
                 }
                 $image = imagecreatefromjpeg($src_name);
                 break;
+            case IMAGETYPE_WEBP:
+                if (!function_exists('imagecreatefromwebp')) {
+                    return false;
+                }
+                $image = imagecreatefromwebp($src_name);
+                break;
             default:
                 $image = false;
                 break;
@@ -1013,6 +1020,13 @@ class ih_image
                     return false;
                 }
                 $ok = imagejpeg($image, $dest_name, $quality);
+                break;
+            case '.webp':
+                if (!function_exists('imagewebp')) {
+                    $this->ihLog("save_imageGD, imagewebp function does not exist");
+                    return false;
+                }
+                $ok = imagewebp($image, $dest_name, $quality);
                 break;
             default:
                 $ok = false;

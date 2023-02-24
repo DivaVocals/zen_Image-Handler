@@ -3,7 +3,8 @@
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
 // Copyright (c) 2017-2022 Vinos de Frutas Tropicales
 //
-// Last updated: IH v5.3.1
+// Last updated: IH v5.3.2
+// brittainmark 2023-02-06 allow webp image filss
 //
 if (!defined('IH_DEBUG_ADMIN')) {
     define('IH_DEBUG_ADMIN', 'true'); //-Either 'true' or 'false'
@@ -20,8 +21,8 @@ class ImageHandlerAdmin
     {
         $this->debug = (IH_DEBUG_ADMIN === 'true');
         $this->debugLogfile = DIR_FS_LOGS . '/ih_debug_admin.log';
-        $this->validFiletypes = ['gif', 'jpg', 'png', 'no_change'];
-        $this->validFileExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
+        $this->validFiletypes = ['gif', 'jpg', 'png', 'webp', 'no_change'];
+        $this->validFileExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.webp'];
     }
 
     public function getImageDetailsString($filename)
@@ -86,7 +87,7 @@ class ImageHandlerAdmin
             // might be present in the image's base name, e.g. any intervening '.'s will be
             // converted to '\.'.
             //
-            $filename_match = quotemeta($base) . $image_match . '\.(jpg|jpeg|png|gif)';
+            $filename_match = quotemeta($base) . $image_match . '\.(jpg|jpeg|png|gif|webp)';
 
             // -----
             // Now, do a regex search of the specified directory, looking for matches on the
