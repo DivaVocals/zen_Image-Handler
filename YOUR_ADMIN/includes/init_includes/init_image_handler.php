@@ -7,7 +7,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.3.2-beta2');
+define('IH_CURRENT_VERSION', '5.3.2-beta3');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -164,7 +164,7 @@ if (isset($_SESSION['admin_id'])) {
                 1171,
                 ['Center', 'NorthWest', 'North', 'NorthEast', 'East', 'SouthEast', 'South', 'SouthWest', 'West'],
                 'IH watermark gravity',
-                'Select the position for the watermark relative to the image-s canvas. Default is <strong>Center</Strong>.'
+                'Select the position for the watermark relative to the image\'s canvas. Default is <strong>Center</Strong>.'
             ]
         ];
         foreach ($configuration_items as $menu_item) {
@@ -240,7 +240,7 @@ if (isset($_SESSION['admin_id'])) {
     // Note: This update also "moves" the Image-Handler version value from a hidden configuration group to the
     //       "Images" configuration for pre-v5.0.0 updates.
     //
-    if (IH_VERSION != IH_CURRENT_VERSION) {
+    if (IH_VERSION !== IH_CURRENT_VERSION) {
         if (!zen_page_key_exists('toolsImageHandlerUninstall')) {
             zen_register_admin_page('toolsImageHandlerUninstall', 'BOX_TOOLS_IMAGE_HANDLER_UNINSTALL', 'FILENAME_IMAGE_HANDLER_UNINSTALL', '', 'tools', 'N', 99);
         }
@@ -310,11 +310,12 @@ if (isset($_SESSION['admin_id'])) {
          if (version_compare(IH_VERSION, '5.3.2', '<')) {
               $db->Execute(
                 "UPDATE " . TABLE_CONFIGURATION . "
-                    SET configuration_description = 'Select one of -jpg-, -gif-, -png- or -webp-. Older versions of Internet Explorer -v6.0 and older- will have issues displaying -png- images with transparent areas. You better stick to -gif- for transparency if you MUST support older versions of Internet Explorer. However -png- is a MUCH BETTER format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded image-s.',
-                     set_function = 'zen_cfg_select_option(array(\'gif\',\'jpg\',\'png\',\'webp\',\'no_change\'),'
-                  WHERE configuration_key IN ('SMALL_IMAGE_FILETYPE','MEDIUM_IMAGE_FILETYPE','LARGE_IMAGE_FILETYPE')");
+                    SET configuration_description = 'Select one of -jpg-, -gif-, -png- or -webp-. Note that -png- is a <b>much better</b> format for transparency. Use -jpg- or -png- for larger images. -no_change- is old zen-cart behavior, use the same file extension for large images as uploaded images.',
+                        set_function = 'zen_cfg_select_option([\'gif\',\'jpg\',\'png\',\'webp\',\'no_change\'],'
+                  WHERE configuration_key IN ('SMALL_IMAGE_FILETYPE','MEDIUM_IMAGE_FILETYPE','LARGE_IMAGE_FILETYPE')"
+            );
          }
-         
+
         $db->Execute(
             "UPDATE " . TABLE_CONFIGURATION . " 
                 SET configuration_value = '" . IH_CURRENT_VERSION . "',
@@ -323,7 +324,7 @@ if (isset($_SESSION['admin_id'])) {
               WHERE configuration_key = 'IH_VERSION'
               LIMIT 1"
         );
-        if (IH_VERSION != '0.0.0') {
+        if (IH_VERSION !== '0.0.0') {
             $messageStack->add(sprintf(IH_TEXT_MESSAGE_UPDATED, IH_VERSION, IH_CURRENT_VERSION), 'success');
         }
     }
