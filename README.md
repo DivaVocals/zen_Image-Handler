@@ -1,5 +1,7 @@
 # Image Handler v5.3.2
 
+## Note: As of the v5.3.2 release (2023-03-07), the now current repository for IH-5 is https://github.com/lat9/zen_Image-Handler!
+
 The latest released version is available for download from the Zen Cart site, via [this](https://www.zen-cart.com/downloads.php?do=file&id=2169) link.  If you need basic installation help, and neither this information nor the included readme does not help you, please visit the [Image Handler v5.x Support Thread](https://www.zen-cart.com/showthread.php?222983).
 
 This version of Image Handler requires Zen Cart v1.5.7 or later and has been tested with Zen Cart v1.5.8 on PHP versions up to and including PHP 8.2.
